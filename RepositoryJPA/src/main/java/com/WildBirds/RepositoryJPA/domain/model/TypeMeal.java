@@ -1,4 +1,4 @@
-package com.WildBirds.ReposiotryJPA.domain.model;
+package com.WildBirds.RepositoryJPA.domain.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

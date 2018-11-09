@@ -2,6 +2,7 @@ package com.WildBirds.EatMeAll.application;
 
 import com.WildBirds.EatMeAll.domain.model.Meal;
 import com.WildBirds.EatMeAll.domain.services.MainLocal;
+import com.WildBirds.EatMeAll.infrastructure.RepositoryMealAdapter;
 import com.WildBirds.EatMeAll.infrastructure.RepositoryMealAdapterLocal;
 
 import javax.ejb.EJB;
@@ -18,7 +19,7 @@ public class HomeController {
     private MainLocal main;
 
     @EJB
-    private RepositoryMealAdapterLocal repositoryMealAdapter;
+    private RepositoryMealAdapter repositoryMealAdapter;
 
     @GET
     @Path("home")

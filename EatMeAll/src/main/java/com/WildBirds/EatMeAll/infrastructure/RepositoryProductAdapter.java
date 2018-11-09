@@ -3,7 +3,7 @@ package com.WildBirds.EatMeAll.infrastructure;
 import com.WildBirds.EatMeAll.domain.model.Product;
 import com.WildBirds.EatMeAll.domain.ports.RepositoryCRUD;
 import com.WildBirds.EatMeAll.domain.ports.RepositoryProduct;
-import com.WildBirds.ReposiotryJPA.application.RepositoryProductFacade;
+import com.WildBirds.RepositoryJPA.application.RepositoryProductFacade;
 
 import javax.ejb.Stateless;
 import java.util.List;

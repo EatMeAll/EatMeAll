@@ -1,8 +1,7 @@
-package com.WildBirds.ReposiotryJPA.domain.services;
+package com.WildBirds.RepositoryJPA.domain.services;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceUnit;
 
 
 public class EntityManagerFactoryService {

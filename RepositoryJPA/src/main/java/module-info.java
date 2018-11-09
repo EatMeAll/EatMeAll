@@ -1,6 +1,6 @@
 module com.WildBirds.RepositoryJPA {
-    exports com.WildBirds.ReposiotryJPA.application;
-    exports com.WildBirds.ReposiotryJPA.domain.model;
+    exports com.WildBirds.RepositoryJPA.application;
+    exports com.WildBirds.RepositoryJPA.domain.model;
 
     requires javaee.api;
     requires com.WildBirds.CrudJPA;

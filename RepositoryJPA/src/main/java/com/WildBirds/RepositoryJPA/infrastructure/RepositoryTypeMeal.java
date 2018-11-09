@@ -1,9 +1,8 @@
-package com.WildBirds.ReposiotryJPA.infrastructure;
+package com.WildBirds.RepositoryJPA.infrastructure;
 
 
-import com.WildBirds.ReposiotryJPA.domain.model.TypeMeal;
-import com.WildBirds.ReposiotryJPA.domain.ports.RepositoryTypeOfMeal;
-import com.WildBirds.ReposiotryJPA.domain.services.EntityManagerFactoryService;
+import com.WildBirds.RepositoryJPA.domain.model.TypeMeal;
+import com.WildBirds.RepositoryJPA.domain.ports.RepositoryTypeOfMeal;
 import com.WildBirds.crudjpa.appliaction.CrudJpa;
 
 import javax.persistence.EntityManagerFactory;

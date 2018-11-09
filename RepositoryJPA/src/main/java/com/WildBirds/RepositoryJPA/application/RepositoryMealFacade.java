@@ -1,34 +1,29 @@
-package com.WildBirds.ReposiotryJPA.application;
+package com.WildBirds.RepositoryJPA.application;
 
 
-import com.WildBirds.ReposiotryJPA.domain.model.Language;
-import com.WildBirds.ReposiotryJPA.domain.model.Meal;
-import com.WildBirds.ReposiotryJPA.domain.ports.RepositoryMeal;
-import com.WildBirds.ReposiotryJPA.domain.services.EntityManagerFactoryService;
-import com.WildBirds.ReposiotryJPA.infrastructure.RepositoryMealJPA;
+import com.WildBirds.RepositoryJPA.domain.model.Language;
+import com.WildBirds.RepositoryJPA.domain.model.Meal;
+import com.WildBirds.RepositoryJPA.domain.ports.RepositoryMeal;
+import com.WildBirds.RepositoryJPA.domain.services.EntityManagerFactoryService;
+import com.WildBirds.RepositoryJPA.infrastructure.RepositoryMealJPA;
 import com.WildBirds.crudjpa.appliaction.Crud;
 
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
-
+@Stateless
+@LocalBean
 public class RepositoryMealFacade implements Crud<Meal>, RepositoryMeal {
 
     private RepositoryMealJPA repositoryMealJPA;
 
-    public static RepositoryMealFacade config (){
+    public RepositoryMealFacade() {
 
         EntityManagerFactoryService entityManagerFactoryService = new EntityManagerFactoryService();
         EntityManagerFactory entityManagerFactory = entityManagerFactoryService.getEntityManagerFactory();
-        RepositoryMealJPA repositoryMealJPA = new RepositoryMealJPA(entityManagerFactory);
-
-        System.out.println("In RepositoryMealFacade config");
-
-        return new RepositoryMealFacade(repositoryMealJPA);
-    }
-
-    private RepositoryMealFacade(RepositoryMealJPA repositoryMealJPA) {
-        this.repositoryMealJPA = repositoryMealJPA;
+        this.repositoryMealJPA = new RepositoryMealJPA(entityManagerFactory);
 
         System.out.println("In RepositoryMealFacade Constructor");
 

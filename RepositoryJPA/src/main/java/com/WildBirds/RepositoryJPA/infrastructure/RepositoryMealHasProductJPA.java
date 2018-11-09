@@ -1,8 +1,8 @@
-package com.WildBirds.ReposiotryJPA.infrastructure;
+package com.WildBirds.RepositoryJPA.infrastructure;
 
 
-import com.WildBirds.ReposiotryJPA.domain.model.MealHasProduct;
-import com.WildBirds.ReposiotryJPA.domain.ports.RepositoryMealHasProduct;
+import com.WildBirds.RepositoryJPA.domain.model.MealHasProduct;
+import com.WildBirds.RepositoryJPA.domain.ports.RepositoryMealHasProduct;
 import com.WildBirds.crudjpa.appliaction.CrudJpa;
 
 
