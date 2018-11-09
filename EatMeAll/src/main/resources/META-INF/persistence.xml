@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
+<persistence-unit name="my-persistence-jpa" transaction-type="RESOURCE_LOCAL">
+    <class>com.WildBirds.ReposiotryJPA.domain.model.Meal</class>
+    <class>com.WildBirds.ReposiotryJPA.domain.model.MealHasProduct</class>
+    <class>com.WildBirds.ReposiotryJPA.domain.model.Product</class>
+    <class>com.WildBirds.ReposiotryJPA.domain.model.TypeMeal</class>
+    <properties>
+
+
+        <!--statistics JBoss-->
+        <property name="hibernate.generate_statistics" value="true"/>
+        <!--scan-->
+        <!--<property name="packagesToScan" value="com.WildBirds.ReposiotryJPA.domain."/>-->
+        <property name="hibernate.archive.autodetection" value="class, hbm"/>
+
+        <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+        <property name="javax.persistence.jdbc.user" value="root"/>
+        <property name="javax.persistence.jdbc.password" value="mysqlroot404"/>
+        <!--db.url=jdbc:mysql://51.38.133.76:3306/chatdb?verifyServerCertificate=false&useSSL=false&requireSSL=false-->
+        <property name="javax.persistence.jdbc.url" value="jdbc:mysql://51.38.133.76:3306/eatmealltest?verifyServerCertificate=false&amp;useSSL=false&amp;requireSSL=false"/>
+        <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
+        <property name="hibernate.hbm2ddl.auto" value="update"/>
+
+        <!--<property name="hibernate.max_fetch_depth" value="3"/>-->
+
+        <!--&lt;!&ndash; cache configuration &ndash;&gt;-->
+        <!--<property name="hibernate.ejb.classcache.org.hibernate.ejb.test.Item" value="read-write"/>-->
+        <!--<property name="hibernate.ejb.collectioncache.org.hibernate.ejb.test.Item.distributors" value="read-write, RegionName"/>-->
+
+        <!-- alternatively to <class> and <property> declarations, you can use a regular hibernate.cfg.xml file -->
+        <!-- property name="hibernate.ejb.cfgfile" value="/org/hibernate/ejb/test/hibernate.cfg.xml"/ -->
+    </properties>
+</persistence-unit>
+</persistence>
