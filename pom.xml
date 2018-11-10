@@ -17,20 +17,6 @@
     </modules>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/javax.persistence/persistence-api -->
-        <!--<dependency>-->
-            <!--<groupId>javax.persistence</groupId>-->
-            <!--<artifactId>persistence-api</artifactId>-->
-            <!--<version>1.0.2</version>-->
-        <!--</dependency>-->
-        <!-- https://mvnrepository.com/artifact/org.hibernate.javax.persistence/hibernate-jpa-2.0-api -->
-        <!--<dependency>-->
-            <!--<groupId>org.hibernate.javax.persistence</groupId>-->
-            <!--<artifactId>hibernate-jpa-2.0-api</artifactId>-->
-            <!--<version>1.0.1.Final</version>-->
-        <!--</dependency>-->
-
-
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -38,46 +24,12 @@
             <version>1.18.2</version>
             <scope>provided</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/javax.ejb/ejb-api -->
-        <!--<dependency>-->
-        <!--<groupId>javax.ejb</groupId>-->
-        <!--<artifactId>ejb-api</artifactId>-->
-        <!--<version>3.0</version>-->
-        <!--<scope>provided</scope>-->
-    <!--</dependency>-->
-        <!-- https://mvnrepository.com/artifact/javax.ws.rs/javax.ws.rs-api -->
-        <!--<dependency>-->
-            <!--<groupId>javax.ws.rs</groupId>-->
-            <!--<artifactId>javax.ws.rs-api</artifactId>-->
-            <!--<version>2.0-m13</version>-->
-        <!--</dependency>-->
-        <!-- https://mvnrepository.com/artifact/javax.jws/javax.jws-api -->
-        <!--<dependency>-->
-            <!--<groupId>javax.jws</groupId>-->
-            <!--<artifactId>javax.jws-api</artifactId>-->
-            <!--<version>1.1</version>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.hibernate/hibernate-validator &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.hibernate</groupId>-->
-            <!--<artifactId>hibernate-validator</artifactId>-->
-            <!--<version>6.0.13.Final</version>-->
-        <!--</dependency>-->
-        <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.hibernate/hibernate-core &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.hibernate</groupId>-->
-            <!--<artifactId>hibernate-core</artifactId>-->
-            <!--<version>5.3.7.Final</version>-->
-        <!--</dependency>-->
-
         <!-- https://mvnrepository.com/artifact/log4j/log4j -->
         <!--<dependency>-->
             <!--<groupId>log4j</groupId>-->
             <!--<artifactId>log4j</artifactId>-->
             <!--<version>1.2.17</version>-->
         <!--</dependency>-->
-
         <!-- https://mvnrepository.com/artifact/javax/javaee-api -->
         <dependency>
             <groupId>javax</groupId>
@@ -99,7 +51,6 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.13</version>
         </dependency>
-
         <!--junit-->
         <dependency>
             <groupId>junit</groupId>
@@ -107,7 +58,6 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -144,5 +94,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
