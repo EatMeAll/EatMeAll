@@ -100,10 +100,6 @@
             <version>8.0.13</version>
         </dependency>
 
-
-
-
-
         <!--junit-->
         <dependency>
             <groupId>junit</groupId>
@@ -144,15 +140,6 @@
                 <version>3.0.1</version>
                 <configuration>
                     <ejbVersion>3.2</ejbVersion>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-ear-plugin</artifactId>
-                <version>3.0.1</version>
-                <configuration>
-                    <defaultLibBundleDir>lib</defaultLibBundleDir>
-                    <outputDirectory>H:\Programs\WildFly\standalone\deployments\app</outputDirectory>
                 </configuration>
             </plugin>
         </plugins>

@@ -29,6 +29,24 @@
 
     <build>
         <finalName>app</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <version>3.0.1</version>
+                <configuration>
+                    <defaultLibBundleDir>lib</defaultLibBundleDir>
+                    <modules>
+                        <webModule>
+                            <groupId>com.WildBirds</groupId>
+                            <artifactId>EatMeAll</artifactId>
+                            <contextRoot>/app</contextRoot>
+                        </webModule>
+                    </modules>
+                    <outputDirectory>H:\Programs\WildFly\standalone\deployments\app</outputDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
 
