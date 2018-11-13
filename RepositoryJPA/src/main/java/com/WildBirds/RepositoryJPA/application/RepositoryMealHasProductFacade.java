@@ -33,16 +33,15 @@ public class RepositoryMealHasProductFacade {
         return null;
     }
 
-    public boolean delete(int id) {
-        return false;
+    public void delete(int id) {
     }
 
-    public boolean insert(TypeMeal insertData) {
-        return false;
+    public TypeMeal insert(TypeMeal insertData) {
+        return null;
     }
 
-    public boolean update(TypeMeal updateData) {
-        return false;
+    public TypeMeal update(TypeMeal updateData) {
+        return null;
     }
 
     public TypeMeal someAdditionalLogic() {

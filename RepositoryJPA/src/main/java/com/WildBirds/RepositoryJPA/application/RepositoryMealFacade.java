@@ -54,15 +54,15 @@ public class RepositoryMealFacade implements Crud<Meal>, RepositoryMeal {
         return this.repositoryMealJPA.getAll(skip,limit);
     }
 
-    public boolean delete(int id) {
-        return this.repositoryMealJPA.delete(id);
+    public void delete(int id) {
+        this.repositoryMealJPA.delete(id);
     }
 
-    public boolean insert(Meal insertData) {
+    public Meal insert(Meal insertData) {
         return this.repositoryMealJPA.insert(insertData);
     }
 
-    public boolean update(Meal updateData) {
+    public Meal update(Meal updateData) {
         return this.repositoryMealJPA.update(updateData);
     }
 }

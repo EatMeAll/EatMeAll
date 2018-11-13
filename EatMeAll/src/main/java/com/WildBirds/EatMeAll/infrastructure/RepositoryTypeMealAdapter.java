@@ -31,18 +31,16 @@ public class RepositoryTypeMealAdapter implements RepositoryCRUD<TypeMeal>, Repo
     }
 
     @Override
-    public boolean delete(int id) {
-        return false;
+    public void delete(int id) { }
+
+    @Override
+    public TypeMeal insert(TypeMeal insertData) {
+        return null;
     }
 
     @Override
-    public boolean insert(TypeMeal insertData) {
-        return false;
-    }
-
-    @Override
-    public boolean update(TypeMeal updateData) {
-        return false;
+    public TypeMeal update(TypeMeal updateData) {
+        return null;
     }
 
     @Override

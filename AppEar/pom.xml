@@ -21,14 +21,14 @@
         </dependency>
         <dependency>
             <groupId>com.WildBirds</groupId>
-            <artifactId>ReposiotryJPA</artifactId>
+            <artifactId>RepositoryJPA</artifactId>
             <version>1.0-SNAPSHOT</version>
             <type>ejb</type>
         </dependency>
     </dependencies>
 
     <build>
-        <finalName>EatMeAll</finalName>
+        <finalName>app</finalName>
     </build>
 
 

@@ -29,18 +29,18 @@ public class RepositoryMealHasProductAdapter implements RepositoryCRUD<MealHasPr
     }
 
     @Override
-    public boolean delete(int id) {
-        return false;
+    public void delete(int id) {
+
     }
 
     @Override
-    public boolean insert(MealHasProduct insertData) {
-        return false;
+    public MealHasProduct insert(MealHasProduct insertData) {
+        return null;
     }
 
     @Override
-    public boolean update(MealHasProduct updateData) {
-        return false;
+    public MealHasProduct update(MealHasProduct updateData) {
+        return null;
     }
 
     @Override

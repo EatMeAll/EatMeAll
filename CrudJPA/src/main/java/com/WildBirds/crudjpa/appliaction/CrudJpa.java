@@ -66,28 +66,27 @@ public class CrudJpa<Entity> implements Crud<Entity> {
     }
 
     @Override
-    public boolean delete(int id) {
+    public void delete(int id) {
 
         this.entityManagerFactoryService.inTransaction(entityManager -> {
             Entity entity = entityManager.find(this.entityClass, id);
             entityManager.remove(entity);
         });
-        return true;
     }
 
     @Override
-    public boolean insert(Entity insertData) {
+    public Entity insert(Entity insertData) {
         this.entityManagerFactoryService.inTransaction(entityManager -> {
             entityManager.persist(insertData);
         });
-        return true;
+        return insertData;
     }
 
     @Override
-    public boolean update(Entity updateData) {
+    public Entity update(Entity updateData) {
         this.entityManagerFactoryService.inTransaction(entityManager -> {
             entityManager.merge(updateData);
         });
-        return true;
+        return updateData;
     }
 }

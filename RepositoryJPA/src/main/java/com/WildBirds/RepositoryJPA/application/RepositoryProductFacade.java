@@ -34,18 +34,18 @@ public class RepositoryProductFacade {
     }
 
 
-        public boolean delete(int id) {
-        return false;
+        public void delete(int id) {
+
     }
 
 
-        public boolean insert(Product insertData) {
-        return false;
+        public Product insert(Product insertData) {
+        return null;
     }
 
 
-        public boolean update(Product updateData) {
-        return false;
+        public Product update(Product updateData) {
+        return null;
     }
 
 

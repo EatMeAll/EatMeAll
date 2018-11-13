@@ -10,9 +10,9 @@ public interface Crud<Entity> {
 
     List<Entity> getAll(Integer skip, Integer limit);
 
-    boolean delete(int id);
+    void delete(int id);
 
-    boolean insert(Entity insertData);
+    Entity insert(Entity insertData);
 
-    boolean update(Entity updateData);
+    Entity update(Entity updateData);
 }

@@ -8,9 +8,9 @@ public interface RepositoryCRUD<T> {
 
     List<T> getAll();
 
-    boolean delete(int id);
+    void delete(int id);
 
-    boolean insert(T insertData);
+    T insert(T insertData);
 
-    boolean update(T updateData);
+    T update(T updateData);
 }

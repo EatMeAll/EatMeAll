@@ -7,4 +7,5 @@ import com.WildBirds.EatMeAll.domain.ports.RepositoryMeal;
 import javax.ejb.Local;
 @Local
 public interface RepositoryMealAdapterLocal extends RepositoryCRUD<Meal>,RepositoryMeal{
+
 }

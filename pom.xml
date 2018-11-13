@@ -152,7 +152,7 @@
                 <version>3.0.1</version>
                 <configuration>
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
-                    <outputDirectory>H:\Programs\WildFly\standalone\deployments\app</outputDirectory>
+                    <outputDirectory>D:\wildFly\standalone\deployments\app</outputDirectory>
                 </configuration>
             </plugin>
         </plugins>

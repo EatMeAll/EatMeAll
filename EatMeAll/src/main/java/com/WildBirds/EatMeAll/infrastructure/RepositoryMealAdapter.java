@@ -13,7 +13,7 @@ import java.util.List;
 @LocalBean
 @Local(RepositoryMealAdapterLocal.class)
 public class RepositoryMealAdapter implements RepositoryMealAdapterLocal {
-
+    // TODO: 13.11.2018 should implement mapper 
     @EJB
     private RepositoryMealFacade repositoryMealFacade;
 
@@ -30,18 +30,19 @@ public class RepositoryMealAdapter implements RepositoryMealAdapterLocal {
     }
 
     @Override
-    public boolean delete(int id) {
-        return false;
+    public void delete(int id) {
+
     }
 
     @Override
-    public boolean insert(Meal insertData) {
-       return this.repositoryMealFacade.insert(new com.WildBirds.RepositoryJPA.domain.model.Meal());
+    public Meal insert(Meal insertData) {
+//       return this.repositoryMealFacade.insert(new com.WildBirds.RepositoryJPA.domain.model.Meal());
+        return null;
     }
 
     @Override
-    public boolean update(Meal updateData) {
-        return false;
+    public Meal update(Meal updateData) {
+        return null;
     }
 
     @Override
