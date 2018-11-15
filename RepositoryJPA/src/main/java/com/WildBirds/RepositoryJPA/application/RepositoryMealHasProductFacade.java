@@ -14,13 +14,12 @@ import java.util.List;
 @LocalBean
 public class RepositoryMealHasProductFacade {
 
-   // @EJB
+    @EJB
     EntityManagerProvider emp;
 
     private RepositoryMealHasProductJPA repositoryMealHasProductJPA;
 
     public RepositoryMealHasProductFacade() {
-
         this.repositoryMealHasProductJPA = new RepositoryMealHasProductJPA(emp.getEntityManager());
     }
 

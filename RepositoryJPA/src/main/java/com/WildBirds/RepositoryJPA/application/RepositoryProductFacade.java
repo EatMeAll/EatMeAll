@@ -10,7 +10,7 @@ import java.util.List;
 
 public class RepositoryProductFacade {
 
-   // @EJB
+    @EJB
     EntityManagerProvider emp;
 
 

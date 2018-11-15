@@ -11,7 +11,7 @@ import java.util.List;
 
 public class RepositoryTypeMealFacade {
 
-   // @EJB
+    @EJB
     EntityManagerProvider emp;
 
     private RepositoryTypeMeal repositoryTypeMeal;

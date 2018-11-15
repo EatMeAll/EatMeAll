@@ -8,47 +8,25 @@ import com.WildBirds.RepositoryJPA.domain.services.EntityManagerProvider;
 import com.WildBirds.RepositoryJPA.infrastructure.RepositoryMealJPA;
 import com.WildBirds.crudjpa.appliaction.Crud;
 
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
-import javax.annotation.PostConstruct;
 
 @Stateless
 @LocalBean
 public class RepositoryMealFacade implements Crud<Meal>, RepositoryMeal {
 
-
-//    @EJB
-//    EntityManagerProvider emp;
-
-    @PersistenceContext(unitName = "persistence-jpa")
-    private EntityManager entityManager;
-
+    @EJB
+    EntityManagerProvider emp;
     private RepositoryMealJPA repositoryMealJPA;
-
-    public RepositoryMealFacade() {
-
-
-    }
 
     @PostConstruct
     public void init(){
-        this.repositoryMealJPA = new RepositoryMealJPA(entityManager);
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println( " INIT ");
-        System.out.println("In RepositoryMealFacade Constructor");
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
+        this.repositoryMealJPA = new RepositoryMealJPA(emp.getEntityManager());
 
         Meal meal = new Meal();
         meal.setAmountCalories(250);
@@ -83,18 +61,6 @@ public class RepositoryMealFacade implements Crud<Meal>, RepositoryMeal {
     }
 
     public Meal insert(Meal insertData) {
-
-        if (entityManager == null) {
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println("          NULLL  IN  INSERT           ");
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-        }
-
         return this.repositoryMealJPA.insert(insertData);
     }
 
