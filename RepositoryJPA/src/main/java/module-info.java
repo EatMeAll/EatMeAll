@@ -4,4 +4,5 @@ module com.WildBirds.RepositoryJPA {
 
     requires javaee.api;
     requires com.WildBirds.CrudJPA;
+    requires lombok;
 }

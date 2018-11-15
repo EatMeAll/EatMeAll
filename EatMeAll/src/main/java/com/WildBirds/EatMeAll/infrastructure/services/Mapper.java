@@ -4,10 +4,15 @@ import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 
+import javax.ejb.EJB;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+
+@Stateless
+@LocalBean
 public class Mapper {
 
     private MapperFactory mapperFactory;
-
 
     public Mapper() {
         this.mapperFactory = new DefaultMapperFactory.Builder().build();
@@ -23,4 +28,7 @@ public class Mapper {
                 .byDefault()
                 .register();
     }
+
+
+
 }

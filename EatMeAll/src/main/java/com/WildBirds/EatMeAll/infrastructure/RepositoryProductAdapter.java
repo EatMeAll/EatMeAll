@@ -1,15 +1,15 @@
 package com.WildBirds.EatMeAll.infrastructure;
 
 import com.WildBirds.EatMeAll.domain.model.Product;
-import com.WildBirds.EatMeAll.domain.ports.RepositoryCRUD;
 import com.WildBirds.EatMeAll.domain.ports.RepositoryProduct;
 import com.WildBirds.RepositoryJPA.application.RepositoryProductFacade;
+import com.WildBirds.crudjpa.appliaction.Crud;
 
 import javax.ejb.Stateless;
 import java.util.List;
 
 @Stateless
-public class RepositoryProductAdapter implements RepositoryCRUD<Product>, RepositoryProduct {
+public class RepositoryProductAdapter implements Crud<Product>, RepositoryProduct {
 
     private RepositoryProductFacade repositoryProductFacade;
 
@@ -24,6 +24,11 @@ public class RepositoryProductAdapter implements RepositoryCRUD<Product>, Reposi
 
     @Override
     public List<Product> getAll() {
+        return null;
+    }
+
+    @Override
+    public List<Product> getAll(Integer skip, Integer limit) {
         return null;
     }
 

@@ -1,6 +1,9 @@
 package com.WildBirds.RepositoryJPA.domain.model;
 
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.io.File;
 import java.util.ArrayList;
@@ -9,6 +12,8 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+//@Data
+//@NoArgsConstructor
 public class Meal {
 
     @Id
@@ -29,7 +34,7 @@ public class Meal {
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "idMeal")
-    private List<Product> products = new ArrayList<>();
+    private List<MealHasProduct> mealHasProductArrayList = new ArrayList<>();
 
     private String receipt;
 
@@ -84,12 +89,12 @@ public class Meal {
         this.title = title;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public List<MealHasProduct> getMealHasProductArrayList() {
+        return mealHasProductArrayList;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setMealHasProductArrayList(List<MealHasProduct> mealHasProductArrayList) {
+        this.mealHasProductArrayList = mealHasProductArrayList;
     }
 
     public String getReceipt() {
