@@ -1,93 +1,71 @@
 package com.WildBirds.crudjpa.appliaction;
 
-import com.WildBirds.crudjpa.domain.services.EntityManageFactory.EntityManagerFactoryService;
-
-import javax.persistence.EntityManagerFactory;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnit;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class CrudJpa<Entity> implements Crud<Entity> {
 
+    private EntityManager entityManager;
     private Class<Entity> entityClass;
-    private EntityManagerFactoryService entityManagerFactoryService;
 
-    public CrudJpa(Class<Entity> entityClass, EntityManagerFactory entityManagerFactory) {
+    public CrudJpa(Class<Entity> entityClass,EntityManager entityManager) {
+
+        System.out.println();
+        System.out.println();
+        System.out.println(" ENTITY MANGETER <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+        System.out.println(entityManager);
+        System.out.println();
+        System.out.println();
         this.entityClass = entityClass;
-        this.entityManagerFactoryService = new EntityManagerFactoryService(entityManagerFactory);
-
+        this.entityManager = entityManager;
     }
 
-
-    @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Entity get(int id) {
-        final AtomicReference<Entity> entity = new AtomicReference<>();
-        this.entityManagerFactoryService.inTransaction(entityManager -> {
-            entity.set(entityManager.find(this.entityClass, id));
-        });
-        return entity.get();
+        return entityManager.find(this.entityClass, id);
     }
 
-    @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Entity> getAll() {
 
+        List className = entityManager
+                .createQuery("FROM :className")
+                .setParameter("className", this.entityClass.getSimpleName())
+                .getResultList();
 
-        // TODO: 08.11.2018 should work but I'm not sure
-        AtomicReference<List<Entity>> resultList = null;
-        this.entityManagerFactoryService.inTransaction(entityManager -> {
-
-            resultList.set(entityManager
-                    .createQuery("FROM :className")
-                    .setParameter("className", this.entityClass.getSimpleName())
-                    .getResultList());
-        });
-
-        return resultList.get();
-
-
+        return className;
     }
 
-    @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Entity> getAll(Integer skip, Integer limit) {
 
         // TODO: 08.11.2018 should work but I'm not sure
-        AtomicReference<List<Entity>> resultList = null;
-        this.entityManagerFactoryService.inTransaction(entityManager -> {
-
-            resultList.set(entityManager
-                    .createQuery("FROM :className")
-                    .setFirstResult(skip)
-                    .setMaxResults(limit)
-                    .setParameter("className", this.entityClass.getSimpleName())
-                    .getResultList());
-        });
-
-        return resultList.get();
-
+        List className = entityManager
+                .createQuery("FROM :className")
+                .setFirstResult(skip)
+                .setMaxResults(limit)
+                .setParameter("className", this.entityClass.getSimpleName())
+                .getResultList();
+        return className;
     }
 
-    @Override
-    public boolean delete(int id) {
-
-        this.entityManagerFactoryService.inTransaction(entityManager -> {
-            Entity entity = entityManager.find(this.entityClass, id);
-            entityManager.remove(entity);
-        });
-        return true;
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void delete(int id) {
+          entityManager.remove(entityManager.find(entityClass,id));
     }
 
-    @Override
-    public boolean insert(Entity insertData) {
-        this.entityManagerFactoryService.inTransaction(entityManager -> {
-            entityManager.persist(insertData);
-        });
-        return true;
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public Entity insert(Entity insertData) {
+        entityManager.persist(insertData);
+        return insertData;
     }
 
-    @Override
-    public boolean update(Entity updateData) {
-        this.entityManagerFactoryService.inTransaction(entityManager -> {
-            entityManager.merge(updateData);
-        });
-        return true;
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public Entity update(Entity updateData) {
+        return entityManager.merge(updateData);
     }
 }

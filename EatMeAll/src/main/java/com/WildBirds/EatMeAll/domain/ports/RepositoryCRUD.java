@@ -2,15 +2,15 @@ package com.WildBirds.EatMeAll.domain.ports;
 
 import java.util.List;
 
-public interface RepositoryCRUD<T> {
+public interface RepositoryCRUD<Entity> {
 
-    T get(int id);
+    Entity get(int id);
 
-    List<T> getAll();
+    List<Entity> getAll();
 
-    boolean delete(int id);
+    void delete(int id);
 
-    boolean insert(T insertData);
+    Entity insert(Entity insertData);
 
-    boolean update(T updateData);
+    Entity update(Entity updateData);
 }

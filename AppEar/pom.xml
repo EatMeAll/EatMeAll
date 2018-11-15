@@ -43,8 +43,39 @@
                             <contextRoot>/app</contextRoot>
                         </webModule>
                     </modules>
-                    <outputDirectory>H:\Programs\WildFly\standalone\deployments\app</outputDirectory>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>2.0.0.Final</version>
+                <configuration>
+                    <hostname>127.0.0.1</hostname>
+                    <port>9990</port>
+                    <username>root</username>
+                    <password>root</password>
+                    <filename>${project.build.finalName}.ear</filename>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>deploy</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>undeploy-artifact</goal>
+                        </goals>
+                        <configuration>
+                            <groupId>com.WildBirds</groupId>
+                            <artifactId>EatMeAll</artifactId>
+                            <artifactId>ReposiotryJPA</artifactId>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

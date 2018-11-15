@@ -14,7 +14,7 @@ public class RepositoryProductAdapter implements RepositoryCRUD<Product>, Reposi
     private RepositoryProductFacade repositoryProductFacade;
 
     public RepositoryProductAdapter() {
-        this.repositoryProductFacade = RepositoryProductFacade.config();
+        this.repositoryProductFacade = new RepositoryProductFacade();
     }
 
     @Override
@@ -28,18 +28,18 @@ public class RepositoryProductAdapter implements RepositoryCRUD<Product>, Reposi
     }
 
     @Override
-    public boolean delete(int id) {
-        return false;
+    public void delete(int id) {
+
     }
 
     @Override
-    public boolean insert(Product insertData) {
-        return false;
+    public Product insert(Product insertData) {
+        return null;
     }
 
     @Override
-    public boolean update(Product updateData) {
-        return false;
+    public Product update(Product updateData) {
+        return null;
     }
 
     @Override

@@ -1,23 +1,23 @@
 package com.WildBirds.EatMeAll.infrastructure;
 
 import com.WildBirds.EatMeAll.domain.model.Meal;
+import com.WildBirds.EatMeAll.domain.ports.RepositoryCRUD;
+import com.WildBirds.EatMeAll.domain.ports.RepositoryMeal;
 import com.WildBirds.RepositoryJPA.application.RepositoryMealFacade;
 
 import javax.ejb.EJB;
-import javax.ejb.Local;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import java.util.List;
 
 @Stateless
 @LocalBean
-@Local(RepositoryMealAdapterLocal.class)
-public class RepositoryMealAdapter implements RepositoryMealAdapterLocal {
+public class RepositoryMealAdapter implements RepositoryCRUD<Meal>, RepositoryMeal {
 
     @EJB
     private RepositoryMealFacade repositoryMealFacade;
 
-    public RepositoryMealAdapter() {}
+    public RepositoryMealAdapter() { }
 
     @Override
     public Meal get(int id) {
@@ -30,18 +30,18 @@ public class RepositoryMealAdapter implements RepositoryMealAdapterLocal {
     }
 
     @Override
-    public boolean delete(int id) {
-        return false;
+    public void delete(int id) {
     }
 
     @Override
-    public boolean insert(Meal insertData) {
-       return this.repositoryMealFacade.insert(new com.WildBirds.RepositoryJPA.domain.model.Meal());
+    public Meal insert(Meal insertData) {
+        return null;
+      // return this.repositoryMealFacade.insert(new com.WildBirds.RepositoryJPA.domain.model.Meal());
     }
 
     @Override
-    public boolean update(Meal updateData) {
-        return false;
+    public Meal update(Meal updateData) {
+        return null;
     }
 
     @Override

@@ -5,16 +5,13 @@ import com.WildBirds.RepositoryJPA.domain.model.TypeMeal;
 import com.WildBirds.RepositoryJPA.domain.ports.RepositoryTypeOfMeal;
 import com.WildBirds.crudjpa.appliaction.CrudJpa;
 
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 public class RepositoryTypeMeal extends CrudJpa<TypeMeal> implements RepositoryTypeOfMeal {
 
-    private EntityManagerFactory entityManagerFactory;
-
-    public RepositoryTypeMeal(EntityManagerFactory entityManagerFactory) {
-        super(TypeMeal.class,entityManagerFactory);
-        this.entityManagerFactory = entityManagerFactory;
-
+    public RepositoryTypeMeal(EntityManager entityManager) {
+        super(TypeMeal.class,entityManager);
     }
 
 

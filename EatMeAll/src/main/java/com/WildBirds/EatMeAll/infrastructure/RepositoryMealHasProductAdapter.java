@@ -15,8 +15,9 @@ public class RepositoryMealHasProductAdapter implements RepositoryCRUD<MealHasPr
     private RepositoryMealHasProductFacade repositoryMealHasProductFacade;
 
     public RepositoryMealHasProductAdapter() {
-        this.repositoryMealHasProductFacade = RepositoryMealHasProductFacade.config();
+        this.repositoryMealHasProductFacade = new RepositoryMealHasProductFacade();
     }
+
 
     @Override
     public MealHasProduct get(int id) {
@@ -29,18 +30,18 @@ public class RepositoryMealHasProductAdapter implements RepositoryCRUD<MealHasPr
     }
 
     @Override
-    public boolean delete(int id) {
-        return false;
+    public void delete(int id) {
+
     }
 
     @Override
-    public boolean insert(MealHasProduct insertData) {
-        return false;
+    public MealHasProduct insert(MealHasProduct insertData) {
+        return null;
     }
 
     @Override
-    public boolean update(MealHasProduct updateData) {
-        return false;
+    public MealHasProduct update(MealHasProduct updateData) {
+        return null;
     }
 
     @Override

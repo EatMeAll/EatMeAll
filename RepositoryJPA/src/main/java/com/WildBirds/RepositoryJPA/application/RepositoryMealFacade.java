@@ -4,28 +4,51 @@ package com.WildBirds.RepositoryJPA.application;
 import com.WildBirds.RepositoryJPA.domain.model.Language;
 import com.WildBirds.RepositoryJPA.domain.model.Meal;
 import com.WildBirds.RepositoryJPA.domain.ports.RepositoryMeal;
-import com.WildBirds.RepositoryJPA.domain.services.EntityManagerFactoryService;
+import com.WildBirds.RepositoryJPA.domain.services.EntityManagerProvider;
 import com.WildBirds.RepositoryJPA.infrastructure.RepositoryMealJPA;
 import com.WildBirds.crudjpa.appliaction.Crud;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
+import javax.annotation.PostConstruct;
 
 @Stateless
 @LocalBean
 public class RepositoryMealFacade implements Crud<Meal>, RepositoryMeal {
 
+
+//    @EJB
+//    EntityManagerProvider emp;
+
+    @PersistenceContext(unitName = "persistence-jpa")
+    private EntityManager entityManager;
+
     private RepositoryMealJPA repositoryMealJPA;
 
     public RepositoryMealFacade() {
 
-        EntityManagerFactoryService entityManagerFactoryService = new EntityManagerFactoryService();
-        EntityManagerFactory entityManagerFactory = entityManagerFactoryService.getEntityManagerFactory();
-        this.repositoryMealJPA = new RepositoryMealJPA(entityManagerFactory);
 
+    }
+
+    @PostConstruct
+    public void init(){
+        this.repositoryMealJPA = new RepositoryMealJPA(entityManager);
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println( " INIT ");
         System.out.println("In RepositoryMealFacade Constructor");
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
 
         Meal meal = new Meal();
         meal.setAmountCalories(250);
@@ -36,6 +59,7 @@ public class RepositoryMealFacade implements Crud<Meal>, RepositoryMeal {
         meal.setTitle("XXXX");
 
         this.repositoryMealJPA.insert(meal);
+
     }
 
     public Meal someAdditionalLogic() {
@@ -54,15 +78,27 @@ public class RepositoryMealFacade implements Crud<Meal>, RepositoryMeal {
         return this.repositoryMealJPA.getAll(skip,limit);
     }
 
-    public boolean delete(int id) {
-        return this.repositoryMealJPA.delete(id);
+    public void delete(int id) {
+        this.repositoryMealJPA.delete(id);
     }
 
-    public boolean insert(Meal insertData) {
+    public Meal insert(Meal insertData) {
+
+        if (entityManager == null) {
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println("          NULLL  IN  INSERT           ");
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+        }
+
         return this.repositoryMealJPA.insert(insertData);
     }
 
-    public boolean update(Meal updateData) {
+    public Meal update(Meal updateData) {
         return this.repositoryMealJPA.update(updateData);
     }
 }

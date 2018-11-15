@@ -2,27 +2,26 @@ package com.WildBirds.RepositoryJPA.application;
 
 
 import com.WildBirds.RepositoryJPA.domain.model.TypeMeal;
+import com.WildBirds.RepositoryJPA.domain.services.EntityManagerProvider;
 import com.WildBirds.RepositoryJPA.infrastructure.RepositoryMealHasProductJPA;
-import com.WildBirds.RepositoryJPA.domain.services.EntityManagerFactoryService;
 
+import javax.ejb.EJB;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManagerFactory;
 import java.util.List;
-
+@Stateless
+@LocalBean
 public class RepositoryMealHasProductFacade {
 
-    public static RepositoryMealHasProductFacade config(){
-
-        EntityManagerFactoryService entityManagerFactoryService = new EntityManagerFactoryService();
-        EntityManagerFactory entityManagerFactory = entityManagerFactoryService.getEntityManagerFactory();
-        RepositoryMealHasProductJPA repositoryMealHasProductJPA = new RepositoryMealHasProductJPA(entityManagerFactory);
-
-        return new RepositoryMealHasProductFacade(repositoryMealHasProductJPA);
-    }
+   // @EJB
+    EntityManagerProvider emp;
 
     private RepositoryMealHasProductJPA repositoryMealHasProductJPA;
 
-    private RepositoryMealHasProductFacade(RepositoryMealHasProductJPA repositoryMealHasProductJPA) {
-        this.repositoryMealHasProductJPA = repositoryMealHasProductJPA;
+    public RepositoryMealHasProductFacade() {
+
+        this.repositoryMealHasProductJPA = new RepositoryMealHasProductJPA(emp.getEntityManager());
     }
 
     public TypeMeal get(int id) {

@@ -5,16 +5,13 @@ import com.WildBirds.RepositoryJPA.domain.model.Product;
 import com.WildBirds.RepositoryJPA.domain.ports.RepositoryProduct;
 import com.WildBirds.crudjpa.appliaction.CrudJpa;
 
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 public class RepositoryProductJPA extends CrudJpa<Product> implements RepositoryProduct {
 
-    private EntityManagerFactory entityManagerFactory;
-
-    public RepositoryProductJPA(EntityManagerFactory entityManagerFactory) {
-        super(Product.class,entityManagerFactory);
-        this.entityManagerFactory = entityManagerFactory;
-
+    public RepositoryProductJPA(EntityManager entityManager) {
+        super(Product.class,entityManager);
     }
 
     public Product someAdditionalLogic() {

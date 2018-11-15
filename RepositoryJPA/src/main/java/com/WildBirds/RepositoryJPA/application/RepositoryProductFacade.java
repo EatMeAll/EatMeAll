@@ -1,26 +1,23 @@
 package com.WildBirds.RepositoryJPA.application;
 
 import com.WildBirds.RepositoryJPA.domain.model.Product;
-import com.WildBirds.RepositoryJPA.domain.services.EntityManagerFactoryService;
+import com.WildBirds.RepositoryJPA.domain.services.EntityManagerProvider;
 import com.WildBirds.RepositoryJPA.infrastructure.RepositoryProductJPA;
 
+import javax.ejb.EJB;
 import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
 public class RepositoryProductFacade {
 
-    public static RepositoryProductFacade config(){
-        EntityManagerFactoryService entityManagerFactoryService = new EntityManagerFactoryService();
-        EntityManagerFactory entityManagerFactory = entityManagerFactoryService.getEntityManagerFactory();
-        RepositoryProductJPA repositoryProductJPA = new RepositoryProductJPA(entityManagerFactory);
-        return new RepositoryProductFacade(repositoryProductJPA);
-    }
+   // @EJB
+    EntityManagerProvider emp;
 
 
     private RepositoryProductJPA repositoryProductJPA;
 
-    private RepositoryProductFacade(RepositoryProductJPA repositoryProductJPA) {
-        this.repositoryProductJPA = repositoryProductJPA;
+    public RepositoryProductFacade() {
+        this.repositoryProductJPA = new RepositoryProductJPA(emp.getEntityManager());
     }
 
 

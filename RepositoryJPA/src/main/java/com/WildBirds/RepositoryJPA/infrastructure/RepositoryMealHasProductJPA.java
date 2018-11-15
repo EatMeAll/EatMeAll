@@ -5,16 +5,13 @@ import com.WildBirds.RepositoryJPA.domain.model.MealHasProduct;
 import com.WildBirds.RepositoryJPA.domain.ports.RepositoryMealHasProduct;
 import com.WildBirds.crudjpa.appliaction.CrudJpa;
 
-
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 public class RepositoryMealHasProductJPA extends CrudJpa<MealHasProduct> implements RepositoryMealHasProduct {
 
-    private EntityManagerFactory entityManagerFactory;
-
-    public RepositoryMealHasProductJPA(EntityManagerFactory entityManagerFactory) {
-        super(MealHasProduct.class,entityManagerFactory);
-        this.entityManagerFactory = entityManagerFactory;
+    public RepositoryMealHasProductJPA(EntityManager entityManager) {
+        super(MealHasProduct.class,entityManager);
     }
 
     public MealHasProduct someAdditionalMethod() {

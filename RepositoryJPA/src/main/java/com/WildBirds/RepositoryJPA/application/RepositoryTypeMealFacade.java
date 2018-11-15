@@ -2,26 +2,22 @@ package com.WildBirds.RepositoryJPA.application;
 
 
 import com.WildBirds.RepositoryJPA.domain.model.TypeMeal;
-import com.WildBirds.RepositoryJPA.domain.services.EntityManagerFactoryService;
+import com.WildBirds.RepositoryJPA.domain.services.EntityManagerProvider;
 import com.WildBirds.RepositoryJPA.infrastructure.RepositoryTypeMeal;
 
+import javax.ejb.EJB;
 import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
 public class RepositoryTypeMealFacade {
 
-    public static RepositoryTypeMealFacade config() {
-        EntityManagerFactoryService entityManagerFactoryService = new EntityManagerFactoryService();
-        EntityManagerFactory entityManagerFactory = entityManagerFactoryService.getEntityManagerFactory();
-        RepositoryTypeMeal repositoryTypeMeal = new RepositoryTypeMeal(entityManagerFactory);
-
-        return new RepositoryTypeMealFacade(repositoryTypeMeal);
-    }
+   // @EJB
+    EntityManagerProvider emp;
 
     private RepositoryTypeMeal repositoryTypeMeal;
 
-    private RepositoryTypeMealFacade(RepositoryTypeMeal repositoryTypeMeal) {
-        this.repositoryTypeMeal = repositoryTypeMeal;
+    public RepositoryTypeMealFacade() {
+        this.repositoryTypeMeal = new RepositoryTypeMeal(emp.getEntityManager());
     }
 
     public TypeMeal get(int id) {
