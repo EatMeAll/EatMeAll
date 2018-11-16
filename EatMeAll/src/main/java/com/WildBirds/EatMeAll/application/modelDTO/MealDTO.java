@@ -1,5 +1,7 @@
 package com.WildBirds.EatMeAll.application.modelDTO;
 
+import com.WildBirds.RepositoryJPA.domain.model.TypeMeal;
+import com.WildBirds.RepositoryJPA.domain.model.enums.Language;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 

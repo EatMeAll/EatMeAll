@@ -2,7 +2,11 @@ package com.WildBirds.EatMeAll.application.service;
 
 import com.WildBirds.EatMeAll.application.modelDTO.MealDTO;
 import com.WildBirds.EatMeAll.application.modelDTO.ProductDTO;
-import com.WildBirds.EatMeAll.domain.model.*;
+import com.WildBirds.RepositoryJPA.domain.model.Meal;
+import com.WildBirds.RepositoryJPA.domain.model.MealHasProduct;
+import com.WildBirds.RepositoryJPA.domain.model.Product;
+import com.WildBirds.RepositoryJPA.domain.model.TypeMeal;
+import com.WildBirds.RepositoryJPA.domain.model.enums.Language;
 
 import java.util.ArrayList;
 import java.util.List;
