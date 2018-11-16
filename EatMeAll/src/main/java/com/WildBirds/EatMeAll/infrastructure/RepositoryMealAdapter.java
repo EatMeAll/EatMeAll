@@ -4,7 +4,7 @@ import com.WildBirds.EatMeAll.domain.model.Meal;
 import com.WildBirds.EatMeAll.domain.ports.RepositoryMeal;
 import com.WildBirds.EatMeAll.infrastructure.services.Mapper;
 import com.WildBirds.RepositoryJPA.application.RepositoryMealFacade;
-import com.WildBirds.crudjpa.appliaction.Crud;
+import com.WildBirds.crudjpa.appliaction.interfaces.Crud;
 import ma.glasnost.orika.MapperFacade;
 
 import javax.annotation.PostConstruct;

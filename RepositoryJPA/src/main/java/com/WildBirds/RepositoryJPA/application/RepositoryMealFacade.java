@@ -6,7 +6,7 @@ import com.WildBirds.RepositoryJPA.domain.model.Meal;
 import com.WildBirds.RepositoryJPA.domain.ports.RepositoryMeal;
 import com.WildBirds.RepositoryJPA.domain.services.EntityManagerProvider;
 import com.WildBirds.RepositoryJPA.infrastructure.RepositoryMealJPA;
-import com.WildBirds.crudjpa.appliaction.Crud;
+import com.WildBirds.crudjpa.appliaction.interfaces.Crud;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;

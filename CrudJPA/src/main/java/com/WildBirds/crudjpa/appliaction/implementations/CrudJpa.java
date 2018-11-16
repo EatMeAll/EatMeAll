@@ -1,64 +1,18 @@
-package com.WildBirds.crudjpa.appliaction;
+package com.WildBirds.crudjpa.appliaction.implementations;
+
+import com.WildBirds.crudjpa.appliaction.interfaces.Crud;
 
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-public class CrudJpa<Entity> implements Crud<Entity> {
+public class CrudJpa implements Crud {
 
     private EntityManager entityManager;
-    private Class<Entity> entityClass;
 
-    public CrudJpa(Class<Entity> entityClass, EntityManager entityManager) {
-
-        this.entityClass = entityClass;
+    public CrudJpa( EntityManager entityManager) {
         this.entityManager = entityManager;
-    }
-
-    // Crud
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public Entity get(int id) {
-        return entityManager.find(this.entityClass, id);
-    }
-
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public List<Entity> getAll() {
-
-        List className = entityManager
-                .createQuery("FROM :className")
-                .setParameter("className", this.entityClass.getSimpleName())
-                .getResultList();
-
-        return className;
-    }
-
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public List<Entity> getAll(Integer skip, Integer limit) {
-
-        // TODO: 08.11.2018 should work but I'm not sure
-        List className = entityManager
-                .createQuery("FROM :className")
-                .setFirstResult(skip)
-                .setMaxResults(limit)
-                .setParameter("className", this.entityClass.getSimpleName())
-                .getResultList();
-        return className;
-    }
-
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void delete(int id) {
-        entityManager.remove(entityManager.find(entityClass, id));
-    }
-
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public Entity insert(Entity insertData) {
-        return this.insert(insertData, entityClass);
-    }
-
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public Entity update(Entity updateData) {
-        return this.update(updateData, entityClass);
     }
 
     // All Entity

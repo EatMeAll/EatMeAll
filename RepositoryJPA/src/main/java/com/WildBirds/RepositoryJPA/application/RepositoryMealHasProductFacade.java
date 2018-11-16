@@ -1,19 +1,15 @@
 package com.WildBirds.RepositoryJPA.application;
 
 
-import com.WildBirds.RepositoryJPA.domain.model.Meal;
 import com.WildBirds.RepositoryJPA.domain.model.MealHasProduct;
-import com.WildBirds.RepositoryJPA.domain.model.TypeMeal;
-import com.WildBirds.RepositoryJPA.domain.ports.RepositoryMeal;
 import com.WildBirds.RepositoryJPA.domain.ports.RepositoryMealHasProduct;
 import com.WildBirds.RepositoryJPA.domain.services.EntityManagerProvider;
 import com.WildBirds.RepositoryJPA.infrastructure.RepositoryMealHasProductJPA;
-import com.WildBirds.crudjpa.appliaction.Crud;
+import com.WildBirds.crudjpa.appliaction.interfaces.Crud;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManagerFactory;
 import java.util.List;
 @Stateless
 @LocalBean

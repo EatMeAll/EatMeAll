@@ -1,22 +1,8 @@
-package com.WildBirds.crudjpa.appliaction;
+package com.WildBirds.crudjpa.appliaction.interfaces;
 
 import java.util.List;
 
-public interface Crud<Entity> {
-
-    Entity get(int id);
-
-    List<Entity> getAll();
-
-    List<Entity> getAll(Integer skip, Integer limit);
-
-    void delete(int id);
-
-    Entity insert(Entity insertData);
-
-    Entity update(Entity updateData);
-
-    //All Entity
+public interface Crud {
 
     <Return> Return get(int id, Class<Return> entityClass);
 
