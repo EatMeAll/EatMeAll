@@ -2,9 +2,9 @@ package com.WildBirds.RepositoryJPA.domain.ports;
 
 
 import com.WildBirds.RepositoryJPA.domain.model.Meal;
-import com.WildBirds.RepositoryJPA.domain.model.Product;
+import com.WildBirds.RepositoryJPA.domain.model.TypeMeal;
 import com.WildBirds.crudjpa.appliaction.interfaces.CrudEntity;
 
-public interface RepositoryProduct extends CrudEntity<Meal> {
-    Product someAdditionalLogic();
+public interface RepositoryTypeMeal extends CrudEntity<Meal> {
+    TypeMeal someAdditionalLogic();
 }

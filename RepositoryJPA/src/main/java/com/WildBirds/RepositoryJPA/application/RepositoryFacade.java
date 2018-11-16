@@ -1,15 +1,21 @@
 package com.WildBirds.RepositoryJPA.application;
 
+import com.WildBirds.RepositoryJPA.domain.ports.*;
+import com.WildBirds.RepositoryJPA.domain.services.EntityManagerProvider;
+import com.WildBirds.RepositoryJPA.infrastructure.*;
+
+import javax.ejb.EJB;
+
 public class RepositoryFacade {
 
-    public final RepositoryMealFacade Meal = new RepositoryMealFacade();
 
-//
-//    public static void main(String[] args) {
-//
-//        RepositoryFacade repoo = new RepositoryFacade();
-//
-//        repoo.Meal.
-//
-//    }
+    @EJB
+    private EntityManagerProvider emp;
+
+    public final RepositoryCrud CRUD = new RepositoryCrudJPA(emp.getEntityManager());
+    public final RepositoryMeal MEAL = new RepositoryMealJPA(emp.getEntityManager());
+    public final RepositoryMealHasProduct MEALHASPRODUCT = new RepositoryMealHasProductJPA(emp.getEntityManager());
+    public final RepositoryProduct PRODUCT = new RepositoryProductJPA(emp.getEntityManager());
+    public final RepositoryTypeMeal TYPEMEAL = new RepositoryTypeMealJPA(emp.getEntityManager());
+
 }

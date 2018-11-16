@@ -11,7 +11,7 @@ public class CrudJpa implements Crud {
 
     private EntityManager entityManager;
 
-    public CrudJpa( EntityManager entityManager) {
+    public CrudJpa(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
@@ -57,8 +57,6 @@ public class CrudJpa implements Crud {
     public <Return> Return update(Return updateData, Class<Return> entityClass) {
         return (Return) entityManager.merge(updateData);
     }
-
-
 
 
 }
