@@ -1,7 +1,5 @@
 package com.WildBirds.EatMeAll.application.modelDTO;
 
-import com.WildBirds.EatMeAll.domain.model.Language;
-import com.WildBirds.EatMeAll.domain.model.TypeMeal;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 

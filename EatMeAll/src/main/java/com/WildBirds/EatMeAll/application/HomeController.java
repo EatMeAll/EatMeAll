@@ -1,9 +1,5 @@
 package com.WildBirds.EatMeAll.application;
 
-import com.WildBirds.EatMeAll.domain.model.Language;
-import com.WildBirds.EatMeAll.domain.model.Meal;
-import com.WildBirds.EatMeAll.domain.model.MealHasProduct;
-import com.WildBirds.EatMeAll.domain.model.Product;
 import com.WildBirds.EatMeAll.domain.services.MainLocal;
 import com.WildBirds.EatMeAll.infrastructure.RepositoryMealAdapter;
 
