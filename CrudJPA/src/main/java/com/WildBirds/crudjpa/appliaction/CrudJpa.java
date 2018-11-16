@@ -3,8 +3,6 @@ package com.WildBirds.crudjpa.appliaction;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
 import java.util.List;
 
 public class CrudJpa<Entity> implements Crud<Entity> {
@@ -12,18 +10,13 @@ public class CrudJpa<Entity> implements Crud<Entity> {
     private EntityManager entityManager;
     private Class<Entity> entityClass;
 
-    public CrudJpa(Class<Entity> entityClass,EntityManager entityManager) {
+    public CrudJpa(Class<Entity> entityClass, EntityManager entityManager) {
 
-        System.out.println();
-        System.out.println();
-        System.out.println(" ENTITY MANGETER <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-        System.out.println(entityManager);
-        System.out.println();
-        System.out.println();
         this.entityClass = entityClass;
         this.entityManager = entityManager;
     }
 
+    // Crud
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Entity get(int id) {
         return entityManager.find(this.entityClass, id);
@@ -55,17 +48,63 @@ public class CrudJpa<Entity> implements Crud<Entity> {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void delete(int id) {
-          entityManager.remove(entityManager.find(entityClass,id));
+        entityManager.remove(entityManager.find(entityClass, id));
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Entity insert(Entity insertData) {
-        entityManager.persist(insertData);
-        return insertData;
+        return this.insert(insertData, entityClass);
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Entity update(Entity updateData) {
-        return entityManager.merge(updateData);
+        return this.update(updateData, entityClass);
     }
+
+    // All Entity
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public <Return> Return get(int id, Class<Return> entityClass) {
+        return entityManager.find(entityClass, id);
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public <Return> List<Return> getAll(Class<Return> entityClass) {
+        return entityManager
+                .createQuery("FROM :className")
+                .setParameter("className", entityClass.getSimpleName())
+                .getResultList();
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public <Return> List<Return> getAll(Integer skip, Integer limit, Class<Return> entityClass) {
+        // TODO: 08.11.2018 should work but I'm not sure
+        return entityManager
+                .createQuery("FROM :className")
+                .setFirstResult(skip)
+                .setMaxResults(limit)
+                .setParameter("className", entityClass.getSimpleName())
+                .getResultList();
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public <Return> void delete(int id, Class<Return> entityClass) {
+        entityManager.remove(entityManager.find(entityClass, id));
+    }
+
+    @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public <Return> Return insert(Return insertData, Class<Return> entityClass) {
+        entityManager.persist(insertData);
+        return (Return) entityManager.merge(insertData);
+    }
+
+    @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public <Return> Return update(Return updateData, Class<Return> entityClass) {
+        return (Return) entityManager.merge(updateData);
+    }
+
+
+
+
 }

@@ -17,4 +17,6 @@ public class RepositoryMealJPA extends CrudJpa<Meal> implements RepositoryMeal {
     public Meal someAdditionalLogic() {
         return null;
     }
+
+
 }

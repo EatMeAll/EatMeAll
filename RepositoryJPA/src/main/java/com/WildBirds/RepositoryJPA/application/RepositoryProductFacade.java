@@ -21,29 +21,6 @@ public class RepositoryProductFacade {
     }
 
 
-        public Product get(int id) {
-        return null;
-    }
-
-
-        public List<Product> getAll() {
-        return null;
-    }
-
-
-        public boolean delete(int id) {
-        return false;
-    }
-
-
-        public boolean insert(Product insertData) {
-        return false;
-    }
-
-
-        public boolean update(Product updateData) {
-        return false;
-    }
 
 
         public Product someAdditionalLogic() {

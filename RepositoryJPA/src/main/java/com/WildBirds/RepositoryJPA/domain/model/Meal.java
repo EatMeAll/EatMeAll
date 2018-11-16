@@ -1,19 +1,15 @@
 package com.WildBirds.RepositoryJPA.domain.model;
 
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.WildBirds.RepositoryJPA.domain.model.enums.Language;
 
 import javax.persistence.*;
 import java.io.File;
-import java.util.ArrayList;
+import java.time.Instant;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
-//@Data
-//@NoArgsConstructor
 public class Meal {
 
     @Id
@@ -22,29 +18,59 @@ public class Meal {
 
     private Language language;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "MealHasTypeMeal",
-            joinColumns = {@JoinColumn(name = "idMeal")},
-            inverseJoinColumns = {@JoinColumn(name = "idTypeMeal")})
-    private Set<TypeMeal> typeMeal = new HashSet<>();
-
-    private Integer prepareTime;
-
     private String title;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idMeal")
-    private List<MealHasProduct> mealHasProductArrayList = new ArrayList<>();
-
-    private String receipt;
-
-    private String description;
+    private String shortDescription;
 
     private Integer amountCalories;
 
     private String authorReceipt;
 
     private File photo;
+
+    private Boolean isPublic;
+
+    private Instant createdDate;
+
+    public Instant getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Instant createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    @OneToOne()
+    @JoinColumn(name = "idReceipt")
+    private Receipt receipt;
+
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "meal")
+    private Set<MealHasProduct> mealHasProductSet = new HashSet<>();
+
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "MealHasTypeMeal",
+            joinColumns = {@JoinColumn(name = "idMeal")},
+            inverseJoinColumns = {@JoinColumn(name = "idTypeMeal")})
+    private Set<TypeMeal> typeMeal = new HashSet<>();
+
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "MealHasDay",
+            joinColumns = {@JoinColumn(name = "idMeal")},
+            inverseJoinColumns = {@JoinColumn(name = "idDay")})
+    private Set<Day> usedInDays = new HashSet<>();
+
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "Favourites",
+            joinColumns = {@JoinColumn(name = "idMeal")},
+            inverseJoinColumns = {@JoinColumn(name = "idUser")})
+    private Set<User> likedBySet = new HashSet<>();
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "idUser")
+    private User creatorMeal;
 
     public Meal() {
     }
@@ -65,22 +91,6 @@ public class Meal {
         this.language = language;
     }
 
-    public Set<TypeMeal> getTypeMeal() {
-        return typeMeal;
-    }
-
-    public void setTypeMeal(Set<TypeMeal> typeMeal) {
-        this.typeMeal = typeMeal;
-    }
-
-    public Integer getPrepareTime() {
-        return prepareTime;
-    }
-
-    public void setPrepareTime(Integer prepareTime) {
-        this.prepareTime = prepareTime;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -89,28 +99,12 @@ public class Meal {
         this.title = title;
     }
 
-    public List<MealHasProduct> getMealHasProductArrayList() {
-        return mealHasProductArrayList;
+    public String getShortDescription() {
+        return shortDescription;
     }
 
-    public void setMealHasProductArrayList(List<MealHasProduct> mealHasProductArrayList) {
-        this.mealHasProductArrayList = mealHasProductArrayList;
-    }
-
-    public String getReceipt() {
-        return receipt;
-    }
-
-    public void setReceipt(String receipt) {
-        this.receipt = receipt;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
     }
 
     public Integer getAmountCalories() {
@@ -135,5 +129,61 @@ public class Meal {
 
     public void setPhoto(File photo) {
         this.photo = photo;
+    }
+
+    public Boolean getPublic() {
+        return isPublic;
+    }
+
+    public void setPublic(Boolean aPublic) {
+        isPublic = aPublic;
+    }
+
+    public Receipt getReceipt() {
+        return receipt;
+    }
+
+    public void setReceipt(Receipt receipt) {
+        this.receipt = receipt;
+    }
+
+    public Set<MealHasProduct> getMealHasProductSet() {
+        return mealHasProductSet;
+    }
+
+    public void setMealHasProductSet(Set<MealHasProduct> mealHasProductSet) {
+        this.mealHasProductSet = mealHasProductSet;
+    }
+
+    public Set<TypeMeal> getTypeMeal() {
+        return typeMeal;
+    }
+
+    public void setTypeMeal(Set<TypeMeal> typeMeal) {
+        this.typeMeal = typeMeal;
+    }
+
+    public Set<Day> getUsedInDays() {
+        return usedInDays;
+    }
+
+    public void setUsedInDays(Set<Day> usedInDays) {
+        this.usedInDays = usedInDays;
+    }
+
+    public Set<User> getLikedBySet() {
+        return likedBySet;
+    }
+
+    public void setLikedBySet(Set<User> likedBySet) {
+        this.likedBySet = likedBySet;
+    }
+
+    public User getCreatorMeal() {
+        return creatorMeal;
+    }
+
+    public void setCreatorMeal(User creatorMeal) {
+        this.creatorMeal = creatorMeal;
     }
 }

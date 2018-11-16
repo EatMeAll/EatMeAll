@@ -20,25 +20,6 @@ public class RepositoryTypeMealFacade {
         this.repositoryTypeMeal = new RepositoryTypeMeal(emp.getEntityManager());
     }
 
-    public TypeMeal get(int id) {
-        return null;
-    }
-
-    public List<TypeMeal> getAll() {
-        return null;
-    }
-
-    public boolean delete(int id) {
-        return false;
-    }
-
-    public boolean insert(TypeMeal insertData) {
-        return false;
-    }
-
-    public boolean update(TypeMeal updateData) {
-        return false;
-    }
 
     public TypeMeal someAdditionalLogic() {
         return null;

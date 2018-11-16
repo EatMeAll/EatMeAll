@@ -46,7 +46,10 @@ public class HomeController {
         meal.setMealHasProductList(Arrays.asList(mealHasProduct));
         meal.setLanguage(Language.PL);
 
-        Meal insert = repositoryMealAdapter.insert(meal);
+
+        repositoryMealAdapter.insert(meal);
+//        repositoryMealAdapter.insert(milk,Product.class);
+//        repositoryMealAdapter.insert(mealHasProduct,MealHasProduct.class);
 
         return Response.status(200).entity("Hello world").build();
     }

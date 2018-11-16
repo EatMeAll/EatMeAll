@@ -7,10 +7,11 @@ public class MealHasProduct {
 
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private Integer id;
+   private Integer idMealHasProduct;
    @ManyToOne
    @JoinColumn(name = "idMeal")
    private Meal meal;
+
    @ManyToOne
    @JoinColumn(name = "idProduct")
    private Product product;
@@ -24,43 +25,51 @@ public class MealHasProduct {
    public MealHasProduct() {
    }
 
-   public Meal getMeal() {
-      return meal;
-   }
+    public Integer getIdMealHasProduct() {
+        return idMealHasProduct;
+    }
 
-   public void setMeal(Meal meal) {
-      this.meal = meal;
-   }
+    public void setIdMealHasProduct(Integer idMealHasProduct) {
+        this.idMealHasProduct = idMealHasProduct;
+    }
 
-   public Product getProduct() {
-      return product;
-   }
+    public Meal getMeal() {
+        return meal;
+    }
 
-   public void setProduct(Product product) {
-      this.product = product;
-   }
+    public void setMeal(Meal meal) {
+        this.meal = meal;
+    }
 
-   public Integer getAmount() {
-      return amount;
-   }
+    public Product getProduct() {
+        return product;
+    }
 
-   public void setAmount(Integer amount) {
-      this.amount = amount;
-   }
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
-   public String getUnit() {
-      return unit;
-   }
+    public Integer getAmount() {
+        return amount;
+    }
 
-   public void setUnit(String unit) {
-      this.unit = unit;
-   }
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
 
-   public String getSpecialUnit() {
-      return specialUnit;
-   }
+    public String getUnit() {
+        return unit;
+    }
 
-   public void setSpecialUnit(String specialUnit) {
-      this.specialUnit = specialUnit;
-   }
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public String getSpecialUnit() {
+        return specialUnit;
+    }
+
+    public void setSpecialUnit(String specialUnit) {
+        this.specialUnit = specialUnit;
+    }
 }

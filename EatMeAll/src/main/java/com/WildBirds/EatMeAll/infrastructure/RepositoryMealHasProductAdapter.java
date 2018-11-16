@@ -50,6 +50,36 @@ public class RepositoryMealHasProductAdapter implements Crud<MealHasProduct>, Re
     }
 
     @Override
+    public <Return> Return get(int id, Class<Return> entityClass) {
+        return null;
+    }
+
+    @Override
+    public <Return> List<Return> getAll(Class<Return> entityClass) {
+        return null;
+    }
+
+    @Override
+    public <Return> List<Return> getAll(Integer skip, Integer limit, Class<Return> entityClass) {
+        return null;
+    }
+
+    @Override
+    public <Return> void delete(int id, Class<Return> entityClass) {
+
+    }
+
+    @Override
+    public <Return> Return insert(Return insertData, Class<Return> entityClass) {
+        return null;
+    }
+
+    @Override
+    public <Return> Return update(Return updateData, Class<Return> entityClass) {
+        return null;
+    }
+
+    @Override
     public MealHasProduct someAdditionalMethod() {
         return null;
     }

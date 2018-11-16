@@ -1,16 +1,22 @@
 package com.WildBirds.RepositoryJPA.domain.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.WildBirds.RepositoryJPA.domain.model.enums.MealTime;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class TypeMeal {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idTypeMeal;
-    private String name;
+    private MealTime mealTime;
+
+
+    @ManyToMany(mappedBy = "typeMeal", cascade = {CascadeType.MERGE})
+    private Set<Meal> mealSet = new HashSet<>();
 
     public TypeMeal() {
     }
@@ -23,11 +29,19 @@ public class TypeMeal {
         this.idTypeMeal = idTypeMeal;
     }
 
-    public String getName() {
-        return name;
+    public MealTime getMealTime() {
+        return mealTime;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMealTime(MealTime mealTime) {
+        this.mealTime = mealTime;
+    }
+
+    public Set<Meal> getMealSet() {
+        return mealSet;
+    }
+
+    public void setMealSet(Set<Meal> mealSet) {
+        this.mealSet = mealSet;
     }
 }
