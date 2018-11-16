@@ -5,7 +5,11 @@ import com.WildBirds.RepositoryJPA.domain.services.EntityManagerProvider;
 import com.WildBirds.RepositoryJPA.infrastructure.*;
 
 import javax.ejb.EJB;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 
+@Stateless
+@LocalBean
 public class RepositoryFacade {
 
 

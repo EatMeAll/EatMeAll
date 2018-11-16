@@ -1,7 +1,10 @@
 package com.WildBirds.EatMeAll.application;
 
-import com.WildBirds.EatMeAll.domain.services.MainLocal;
-import com.WildBirds.EatMeAll.infrastructure.RepositoryMealAdapter;
+import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
+import com.WildBirds.RepositoryJPA.domain.model.Meal;
+import com.WildBirds.RepositoryJPA.domain.model.MealHasProduct;
+import com.WildBirds.RepositoryJPA.domain.model.Product;
+import com.WildBirds.RepositoryJPA.domain.model.enums.Language;
 
 import javax.ejb.EJB;
 import javax.ejb.TransactionAttribute;
@@ -11,22 +14,18 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-import java.util.Arrays;
 
 @Path("")
 public class HomeController {
 
-    @EJB
-    private MainLocal main;
 
     @EJB
-    private RepositoryMealAdapter repositoryMealAdapter;
+    RepositoryFacade repo;
 
     @GET
     @Path("home")
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Response hello(@Context UriInfo info) {
-        main.HelloWorld();
 
         System.out.println("in home controller");
 
@@ -39,13 +38,12 @@ public class HomeController {
         mealHasProduct.setUnit("ml");
 
         Meal meal = new Meal();
-        meal.setMealHasProductList(Arrays.asList(mealHasProduct));
         meal.setLanguage(Language.PL);
 
+        repo.PRODUCT.insert(milk);
+        repo.MEALHASPRODUCT.insert(mealHasProduct);
+        repo.MEAL.insert(meal);
 
-        repositoryMealAdapter.insert(meal);
-//        repositoryMealAdapter.insert(milk,Product.class);
-//        repositoryMealAdapter.insert(mealHasProduct,MealHasProduct.class);
 
         return Response.status(200).entity("Hello world").build();
     }

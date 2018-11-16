@@ -5,7 +5,7 @@ import com.WildBirds.RepositoryJPA.domain.model.Meal;
 import com.WildBirds.RepositoryJPA.domain.model.MealHasProduct;
 import com.WildBirds.crudjpa.appliaction.interfaces.CrudEntity;
 
-public interface RepositoryMealHasProduct extends CrudEntity<Meal> {
+public interface RepositoryMealHasProduct extends CrudEntity<MealHasProduct> {
     MealHasProduct someAdditionalMethod();
 
 }
