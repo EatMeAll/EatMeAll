@@ -59,6 +59,10 @@ public class RepositoryFacade {
         return this.STEP;
     }
 
+    public RepositoryTypeMeal TYPEMEAL(){
+        return this.TYPEMEAL;
+    }
+
     public RepositoryUser USER() {
         return this.USER;
     }
