@@ -1,31 +1,41 @@
-package com.WildBirds.crudjpa.appliaction.implementations;
+package com.WildBirds.RepositoryJPA.infrastructure.crudjpa.implementations;
 
-import com.WildBirds.crudjpa.appliaction.interfaces.CrudEntity;
+import com.WildBirds.RepositoryJPA.infrastructure.crudjpa.interfaces.CrudEntity;
 
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
-import java.io.Serializable;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
+import javax.transaction.TransactionScoped;
 import java.util.List;
+
 
 public class CrudEntityJpa<Entity> implements CrudEntity<Entity> {
 
+
+    @PersistenceContext(unitName = "persistence-jpa")
     private EntityManager entityManager;
+
     private Class<Entity> entityClass;
 
-    public CrudEntityJpa(Class<Entity> entityClass, EntityManager entityManager) {
-
-        this.entityClass = entityClass;
-        this.entityManager = entityManager;
+    public CrudEntityJpa() {
     }
+
+    public CrudEntityJpa(Class<Entity> entityClass) {
+        this.entityClass = entityClass;
+
+    }
+
+
 
     // Crud
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public Entity get(int id) {
-        return entityManager.find(this.entityClass, id);
+        return this.entityManager.find(this.entityClass, id);
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public List<Entity> getAll() {
 
         List className = entityManager
@@ -36,7 +46,7 @@ public class CrudEntityJpa<Entity> implements CrudEntity<Entity> {
         return className;
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public List<Entity> getAll(Integer skip, Integer limit) {
 
         // TODO: 08.11.2018 should work but I'm not sure
@@ -49,18 +59,18 @@ public class CrudEntityJpa<Entity> implements CrudEntity<Entity> {
         return className;
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public void delete(int id) {
         entityManager.remove(entityManager.find(entityClass, id));
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public Entity insert(Entity insertData) {
         entityManager.persist(insertData);
         return entityManager.merge(insertData);
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public Entity update(Entity updateData) {
         return entityManager.merge(updateData);
     }

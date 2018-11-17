@@ -5,6 +5,5 @@ module com.WildBirds.RepositoryJPA {
     exports com.WildBirds.RepositoryJPA.domain.model.enums;
 
     requires javaee.api;
-    requires com.WildBirds.CrudJPA;
     requires lombok;
 }

@@ -1,19 +1,21 @@
-package com.WildBirds.crudjpa.appliaction.implementations;
+package com.WildBirds.RepositoryJPA.infrastructure.crudjpa.implementations;
 
-import com.WildBirds.crudjpa.appliaction.interfaces.Crud;
+import com.WildBirds.RepositoryJPA.infrastructure.crudjpa.interfaces.Crud;
 
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
+import javax.ejb.*;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.TransactionScoped;
 import java.util.List;
+
 
 public class CrudJpa implements Crud {
 
-    private EntityManager entityManager;
 
-    public CrudJpa(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
+    public CrudJpa() {}
+
+    @PersistenceContext(unitName = "persistence-jpa")
+    private EntityManager entityManager;
 
     // All Entity
     @TransactionAttribute(TransactionAttributeType.REQUIRED)

@@ -4,7 +4,7 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
              http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
              version="2.1">
-<persistence-unit name="persistence-jpa">
+<persistence-unit name="persistence-jpa" transaction-type="JTA">
 
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <jta-data-source>java:jboss/datasources/eatmealltest</jta-data-source>

@@ -1,12 +1,11 @@
 package com.WildBirds.RepositoryJPA.infrastructure;
 
 import com.WildBirds.RepositoryJPA.domain.ports.RepositoryCrud;
-import com.WildBirds.crudjpa.appliaction.implementations.CrudJpa;
+import com.WildBirds.RepositoryJPA.infrastructure.crudjpa.implementations.CrudJpa;
 
-import javax.persistence.EntityManager;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 
-public class RepositoryCrudJPA extends CrudJpa implements RepositoryCrud {
-    public RepositoryCrudJPA(EntityManager entityManager) {
-        super(entityManager);
-    }
-}
+@Stateless
+@LocalBean
+public class RepositoryCrudJPA extends CrudJpa implements RepositoryCrud {}

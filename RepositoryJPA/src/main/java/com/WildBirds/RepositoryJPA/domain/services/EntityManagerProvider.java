@@ -16,6 +16,13 @@ public class EntityManagerProvider {
 //    private EntityManagerFactory entityManagerFactory;
 
     public EntityManager getEntityManager() {
+
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println(entityManager+"    <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+        System.out.println();
+        System.out.println();
         return entityManager;
     }
 }

@@ -1,4 +1,4 @@
-package com.WildBirds.crudjpa.appliaction.interfaces;
+package com.WildBirds.RepositoryJPA.infrastructure.crudjpa.interfaces;
 
 import java.util.List;
 
