@@ -16,6 +16,7 @@ public class RepositoryMealHasProductJPA extends CrudEntityJpa<MealHasProduct> i
         super(MealHasProduct.class);
     }
 
+    @Override
     public MealHasProduct someAdditionalMethod() {
         return null;
     }

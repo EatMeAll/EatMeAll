@@ -8,6 +8,7 @@ import com.WildBirds.RepositoryJPA.infrastructure.crudjpa.implementations.CrudEn
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+
 @Stateless
 @LocalBean
 public class RepositoryTypeMealJPA extends CrudEntityJpa<TypeMeal> implements RepositoryTypeMeal {
