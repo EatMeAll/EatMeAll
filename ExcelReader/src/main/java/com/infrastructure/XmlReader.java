@@ -4,6 +4,7 @@ import com.domain.model.MealExcel;
 import com.domain.model.ProductsExcel;
 import com.domain.ports.ExcelReader;
 
+
 import org.apache.poi.ss.usermodel.*;
 
 import java.io.File;
@@ -19,7 +20,10 @@ public class XmlReader implements ExcelReader {
     public List<MealExcel> read(String sourceFilePath) throws IOException {
 
         List<MealExcel> typeMeal = new ArrayList<>();
-        Workbook workbook = WorkbookFactory.create(new File(sourceFilePath));
+        Workbook workbook = null;
+
+            workbook = WorkbookFactory.create(new File(sourceFilePath));
+
 
         Sheet firstSheet = workbook.getSheetAt(0);
         Iterator<Row> rowIterator = firstSheet.rowIterator();

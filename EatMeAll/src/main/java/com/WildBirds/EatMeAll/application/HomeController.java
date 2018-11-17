@@ -6,6 +6,7 @@ import com.WildBirds.RepositoryJPA.domain.model.Meal;
 import com.WildBirds.RepositoryJPA.domain.model.MealHasProduct;
 import com.WildBirds.RepositoryJPA.domain.model.Product;
 import com.WildBirds.RepositoryJPA.domain.model.enums.Language;
+import com.aplication.ExcelReaderApp;
 
 import javax.ejb.EJB;
 import javax.ws.rs.GET;
@@ -13,6 +14,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.io.IOException;
 
 @Path("")
 public class HomeController {
@@ -23,6 +25,9 @@ public class HomeController {
 
     @EJB
     RepositoryFacade repo;
+
+    @EJB
+    ExcelReaderApp excelReaderApp;
 
     @GET
     @Path("home")
@@ -46,6 +51,7 @@ public class HomeController {
         repo.MEALHASPRODUCT().insert(mealHasProduct);
         repo.MEAL().insert(meal);
 
+        mealsToRepository();
 
         return Response.status(200).entity("Hello world").build();
     }
@@ -54,5 +60,14 @@ public class HomeController {
     public Response test(@Context UriInfo info) {
         System.out.println("test2");
         return Response.status(200).entity("test").build();
+    }
+
+
+    private void mealsToRepository(){
+        try {
+            excelReaderApp.addToDatabase();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
