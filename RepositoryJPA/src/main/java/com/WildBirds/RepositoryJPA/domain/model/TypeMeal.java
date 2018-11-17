@@ -12,6 +12,7 @@ public class TypeMeal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idTypeMeal;
+    @Enumerated(EnumType.STRING)
     private MealTime mealTime;
 
 

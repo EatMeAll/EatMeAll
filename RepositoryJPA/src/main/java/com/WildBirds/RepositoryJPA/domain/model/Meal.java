@@ -16,6 +16,7 @@ public class Meal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idMeal;
 
+    @Enumerated(EnumType.STRING)
     private Language language;
 
     private String title;
