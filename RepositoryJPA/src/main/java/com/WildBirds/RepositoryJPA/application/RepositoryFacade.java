@@ -2,8 +2,6 @@ package com.WildBirds.RepositoryJPA.application;
 
 import com.WildBirds.RepositoryJPA.domain.ports.*;
 import com.WildBirds.RepositoryJPA.infrastructure.*;
-
-import javax.annotation.PostConstruct;
 import javax.ejb.*;
 
 @Stateless
