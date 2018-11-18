@@ -45,8 +45,8 @@ public class Meal {
     @JoinColumn(name = "idReceipt")
     private Receipt receipt;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "meal")
-    private Set<MealHasProduct> mealHasProductSet = new HashSet<>();
+//    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "meal")
+//    private Set<MealHasProduct> mealHasProductSet = new HashSet<>();
 
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -69,7 +69,7 @@ public class Meal {
             inverseJoinColumns = {@JoinColumn(name = "idUser")})
     private Set<User> likedBySet = new HashSet<>();
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne
     @JoinColumn(name = "idUser")
     private User creatorMeal;
 
@@ -148,13 +148,13 @@ public class Meal {
         this.receipt = receipt;
     }
 
-    public Set<MealHasProduct> getMealHasProductSet() {
-        return mealHasProductSet;
-    }
-
-    public void setMealHasProductSet(Set<MealHasProduct> mealHasProductSet) {
-        this.mealHasProductSet = mealHasProductSet;
-    }
+//    public Set<MealHasProduct> getMealHasProductSet() {
+//        return mealHasProductSet;
+//    }
+//
+//    public void setMealHasProductSet(Set<MealHasProduct> mealHasProductSet) {
+//        this.mealHasProductSet = mealHasProductSet;
+//    }
 
     public Set<TypeMeal> getTypeMeal() {
         return typeMeal;

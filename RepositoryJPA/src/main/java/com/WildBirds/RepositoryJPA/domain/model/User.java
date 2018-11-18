@@ -15,16 +15,17 @@ public class User {
     private String nick;
     private String email;
     private String password;
+    @Enumerated(EnumType.STRING)
     private UserType userType;
 
     @ManyToMany(mappedBy = "likedBySet",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Meal> favouritesMealsSet = new HashSet<>();
-
-    @OneToMany(mappedBy = "creatorMeal")
-    private Set<Meal> mealsCreatedSet = new HashSet<>();
-
-    @OneToMany(mappedBy = "dayOwner")
-    private Set<Day> historyMealsSet = new HashSet<>();
+//
+//    @OneToMany(mappedBy = "creatorMeal")
+//    private Set<Meal> mealsCreatedSet = new HashSet<>();
+//
+//    @OneToMany(mappedBy = "dayOwner")
+//    private Set<Day> historyMealsSet = new HashSet<>();
 
     public User() {
     }
@@ -75,21 +76,5 @@ public class User {
 
     public void setFavouritesMealsSet(Set<Meal> favouritesMealsSet) {
         this.favouritesMealsSet = favouritesMealsSet;
-    }
-
-    public Set<Meal> getMealsCreatedSet() {
-        return mealsCreatedSet;
-    }
-
-    public void setMealsCreatedSet(Set<Meal> mealsCreatedSet) {
-        this.mealsCreatedSet = mealsCreatedSet;
-    }
-
-    public Set<Day> getHistoryMealsSet() {
-        return historyMealsSet;
-    }
-
-    public void setHistoryMealsSet(Set<Day> historyMealsSet) {
-        this.historyMealsSet = historyMealsSet;
     }
 }

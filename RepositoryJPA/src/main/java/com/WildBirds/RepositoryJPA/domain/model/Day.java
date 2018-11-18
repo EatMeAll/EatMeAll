@@ -20,8 +20,8 @@ public class Day {
     @JoinColumn(name = "idUser")
     private User dayOwner;
 
-    @ManyToMany(mappedBy = "usedInDays", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<Meal> mealsSet = new HashSet<>();
+//    @ManyToMany(mappedBy = "usedInDays", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+//    private Set<Meal> mealsSet = new HashSet<>();
 
     public Day() {
     }
@@ -50,11 +50,11 @@ public class Day {
         this.dayOwner = dayOwner;
     }
 
-    public Set<Meal> getMealsSet() {
-        return mealsSet;
-    }
-
-    public void setMealsSet(Set<Meal> mealsSet) {
-        this.mealsSet = mealsSet;
-    }
+//    public Set<Meal> getMealsSet() {
+//        return mealsSet;
+//    }
+//
+//    public void setMealsSet(Set<Meal> mealsSet) {
+//        this.mealsSet = mealsSet;
+//    }
 }

@@ -16,11 +16,11 @@ public class Receipt {
     private String description;
     private Integer prepareTime;
 
-    @OneToMany(mappedBy = "receipt", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<Step> stepSet = new HashSet<>();
-
-    @OneToOne(mappedBy = "receipt")
-    private Meal meal;
+//    @OneToMany(mappedBy = "receipt", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+//    private Set<Step> stepSet = new HashSet<>();
+//
+//    @OneToOne(mappedBy = "receipt")
+//    private Meal meal;
 
     public Receipt() {
     }
@@ -49,13 +49,13 @@ public class Receipt {
         this.description = description;
     }
 
-    public Set<Step> getStepSet() {
-        return stepSet;
-    }
-
-    public void setStepSet(Set<Step> stepSet) {
-        this.stepSet = stepSet;
-    }
+//    public Set<Step> getStepSet() {
+//        return stepSet;
+//    }
+//
+//    public void setStepSet(Set<Step> stepSet) {
+//        this.stepSet = stepSet;
+//    }
 
     public Integer getPrepareTime() {
         return prepareTime;
@@ -65,11 +65,11 @@ public class Receipt {
         this.prepareTime = prepareTime;
     }
 
-    public Meal getMeal() {
-        return meal;
-    }
-
-    public void setMeal(Meal meal) {
-        this.meal = meal;
-    }
+//    public Meal getMeal() {
+//        return meal;
+//    }
+//
+//    public void setMeal(Meal meal) {
+//        this.meal = meal;
+//    }
 }

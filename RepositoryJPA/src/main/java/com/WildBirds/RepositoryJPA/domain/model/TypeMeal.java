@@ -16,8 +16,8 @@ public class TypeMeal {
     private MealTime mealTime;
 
 
-    @ManyToMany(mappedBy = "typeMeal", cascade = {CascadeType.MERGE})
-    private Set<Meal> mealSet = new HashSet<>();
+//    @ManyToMany(mappedBy = "typeMeal", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+//    private Set<Meal> mealSet = new HashSet<>();
 
     public TypeMeal() {
     }
@@ -38,11 +38,11 @@ public class TypeMeal {
         this.mealTime = mealTime;
     }
 
-    public Set<Meal> getMealSet() {
-        return mealSet;
-    }
-
-    public void setMealSet(Set<Meal> mealSet) {
-        this.mealSet = mealSet;
-    }
+//    public Set<Meal> getMealSet() {
+//        return mealSet;
+//    }
+//
+//    public void setMealSet(Set<Meal> mealSet) {
+//        this.mealSet = mealSet;
+//    }
 }
