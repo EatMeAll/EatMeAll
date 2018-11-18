@@ -2,6 +2,7 @@ package com.WildBirds.RepositoryJPA.infrastructure.crudjpa.implementations;
 
 import com.WildBirds.RepositoryJPA.infrastructure.crudjpa.interfaces.CrudEntity;
 
+import javax.ejb.SessionContext;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
@@ -30,7 +31,7 @@ public class CrudEntityJpa<Entity> implements CrudEntity<Entity> {
 
 
     // Crud
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Entity get(int id) {
         return this.entityManager.find(this.entityClass, id);
     }
@@ -64,7 +65,7 @@ public class CrudEntityJpa<Entity> implements CrudEntity<Entity> {
         entityManager.remove(entityManager.find(entityClass, id));
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Entity insert(Entity insertData) {
         entityManager.persist(insertData);
         return entityManager.merge(insertData);

@@ -94,7 +94,10 @@ public class ExcelReaderApp {
                     mealEntity.setPhoto(supperPhoto);
                     break;
             }
-            repo.TYPEMEAL().insert(typeMealEntity);
+            TypeMeal typeMealFromDatabase = repo.TYPEMEAL().insert(typeMealEntity);
+
+
+
             Set<TypeMeal> typeMealSet = new HashSet<>();
 
             typeMealSet.add(typeMealEntity);
@@ -115,6 +118,7 @@ public class ExcelReaderApp {
                 mealHasProduct.setUnit(productsExcelUnit);
                 mealHasProduct.setSpecialUnit(productsExcelSpecialUnit);
                 mealHasProduct.setProduct(product);
+                mealHasProduct.setMeal(mealEntity);
                 repo.PRODUCT().insert(product);
                 repo.MEALHASPRODUCT().insert(mealHasProduct);
 //                mealEntity.getMealHasProductSet().add(mealHasProduct);
@@ -140,8 +144,10 @@ public class ExcelReaderApp {
             mealEntity.setAmountCalories((int) Math.round(caloriesExcel));
             mealEntity.setPublic(true);
             mealEntity.setCreatedDate(Instant.now());
+
 //            mealEntity.setTypeMeal(typeMealSet);
-//            mealEntity.getTypeMeal().add(typeMealEntity);
+            mealEntity.getTypeMeal().add(typeMealFromDatabase);
+
             mealEntity.setReceipt(receipt);
             mealEntity.setAuthorReceipt(authorExcel);
             mealEntity.setCreatorMeal(user);

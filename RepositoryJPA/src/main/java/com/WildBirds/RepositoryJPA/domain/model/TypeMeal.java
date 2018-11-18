@@ -17,7 +17,13 @@ public class TypeMeal {
 
 
 //    @ManyToMany(mappedBy = "typeMeal", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-//    private Set<Meal> mealSet = new HashSet<>();
+
+
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "MealHasTypeMeal",
+            joinColumns = {@JoinColumn(name = "idTypeMeal")},
+            inverseJoinColumns = {@JoinColumn(name = "idMeal")})
+    private Set<Meal> mealSet = new HashSet<>();
 
     public TypeMeal() {
     }
@@ -38,11 +44,40 @@ public class TypeMeal {
         this.mealTime = mealTime;
     }
 
-//    public Set<Meal> getMealSet() {
-//        return mealSet;
-//    }
-//
-//    public void setMealSet(Set<Meal> mealSet) {
-//        this.mealSet = mealSet;
-//    }
+    public Set<Meal> getMealSet() {
+        return mealSet;
+    }
+
+    public void setMealSet(Set<Meal> mealSet) {
+        this.mealSet = mealSet;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TypeMeal typeMeal = (TypeMeal) o;
+
+        if (idTypeMeal != null ? !idTypeMeal.equals(typeMeal.idTypeMeal) : typeMeal.idTypeMeal != null) return false;
+        if (mealTime != typeMeal.mealTime) return false;
+        return mealSet != null ? mealSet.equals(typeMeal.mealSet) : typeMeal.mealSet == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = idTypeMeal != null ? idTypeMeal.hashCode() : 0;
+        result = 31 * result + (mealTime != null ? mealTime.hashCode() : 0);
+        result = 31 * result + (mealSet != null ? mealSet.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "TypeMeal{" +
+                "idTypeMeal=" + idTypeMeal +
+                ", mealTime=" + mealTime +
+                ", mealSet=" + mealSet +
+                '}';
+    }
 }

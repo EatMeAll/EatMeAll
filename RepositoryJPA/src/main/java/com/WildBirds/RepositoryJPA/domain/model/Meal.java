@@ -49,7 +49,7 @@ public class Meal {
 //    private Set<MealHasProduct> mealHasProductSet = new HashSet<>();
 
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "MealHasTypeMeal",
             joinColumns = {@JoinColumn(name = "idMeal")},
             inverseJoinColumns = {@JoinColumn(name = "idTypeMeal")})
