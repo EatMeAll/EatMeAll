@@ -187,4 +187,25 @@ public class Meal {
     public void setCreatorMeal(User creatorMeal) {
         this.creatorMeal = creatorMeal;
     }
+
+
+    @Override
+    public String toString() {
+        return "Meal{" +
+                "idMeal=" + idMeal +
+                ", language=" + language +
+                ", title='" + title + '\'' +
+                ", shortDescription='" + shortDescription + '\'' +
+                ", amountCalories=" + amountCalories +
+                ", authorReceipt='" + authorReceipt + '\'' +
+                ", photo=" + photo +
+                ", isPublic=" + isPublic +
+                ", createdDate=" + createdDate +
+                ", receipt=" + receipt +
+                ", typeMeal=" + typeMeal +
+                ", usedInDays=" + usedInDays +
+                ", likedBySet=" + likedBySet +
+                ", creatorMeal=" + creatorMeal +
+                '}';
+    }
 }

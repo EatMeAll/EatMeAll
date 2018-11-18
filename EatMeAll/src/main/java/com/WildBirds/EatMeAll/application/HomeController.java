@@ -15,6 +15,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.io.IOException;
+import java.util.List;
 
 @Path("")
 public class HomeController {
@@ -56,10 +57,12 @@ public class HomeController {
         return Response.status(200).entity("Hello world").build();
     }
     @GET
-    @Path("test")
+    @Path("meal")
     public Response test(@Context UriInfo info) {
         System.out.println("test2");
-        return Response.status(200).entity("test").build();
+
+        Meal meal = repo.MEAL().get(1);
+        return Response.status(200).entity(meal.toString()).build();
     }
 
 

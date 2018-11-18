@@ -94,7 +94,9 @@ public class ExcelReaderApp {
                     mealEntity.setPhoto(supperPhoto);
                     break;
             }
-            TypeMeal typeMealFromDatabase = repo.TYPEMEAL().insert(typeMealEntity);
+
+
+            TypeMeal typeMealFromDatabase = repo.TYPEMEAL().update(typeMealEntity);
 
 
 

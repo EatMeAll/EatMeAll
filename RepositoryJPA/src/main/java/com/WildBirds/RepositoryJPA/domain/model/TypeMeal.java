@@ -12,6 +12,7 @@ public class TypeMeal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idTypeMeal;
+
     @Enumerated(EnumType.STRING)
     private MealTime mealTime;
 
@@ -42,6 +43,7 @@ public class TypeMeal {
 
     public void setMealTime(MealTime mealTime) {
         this.mealTime = mealTime;
+        this.setIdTypeMeal(mealTime.getIndex());
     }
 
     public Set<Meal> getMealSet() {
@@ -59,17 +61,12 @@ public class TypeMeal {
 
         TypeMeal typeMeal = (TypeMeal) o;
 
-        if (idTypeMeal != null ? !idTypeMeal.equals(typeMeal.idTypeMeal) : typeMeal.idTypeMeal != null) return false;
-        if (mealTime != typeMeal.mealTime) return false;
-        return mealSet != null ? mealSet.equals(typeMeal.mealSet) : typeMeal.mealSet == null;
+        return mealTime == typeMeal.mealTime;
     }
 
     @Override
     public int hashCode() {
-        int result = idTypeMeal != null ? idTypeMeal.hashCode() : 0;
-        result = 31 * result + (mealTime != null ? mealTime.hashCode() : 0);
-        result = 31 * result + (mealSet != null ? mealSet.hashCode() : 0);
-        return result;
+        return mealTime != null ? mealTime.hashCode() : 0;
     }
 
     @Override

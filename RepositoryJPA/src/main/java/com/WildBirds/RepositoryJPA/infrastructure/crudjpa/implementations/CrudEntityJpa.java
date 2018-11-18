@@ -36,7 +36,7 @@ public class CrudEntityJpa<Entity> implements CrudEntity<Entity> {
         return this.entityManager.find(this.entityClass, id);
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Entity> getAll() {
 
         List className = entityManager
@@ -47,7 +47,7 @@ public class CrudEntityJpa<Entity> implements CrudEntity<Entity> {
         return className;
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Entity> getAll(Integer skip, Integer limit) {
 
         // TODO: 08.11.2018 should work but I'm not sure
@@ -60,7 +60,7 @@ public class CrudEntityJpa<Entity> implements CrudEntity<Entity> {
         return className;
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void delete(int id) {
         entityManager.remove(entityManager.find(entityClass, id));
     }
@@ -71,7 +71,7 @@ public class CrudEntityJpa<Entity> implements CrudEntity<Entity> {
         return entityManager.merge(insertData);
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Entity update(Entity updateData) {
         return entityManager.merge(updateData);
     }
