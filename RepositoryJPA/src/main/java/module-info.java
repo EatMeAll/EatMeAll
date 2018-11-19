@@ -6,4 +6,6 @@ module com.WildBirds.RepositoryJPA {
 
     requires javaee.api;
     requires lombok;
+
+    requires java.naming;
 }

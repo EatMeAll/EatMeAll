@@ -1,7 +1,8 @@
 package com.WildBirds.EatMeAll.application.controlers;
 
 
-import com.WildBirds.EatMeAll.application.controlers.service.ResponseStrategy;
+
+import com.WildBirds.EatMeAll.application.controlers.service.handler.ResponseStrategy;
 import com.WildBirds.EatMeAll.application.controlers.utils.HttpStatus;
 import com.WildBirds.EatMeAll.application.modelDTO.*;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
@@ -28,6 +29,8 @@ public class MealController {
     @EJB
     RepositoryFacade repo;
 
+//    @EJB
+//    MealServiceTypeMeal mealServiceTypeMeal;
 
     @GET
     @Path("all")
@@ -63,54 +66,85 @@ public class MealController {
                 //http://localhost:8080/app/meals/typeMeal?typeMeal=DINNER&language=PL&amount=2&isPublic=true&products=czosnek&products=marchew&products=%C5%9Bmietana
                 .when("typeMeal", "language", "amount", "isPublic", "products").execute((map) -> {
 
+
                     String typeMeal = map.getFirst("typeMeal");
+                    MealTime mealTime = MealTime.valueOf(typeMeal);
+
                     String language = map.getFirst("language");
+                    Language languageENUM = Language.valueOf(language);
+
                     Integer amount = Integer.valueOf(map.getFirst("amount"));
                     Boolean isPublic = Boolean.getBoolean(map.getFirst("isPublic"));
                     List<String> listProducts = map.get("products");
 
+//                    List<MealDTO> mealDTOList = mealServiceTypeMeal.getMeals
+//                            (mealTime, languageENUM, amount, isPublic, listProducts);
+
+
                     return Response.status(HttpStatus.OK.getCode()).entity(
                             String.format("RANDOM MEAL ORDER BY: typeMeal, language, amount, isPublic" +
                                             "\n typeMeal=%s language=%s amount=%s isPublic=%s products=%s",
-                                    typeMeal, language, amount, isPublic, listProducts)).build();
+                                    mealTime, languageENUM, amount, isPublic, listProducts)).build();
 
                 })
                 .when("typeMeal", "language", "amount", "isPublic").execute((map) -> {
 
                     String typeMeal = map.getFirst("typeMeal");
+                    MealTime mealTime = MealTime.valueOf(typeMeal);
+
                     String language = map.getFirst("language");
+                    Language languageENUM = Language.valueOf(language);
+
                     Integer amount = Integer.valueOf(map.getFirst("amount"));
 
                     //todo : return ALWAYS FALSE ?!?!
                     Boolean isPublic = Boolean.getBoolean(map.getFirst("isPublic"));
 
+//                    List<MealDTO> mealDTOList = mealServiceTypeMeal.getMeals
+//                            (mealTime, languageENUM, amount, isPublic);
+
                     return Response.status(HttpStatus.OK.getCode()).entity(
                             String.format("RANDOM MEAL ORDER BY: typeMeal,language,amount ,isPublic" +
                                             "\n typeMeal=%s language=%s amount=%s isPublic= %s",
-                                    typeMeal, language, amount, isPublic)).build();
+                                    typeMeal, languageENUM, amount, isPublic)).build();
 
                 })
                 .when("typeMeal", "language", "amount").execute((map) -> {
 
                     String typeMeal = map.getFirst("typeMeal");
+                    MealTime mealTime = MealTime.valueOf(typeMeal);
+
                     String language = map.getFirst("language");
+                    Language languageENUM = Language.valueOf(language);
+
                     Integer amount = Integer.valueOf(map.getFirst("amount"));
+
+//                    List<MealDTO> mealDTOList = mealServiceTypeMeal.getMeals
+//                            (mealTime, languageENUM, amount);
 
                     return Response.status(HttpStatus.OK.getCode()).entity(
                             String.format("RANDOM MEAL ORDER BY: typeMeal, language, amount  " +
                                             "\n typeMeal=%s, language=%s amount=%s ",
-                                    typeMeal, language, amount)).build();
+                                    typeMeal, languageENUM, amount)).build();
                 })
                 .when("typeMeal", "language").execute((map) -> {
 
-                    Integer amount = Integer.valueOf(map.getFirst("amount"));
-                    String language = map.getFirst("language");
                     String typeMeal = map.getFirst("typeMeal");
+                    MealTime mealTime = MealTime.valueOf(typeMeal);
+
+                    String language = map.getFirst("language");
+                    Language languageENUM = Language.valueOf(language);
+
+                    Integer amount = Integer.valueOf(map.getFirst("amount"));
+
+//                    List<MealDTO> mealDTOList = mealServiceTypeMeal.getMeals
+//                            (mealTime, languageENUM);
+
 
                     return Response.status(HttpStatus.OK.getCode()).entity(
                             String.format("RANDOM MEAL ORDER BY: Amount language, typeMeal" +
                                             "\n Amount=%s language=%s typeMeal=%s",
-                                    typeMeal, language, amount)).build();
+                                    mealTime, language, amount)).build();
                 })
                 .ultimately(params -> {
                     return Response.status(HttpStatus.NOT_FOUND.getCode()).entity("Not match").build();

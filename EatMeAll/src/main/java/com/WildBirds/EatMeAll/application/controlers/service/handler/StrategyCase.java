@@ -1,4 +1,4 @@
-package com.WildBirds.EatMeAll.application.controlers.service;
+package com.WildBirds.EatMeAll.application.controlers.service.handler;
 
 public class StrategyCase {
 
