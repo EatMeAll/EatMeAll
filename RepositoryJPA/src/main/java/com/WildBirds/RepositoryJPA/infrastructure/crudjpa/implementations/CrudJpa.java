@@ -1,11 +1,11 @@
-package com.WildBirds.RepositoryJPA.infrastructure.crudjpa.implementations;
+package com.WildBirds.RepositoryJPA.infrastructure.CrudJPA.implementations;
 
-import com.WildBirds.RepositoryJPA.infrastructure.crudjpa.interfaces.Crud;
+
+import com.WildBirds.RepositoryJPA.infrastructure.CrudJPA.interfaces.Crud;
 
 import javax.ejb.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.TransactionScoped;
 import java.util.List;
 
 

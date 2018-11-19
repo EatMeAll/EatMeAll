@@ -1,4 +1,5 @@
-package com.WildBirds.EatMeAll.application;
+package com.WildBirds.EatMeAll.application.controlers;
+
 
 import com.WildBirds.EatMeAll.domain.services.Main;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
@@ -15,7 +16,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.io.IOException;
-import java.util.List;
 
 @Path("")
 public class HomeController {
@@ -57,7 +57,7 @@ public class HomeController {
         return Response.status(200).entity("Hello world").build();
     }
     @GET
-    @Path("meal")
+    @Path("test")
     public Response test(@Context UriInfo info) {
         System.out.println("test2");
 

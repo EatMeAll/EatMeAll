@@ -18,7 +18,12 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
-    @ManyToMany(mappedBy = "likedBySet",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+//    @ManyToMany(mappedBy = "likedBySet",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinTable(name = "Favourites",
+            joinColumns = {@JoinColumn(name = "idUser")},
+            inverseJoinColumns = {@JoinColumn(name = "idMeal")})
     private Set<Meal> favouritesMealsSet = new HashSet<>();
 //
 //    @OneToMany(mappedBy = "creatorMeal")

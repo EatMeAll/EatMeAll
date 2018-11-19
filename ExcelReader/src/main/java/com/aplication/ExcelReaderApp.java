@@ -70,6 +70,8 @@ public class ExcelReaderApp {
 
                     typeMealEntity.setMealTime(MealTime.BREAKFAST);
                     File breakfastPhoto = new File("D:\\PROGRAMOWANIE\\etmeall2\\eatmeall\\ExcelReader\\src\\main\\resource\\breakfast.jpg");
+
+//                    https://drive.google.com/file/d/1NVdzB988vO-qSU9HH8GDrMmi3Jogt8wo/view?usp=sharing
                     mealEntity.setPhoto(breakfastPhoto);
                     break;
 
@@ -98,6 +100,14 @@ public class ExcelReaderApp {
 
             TypeMeal typeMealFromDatabase = repo.TYPEMEAL().update(typeMealEntity);
 
+
+//            System.out.println();
+//            System.out.println();
+//            System.out.println(repo.TYPEMEAL().get(1));
+//            System.out.println();
+//            System.out.println();
+//
+//            System.out.println();
 
 
             Set<TypeMeal> typeMealSet = new HashSet<>();

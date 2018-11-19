@@ -3,7 +3,7 @@ package com.WildBirds.RepositoryJPA.infrastructure;
 
 import com.WildBirds.RepositoryJPA.domain.model.Product;
 import com.WildBirds.RepositoryJPA.domain.ports.RepositoryProduct;
-import com.WildBirds.RepositoryJPA.infrastructure.crudjpa.implementations.CrudEntityJpa;
+import com.WildBirds.RepositoryJPA.infrastructure.CrudJPA.implementations.CrudEntityJpa;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;

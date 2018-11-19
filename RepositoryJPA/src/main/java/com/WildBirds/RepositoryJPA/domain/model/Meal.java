@@ -49,21 +49,21 @@ public class Meal {
 //    private Set<MealHasProduct> mealHasProductSet = new HashSet<>();
 
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinTable(name = "MealHasTypeMeal",
             joinColumns = {@JoinColumn(name = "idMeal")},
             inverseJoinColumns = {@JoinColumn(name = "idTypeMeal")})
     private Set<TypeMeal> typeMeal = new HashSet<>();
 
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(name = "MealHasDay",
             joinColumns = {@JoinColumn(name = "idMeal")},
             inverseJoinColumns = {@JoinColumn(name = "idDay")})
     private Set<Day> usedInDays = new HashSet<>();
 
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(name = "Favourites",
             joinColumns = {@JoinColumn(name = "idMeal")},
             inverseJoinColumns = {@JoinColumn(name = "idUser")})
@@ -202,9 +202,9 @@ public class Meal {
                 ", isPublic=" + isPublic +
                 ", createdDate=" + createdDate +
                 ", receipt=" + receipt +
-                ", typeMeal=" + typeMeal +
-                ", usedInDays=" + usedInDays +
-                ", likedBySet=" + likedBySet +
+//                ", typeMeal=" + typeMeal +
+//                ", usedInDays=" + usedInDays +
+//                ", likedBySet=" + likedBySet +
                 ", creatorMeal=" + creatorMeal +
                 '}';
     }

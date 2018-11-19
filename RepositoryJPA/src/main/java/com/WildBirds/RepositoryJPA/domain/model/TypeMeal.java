@@ -20,7 +20,7 @@ public class TypeMeal {
 //    @ManyToMany(mappedBy = "typeMeal", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinTable(name = "MealHasTypeMeal",
             joinColumns = {@JoinColumn(name = "idTypeMeal")},
             inverseJoinColumns = {@JoinColumn(name = "idMeal")})
