@@ -6,6 +6,7 @@ import com.WildBirds.RepositoryJPA.domain.model.enums.Language;
 import com.WildBirds.RepositoryJPA.domain.model.enums.MealTime;
 import com.WildBirds.RepositoryJPA.infrastructure.CrudJPA.interfaces.CrudEntity;
 
+import java.io.File;
 import java.util.List;
 
 public interface RepositoryMeal extends CrudEntity<Meal> {
@@ -19,4 +20,5 @@ public interface RepositoryMeal extends CrudEntity<Meal> {
     List<Meal> getMealsByTypeMeal(MealTime mealTime);
 
 
+    File getFile(int idPhoto);
 }

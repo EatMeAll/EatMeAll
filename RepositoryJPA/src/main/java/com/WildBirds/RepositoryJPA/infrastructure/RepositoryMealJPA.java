@@ -14,6 +14,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
+import java.io.File;
 import java.util.List;
 
 @Stateless
@@ -81,6 +82,17 @@ public class RepositoryMealJPA extends CrudEntityJpa<Meal> implements Repository
         return this.entityManager.createQuery(query, Meal.class).
                 setParameter("idMeal", mealTime.getIndex()).
                 getResultList();
+    }
+
+    @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public File getFile(int idPhoto) {
+        String query ="SELECT meal.photo FROM Meal meal WHERE meal.idMeal=: idPhoto";
+
+                return this.entityManager.createQuery(query, File.class)
+                        .setParameter("idPhoto", idPhoto)
+                        .getSingleResult();
+
     }
 
 

@@ -11,16 +11,15 @@ import com.WildBirds.RepositoryJPA.domain.model.Meal;
 import com.WildBirds.RepositoryJPA.domain.model.enums.Language;
 import com.WildBirds.RepositoryJPA.domain.model.enums.MealTime;
 import com.WildBirds.RepositoryJPA.domain.model.enums.UserType;
+import lombok.Getter;
 
 import javax.ejb.EJB;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.io.File;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -180,6 +179,18 @@ public class MealController {
 
 
     @GET
+    @Path("photo/{idPhoto}")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response getFile(@Context UriInfo info, @PathParam("idPhoto") Integer idPhoto) {
+
+        File file = repo.MEAL().getFile(idPhoto);
+        return Response.ok(file, MediaType.APPLICATION_OCTET_STREAM)
+                .header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"" ) //optional
+                .build();
+    }
+
+
+    @GET
     @Path("sample")
     @Produces("application/json; charset=UTF-8")
     public Response getMeal(@Context UriInfo info) {
@@ -251,5 +262,8 @@ public class MealController {
 
         return Response.status(HttpStatus.OK.getCode()).entity(mealDTO1).build();
     }
+
+
+
 
 }
