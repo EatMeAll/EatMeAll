@@ -15,6 +15,7 @@ import javax.ejb.EJB;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
@@ -40,22 +41,21 @@ public class MealController {
         return Response.status(200).entity(all.toString()).build();
     }
 
-//    @GET
-//    @Path("find")
-//    public Response test(@Context UriInfo info, @QueryParam("typeMeal") String typeMeal) {
-//        System.out.println("method 1");
-//        if (typeMeal != null) {
-//            MealTime mealTime = MealTime.valueOf(typeMeal);
-//
-//            List<Meal> mealsByMealTeam = repo.MEAL().getMealsByMealTeam(mealTime);
-//            return Response.status(200).entity(mealsByMealTeam.toString()).build();
+    @GET
+    @Path("find")
+    public Response test(@Context UriInfo info, @QueryParam("typeMeal") String typeMeal) {
+        System.out.println("method 1");
+        if (typeMeal != null) {
+            MealTime mealTime = MealTime.valueOf(typeMeal);
 
-//                    String value = map.getFirst("typeMeal");
-////                    List<Meal> mealsByMealTeam = repo.MEAL().getMealsByMealTeam(MealTime.valueOf(value));
-//
-//      }
-//        return Response.status(404).entity("").build();
-//    }
+            List<Meal> mealsByMealTeam = repo.MEAL().getMealsByMealTeam(mealTime);
+            return Response.status(200).entity(mealsByMealTeam.toString()).build();
+
+//                List<Meal> mealsByMealTeam = repo.MEAL().getMealsByMealTeam(MealTime.valueOf(value));
+
+      }
+        return Response.status(404).entity("").build();
+    }
 
     @GET
     @Path("typeMeal")
@@ -134,17 +134,29 @@ public class MealController {
 
                     String language = map.getFirst("language");
                     Language languageENUM = Language.valueOf(language);
-
-                    Integer amount = Integer.valueOf(map.getFirst("amount"));
+//                    Language languageENUM = Language.PL;
 
 //                    List<MealDTO> mealDTOList = mealServiceTypeMeal.getMeals
 //                            (mealTime, languageENUM);
+                    List<Meal> mealsByTypeMeal = repo.MEAL().getMealsByTypeMeal(mealTime, languageENUM);
+
+                    System.out.println(mealsByTypeMeal.toString());
+                    return Response.status(HttpStatus.OK.getCode()).entity(mealsByTypeMeal.toString()).build();
+
+//                    return Response.status(HttpStatus.OK.getCode()).entity(
+//                            String.format("RANDOM MEAL ORDER BY: Amount language, typeMeal" +
+//                                            "\n typeMeal= %s language= %s ",
+//                                    mealTime, languageENUM)).build();
+                })
+                .when("typeMeal").execute((map) -> {
+
+                    String typeMeal = map.getFirst("typeMeal");
+                    MealTime mealTime = MealTime.valueOf(typeMeal);
 
 
-                    return Response.status(HttpStatus.OK.getCode()).entity(
-                            String.format("RANDOM MEAL ORDER BY: Amount language, typeMeal" +
-                                            "\n Amount=%s language=%s typeMeal=%s",
-                                    mealTime, language, amount)).build();
+                    List<Meal> mealsByMealTeam = repo.MEAL().getMealsByMealTeam(mealTime);
+                    return Response.status(200).entity(mealsByMealTeam.toString()).build();
+
                 })
                 .ultimately(params -> {
                     return Response.status(HttpStatus.NOT_FOUND.getCode()).entity("Not match").build();

@@ -40,18 +40,27 @@ public class RepositoryMealJPA extends CrudEntityJpa<Meal> implements Repository
     }
 
     @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Meal> getMealsByTypeMeal(MealTime mealTime, Language language, Integer amount) {
-        return null;
+        String query = "SELECT meal FROM Meal meal " +
+                "JOIN meal.typeMeal typeMeal " +
+                "WHERE typeMeal.idTypeMeal =: idMeal AND " +
+                "meal.language =: language";
+
+
+        return this.entityManager.createQuery(query,Meal.class)
+                .setParameter("idMeal", mealTime.getIndex())
+                .setParameter("language", language)
+                .getResultList();
     }
 
     @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Meal> getMealsByTypeMeal(MealTime mealTime, Language language) {
         String query = "SELECT meal FROM Meal meal " +
                 "JOIN meal.typeMeal typeMeal " +
-                "JOIN meal.language language" +
-                " WHERE typeMeal.idTypeMeal = :idMeal AND " +
-                "language =: language ";
-
+                " WHERE typeMeal.idTypeMeal= :idMeal" +
+                " AND meal.language =: language ";
 
         return this.entityManager.createQuery(query,Meal.class)
                 .setParameter("idMeal", mealTime.getIndex())
@@ -63,7 +72,9 @@ public class RepositoryMealJPA extends CrudEntityJpa<Meal> implements Repository
     @Override
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Meal> getMealsByMealTeam(MealTime mealTime) {
-        String query = "SELECT meal FROM Meal meal JOIN meal.typeMeal typeMeal WHERE typeMeal.idTypeMeal = :idMeal";
+        String query = "SELECT meal FROM Meal meal " +
+                "JOIN meal.typeMeal typeMeal " +
+                "WHERE typeMeal.idTypeMeal = :idMeal";
 
         return this.entityManager.createQuery(query, Meal.class).
                 setParameter("idMeal", mealTime.getIndex()).
