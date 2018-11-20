@@ -16,8 +16,8 @@ public class Receipt {
     private String description;
     private Integer prepareTime;
 
-//    @OneToMany(mappedBy = "receipt", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-//    private Set<Step> stepSet = new HashSet<>();
+    @OneToMany(mappedBy = "receipt", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    private Set<Step> stepSet = new HashSet<>();
 //
 //    @OneToOne(mappedBy = "receipt")
 //    private Meal meal;
@@ -49,13 +49,13 @@ public class Receipt {
         this.description = description;
     }
 
-//    public Set<Step> getStepSet() {
-//        return stepSet;
-//    }
-//
-//    public void setStepSet(Set<Step> stepSet) {
-//        this.stepSet = stepSet;
-//    }
+    public Set<Step> getStepSet() {
+        return stepSet;
+    }
+
+    public void setStepSet(Set<Step> stepSet) {
+        this.stepSet = stepSet;
+    }
 
     public Integer getPrepareTime() {
         return prepareTime;

@@ -5,6 +5,7 @@ package com.WildBirds.EatMeAll.application.controlers;
 import com.WildBirds.EatMeAll.application.controlers.service.handler.ResponseStrategy;
 import com.WildBirds.EatMeAll.application.controlers.utils.HttpStatus;
 import com.WildBirds.EatMeAll.application.modelDTO.*;
+import com.WildBirds.EatMeAll.application.service.Mapper;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
 import com.WildBirds.RepositoryJPA.domain.model.Meal;
 import com.WildBirds.RepositoryJPA.domain.model.enums.Language;
@@ -17,15 +18,21 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Path("meals")
 public class MealController {
 
+
+    @EJB
+    Mapper mapper;
 
     @EJB
     RepositoryFacade repo;
@@ -48,10 +55,10 @@ public class MealController {
         if (typeMeal != null) {
             MealTime mealTime = MealTime.valueOf(typeMeal);
 
-            List<Meal> mealsByMealTeam = repo.MEAL().getMealsByMealTeam(mealTime);
+            List<Meal> mealsByMealTeam = repo.MEAL().getMealsByTypeMeal(mealTime);
             return Response.status(200).entity(mealsByMealTeam.toString()).build();
 
-//                List<Meal> mealsByMealTeam = repo.MEAL().getMealsByMealTeam(MealTime.valueOf(value));
+//                List<Meal> mealsByMealTeam = repo.MEAL().getMealsByTypeMeal(MealTime.valueOf(value));
 
       }
         return Response.status(404).entity("").build();
@@ -59,7 +66,8 @@ public class MealController {
 
     @GET
     @Path("typeMeal")
-    @Produces("application/json; charset=UTF-8")
+    @Produces({"application/json; charset=UTF-8"})
+
     public Response test1(@Context UriInfo info) {
 
         return new ResponseStrategy().form(info)
@@ -122,10 +130,14 @@ public class MealController {
 //                    List<MealDTO> mealDTOList = mealServiceTypeMeal.getMeals
 //                            (mealTime, languageENUM, amount);
 
-                    return Response.status(HttpStatus.OK.getCode()).entity(
-                            String.format("RANDOM MEAL ORDER BY: typeMeal, language, amount  " +
-                                            "\n typeMeal=%s, language=%s amount=%s ",
-                                    typeMeal, languageENUM, amount)).build();
+                    List<Meal> mealsByTypeMeal = repo.MEAL().getMealsByTypeMeal(mealTime, languageENUM, amount);
+
+//                    return Response.status(HttpStatus.OK.getCode()).entity(
+//                            String.format("RANDOM MEAL ORDER BY: typeMeal, language, amount  " +
+//                                            "\n typeMeal=%s, language=%s amount=%s ",
+//                                    typeMeal, languageENUM, amount)).build();
+
+                    return Response.status(HttpStatus.OK.getCode()).entity(mealsByTypeMeal.toString()).build();
                 })
                 .when("typeMeal", "language").execute((map) -> {
 
@@ -134,10 +146,7 @@ public class MealController {
 
                     String language = map.getFirst("language");
                     Language languageENUM = Language.valueOf(language);
-//                    Language languageENUM = Language.PL;
 
-//                    List<MealDTO> mealDTOList = mealServiceTypeMeal.getMeals
-//                            (mealTime, languageENUM);
                     List<Meal> mealsByTypeMeal = repo.MEAL().getMealsByTypeMeal(mealTime, languageENUM);
 
                     System.out.println(mealsByTypeMeal.toString());
@@ -154,8 +163,14 @@ public class MealController {
                     MealTime mealTime = MealTime.valueOf(typeMeal);
 
 
-                    List<Meal> mealsByMealTeam = repo.MEAL().getMealsByMealTeam(mealTime);
-                    return Response.status(200).entity(mealsByMealTeam.toString()).build();
+                    List<Meal> mealsByMealTeam = repo.MEAL().getMealsByTypeMeal(mealTime);
+
+                    List<MealDTO> mealDTOList = mapper.toMealDTO(mealsByMealTeam);
+
+
+                    MealDTO mealDTO = mealDTOList.get(1);
+                    System.out.println(mealDTO.toString());
+                    return Response.status(HttpStatus.OK.getCode()).entity(mealDTO).build();
 
                 })
                 .ultimately(params -> {
@@ -168,7 +183,6 @@ public class MealController {
     @Path("sample")
     @Produces("application/json; charset=UTF-8")
     public Response getMeal(@Context UriInfo info) {
-        MealDTO mealDTO = new MealDTO();
 
         StepDTO stepDTO1 = new StepDTO();
         stepDTO1.setHeader("Tresc pierwszego kroku");
@@ -177,7 +191,7 @@ public class MealController {
         StepDTO stepDTO2 = new StepDTO();
         stepDTO2.setHeader("Tresc kroku drugiego");
         stepDTO2.setNumber(2);
-        List<StepDTO> stepDTOList = new ArrayList<>();
+        Set<StepDTO> stepDTOList = new HashSet<>();
         stepDTOList.add(stepDTO1);
         stepDTOList.add(stepDTO2);
 
@@ -191,8 +205,8 @@ public class MealController {
         typeMealDTO.setIdTypeMeal(1);
         typeMealDTO.setMealTime(MealTime.BREAKFAST);
 
-        List<TypeMealDTO> typeMealDTOList = new ArrayList<>();
-        typeMealDTOList.add(typeMealDTO);
+        Set<TypeMealDTO> typeMealDTOSet = new HashSet<>();
+        typeMealDTOSet.add(typeMealDTO);
 
         UserDTO userDTO = new UserDTO();
 
@@ -214,10 +228,10 @@ public class MealController {
         productDTO2.setUnit("kg");
         productDTO2.setSpecialUnit("1/2 słoja");
 
-        List<ProductDTO> productDTOList = new ArrayList<>();
+        Set<ProductDTO> productDTOSet = new HashSet<>();
 
-        productDTOList.add(productDTO1);
-        productDTOList.add(productDTO2);
+        productDTOSet.add(productDTO1);
+        productDTOSet.add(productDTO2);
 
         MealDTO mealDTO1 =
                 new MealDTO(1,
@@ -230,11 +244,9 @@ public class MealController {
                         true,
                         Instant.now(),
                         receiptDTO,
-                        typeMealDTOList,
+                        typeMealDTOSet,
                         userDTO,
-                        productDTOList,
-                        15,
-                        "DodatkowyOpis");
+                        productDTOSet);
 
 
         return Response.status(HttpStatus.OK.getCode()).entity(mealDTO1).build();

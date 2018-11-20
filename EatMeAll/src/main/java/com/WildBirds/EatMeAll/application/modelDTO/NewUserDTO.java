@@ -51,4 +51,6 @@ public class NewUserDTO {
     public void setUserType(UserType userType) {
         this.userType = userType;
     }
+
+
 }

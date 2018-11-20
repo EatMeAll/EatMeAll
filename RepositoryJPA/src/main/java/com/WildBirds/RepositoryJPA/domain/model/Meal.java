@@ -45,8 +45,8 @@ public class Meal {
     @JoinColumn(name = "idReceipt")
     private Receipt receipt;
 
-//    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "meal")
-//    private Set<MealHasProduct> mealHasProductSet = new HashSet<>();
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "meal", fetch = FetchType.EAGER)
+    private Set<MealHasProduct> mealHasProductSet = new HashSet<>();
 
 
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
@@ -148,13 +148,13 @@ public class Meal {
         this.receipt = receipt;
     }
 
-//    public Set<MealHasProduct> getMealHasProductSet() {
-//        return mealHasProductSet;
-//    }
-//
-//    public void setMealHasProductSet(Set<MealHasProduct> mealHasProductSet) {
-//        this.mealHasProductSet = mealHasProductSet;
-//    }
+    public Set<MealHasProduct> getMealHasProductSet() {
+        return mealHasProductSet;
+    }
+
+    public void setMealHasProductSet(Set<MealHasProduct> mealHasProductSet) {
+        this.mealHasProductSet = mealHasProductSet;
+    }
 
     public Set<TypeMeal> getTypeMeal() {
         return typeMeal;

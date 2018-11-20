@@ -16,8 +16,7 @@ public interface RepositoryMeal extends CrudEntity<Meal> {
     List<Meal> getMealsByTypeMeal(MealTime mealTime, Language language, Integer amount, Boolean isPublic);
     List<Meal> getMealsByTypeMeal(MealTime mealTime, Language language, Integer amount);
     List<Meal> getMealsByTypeMeal(MealTime mealTime, Language language);
-    List<Meal> getMealsByMealTeam(MealTime mealTime);
-
+    List<Meal> getMealsByTypeMeal(MealTime mealTime);
 
 
 }

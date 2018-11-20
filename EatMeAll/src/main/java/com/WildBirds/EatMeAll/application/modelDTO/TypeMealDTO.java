@@ -27,5 +27,29 @@ public class TypeMealDTO {
         this.idTypeMeal = idTypeMeal;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        TypeMealDTO that = (TypeMealDTO) o;
+
+        if (idTypeMeal != null ? !idTypeMeal.equals(that.idTypeMeal) : that.idTypeMeal != null) return false;
+        return mealTime == that.mealTime;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = idTypeMeal != null ? idTypeMeal.hashCode() : 0;
+        result = 31 * result + (mealTime != null ? mealTime.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "TypeMealDTO{" +
+                "idTypeMeal=" + idTypeMeal +
+                ", mealTime=" + mealTime +
+                '}';
+    }
 }

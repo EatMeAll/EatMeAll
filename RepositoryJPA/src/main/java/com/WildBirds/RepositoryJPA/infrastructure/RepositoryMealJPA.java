@@ -45,12 +45,14 @@ public class RepositoryMealJPA extends CrudEntityJpa<Meal> implements Repository
         String query = "SELECT meal FROM Meal meal " +
                 "JOIN meal.typeMeal typeMeal " +
                 "WHERE typeMeal.idTypeMeal =: idMeal AND " +
-                "meal.language =: language";
+                "meal.language =: language " +
+                "ORDER BY RAND()";
 
 
         return this.entityManager.createQuery(query,Meal.class)
                 .setParameter("idMeal", mealTime.getIndex())
                 .setParameter("language", language)
+                .setMaxResults(amount)
                 .getResultList();
     }
 
@@ -71,7 +73,7 @@ public class RepositoryMealJPA extends CrudEntityJpa<Meal> implements Repository
 
     @Override
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public List<Meal> getMealsByMealTeam(MealTime mealTime) {
+    public List<Meal> getMealsByTypeMeal(MealTime mealTime) {
         String query = "SELECT meal FROM Meal meal " +
                 "JOIN meal.typeMeal typeMeal " +
                 "WHERE typeMeal.idTypeMeal = :idMeal";

@@ -125,7 +125,7 @@ public class RepositoryJPAtest {
         MealTime mealTime = MealTime.BREAKFAST;
 
         //when
-        List<Meal> mealsByMealTeam = repositoryMeal.getMealsByMealTeam(mealTime);
+        List<Meal> mealsByMealTeam = repositoryMeal.getMealsByTypeMeal(mealTime);
 
         //then
         assertNotNull(mealsByMealTeam);

@@ -3,9 +3,10 @@ package com.WildBirds.EatMeAll.application.modelDTO;
 
 import com.WildBirds.RepositoryJPA.domain.model.enums.Language;
 
-import java.io.File;
+
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 public class MealDTO {
     private Integer idMeal;
@@ -14,35 +15,32 @@ public class MealDTO {
     private String shortDescription;
     private Integer amountCalories;
     private String authorReceipt;
-    private File photo;
+    private Integer idPhoto;
     private Boolean isPublic;
     private Instant createdDate;
-    private ReceiptDTO receipt;
-    private List<TypeMealDTO> typeMeal;
+    private ReceiptDTO receiptDTO;
+    private Set<TypeMealDTO> typeMeal;
     private UserDTO creatorMeal;
-    private List<ProductDTO> products;
-    private Integer prepaidTime;
-    private String description;
+    private Set<ProductDTO> products;
 
-    public MealDTO(Integer idMeal, Language language, String title, String shortDescription, Integer amountCalories, String authorReceipt, File photo, Boolean isPublic, Instant createdDate, ReceiptDTO receipt, List<TypeMealDTO> typeMeal, UserDTO creatorMeal, List<ProductDTO> products, Integer prepaidTime, String description) {
+
+    public MealDTO() {
+    }
+
+    public MealDTO(Integer idMeal, Language language, String title, String shortDescription, Integer amountCalories, String authorReceipt, Integer idPhoto, Boolean isPublic, Instant createdDate, ReceiptDTO receiptDTO, Set<TypeMealDTO> typeMeal, UserDTO creatorMeal, Set<ProductDTO> products) {
         this.idMeal = idMeal;
         this.language = language;
         this.title = title;
         this.shortDescription = shortDescription;
         this.amountCalories = amountCalories;
         this.authorReceipt = authorReceipt;
-        this.photo = photo;
+        this.idPhoto = idPhoto;
         this.isPublic = isPublic;
         this.createdDate = createdDate;
-        this.receipt = receipt;
+        this.receiptDTO = receiptDTO;
         this.typeMeal = typeMeal;
         this.creatorMeal = creatorMeal;
         this.products = products;
-        this.prepaidTime = prepaidTime;
-        this.description = description;
-    }
-
-    public MealDTO() {
     }
 
     public Integer getIdMeal() {
@@ -93,12 +91,12 @@ public class MealDTO {
         this.authorReceipt = authorReceipt;
     }
 
-    public File getPhoto() {
-        return photo;
+    public Integer getPhoto() {
+        return idPhoto;
     }
 
-    public void setPhoto(File photo) {
-        this.photo = photo;
+    public void setPhoto(Integer idPhoto) {
+        this.idPhoto = idPhoto;
     }
 
     public Boolean getPublic() {
@@ -117,19 +115,19 @@ public class MealDTO {
         this.createdDate = createdDate;
     }
 
-    public ReceiptDTO getReceipt() {
-        return receipt;
+    public ReceiptDTO getReceiptDTO() {
+        return receiptDTO;
     }
 
-    public void setReceipt(ReceiptDTO receipt) {
-        this.receipt = receipt;
+    public void setReceiptDTO(ReceiptDTO receiptDTO) {
+        this.receiptDTO = receiptDTO;
     }
 
-    public List<TypeMealDTO> getTypeMeal() {
+    public Set<TypeMealDTO> getTypeMeal() {
         return typeMeal;
     }
 
-    public void setTypeMeal(List<TypeMealDTO> typeMeal) {
+    public void setTypeMeal(Set<TypeMealDTO> typeMeal) {
         this.typeMeal = typeMeal;
     }
 
@@ -141,27 +139,73 @@ public class MealDTO {
         this.creatorMeal = creatorMeal;
     }
 
-    public List<ProductDTO> getProducts() {
+    public Set<ProductDTO> getProducts() {
         return products;
     }
 
-    public void setProducts(List<ProductDTO> products) {
+    public void setProducts(Set<ProductDTO> products) {
         this.products = products;
     }
 
-    public Integer getPrepaidTime() {
-        return prepaidTime;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        MealDTO mealDTO = (MealDTO) o;
+
+        if (idMeal != null ? !idMeal.equals(mealDTO.idMeal) : mealDTO.idMeal != null) return false;
+        if (language != mealDTO.language) return false;
+        if (title != null ? !title.equals(mealDTO.title) : mealDTO.title != null) return false;
+        if (shortDescription != null ? !shortDescription.equals(mealDTO.shortDescription) : mealDTO.shortDescription != null)
+            return false;
+        if (amountCalories != null ? !amountCalories.equals(mealDTO.amountCalories) : mealDTO.amountCalories != null)
+            return false;
+        if (authorReceipt != null ? !authorReceipt.equals(mealDTO.authorReceipt) : mealDTO.authorReceipt != null)
+            return false;
+        if (idPhoto != null ? !idPhoto.equals(mealDTO.idPhoto) : mealDTO.idPhoto != null) return false;
+        if (isPublic != null ? !isPublic.equals(mealDTO.isPublic) : mealDTO.isPublic != null) return false;
+        if (createdDate != null ? !createdDate.equals(mealDTO.createdDate) : mealDTO.createdDate != null) return false;
+        if (receiptDTO != null ? !receiptDTO.equals(mealDTO.receiptDTO) : mealDTO.receiptDTO != null) return false;
+        if (typeMeal != null ? !typeMeal.equals(mealDTO.typeMeal) : mealDTO.typeMeal != null) return false;
+        if (creatorMeal != null ? !creatorMeal.equals(mealDTO.creatorMeal) : mealDTO.creatorMeal != null) return false;
+        return products != null ? products.equals(mealDTO.products) : mealDTO.products == null;
     }
 
-    public void setPrepaidTime(Integer prepaidTime) {
-        this.prepaidTime = prepaidTime;
+    @Override
+    public int hashCode() {
+        int result = idMeal != null ? idMeal.hashCode() : 0;
+        result = 31 * result + (language != null ? language.hashCode() : 0);
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (shortDescription != null ? shortDescription.hashCode() : 0);
+        result = 31 * result + (amountCalories != null ? amountCalories.hashCode() : 0);
+        result = 31 * result + (authorReceipt != null ? authorReceipt.hashCode() : 0);
+        result = 31 * result + (idPhoto != null ? idPhoto.hashCode() : 0);
+        result = 31 * result + (isPublic != null ? isPublic.hashCode() : 0);
+        result = 31 * result + (createdDate != null ? createdDate.hashCode() : 0);
+        result = 31 * result + (receiptDTO != null ? receiptDTO.hashCode() : 0);
+        result = 31 * result + (typeMeal != null ? typeMeal.hashCode() : 0);
+        result = 31 * result + (creatorMeal != null ? creatorMeal.hashCode() : 0);
+        result = 31 * result + (products != null ? products.hashCode() : 0);
+        return result;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    @Override
+    public String toString() {
+        return "MealDTO{" +
+                "idMeal=" + idMeal +
+                ", language=" + language +
+                ", title='" + title + '\'' +
+                ", shortDescription='" + shortDescription + '\'' +
+                ", amountCalories=" + amountCalories +
+                ", authorReceipt='" + authorReceipt + '\'' +
+                ", idPhoto=" + idPhoto +
+                ", isPublic=" + isPublic +
+                ", createdDate=" + createdDate +
+                ", receiptDTO=" + receiptDTO +
+                ", typeMeal=" + typeMeal +
+                ", creatorMeal=" + creatorMeal +
+                ", products=" + products +
+                '}';
     }
 }
