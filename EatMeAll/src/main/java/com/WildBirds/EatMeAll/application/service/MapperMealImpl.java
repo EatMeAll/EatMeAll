@@ -39,73 +39,85 @@ public class MapperMealImpl implements Mapper {
     public List<MealDTO> toMealDTO(List<Meal> mealList) {
         List<MealDTO> mealDTOList = new ArrayList<>();
 
+
         for (Meal meal : mealList) {
+            try {
+                Set<StepDTO> stepDTOSet = new HashSet<>();
+                Set<Step> stepList = meal.getReceipt().getStepSet();
 
-            Set<StepDTO> stepDTOSet = new HashSet<>();
-            Set<Step> stepList = meal.getReceipt().getStepSet();
+                for (Step step : stepList) {
+                    StepDTO stepDTO = new StepDTO();
 
-            for (Step step : stepList) {
-                StepDTO stepDTO = new StepDTO();
+                    stepDTO.setNumber(step.getNumber());
+                    stepDTO.setHeader(step.getHeader());
+                    stepDTO.setIdStep(step.getIdStep());
 
-                stepDTO.setNumber(step.getNumber());
-                stepDTO.setHeader(step.getHeader());
-                stepDTO.setIdStep(step.getIdStep());
+                    stepDTOSet.add(stepDTO);
 
-                stepDTOSet.add(stepDTO);
+                }
 
+                ReceiptDTO receiptDTO = new ReceiptDTO();
+                receiptDTO.setTitle(meal.getReceipt().getTitle());
+                receiptDTO.setPrepareTime(meal.getReceipt().getPrepareTime());
+                receiptDTO.setDescription(meal.getReceipt().getDescription());
+                receiptDTO.setIdReceipt(meal.getReceipt().getIdReceipt());
+                receiptDTO.setSteps(stepDTOSet);
+
+                Set<TypeMealDTO> typeMealDTOList = new HashSet<>();
+
+                Set<TypeMeal> typeMealSet = meal.getTypeMeal();
+
+                for (TypeMeal typeMeal : typeMealSet) {
+                    TypeMealDTO typeMealDTO = new TypeMealDTO();
+
+                    typeMealDTO.setIdTypeMeal(typeMeal.getIdTypeMeal());
+                    typeMealDTO.setMealTime(typeMeal.getMealTime());
+
+                    typeMealDTOList.add(typeMealDTO);
+                }
+
+                Set<ProductDTO> productDTOSet = new HashSet<>();
+
+                Set<MealHasProduct> mealHasProductSet = meal.getMealHasProductSet();
+
+                for (MealHasProduct mealHasProduct : mealHasProductSet) {
+                    ProductDTO productDTO = new ProductDTO();
+
+                    productDTO.setName(mealHasProduct.getProduct().getName());
+                    productDTO.setSpecialUnit(mealHasProduct.getSpecialUnit());
+                    productDTO.setAmount(mealHasProduct.getAmount());
+                    productDTO.setUnit(mealHasProduct.getUnit());
+
+                    productDTOSet.add(productDTO);
+                }
+
+
+                MealDTO mealDTO = new MealDTO(
+                        meal.getIdMeal(),
+                        meal.getLanguage(),
+                        meal.getTitle(),
+                        meal.getShortDescription(),
+                        meal.getAmountCalories(),
+                        meal.getAuthorReceipt(),
+                        meal.getIdMeal(),
+                        meal.getPublic(),
+                        meal.getCreatedDate(),
+                        receiptDTO,
+                        typeMealDTOList,
+                        toUserDTO(meal.getCreatorMeal()),
+                        productDTOSet);
+                mealDTOList.add(mealDTO);
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println(e);
+                System.out.println();
+                System.out.println();
+                System.out.println();
+                System.out.println("SOME MEAL CONTAINED NULL");
+                System.out.println();
+                System.out.println();
+                System.out.println();
             }
-
-            ReceiptDTO receiptDTO = new ReceiptDTO();
-            receiptDTO.setTitle(meal.getReceipt().getTitle());
-            receiptDTO.setPrepareTime(meal.getReceipt().getPrepareTime());
-            receiptDTO.setDescription(meal.getReceipt().getDescription());
-            receiptDTO.setIdReceipt(meal.getReceipt().getIdReceipt());
-            receiptDTO.setSteps(stepDTOSet);
-
-            Set<TypeMealDTO> typeMealDTOList = new HashSet<>();
-
-            Set<TypeMeal> typeMealSet = meal.getTypeMeal();
-
-            for (TypeMeal typeMeal : typeMealSet) {
-                TypeMealDTO typeMealDTO = new TypeMealDTO();
-
-                typeMealDTO.setIdTypeMeal(typeMeal.getIdTypeMeal());
-                typeMealDTO.setMealTime(typeMeal.getMealTime());
-
-                typeMealDTOList.add(typeMealDTO);
-            }
-
-            Set<ProductDTO> productDTOSet = new HashSet<>();
-
-            Set<MealHasProduct> mealHasProductSet = meal.getMealHasProductSet();
-
-            for (MealHasProduct mealHasProduct : mealHasProductSet) {
-                ProductDTO productDTO = new ProductDTO();
-
-                productDTO.setName(mealHasProduct.getProduct().getName());
-                productDTO.setSpecialUnit(mealHasProduct.getSpecialUnit());
-                productDTO.setAmount(mealHasProduct.getAmount());
-                productDTO.setUnit(mealHasProduct.getUnit());
-
-                productDTOSet.add(productDTO);
-            }
-
-
-            MealDTO mealDTO = new MealDTO(
-                    meal.getIdMeal(),
-                    meal.getLanguage(),
-                    meal.getTitle(),
-                    meal.getShortDescription(),
-                    meal.getAmountCalories(),
-                    meal.getAuthorReceipt(),
-                    meal.getIdMeal(),
-                    meal.getPublic(),
-                    meal.getCreatedDate(),
-                    receiptDTO,
-                    typeMealDTOList,
-                    toUserDTO(meal.getCreatorMeal()),
-                    productDTOSet);
-            mealDTOList.add(mealDTO);
         }
 
 

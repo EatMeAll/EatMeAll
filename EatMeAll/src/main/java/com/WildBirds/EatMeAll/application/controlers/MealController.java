@@ -44,7 +44,7 @@ public class MealController {
     public Response hello(@Context UriInfo info) {
 
         List<Meal> all = repo.MEAL().getAll();
-        return Response.status(200).entity(all.toString()).build();
+        return Response.status(HttpStatus.OK.getCode()).entity(all.toString()).build();
     }
 
     @GET
@@ -55,12 +55,12 @@ public class MealController {
             MealTime mealTime = MealTime.valueOf(typeMeal);
 
             List<Meal> mealsByMealTeam = repo.MEAL().getMealsByTypeMeal(mealTime);
-            return Response.status(200).entity(mealsByMealTeam.toString()).build();
+            return Response.status(HttpStatus.OK.getCode()).entity(mealsByMealTeam.toString()).build();
 
 //                List<Meal> mealsByMealTeam = repo.MEAL().getMealsByTypeMeal(MealTime.valueOf(value));
 
       }
-        return Response.status(404).entity("").build();
+        return Response.status(HttpStatus.NOT_FOUND.getCode()).entity("").build();
     }
 
     @GET
@@ -131,12 +131,12 @@ public class MealController {
 
                     List<Meal> mealsByTypeMeal = repo.MEAL().getMealsByTypeMeal(mealTime, languageENUM, amount);
 
-//                    return Response.status(HttpStatus.OK.getCode()).entity(
-//                            String.format("RANDOM MEAL ORDER BY: typeMeal, language, amount  " +
-//                                            "\n typeMeal=%s, language=%s amount=%s ",
-//                                    typeMeal, languageENUM, amount)).build();
+                    System.out.println(mealsByTypeMeal.toString());
+                    List<MealDTO> mealDTOList = mapper.toMealDTO(mealsByTypeMeal);
 
-                    return Response.status(HttpStatus.OK.getCode()).entity(mealsByTypeMeal.toString()).build();
+                    System.out.println(mealDTOList.toString());
+
+                    return Response.status(HttpStatus.OK.getCode()).entity(mealDTOList).build();
                 })
                 .when("typeMeal", "language").execute((map) -> {
 
@@ -148,8 +148,8 @@ public class MealController {
 
                     List<Meal> mealsByTypeMeal = repo.MEAL().getMealsByTypeMeal(mealTime, languageENUM);
 
-                    System.out.println(mealsByTypeMeal.toString());
-                    return Response.status(HttpStatus.OK.getCode()).entity(mealsByTypeMeal.toString()).build();
+                    List<MealDTO> mealDTOList = mapper.toMealDTO(mealsByTypeMeal);
+                    return Response.status(HttpStatus.OK.getCode()).entity(mealDTOList).build();
 
 //                    return Response.status(HttpStatus.OK.getCode()).entity(
 //                            String.format("RANDOM MEAL ORDER BY: Amount language, typeMeal" +
@@ -167,9 +167,9 @@ public class MealController {
                     List<MealDTO> mealDTOList = mapper.toMealDTO(mealsByMealTeam);
 
 
-                    MealDTO mealDTO = mealDTOList.get(1);
-                    System.out.println(mealDTO.toString());
-                    return Response.status(HttpStatus.OK.getCode()).entity(mealDTO).build();
+//                    MealDTO mealDTO = mealDTOList.get(1);
+//                    System.out.println(mealDTO.toString());
+                    return Response.status(HttpStatus.OK.getCode()).entity(mealDTOList).build();
 
                 })
                 .ultimately(params -> {
