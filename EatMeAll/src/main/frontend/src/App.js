@@ -1,15 +1,18 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+
+import Layout from './components/Layout/Layout';
+import styles from './App.css';
+
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div className={styles.Container}>
+                <Layout>
+                </Layout>
+            </div>
+        );
+    }
 }
 
 export default App;
