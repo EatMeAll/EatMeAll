@@ -40,11 +40,22 @@ public class MealController {
 //    MealServiceTypeMeal mealServiceTypeMeal;
 
     @GET
-    @Path("all")
+    @Path("")
     public Response hello(@Context UriInfo info) {
+        return  new ResponseStrategy().form(info)
+                .when("from","to")
+                .execute(params -> {
 
-        List<Meal> all = repo.MEAL().getAll();
-        return Response.status(HttpStatus.OK.getCode()).entity(all.toString()).build();
+                    Integer from = Integer.valueOf(params.getFirst("from"));
+                    Integer to = Integer.valueOf(params.getFirst("to"));
+                    List<Meal> all = repo.MEAL().getAll(from,to-from);
+                    return Response.status(HttpStatus.OK.getCode()).entity(all.toString()).build();
+
+                }).ultimately(params -> {
+                    List<Meal> all = repo.MEAL().getAll();
+                    return Response.status(HttpStatus.OK.getCode()).entity(all.toString()).build();
+                });
+
     }
 
     @GET

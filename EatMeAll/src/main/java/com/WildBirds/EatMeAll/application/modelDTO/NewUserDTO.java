@@ -8,6 +8,7 @@ import java.util.Set;
 
 public class NewUserDTO {
 
+    private Integer id;
     private String nick;
     private String email;
     private String password;
@@ -15,6 +16,14 @@ public class NewUserDTO {
     private Set<Integer> favouritesMealsSetId;
 
     public NewUserDTO() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Set<Integer> getFavouritesMealsSetId() {

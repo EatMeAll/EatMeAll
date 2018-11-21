@@ -49,7 +49,7 @@ public class UserController {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response registerUser(NewUserDTO newUserDTO) {
+    public Response addUser(NewUserDTO newUserDTO) {
 
 
         try {
@@ -68,7 +68,7 @@ public class UserController {
         }
     }
 
-    @PUT
+    @POST
     @Path("login")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -87,7 +87,7 @@ public class UserController {
         }
     }
 
-    @POST
+    @PATCH
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response upDateUser(NewUserDTO newUserDTO) {

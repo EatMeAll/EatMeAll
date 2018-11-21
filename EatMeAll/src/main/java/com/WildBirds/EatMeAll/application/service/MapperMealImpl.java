@@ -130,7 +130,7 @@ public class MapperMealImpl implements Mapper {
             user.setUserType(user.getUserType());
             user.setEmail(userDTO.getEmail());
             user.setNick(user.getNick());
-            //todo HAVE TO SOLVE - DO NOT MAPPING FAVOURITES MEALS
+
             Set<Meal> mealSet = new HashSet<>();
             for (Integer integer : userDTO.getFavouritesMealsSetId()) {
                 Meal meal = repo.MEAL().get(integer);
@@ -176,6 +176,7 @@ public class MapperMealImpl implements Mapper {
             user.setEmail(newUserDTO.getEmail());
             user.setUserType(newUserDTO.getUserType());
             user.setPassword(newUserDTO.getPassword());
+            user.setIdUser(newUserDTO.getId());
         } catch (Exception e) {
             e.printStackTrace();
             throw new MapperException("Invalid value to mapping");

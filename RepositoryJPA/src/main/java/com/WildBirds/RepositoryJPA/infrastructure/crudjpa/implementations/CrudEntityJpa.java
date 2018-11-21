@@ -37,26 +37,34 @@ public class CrudEntityJpa<Entity> implements CrudEntity<Entity> {
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public List<Entity> getIn(Integer... ids){
+        List resultList = entityManager
+                .createQuery("FROM "+this.entityClass.getSimpleName()+" IN :array", entityClass)
+                .setParameter("array",ids)
+                .getResultList();
+        return resultList;
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Entity> getAll() {
 
-        List className = entityManager
+        List resultList = entityManager
                 .createQuery("FROM "+this.entityClass.getSimpleName(), entityClass)
                 .getResultList();
 
-        return className;
+        return resultList;
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Entity> getAll(Integer skip, Integer limit) {
 
         // TODO: 08.11.2018 should work but I'm not sure
-        List className = entityManager
-                .createQuery("FROM :className")
+        List resultList = entityManager
+                .createQuery("FROM "+this.entityClass.getSimpleName())
                 .setFirstResult(skip)
                 .setMaxResults(limit)
-                .setParameter("className", this.entityClass.getSimpleName())
                 .getResultList();
-        return className;
+        return resultList;
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
