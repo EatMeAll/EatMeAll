@@ -6,19 +6,10 @@ import com.WildBirds.RepositoryJPA.domain.model.enums.UserType;
 
 public class NewUserDTO {
 
-    private Integer idUser;
     private String nick;
     private String email;
     private String password;
     private UserType userType;
-
-    public Integer getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(Integer idUser) {
-        this.idUser = idUser;
-    }
 
     public String getNick() {
         return nick;
@@ -52,5 +43,13 @@ public class NewUserDTO {
         this.userType = userType;
     }
 
-
+    @Override
+    public String toString() {
+        return "NewUserDTO{" +
+                "nick='" + nick + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", userType=" + userType +
+                '}';
+    }
 }

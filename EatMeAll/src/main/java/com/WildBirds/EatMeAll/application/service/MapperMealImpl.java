@@ -155,4 +155,17 @@ public class MapperMealImpl implements Mapper {
 
         return userDTO;
     }
+
+    public User toUser(NewUserDTO newUserDTO){
+
+        User user = new User();
+
+        user.setNick(newUserDTO.getNick());
+        user.setEmail(newUserDTO.getEmail());
+        user.setUserType(newUserDTO.getUserType());
+        user.setPassword(newUserDTO.getPassword());
+
+        return user;
+
+    }
 }

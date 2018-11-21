@@ -1,6 +1,7 @@
 package com.WildBirds.EatMeAll.application.service;
 
 import com.WildBirds.EatMeAll.application.modelDTO.MealDTO;
+import com.WildBirds.EatMeAll.application.modelDTO.NewUserDTO;
 import com.WildBirds.EatMeAll.application.modelDTO.UserDTO;
 import com.WildBirds.RepositoryJPA.domain.model.Meal;
 import com.WildBirds.RepositoryJPA.domain.model.User;
@@ -15,4 +16,5 @@ public interface Mapper {
     List<MealDTO> toMealDTO(List<Meal> mealList);
     UserDTO toUserDTO(User user);
     User toUser(UserDTO userDTO);
+    User toUser(NewUserDTO newUserDTO);
 }
