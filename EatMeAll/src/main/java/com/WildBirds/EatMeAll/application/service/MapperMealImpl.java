@@ -2,8 +2,10 @@ package com.WildBirds.EatMeAll.application.service;
 
 
 import com.WildBirds.EatMeAll.application.modelDTO.*;
+import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
 import com.WildBirds.RepositoryJPA.domain.model.*;
 
+import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import java.util.ArrayList;
@@ -15,6 +17,9 @@ import java.util.Set;
 @Local(Mapper.class)
 public class MapperMealImpl implements Mapper {
 
+
+    @EJB
+    RepositoryFacade repo;
 
     @Override
     public List<Meal> toMeal(List<MealDTO> mealDTOList) throws MapperException {
@@ -126,10 +131,12 @@ public class MapperMealImpl implements Mapper {
             user.setEmail(userDTO.getEmail());
             user.setNick(user.getNick());
             //todo HAVE TO SOLVE - DO NOT MAPPING FAVOURITES MEALS
-
-
-
-//        user.setFavouritesMealsSet(userDTO.getFavouritesMealsSetId());
+            Set<Meal> mealSet = new HashSet<>();
+            for (Integer integer : userDTO.getFavouritesMealsSetId()) {
+                Meal meal = repo.MEAL().get(integer);
+                mealSet.add(meal);
+            }
+            user.setFavouritesMealsSet(mealSet);
 
         } catch (Exception e) {
             e.printStackTrace();

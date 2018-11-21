@@ -4,14 +4,25 @@ package com.WildBirds.EatMeAll.application.modelDTO;
 
 import com.WildBirds.RepositoryJPA.domain.model.enums.UserType;
 
+import java.util.Set;
+
 public class NewUserDTO {
 
     private String nick;
     private String email;
     private String password;
     private UserType userType;
+    private Set<Integer> favouritesMealsSetId;
 
     public NewUserDTO() {
+    }
+
+    public Set<Integer> getFavouritesMealsSetId() {
+        return favouritesMealsSetId;
+    }
+
+    public void setFavouritesMealsSetId(Set<Integer> favouritesMealsSetId) {
+        this.favouritesMealsSetId = favouritesMealsSetId;
     }
 
     public String getNick() {

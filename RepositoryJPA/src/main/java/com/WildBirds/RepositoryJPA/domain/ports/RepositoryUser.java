@@ -6,4 +6,5 @@ import com.WildBirds.RepositoryJPA.infrastructure.CrudJPA.interfaces.CrudEntity;
 public interface RepositoryUser extends CrudEntity<User> {
 
     User someAdditionalLogic();
+    User getUserByNickPass(String nick, String password);
 }

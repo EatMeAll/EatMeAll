@@ -19,4 +19,18 @@ public class RepositoryUserJPA extends CrudEntityJpa<User> implements Repository
     public User someAdditionalLogic() {
         return null;
     }
+
+    @Override
+    public User getUserByNickPass(String nick, String password) {
+
+        String query = ("SELECT user FROM User user " +
+                "WHERE user.nick = :nick AND " +
+                "user.password=: password");
+
+        return this.entityManager.createQuery(query,User.class)
+                .setParameter("nick", nick)
+                .setParameter("password", password)
+                .getSingleResult();
+
+    }
 }
