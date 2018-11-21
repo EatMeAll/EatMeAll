@@ -11,6 +11,9 @@ public class NewUserDTO {
     private String password;
     private UserType userType;
 
+    public NewUserDTO() {
+    }
+
     public String getNick() {
         return nick;
     }

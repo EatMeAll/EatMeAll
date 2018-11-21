@@ -16,20 +16,19 @@ import java.util.Set;
 public class MapperMealImpl implements Mapper {
 
 
-    private MealDTO mealDTO;
-    private ProductDTO productDTO;
-    private ReceiptDTO receiptDTO;
-    private StepDTO stepDTO;
-    private TypeMealDTO typeMealDTO;
-
-
     @Override
-    public List<Meal> toMeal(List<MealDTO> mealDTOList) {
+    public List<Meal> toMeal(List<MealDTO> mealDTOList) throws MapperException {
 
-        List<Meal> mealList = new ArrayList<>();
-        for (MealDTO mealDTO : mealDTOList) {
+        List<Meal> mealList = null;
+        try {
+            mealList = new ArrayList<>();
+            for (MealDTO mealDTO : mealDTOList) {
+                //todo to implementing
 
-
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MapperException("Invalid value to mapping");
         }
 
         return mealList;
@@ -109,14 +108,7 @@ public class MapperMealImpl implements Mapper {
                 mealDTOList.add(mealDTO);
             } catch (Exception e) {
                 e.printStackTrace();
-                System.out.println(e);
-                System.out.println();
-                System.out.println();
-                System.out.println();
-                System.out.println("SOME MEAL CONTAINED NULL");
-                System.out.println();
-                System.out.println();
-                System.out.println();
+                throw new MapperException("Invalid value to mapping");
             }
         }
 
@@ -124,19 +116,30 @@ public class MapperMealImpl implements Mapper {
         return mealDTOList;
     }
 
-    public User toUser(UserDTO userDTO) {
-        User user = new User();
+    public User toUser(UserDTO userDTO) throws MapperException {
+        User user = null;
+        try {
+            user = new User();
 
-        user.setIdUser(user.getIdUser());
-        user.setUserType(user.getUserType());
-        user.setEmail(userDTO.getEmail());
-        user.setNick(user.getNick());
-        //todo HAVE TO SOLVE
+            user.setIdUser(user.getIdUser());
+            user.setUserType(user.getUserType());
+            user.setEmail(userDTO.getEmail());
+            user.setNick(user.getNick());
+            //todo HAVE TO SOLVE - DO NOT MAPPING FAVOURITES MEALS
+
+
+
 //        user.setFavouritesMealsSet(userDTO.getFavouritesMealsSetId());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MapperException("Invalid value to mapping");
+
+        }
         return user;
     }
 
-    public UserDTO toUserDTO(User user) {
+    public UserDTO toUserDTO(User user) throws MapperException {
 
         Set<Integer> favouritesMealsSetId = new HashSet<>();
         Set<Meal> favouritesMealsSet = user.getFavouritesMealsSet();
@@ -156,14 +159,20 @@ public class MapperMealImpl implements Mapper {
         return userDTO;
     }
 
-    public User toUser(NewUserDTO newUserDTO){
+    public User toUser(NewUserDTO newUserDTO) throws MapperException {
 
-        User user = new User();
+        User user = null;
+        try {
+            user = new User();
 
-        user.setNick(newUserDTO.getNick());
-        user.setEmail(newUserDTO.getEmail());
-        user.setUserType(newUserDTO.getUserType());
-        user.setPassword(newUserDTO.getPassword());
+            user.setNick(newUserDTO.getNick());
+            user.setEmail(newUserDTO.getEmail());
+            user.setUserType(newUserDTO.getUserType());
+            user.setPassword(newUserDTO.getPassword());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MapperException("Invalid value to mapping");
+        }
 
         return user;
 

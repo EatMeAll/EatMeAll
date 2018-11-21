@@ -43,35 +43,17 @@ public class UserController {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public UserDTO registerUser() {
+    public Response registerUser(NewUserDTO newUserDTO) {
+        System.out.println(newUserDTO.toString());
 
-        UserDTO userDTO = new UserDTO();
-        System.out.println("ABBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
-
-        System.out.println("PRZED");
-//        System.out.println(newUserDTO.toString());
-        System.out.println("PRZED");
-
-//        User user = mapper.toUser(newUserDTO);
-
-        System.out.println("PO");
-//        System.out.println(user.toString());
-        System.out.println("PO");
+        User user = mapper.toUser(newUserDTO);
 
 
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
+        User insertedUser = repo.USER().insert(user);
 
+        UserDTO userDTO = mapper.toUserDTO(insertedUser);
 
-//
-//
-//        User insertetUser = repo.USER().insert(user);
-        return userDTO;
+        return Response.status(HttpStatus.OK.getCode()).entity(user).build();
     }
 
 //    @PATCH
