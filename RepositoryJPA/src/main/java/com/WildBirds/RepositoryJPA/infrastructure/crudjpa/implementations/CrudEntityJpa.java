@@ -9,7 +9,10 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Stateless
 public class CrudEntityJpa<Entity> implements CrudEntity<Entity> {
@@ -38,11 +41,30 @@ public class CrudEntityJpa<Entity> implements CrudEntity<Entity> {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Entity> getIn(Integer... ids){
+        String simpleName = this.entityClass.getSimpleName();
+        String query = "SELECT e FROM "+simpleName+" e WHERE e.id"+simpleName+" IN :array";
+        System.out.println(query);
+
+
+        List<Integer> ints = Arrays.asList(ids);
         List resultList = entityManager
-                .createQuery("FROM "+this.entityClass.getSimpleName()+" IN :array", entityClass)
-                .setParameter("array",ids)
+                .createQuery(query, entityClass)
+                .setParameter("array",ints)
                 .getResultList();
         return resultList;
+    }
+
+    @Override
+    public List<Entity> getIn(Collection<Integer> ids) {
+        try {
+
+            Integer[] integers = ids.stream().toArray(Integer[]::new);
+            return this.getIn(integers);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("In get it");
+        }
+
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)

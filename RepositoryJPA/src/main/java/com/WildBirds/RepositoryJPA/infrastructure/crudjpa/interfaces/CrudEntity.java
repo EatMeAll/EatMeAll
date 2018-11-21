@@ -1,10 +1,15 @@
 package com.WildBirds.RepositoryJPA.infrastructure.CrudJPA.interfaces;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface CrudEntity<Entity> {
 
     Entity get(int id);
+
+    List<Entity> getIn(Integer... ids);
+
+    List<Entity> getIn(Collection<Integer> ids);
 
     List<Entity> getAll();
 

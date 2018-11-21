@@ -1,7 +1,6 @@
 package com.WildBirds.EatMeAll.application.controlers;
 
 
-
 import com.WildBirds.EatMeAll.application.controlers.service.handler.ResponseStrategy;
 import com.WildBirds.EatMeAll.application.controlers.utils.HttpStatus;
 import com.WildBirds.EatMeAll.application.modelDTO.*;
@@ -11,7 +10,6 @@ import com.WildBirds.RepositoryJPA.domain.model.Meal;
 import com.WildBirds.RepositoryJPA.domain.model.enums.Language;
 import com.WildBirds.RepositoryJPA.domain.model.enums.MealTime;
 import com.WildBirds.RepositoryJPA.domain.model.enums.UserType;
-import lombok.Getter;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -59,6 +57,22 @@ public class MealController {
     }
 
     @GET
+    @Produces({"application/json; charset=UTF-8"})
+    @Path("{idMeal}")
+    public Response getId(@Context UriInfo info, @PathParam("idMeal") Integer idMeal){
+
+        Meal meal = repo.MEAL().get(idMeal);
+
+        List<Meal> mealList = new ArrayList<>();
+        mealList.add(meal);
+
+        List<MealDTO> mealDTOList = mapper.toMealDTO(mealList);
+
+        return Response.status(HttpStatus.OK.getCode()).entity(mealDTOList).build();
+
+    }
+
+    @GET
     @Path("find")
     public Response test(@Context UriInfo info, @QueryParam("typeMeal") String typeMeal) {
         System.out.println("method 1");
@@ -70,7 +84,7 @@ public class MealController {
 
 //                List<Meal> mealsByMealTeam = repo.MEAL().getMealsByTypeMeal(MealTime.valueOf(value));
 
-      }
+        }
         return Response.status(HttpStatus.NOT_FOUND.getCode()).entity("").build();
     }
 

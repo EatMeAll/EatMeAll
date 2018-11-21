@@ -24,11 +24,27 @@ public class MapperMealImpl implements Mapper {
     @Override
     public List<Meal> toMeal(List<MealDTO> mealDTOList) throws MapperException {
 
-        List<Meal> mealList = null;
+        List<Meal> mealList = new ArrayList<>();
         try {
-            mealList = new ArrayList<>();
+
             for (MealDTO mealDTO : mealDTOList) {
-                //todo to implementing
+                Meal meal = new Meal();
+
+
+//todo DOES'nt WORK :/
+
+                meal.setIdMeal(mealDTO.getIdMeal());
+                meal.setLanguage(mealDTO.getLanguage());
+                meal.setTitle(mealDTO.getTitle());
+                meal.setAmountCalories(mealDTO.getAmountCalories());
+                meal.setAuthorReceipt(mealDTO.getAuthorReceipt());
+//
+//                meal.setPhoto(mealDTO.getPhoto());
+
+
+
+
+
 
             }
         } catch (Exception e) {
@@ -131,6 +147,14 @@ public class MapperMealImpl implements Mapper {
             user.setEmail(userDTO.getEmail());
             user.setNick(user.getNick());
 
+//            user.setIdUser(newUserDTO.getId());
+//            List<Meal> mealList = repo.MEAL().getIn(newUserDTO.getFavouritesMealsSetId());
+//
+//            for (Meal meal : mealList) {
+//                user.getFavouritesMealsSet().add(repo.MEAL().update(meal));
+//            }
+
+
             Set<Meal> mealSet = new HashSet<>();
             for (Integer integer : userDTO.getFavouritesMealsSetId()) {
                 Meal meal = repo.MEAL().get(integer);
@@ -177,6 +201,15 @@ public class MapperMealImpl implements Mapper {
             user.setUserType(newUserDTO.getUserType());
             user.setPassword(newUserDTO.getPassword());
             user.setIdUser(newUserDTO.getId());
+
+            // TODO: 21.11.2018 IT DOESN'T WORK :(
+            Set<Meal> mealSet = new HashSet<>();
+            for (Integer integer : newUserDTO.getFavouritesMealsSetId()) {
+                Meal meal = repo.MEAL().get(integer);
+                mealSet.add(meal);
+            }
+            user.setFavouritesMealsSet(mealSet);
+
         } catch (Exception e) {
             e.printStackTrace();
             throw new MapperException("Invalid value to mapping");

@@ -55,6 +55,8 @@ public class UserController {
         try {
             User user = mapper.toUser(newUserDTO);
 
+            System.out.println(user.getFavouritesMealsSet());
+
 
             User insertedUser = repo.USER().insert(user);
 

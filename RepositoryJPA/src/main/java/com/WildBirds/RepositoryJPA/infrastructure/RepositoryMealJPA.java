@@ -2,6 +2,7 @@ package com.WildBirds.RepositoryJPA.infrastructure;
 
 
 import com.WildBirds.RepositoryJPA.domain.model.Meal;
+import com.WildBirds.RepositoryJPA.domain.model.User;
 import com.WildBirds.RepositoryJPA.domain.model.enums.Language;
 import com.WildBirds.RepositoryJPA.domain.model.enums.MealTime;
 import com.WildBirds.RepositoryJPA.domain.ports.RepositoryMeal;
@@ -57,6 +58,7 @@ public class RepositoryMealJPA extends CrudEntityJpa<Meal> implements Repository
 //                .getResultList();
 
         //todo WORKING WITHOUT PARAMETER
+
         String query = "SELECT * FROM Meal inner join MealHasTypeMeal ON Meal.idMeal = MealHasTypeMeal.idMeal inner join TypeMeal ON MealHasTypeMeal.idTypeMeal = TypeMeal.idTypeMeal WHERE TypeMeal.mealTime = 'DINNER' AND Meal.language = 'PL' ORDER BY rand() LIMIT 1";
         return this.entityManager.createNativeQuery(query,Meal.class)
 //                .setParameter(1, mealTime.toString())
@@ -68,6 +70,12 @@ public class RepositoryMealJPA extends CrudEntityJpa<Meal> implements Repository
     @Override
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Meal> getMealsByTypeMeal(MealTime mealTime, Language language) {
+
+
+//        meal = em.find(Meal.class, mealId)
+//        user = em.find(Meal.class, userId)
+//        user.addMeal(meal.getId())
+
 
         String query = "SELECT meal FROM Meal meal " +
                 "JOIN meal.typeMeal typeMeal " +
