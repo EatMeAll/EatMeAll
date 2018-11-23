@@ -1,6 +1,5 @@
 package com.WildBirds.RepositoryJPA.infrastructure.CrudJPA.implementations;
 
-
 import com.WildBirds.RepositoryJPA.infrastructure.CrudJPA.interfaces.CrudEntity;
 
 import javax.ejb.Stateless;
@@ -8,11 +7,9 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Stateless
 public class CrudEntityJpa<Entity> implements CrudEntity<Entity> {
@@ -28,7 +25,6 @@ public class CrudEntityJpa<Entity> implements CrudEntity<Entity> {
 
     public CrudEntityJpa(Class<Entity> entityClass) {
         this.entityClass = entityClass;
-
     }
 
 
@@ -36,6 +32,7 @@ public class CrudEntityJpa<Entity> implements CrudEntity<Entity> {
     // Crud
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Entity get(int id) {
+        System.out.println(entityManager+ "-------------- GET -------------- EM");
         return this.entityManager.find(this.entityClass, id);
     }
 
@@ -96,12 +93,15 @@ public class CrudEntityJpa<Entity> implements CrudEntity<Entity> {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Entity insert(Entity insertData) {
+        System.out.println(entityManager+ "-------------- INSERT -------------- EM");
         entityManager.persist(insertData);
+        System.out.println(entityManager+ "-------------- INSERT UPDATE -------------- EM");
         return entityManager.merge(insertData);
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Entity update(Entity updateData) {
+        System.out.println(entityManager+ "-------------- UPDATE -------------- EM");
         return entityManager.merge(updateData);
     }
 }

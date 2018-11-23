@@ -14,14 +14,10 @@ import com.infrastructure.XmlReader;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.transaction.UserTransaction;
 import java.io.File;
 import java.io.IOException;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Stateless
 @LocalBean
@@ -33,24 +29,27 @@ public class ExcelReaderApp {
     public ExcelReaderApp() {
     }
 
-    public void addToDatabase() throws IOException{
+    public void addToDatabase() throws IOException {
+
+
+        int counter = 0;
 
         ExcelReader excelReader = new XmlReader();
-        String filePath = "D:\\PROGRAMOWANIE\\etmeall2\\eatmeall\\ExcelReader\\src\\main\\resource\\jadlospis2.xlsx";
+        String filePath = "C:\\Users\\PawelJastrzebski\\Desktop\\Projects\\EatMeAllProject\\ExcelReader\\src\\main\\resources\\data\\jadlospis2.xlsx";
         List<MealExcel> mealExcelList = excelReader.read(filePath);
 
-        User user = new User();
+        User userEntity = repo.USER().insert(new User());
 
-        user.setNick("EXCEL");
-        user.setEmail("excel@wp.pl");
-        user.setPassword("jakieshaslo");
-        user.setUserType(UserType.ADMIN);
 
-        repo.USER().insert(user);
+        userEntity.setNick("EXCEL");
+        userEntity.setEmail("excel@wp.pl");
+        userEntity.setPassword("jakieshaslo");
+        userEntity.setUserType(UserType.ADMIN);
 
         for (MealExcel mealExcel : mealExcelList) {
 
-            Meal mealEntity = new Meal();
+            Meal mealEntity = repo.MEAL().insert(new Meal());
+
 
             String typeMealExcel = mealExcel.getTypeMeal();
             Integer prepairTimeExcel = mealExcel.getPrepaidTime();
@@ -61,63 +60,47 @@ public class ExcelReaderApp {
             String authorExcel = mealExcel.getAuthor();
 
 
-            TypeMeal typeMealEntity = new TypeMeal();
+            TypeMeal typeMealEntity = repo.TYPEMEAL().insert(new TypeMeal());
 
+            MealTime mealTime = MealTime.LUNCH;
+            File photo = new File("C:\\Users\\PawelJastrzebski\\Desktop\\Projects\\EatMeAllProject\\ExcelReader\\src\\main\\resources\\data\\lunch.jpg");
 
             switch (typeMealExcel) {
 
                 case "śniadanie":
-
-                    typeMealEntity.setMealTime(MealTime.BREAKFAST);
-                    File breakfastPhoto = new File("D:\\PROGRAMOWANIE\\etmeall2\\eatmeall\\ExcelReader\\src\\main\\resource\\breakfast.jpg");
-
-//                    https://drive.google.com/file/d/1NVdzB988vO-qSU9HH8GDrMmi3Jogt8wo/view?usp=sharing
-                    mealEntity.setPhoto(breakfastPhoto);
+                    mealTime = MealTime.BREAKFAST;
+                    photo = new File("C:\\Users\\PawelJastrzebski\\Desktop\\Projects\\EatMeAllProject\\ExcelReader\\src\\main\\resources\\data\\breakfast.jpg");
                     break;
 
                 case "lunch":
-
-                    typeMealEntity.setMealTime(MealTime.LUNCH);
-                    File lunchPhoto = new File("D:\\PROGRAMOWANIE\\etmeall2\\eatmeall\\ExcelReader\\src\\main\\resource\\lunch.jpg");
-                    mealEntity.setPhoto(lunchPhoto);
+                    mealTime = MealTime.LUNCH;
+                    photo = new File("C:\\Users\\PawelJastrzebski\\Desktop\\Projects\\EatMeAllProject\\ExcelReader\\src\\main\\resources\\data\\lunch.jpg");
                     break;
 
                 case "obiad":
-
-                    typeMealEntity.setMealTime(MealTime.DINNER);
-                    File dinnerPhoto = new File("D:\\PROGRAMOWANIE\\etmeall2\\eatmeall\\ExcelReader\\src\\main\\resource\\dinner.jpg");
-                    mealEntity.setPhoto(dinnerPhoto);
+                    mealTime = MealTime.DINNER;
+                    photo = new File("C:\\Users\\PawelJastrzebski\\Desktop\\Projects\\EatMeAllProject\\ExcelReader\\src\\main\\resources\\data\\dinner.jpg");
                     break;
 
                 case "kolacja":
-
-                    typeMealEntity.setMealTime(MealTime.SUPPER);
-                    File supperPhoto = new File("D:\\PROGRAMOWANIE\\etmeall2\\eatmeall\\ExcelReader\\src\\main\\resource\\supper.jpg");
-                    mealEntity.setPhoto(supperPhoto);
+                    mealTime = MealTime.SUPPER;
+                    photo = new File("C:\\Users\\PawelJastrzebski\\Desktop\\Projects\\EatMeAllProject\\ExcelReader\\src\\main\\resources\\data\\supper.jpg");
                     break;
             }
 
+            typeMealEntity.setMealTime(mealTime);
+            mealEntity.setPhoto(photo);
 
-            TypeMeal typeMealFromDatabase = repo.TYPEMEAL().update(typeMealEntity);
+            typeMealEntity = repo.TYPEMEAL().update(typeMealEntity);
+            mealEntity.addTypeMeal(typeMealEntity);
 
-
-//            System.out.println();
-//            System.out.println();
-//            System.out.println(repo.TYPEMEAL().get(1));
-//            System.out.println();
-//            System.out.println();
-//
-//            System.out.println();
-
-
-            Set<TypeMeal> typeMealSet = new HashSet<>();
-
-            typeMealSet.add(typeMealEntity);
+//            TypeMeal typeMealFromDatabase = repo.TYPEMEAL().update(typeMealEntity);
 
 
             for (ProductsExcel productsExcel : productsExcels) {
-                MealHasProduct mealHasProduct = new MealHasProduct();
-                Product product = new Product();
+
+                MealHasProduct mealHasProduct = repo.MEALHASPRODUCT().insert(new MealHasProduct());
+                Product product = repo.PRODUCT().insert(new Product());
 
                 String productsExcelName = productsExcel.getName();
                 Double productsExcelAmount = productsExcel.getAmount();
@@ -129,25 +112,25 @@ public class ExcelReaderApp {
                 mealHasProduct.setAmount((int) Math.round(productsExcelAmount));
                 mealHasProduct.setUnit(productsExcelUnit);
                 mealHasProduct.setSpecialUnit(productsExcelSpecialUnit);
-                mealHasProduct.setProduct(product);
                 mealHasProduct.setMeal(mealEntity);
-                repo.PRODUCT().insert(product);
-                repo.MEALHASPRODUCT().insert(mealHasProduct);
-//                mealEntity.getMealHasProductSet().add(mealHasProduct);
+                product = repo.PRODUCT().update(product);
+                mealHasProduct.setProduct(product);
+                mealHasProduct = repo.MEALHASPRODUCT().update(mealHasProduct);
+                mealEntity.addMealHasProduct(mealHasProduct);
+
             }
 
-            Receipt receipt = new Receipt();
-
+            Receipt receipt = repo.RECEIPT().insert(new Receipt());
 
             receipt.setDescription("Jakis dodatkowy opis");
             receipt.setTitle(titleExcel);
             receipt.setPrepareTime(prepairTimeExcel);
-//            receipt.getStepSet().add(step);
-            repo.RECEIPT().insert(receipt);
 
+            // method
+            addStepsToReceipt(receipt, receiptExcel);
 
-            addSteps(receipt,receiptExcel);
-
+            receipt = repo.RECEIPT().update(receipt);
+            mealEntity.setReceipt(receipt);
 
 
             mealEntity.setLanguage(Language.PL);
@@ -156,34 +139,36 @@ public class ExcelReaderApp {
             mealEntity.setAmountCalories((int) Math.round(caloriesExcel));
             mealEntity.setPublic(true);
             mealEntity.setCreatedDate(Instant.now());
-
-//            mealEntity.setTypeMeal(typeMealSet);
-            mealEntity.getTypeMeal().add(typeMealFromDatabase);
-
-            mealEntity.setReceipt(receipt);
             mealEntity.setAuthorReceipt(authorExcel);
-            mealEntity.setCreatorMeal(user);
+            mealEntity.setCreatorMeal(userEntity);
 
 
-            repo.MEAL().insert(mealEntity);
+            repo.MEAL().update(mealEntity);
+
+            System.out.println();
+            System.out.println();
+            System.out.println("MEAL >>>>>" + counter);
+            System.out.println(mealEntity.getIdMeal());
+            System.out.println();
+            System.out.println();
+            counter++;
 
         }
 
 
     }
 
-    private void addSteps(Receipt receipt, String receiptExcel) {
+    private void addStepsToReceipt(Receipt receipt, String receiptExcel) {
 
-        String[] splitedHeader = receiptExcel.split(";");
+        String[] spitedHeader = receiptExcel.split(";");
 
-        for (int i = 0; i < splitedHeader.length; i++) {
-            Step step = new Step();
+        for (int i = 0; i < spitedHeader.length; i++) {
+            Step step = repo.STEP().insert(new Step());
 
-            step.setHeader(splitedHeader[i]);
-            step.setNumber(i +1);
-            step.setReceipt(receipt);
-            repo.STEP().insert(step);
-
+            step.setHeader(spitedHeader[i]);
+            step.setNumber(i + 1);
+            step= repo.STEP().update(step);
+            receipt.addStep(step);
         }
     }
 

@@ -1,4 +1,4 @@
-package com.WildBirds.EatMeAll.application.modelDTO;
+package com.WildBirds.EatMeAll.application.DTO;
 
 
 import com.WildBirds.RepositoryJPA.domain.model.enums.UserType;

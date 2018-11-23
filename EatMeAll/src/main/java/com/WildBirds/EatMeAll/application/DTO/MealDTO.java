@@ -1,11 +1,10 @@
-package com.WildBirds.EatMeAll.application.modelDTO;
+package com.WildBirds.EatMeAll.application.DTO;
 
 
 import com.WildBirds.RepositoryJPA.domain.model.enums.Language;
 
 
 import java.time.Instant;
-import java.util.List;
 import java.util.Set;
 
 public class MealDTO {
@@ -145,50 +144,6 @@ public class MealDTO {
 
     public void setProducts(Set<ProductDTO> products) {
         this.products = products;
-    }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        MealDTO mealDTO = (MealDTO) o;
-
-        if (idMeal != null ? !idMeal.equals(mealDTO.idMeal) : mealDTO.idMeal != null) return false;
-        if (language != mealDTO.language) return false;
-        if (title != null ? !title.equals(mealDTO.title) : mealDTO.title != null) return false;
-        if (shortDescription != null ? !shortDescription.equals(mealDTO.shortDescription) : mealDTO.shortDescription != null)
-            return false;
-        if (amountCalories != null ? !amountCalories.equals(mealDTO.amountCalories) : mealDTO.amountCalories != null)
-            return false;
-        if (authorReceipt != null ? !authorReceipt.equals(mealDTO.authorReceipt) : mealDTO.authorReceipt != null)
-            return false;
-        if (idPhoto != null ? !idPhoto.equals(mealDTO.idPhoto) : mealDTO.idPhoto != null) return false;
-        if (isPublic != null ? !isPublic.equals(mealDTO.isPublic) : mealDTO.isPublic != null) return false;
-        if (createdDate != null ? !createdDate.equals(mealDTO.createdDate) : mealDTO.createdDate != null) return false;
-        if (receiptDTO != null ? !receiptDTO.equals(mealDTO.receiptDTO) : mealDTO.receiptDTO != null) return false;
-        if (typeMeal != null ? !typeMeal.equals(mealDTO.typeMeal) : mealDTO.typeMeal != null) return false;
-        if (creatorMeal != null ? !creatorMeal.equals(mealDTO.creatorMeal) : mealDTO.creatorMeal != null) return false;
-        return products != null ? products.equals(mealDTO.products) : mealDTO.products == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = idMeal != null ? idMeal.hashCode() : 0;
-        result = 31 * result + (language != null ? language.hashCode() : 0);
-        result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (shortDescription != null ? shortDescription.hashCode() : 0);
-        result = 31 * result + (amountCalories != null ? amountCalories.hashCode() : 0);
-        result = 31 * result + (authorReceipt != null ? authorReceipt.hashCode() : 0);
-        result = 31 * result + (idPhoto != null ? idPhoto.hashCode() : 0);
-        result = 31 * result + (isPublic != null ? isPublic.hashCode() : 0);
-        result = 31 * result + (createdDate != null ? createdDate.hashCode() : 0);
-        result = 31 * result + (receiptDTO != null ? receiptDTO.hashCode() : 0);
-        result = 31 * result + (typeMeal != null ? typeMeal.hashCode() : 0);
-        result = 31 * result + (creatorMeal != null ? creatorMeal.hashCode() : 0);
-        result = 31 * result + (products != null ? products.hashCode() : 0);
-        return result;
     }
 
     @Override

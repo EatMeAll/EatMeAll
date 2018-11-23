@@ -65,6 +65,7 @@
                         </goals>
                     </execution>
                     <execution>
+                        <id>clean</id>
                         <phase>clean</phase>
                         <goals>
                             <goal>undeploy-artifact</goal>

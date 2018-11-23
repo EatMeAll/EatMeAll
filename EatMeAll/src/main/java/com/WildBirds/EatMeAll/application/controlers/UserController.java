@@ -1,8 +1,8 @@
 package com.WildBirds.EatMeAll.application.controlers;
 
 import com.WildBirds.EatMeAll.application.controlers.utils.HttpStatus;
-import com.WildBirds.EatMeAll.application.modelDTO.NewUserDTO;
-import com.WildBirds.EatMeAll.application.modelDTO.UserDTO;
+import com.WildBirds.EatMeAll.application.DTO.NewUserDTO;
+import com.WildBirds.EatMeAll.application.DTO.UserDTO;
 import com.WildBirds.EatMeAll.application.service.Mapper;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
 import com.WildBirds.RepositoryJPA.domain.model.User;
@@ -51,16 +51,16 @@ public class UserController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response addUser(NewUserDTO newUserDTO) {
 
-
+        System.out.println("ADD USER");
         try {
             User user = mapper.toUser(newUserDTO);
 
-            System.out.println(user.getFavouritesMealsSet());
 
-
-            User insertedUser = repo.USER().insert(user);
-
-            UserDTO userDTO = mapper.toUserDTO(insertedUser);
+            System.out.println("AFTER MAP");
+//            User UPDATE = repo.USER().get(user.getIdUser());
+//
+//            User insertedUser = repo.USER().insert(UPDATE);
+            UserDTO userDTO = mapper.toUserDTO(user);
 
             return Response.status(HttpStatus.CREATED.getCode()).entity(userDTO).build();
         } catch (Exception e) {

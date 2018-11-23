@@ -18,14 +18,17 @@
     <class>com.WildBirds.RepositoryJPA.domain.model.TypeMeal</class>
     <class>com.WildBirds.RepositoryJPA.domain.model.User</class>
     <properties>
+
+        <property name = "hibernate.show_sql" value = "true" />
+
         <!--statistics JBoss-->
-        <property name="hibernate.generate_statistics" value="true"/>
+        <!--<property name="hibernate.generate_statistics" value="true"/>-->
         <!--scan-->
         <property name="hibernate.archive.autodetection" value="class, hbm"/>
 
         <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
-        <!--<property name="hibernate.hbm2ddl.auto" value="create-drop"/>-->
-        <property name="hibernate.hbm2ddl.auto" value="update"/>
+        <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+        <!--<property name="hibernate.hbm2ddl.auto" value="update"/>-->
     </properties>
 </persistence-unit>
 

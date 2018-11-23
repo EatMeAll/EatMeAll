@@ -1,4 +1,4 @@
-package com.WildBirds.EatMeAll.application.modelDTO;
+package com.WildBirds.EatMeAll.application.DTO;
 
 //import com.WildBirds.RepositoryJPA.domain.model.enums.UserType;
 
@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class NewUserDTO {
 
-    private Integer id;
+    private Integer idUser;
     private String nick;
     private String email;
     private String password;
@@ -18,12 +18,12 @@ public class NewUserDTO {
     public NewUserDTO() {
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getIdUser() {
+        return idUser;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdUser(Integer idUser) {
+        this.idUser = idUser;
     }
 
     public Set<Integer> getFavouritesMealsSetId() {
