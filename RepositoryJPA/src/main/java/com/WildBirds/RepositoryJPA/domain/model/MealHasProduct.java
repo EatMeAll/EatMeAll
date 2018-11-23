@@ -1,9 +1,12 @@
 package com.WildBirds.RepositoryJPA.domain.model;
 
+import com.WildBirds.RepositoryJPA.domain.model.baseEntity.BaseEntity;
+
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
-public class MealHasProduct {
+public class MealHasProduct extends BaseEntity {
 
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,6 +42,7 @@ public class MealHasProduct {
 
     public void setMeal(Meal meal) {
         this.meal = meal;
+        meal.getMealHasProductSet().add(this);
     }
 
     public Product getProduct() {
@@ -46,7 +50,7 @@ public class MealHasProduct {
     }
 
     public void setProduct(Product product) {
-        this.product = product;
+       this.product = product;
     }
 
     public Integer getAmount() {
@@ -72,4 +76,21 @@ public class MealHasProduct {
     public void setSpecialUnit(String specialUnit) {
         this.specialUnit = specialUnit;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        MealHasProduct that = (MealHasProduct) o;
+
+        if (idMealHasProduct != null ? !idMealHasProduct.equals(that.idMealHasProduct) : that.idMealHasProduct != null)
+            return false;
+        if (meal != null ? !meal.equals(that.meal) : that.meal != null) return false;
+        if (product != null ? !product.equals(that.product) : that.product != null) return false;
+        if (amount != null ? !amount.equals(that.amount) : that.amount != null) return false;
+        if (unit != null ? !unit.equals(that.unit) : that.unit != null) return false;
+        return specialUnit != null ? specialUnit.equals(that.specialUnit) : that.specialUnit == null;
+    }
+
 }

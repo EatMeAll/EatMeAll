@@ -1,9 +1,12 @@
 package com.WildBirds.RepositoryJPA.domain.model;
 
+import com.WildBirds.RepositoryJPA.domain.model.baseEntity.BaseEntity;
+
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
-public class Step {
+public class Step extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,5 +51,20 @@ public class Step {
 
     public void setReceipt(Receipt receipt) {
         this.receipt = receipt;
+        receipt.getStepSet().add(this);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Step step = (Step) o;
+
+        if (idStep != null ? !idStep.equals(step.idStep) : step.idStep != null) return false;
+        if (number != null ? !number.equals(step.number) : step.number != null) return false;
+        if (header != null ? !header.equals(step.header) : step.header != null) return false;
+        return receipt != null ? receipt.equals(step.receipt) : step.receipt == null;
+    }
+
 }

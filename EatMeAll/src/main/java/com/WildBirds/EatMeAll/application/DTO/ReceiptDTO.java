@@ -1,6 +1,5 @@
-package com.WildBirds.EatMeAll.application.modelDTO;
+package com.WildBirds.EatMeAll.application.DTO;
 
-import java.util.List;
 import java.util.Set;
 
 public class ReceiptDTO {
@@ -49,30 +48,6 @@ public class ReceiptDTO {
 
     public void setSteps(Set<StepDTO> steps) {
         this.steps = steps;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ReceiptDTO that = (ReceiptDTO) o;
-
-        if (idReceipt != null ? !idReceipt.equals(that.idReceipt) : that.idReceipt != null) return false;
-        if (title != null ? !title.equals(that.title) : that.title != null) return false;
-        if (description != null ? !description.equals(that.description) : that.description != null) return false;
-        if (prepareTime != null ? !prepareTime.equals(that.prepareTime) : that.prepareTime != null) return false;
-        return steps != null ? steps.equals(that.steps) : that.steps == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = idReceipt != null ? idReceipt.hashCode() : 0;
-        result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (prepareTime != null ? prepareTime.hashCode() : 0);
-        result = 31 * result + (steps != null ? steps.hashCode() : 0);
-        return result;
     }
 
     @Override

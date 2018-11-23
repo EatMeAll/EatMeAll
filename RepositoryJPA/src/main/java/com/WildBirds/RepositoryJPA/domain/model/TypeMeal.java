@@ -1,13 +1,15 @@
 package com.WildBirds.RepositoryJPA.domain.model;
 
+import com.WildBirds.RepositoryJPA.domain.model.baseEntity.BaseEntity;
 import com.WildBirds.RepositoryJPA.domain.model.enums.MealTime;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
-public class TypeMeal {
+public class TypeMeal extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,13 +22,15 @@ public class TypeMeal {
 //    @ManyToMany(mappedBy = "typeMeal", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 
 
-    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
-    @JoinTable(name = "MealHasTypeMeal",
-            joinColumns = {@JoinColumn(name = "idTypeMeal")},
-            inverseJoinColumns = {@JoinColumn(name = "idMeal")})
+    @ManyToMany(mappedBy = "typeMealSet" ,cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     private Set<Meal> mealSet = new HashSet<>();
 
     public TypeMeal() {
+    }
+
+    public void addMeal(Meal meal){
+        this.getMealSet().add(meal);
+        meal.getTypeMealSet().add(this);
     }
 
     public Integer getIdTypeMeal() {
@@ -43,7 +47,6 @@ public class TypeMeal {
 
     public void setMealTime(MealTime mealTime) {
         this.mealTime = mealTime;
-        this.setIdTypeMeal(mealTime.getIndex());
     }
 
     public Set<Meal> getMealSet() {
@@ -61,13 +64,11 @@ public class TypeMeal {
 
         TypeMeal typeMeal = (TypeMeal) o;
 
-        return mealTime == typeMeal.mealTime;
+        if (idTypeMeal != null ? !idTypeMeal.equals(typeMeal.idTypeMeal) : typeMeal.idTypeMeal != null) return false;
+        if (mealTime != typeMeal.mealTime) return false;
+        return mealSet != null ? mealSet.equals(typeMeal.mealSet) : typeMeal.mealSet == null;
     }
 
-    @Override
-    public int hashCode() {
-        return mealTime != null ? mealTime.hashCode() : 0;
-    }
 
     @Override
     public String toString() {

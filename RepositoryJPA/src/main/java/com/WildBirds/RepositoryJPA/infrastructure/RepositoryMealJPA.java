@@ -78,7 +78,7 @@ public class RepositoryMealJPA extends CrudEntityJpa<Meal> implements Repository
 
 
         String query = "SELECT meal FROM Meal meal " +
-                "JOIN meal.typeMeal typeMeal " +
+                "JOIN meal.typeMealSet typeMeal " +
                 " WHERE typeMeal.idTypeMeal= :idMeal" +
                 " AND meal.language =: language ";
 
@@ -95,7 +95,7 @@ public class RepositoryMealJPA extends CrudEntityJpa<Meal> implements Repository
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Meal> getMealsByTypeMeal(MealTime mealTime) {
         String query = "SELECT meal FROM Meal meal " +
-                "JOIN meal.typeMeal typeMeal " +
+                "JOIN meal.typeMealSet typeMeal " +
                 "WHERE typeMeal.idTypeMeal = :idMeal";
 
         return this.entityManager.createQuery(query, Meal.class).

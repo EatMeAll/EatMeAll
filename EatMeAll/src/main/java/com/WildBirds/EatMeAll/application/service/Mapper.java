@@ -1,13 +1,11 @@
 package com.WildBirds.EatMeAll.application.service;
 
-import com.WildBirds.EatMeAll.application.modelDTO.MealDTO;
-import com.WildBirds.EatMeAll.application.modelDTO.NewUserDTO;
-import com.WildBirds.EatMeAll.application.modelDTO.UserDTO;
+import com.WildBirds.EatMeAll.application.DTO.MealDTO;
+import com.WildBirds.EatMeAll.application.DTO.NewUserDTO;
+import com.WildBirds.EatMeAll.application.DTO.UserDTO;
 import com.WildBirds.RepositoryJPA.domain.model.Meal;
 import com.WildBirds.RepositoryJPA.domain.model.User;
 
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
 import java.util.List;
 
 public interface Mapper {

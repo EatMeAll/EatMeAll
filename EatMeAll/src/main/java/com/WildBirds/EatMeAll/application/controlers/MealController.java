@@ -3,7 +3,7 @@ package com.WildBirds.EatMeAll.application.controlers;
 
 import com.WildBirds.EatMeAll.application.controlers.service.handler.ResponseStrategy;
 import com.WildBirds.EatMeAll.application.controlers.utils.HttpStatus;
-import com.WildBirds.EatMeAll.application.modelDTO.*;
+import com.WildBirds.EatMeAll.application.DTO.*;
 import com.WildBirds.EatMeAll.application.service.Mapper;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
 import com.WildBirds.RepositoryJPA.domain.model.Meal;

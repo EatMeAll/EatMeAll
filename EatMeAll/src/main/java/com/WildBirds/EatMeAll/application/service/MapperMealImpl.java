@@ -1,7 +1,7 @@
 package com.WildBirds.EatMeAll.application.service;
 
 
-import com.WildBirds.EatMeAll.application.modelDTO.*;
+import com.WildBirds.EatMeAll.application.DTO.*;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
 import com.WildBirds.RepositoryJPA.domain.model.*;
 
@@ -40,10 +40,6 @@ public class MapperMealImpl implements Mapper {
                 meal.setAuthorReceipt(mealDTO.getAuthorReceipt());
 //
 //                meal.setPhoto(mealDTO.getPhoto());
-
-
-
-
 
 
             }
@@ -85,7 +81,7 @@ public class MapperMealImpl implements Mapper {
 
                 Set<TypeMealDTO> typeMealDTOList = new HashSet<>();
 
-                Set<TypeMeal> typeMealSet = meal.getTypeMeal();
+                Set<TypeMeal> typeMealSet = meal.getTypeMealSet();
 
                 for (TypeMeal typeMeal : typeMealSet) {
                     TypeMealDTO typeMealDTO = new TypeMealDTO();
@@ -140,14 +136,15 @@ public class MapperMealImpl implements Mapper {
     public User toUser(UserDTO userDTO) throws MapperException {
         User user = null;
         try {
-            user = new User();
+            user = repo.USER().get(userDTO.getIdUser());
 
             user.setIdUser(user.getIdUser());
             user.setUserType(user.getUserType());
             user.setEmail(userDTO.getEmail());
             user.setNick(user.getNick());
 
-//            user.setIdUser(newUserDTO.getId());
+
+//            user.setIdUser(newUserDTO.getIdUser());
 //            List<Meal> mealList = repo.MEAL().getIn(newUserDTO.getFavouritesMealsSetId());
 //
 //            for (Meal meal : mealList) {
@@ -155,12 +152,10 @@ public class MapperMealImpl implements Mapper {
 //            }
 
 
-            Set<Meal> mealSet = new HashSet<>();
             for (Integer integer : userDTO.getFavouritesMealsSetId()) {
                 Meal meal = repo.MEAL().get(integer);
-                mealSet.add(meal);
+                user.addFavoriteMeal(meal);
             }
-            user.setFavouritesMealsSet(mealSet);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -171,6 +166,8 @@ public class MapperMealImpl implements Mapper {
     }
 
     public UserDTO toUserDTO(User user) throws MapperException {
+
+        System.out.println("MAPP TO NEW USERDTO");
 
         Set<Integer> favouritesMealsSetId = new HashSet<>();
         Set<Meal> favouritesMealsSet = user.getFavouritesMealsSet();
@@ -200,15 +197,16 @@ public class MapperMealImpl implements Mapper {
             user.setEmail(newUserDTO.getEmail());
             user.setUserType(newUserDTO.getUserType());
             user.setPassword(newUserDTO.getPassword());
-            user.setIdUser(newUserDTO.getId());
+            user.setIdUser(newUserDTO.getIdUser());
+
+            repo.USER().insert(user);
 
             // TODO: 21.11.2018 IT DOESN'T WORK :(
-            Set<Meal> mealSet = new HashSet<>();
             for (Integer integer : newUserDTO.getFavouritesMealsSetId()) {
                 Meal meal = repo.MEAL().get(integer);
-                mealSet.add(meal);
+                meal.addLikedByUser(user);
             }
-            user.setFavouritesMealsSet(mealSet);
+            repo.USER().update(user);
 
         } catch (Exception e) {
             e.printStackTrace();

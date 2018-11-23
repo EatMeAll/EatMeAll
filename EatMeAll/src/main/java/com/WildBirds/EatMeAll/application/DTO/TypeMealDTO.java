@@ -1,4 +1,4 @@
-package com.WildBirds.EatMeAll.application.modelDTO;
+package com.WildBirds.EatMeAll.application.DTO;
 
 
 import com.WildBirds.RepositoryJPA.domain.model.enums.MealTime;
@@ -25,24 +25,6 @@ public class TypeMealDTO {
 
     public void setIdTypeMeal(Integer idTypeMeal) {
         this.idTypeMeal = idTypeMeal;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        TypeMealDTO that = (TypeMealDTO) o;
-
-        if (idTypeMeal != null ? !idTypeMeal.equals(that.idTypeMeal) : that.idTypeMeal != null) return false;
-        return mealTime == that.mealTime;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = idTypeMeal != null ? idTypeMeal.hashCode() : 0;
-        result = 31 * result + (mealTime != null ? mealTime.hashCode() : 0);
-        return result;
     }
 
     @Override
