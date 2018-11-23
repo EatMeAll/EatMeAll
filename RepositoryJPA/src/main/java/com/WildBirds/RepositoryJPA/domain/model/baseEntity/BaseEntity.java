@@ -9,12 +9,10 @@ import java.util.UUID;
 public class BaseEntity {
 
 
+	@Transient
 	private String uuid;
 
-	public BaseEntity() {}
-
-	@PostConstruct
-	public void init() {
+	public BaseEntity() {
 		if (uuid == null) {
 			uuid = UUID.randomUUID().toString();
 		}

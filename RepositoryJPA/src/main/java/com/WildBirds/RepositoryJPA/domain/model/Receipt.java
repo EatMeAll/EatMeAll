@@ -11,7 +11,7 @@ import java.util.Set;
 public class Receipt extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idReceipt;
     private String title;
     private String description;
