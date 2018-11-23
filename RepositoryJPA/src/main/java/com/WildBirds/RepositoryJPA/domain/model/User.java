@@ -13,7 +13,7 @@ import java.util.Set;
 public class User extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idUser;
     private String nick;
     private String email;

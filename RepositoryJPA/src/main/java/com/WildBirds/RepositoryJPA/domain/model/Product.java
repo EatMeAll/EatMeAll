@@ -12,7 +12,7 @@ import java.util.Objects;
 public class Product extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idProduct;
     private String name;
 

@@ -12,7 +12,7 @@ import java.util.Set;
 public class TypeMeal extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idTypeMeal;
 
     @Enumerated(EnumType.STRING)

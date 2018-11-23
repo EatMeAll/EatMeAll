@@ -206,6 +206,7 @@ public class MapperMealImpl implements Mapper {
                 Meal meal = repo.MEAL().get(integer);
                 meal.addLikedByUser(user);
             }
+
             repo.USER().update(user);
 
         } catch (Exception e) {

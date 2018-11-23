@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Step extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idStep;
     private Integer number;
     private String header;

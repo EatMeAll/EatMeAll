@@ -9,7 +9,7 @@ import java.util.Objects;
 public class MealHasProduct extends BaseEntity {
 
    @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @GeneratedValue(strategy = GenerationType.AUTO)
    private Integer idMealHasProduct;
    @ManyToOne
    @JoinColumn(name = "idMeal")

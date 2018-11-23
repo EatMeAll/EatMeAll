@@ -15,7 +15,7 @@ import java.util.Set;
 public class Meal extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idMeal;
 
     @Enumerated(EnumType.STRING)

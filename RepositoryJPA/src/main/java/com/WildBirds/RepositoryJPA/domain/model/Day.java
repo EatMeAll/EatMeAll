@@ -14,7 +14,7 @@ import java.util.Set;
 public class Day extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idDay;
     private Instant date;
 
