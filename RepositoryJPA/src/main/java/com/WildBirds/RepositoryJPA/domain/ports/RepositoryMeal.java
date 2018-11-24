@@ -20,5 +20,8 @@ public interface RepositoryMeal extends CrudEntity<Meal> {
     List<Meal> getMealsByTypeMeal(MealTime mealTime);
 
 
+    //MealTime mealTime, Language language, Integer amount
+    List<Meal> getShortMealByTypeMeal(MealTime mealTime, Language language, Integer amount);
+
     File getFile(int idPhoto);
 }

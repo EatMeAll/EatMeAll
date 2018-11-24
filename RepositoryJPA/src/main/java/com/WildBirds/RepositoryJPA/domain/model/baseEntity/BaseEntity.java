@@ -1,6 +1,6 @@
 package com.WildBirds.RepositoryJPA.domain.model.baseEntity;
 
-import javax.annotation.PostConstruct;
+
 import javax.persistence.*;
 import java.util.UUID;
 

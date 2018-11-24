@@ -34,30 +34,19 @@ public class HomeController {
     ExcelReaderApp excelReaderApp;
 
     @GET
-    @Path("home")
+    @Path("excel")
     public Response hello(@Context UriInfo info) {
 
         mainLocal.HelloWorld();
         System.out.println("in home controller");
 
-        Product milk = new Product();
-        milk.setName("Milk");
+        try {
+            excelReaderApp.addToDatabase();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        MealHasProduct mealHasProduct = new MealHasProduct();
-        mealHasProduct.setProduct(milk);
-        mealHasProduct.setAmount(100);
-        mealHasProduct.setUnit("ml");
-
-        Meal meal = new Meal();
-        meal.setLanguage(Language.PL);
-
-        repo.PRODUCT().insert(milk);
-        repo.MEALHASPRODUCT().insert(mealHasProduct);
-        repo.MEAL().insert(meal);
-
-        mealsToRepository();
-
-        return Response.status(200).entity("Hello world").build();
+        return Response.status(200).entity("You successfully imported date from Excel").build();
     }
 
     @GET
@@ -84,14 +73,5 @@ public class HomeController {
 
 
         return Response.status(200).type(Files.probeContentType(photo.toPath())).entity(sb.toString()).build();
-    }
-
-
-    private void mealsToRepository() {
-        try {
-            excelReaderApp.addToDatabase();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
