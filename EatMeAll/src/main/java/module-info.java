@@ -4,6 +4,4 @@ module com.WildBirds.EatMeAll {
     requires com.WildBirds.RepositoryJPA;
     requires lombok;
     requires ExcelReader;
-
-
 }
