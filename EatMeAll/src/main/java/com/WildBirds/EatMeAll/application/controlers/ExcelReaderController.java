@@ -21,14 +21,7 @@ import java.io.*;
 import java.nio.file.Files;
 
 @Path("")
-public class HomeController {
-
-
-    @EJB
-    Main mainLocal;
-
-    @EJB
-    RepositoryFacade repo;
+public class ExcelReaderController {
 
     @EJB
     ExcelReaderApp excelReaderApp;
@@ -37,41 +30,13 @@ public class HomeController {
     @Path("excel")
     public Response hello(@Context UriInfo info) {
 
-        mainLocal.HelloWorld();
-        System.out.println("in home controller");
-
+        System.out.println("Read from excel");
         try {
             excelReaderApp.addToDatabase();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return Response.status(200).entity("You successfully imported date from Excel").build();
     }
 
-    @GET
-    @Path("test")
-    @Produces(MediaType.MEDIA_TYPE_WILDCARD)
-    public Response test(@Context UriInfo info) throws IOException {
-
-        Meal meal = repo.MEAL().get(5);
-
-        System.out.println(meal);
-
-        File photo = meal.getPhoto();
-
-
-        BufferedReader br = new BufferedReader(new FileReader(photo));
-
-        StringBuilder sb = new StringBuilder();
-        String st;
-        while ((st = br.readLine()) != null){
-            System.out.println(st);
-            sb.append(st);
-
-        }
-
-
-        return Response.status(200).type(Files.probeContentType(photo.toPath())).entity(sb.toString()).build();
-    }
 }
