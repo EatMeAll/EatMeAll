@@ -8,6 +8,7 @@ import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
 import com.WildBirds.RepositoryJPA.domain.model.User;
 
 import javax.ejb.EJB;
+import javax.validation.ConstraintViolationException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -55,7 +56,7 @@ public class UserController {
             return Response.status(HttpStatus.CREATED.getCode()).entity(userDTO).build();
         } catch (Exception e) {
             e.printStackTrace();
-            return Response.status(HttpStatus.NOT_FOUND.getCode()).entity(newUserDTO).build();
+            return Response.status(HttpStatus.CONFLICT.getCode()).header("Error", "Duplicate nick or email").build();
         }
     }
 
@@ -78,6 +79,7 @@ public class UserController {
         }
     }
 
+
     @PATCH
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -88,9 +90,9 @@ public class UserController {
             UserDTO updatedUserDTO = mapper.toUserDTO(user);
 
             return Response.status(HttpStatus.OK.getCode()).entity(updatedUserDTO).build();
-        } catch (Exception e) {
+        } catch (ConstraintViolationException e) {
             e.printStackTrace();
-            return Response.status(HttpStatus.NOT_FOUND.getCode()).entity(newUserDTO).build();
+            return Response.status(HttpStatus.BAD_REQUEST.getCode()).entity(newUserDTO).build();
 
         }
     }
