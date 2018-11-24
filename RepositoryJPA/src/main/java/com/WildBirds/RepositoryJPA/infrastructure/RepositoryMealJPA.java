@@ -70,10 +70,10 @@ public class RepositoryMealJPA extends CrudEntityJpa<Meal> implements Repository
     public List<Meal> getMealsByTypeMeal(MealTime mealTime) {
         String query = "SELECT meal FROM Meal meal " +
                 "JOIN meal.typeMealSet typeMeal " +
-                "WHERE typeMeal.idTypeMeal = :idMeal";
+                "WHERE typeMeal.mealTime = :idMeal";
 
         return this.entityManager.createQuery(query, Meal.class).
-                setParameter("idMeal", mealTime.getIndex()).
+                setParameter("idMeal", mealTime).
                 getResultList();
     }
 

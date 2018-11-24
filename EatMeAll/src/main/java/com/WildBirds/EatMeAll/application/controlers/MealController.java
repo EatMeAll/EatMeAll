@@ -188,19 +188,13 @@ public class MealController {
                     String typeMeal = map.getFirst("typeMeal");
                     MealTime mealTime = MealTime.valueOf(typeMeal);
 
-
                     List<Meal> mealsByMealTeam = repo.MEAL().getMealsByTypeMeal(mealTime);
-
                     List<MealDTO> mealDTOList = mapper.toMealDTO(mealsByMealTeam);
 
-
-//                    MealDTO mealDTO = mealDTOList.get(1);
-//                    System.out.println(mealDTO.toString());
                     return Response.status(HttpStatus.OK.getCode()).entity(mealDTOList).build();
-
                 })
                 .ultimately(params -> {
-                    return Response.status(HttpStatus.NOT_FOUND.getCode()).entity("Not match").build();
+                    return Response.status(HttpStatus.NOT_FOUND.getCode()).header("Error","Not match - you have to pass param").build();
                 });
     }
 
