@@ -1,8 +1,8 @@
 package com.WildBirds.EatMeAll.application.controlers;
 
-import com.WildBirds.EatMeAll.application.controlers.utils.HttpStatus;
 import com.WildBirds.EatMeAll.application.DTO.NewUserDTO;
 import com.WildBirds.EatMeAll.application.DTO.UserDTO;
+import com.WildBirds.EatMeAll.application.controlers.utils.HttpStatus;
 import com.WildBirds.EatMeAll.application.service.Mapper;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
 import com.WildBirds.RepositoryJPA.domain.model.User;
