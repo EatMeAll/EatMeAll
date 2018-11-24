@@ -36,6 +36,7 @@ public class MealController {
 
     @GET
     @Path("")
+    @Produces({"application/json; charset=UTF-8"})
     public Response hello(@Context UriInfo info) {
         return  new ResponseStrategy().form(info)
                 .when("from","to")
@@ -43,12 +44,16 @@ public class MealController {
 
                     Integer from = Integer.valueOf(params.getFirst("from"));
                     Integer to = Integer.valueOf(params.getFirst("to"));
-                    List<Meal> all = repo.MEAL().getAll(from,to-from);
-                    return Response.status(HttpStatus.OK.getCode()).entity(all.toString()).build();
 
+                    List<Meal> all = repo.MEAL().getAll(from,to-from);
+                    List<MealDTO> mealDTOList = mapper.toMealDTO(all);
+
+                    return Response.status(HttpStatus.OK.getCode()).entity(mealDTOList).build();
                 }).ultimately(params -> {
                     List<Meal> all = repo.MEAL().getAll();
-                    return Response.status(HttpStatus.OK.getCode()).entity(all.toString()).build();
+                    List<MealDTO> mealDTOList = mapper.toMealDTO(all);
+
+                    return Response.status(HttpStatus.OK.getCode()).entity(mealDTOList).build();
                 });
 
     }

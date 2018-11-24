@@ -23,6 +23,7 @@ import java.util.List;
 @LocalBean
 public class ExcelReaderApp {
 
+    private String basePath = "D:\\PROGRAMOWANIE\\etmeall2\\eatmeall";
     @EJB
     RepositoryFacade repo;
 
@@ -35,14 +36,11 @@ public class ExcelReaderApp {
         int counter = 0;
 
         ExcelReader excelReader = new XmlReader();
-        String filePath = "D:\\PROGRAMOWANIE\\etmeall2\\eatmeall\\ExcelReader\\src\\main\\resources\\data\\jadlospis2.xlsx";
+        String filePath = basePath + "\\ExcelReader\\src\\main\\resources\\data\\jadlospis2.xlsx";
         List<MealExcel> mealExcelList = excelReader.read(filePath);
 
-        User userEntity = repo.USER().insert(new User());
+        User userEntity = repo.USER().insert(new User("EXCEL","excel@wp.pl"));
 
-
-        userEntity.setNick("EXCEL");
-        userEntity.setEmail("excel@wp.pl");
         userEntity.setPassword("jakieshaslo");
         userEntity.setUserType(UserType.ADMIN);
 
@@ -63,28 +61,28 @@ public class ExcelReaderApp {
             TypeMeal typeMealEntity = repo.TYPEMEAL().insert(new TypeMeal());
 
             MealTime mealTime = MealTime.LUNCH;
-            File photo = new File("D:\\PROGRAMOWANIE\\etmeall2\\eatmeall\\ExcelReader\\src\\main\\resources\\data\\jadlospis2.xlsx");
+            File photo = new File(basePath + "\\ExcelReader\\src\\main\\resources\\data\\jadlospis2.xlsx");
 
             switch (typeMealExcel) {
 
                 case "śniadanie":
                     mealTime = MealTime.BREAKFAST;
-                    photo = new File("D:\\PROGRAMOWANIE\\etmeall2\\eatmeall\\ExcelReader\\src\\main\\resources\\data\\breakfast.jpg");
+                    photo = new File(basePath + "\\ExcelReader\\src\\main\\resources\\data\\breakfast.jpg");
                     break;
 
                 case "lunch":
                     mealTime = MealTime.LUNCH;
-                    photo = new File("D:\\PROGRAMOWANIE\\etmeall2\\eatmeall\\ExcelReader\\src\\main\\resources\\data\\lunch.jpg");
+                    photo = new File(basePath + "\\ExcelReader\\src\\main\\resources\\data\\lunch.jpg");
                     break;
 
                 case "obiad":
                     mealTime = MealTime.DINNER;
-                    photo = new File("D:\\PROGRAMOWANIE\\etmeall2\\eatmeall\\ExcelReader\\src\\main\\resources\\data\\dinner.jpg");
+                    photo = new File(basePath + "\\ExcelReader\\src\\main\\resources\\data\\dinner.jpg");
                     break;
 
                 case "kolacja":
                     mealTime = MealTime.SUPPER;
-                    photo = new File("D:\\PROGRAMOWANIE\\etmeall2\\eatmeall\\ExcelReader\\src\\main\\resources\\data\\supper.jpg");
+                    photo = new File(basePath + "\\ExcelReader\\src\\main\\resources\\data\\supper.jpg");
                     break;
             }
 
@@ -172,4 +170,12 @@ public class ExcelReaderApp {
         }
     }
 
+
+    public String getBasePath() {
+        return basePath;
+    }
+
+    public void setBasePath(String basePath) {
+        this.basePath = basePath;
+    }
 }
