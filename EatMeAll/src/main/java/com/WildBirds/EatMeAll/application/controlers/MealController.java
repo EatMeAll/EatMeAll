@@ -1,28 +1,22 @@
 package com.WildBirds.EatMeAll.application.controlers;
 
 
+import com.WildBirds.EatMeAll.application.DTO.MealDTO;
 import com.WildBirds.EatMeAll.application.controlers.service.handler.ResponseStrategy;
 import com.WildBirds.EatMeAll.application.controlers.utils.HttpStatus;
-import com.WildBirds.EatMeAll.application.DTO.*;
 import com.WildBirds.EatMeAll.application.service.Mapper;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
 import com.WildBirds.RepositoryJPA.domain.model.Meal;
 import com.WildBirds.RepositoryJPA.domain.model.enums.Language;
 import com.WildBirds.RepositoryJPA.domain.model.enums.MealTime;
-import com.WildBirds.RepositoryJPA.domain.model.enums.UserType;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-import java.io.File;
-import java.time.Instant;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Path("meals")
 public class MealController {
@@ -38,14 +32,14 @@ public class MealController {
     @Path("")
     @Produces({"application/json; charset=UTF-8"})
     public Response hello(@Context UriInfo info) {
-        return  new ResponseStrategy().form(info)
-                .when("from","to")
+        return new ResponseStrategy().form(info)
+                .when("from", "to")
                 .execute(params -> {
 
                     Integer from = Integer.valueOf(params.getFirst("from"));
                     Integer to = Integer.valueOf(params.getFirst("to"));
 
-                    List<Meal> all = repo.MEAL().getAll(from,to-from);
+                    List<Meal> all = repo.MEAL().getAll(from, to - from);
                     List<MealDTO> mealDTOList = mapper.toMealDTO(all);
 
                     return Response.status(HttpStatus.OK.getCode()).entity(mealDTOList).build();
@@ -61,7 +55,7 @@ public class MealController {
     @GET
     @Produces({"application/json; charset=UTF-8"})
     @Path("{idMeal}")
-    public Response getId(@Context UriInfo info, @PathParam("idMeal") Integer idMeal){
+    public Response getId(@Context UriInfo info, @PathParam("idMeal") Integer idMeal) {
 
         Meal meal = repo.MEAL().get(idMeal);
 
@@ -83,9 +77,6 @@ public class MealController {
 
             List<Meal> mealsByMealTeam = repo.MEAL().getMealsByTypeMeal(mealTime);
             return Response.status(HttpStatus.OK.getCode()).entity(mealsByMealTeam.toString()).build();
-
-
-
         }
         return Response.status(HttpStatus.NOT_FOUND.getCode()).entity("").build();
     }
@@ -93,7 +84,6 @@ public class MealController {
     @GET
     @Path("typeMeal")
     @Produces({"application/json; charset=UTF-8"})
-
     public Response test1(@Context UriInfo info) {
 
         return new ResponseStrategy().form(info)
@@ -194,97 +184,9 @@ public class MealController {
                     return Response.status(HttpStatus.OK.getCode()).entity(mealDTOList).build();
                 })
                 .ultimately(params -> {
-                    return Response.status(HttpStatus.NOT_FOUND.getCode()).header("Error","Not match - you have to pass param").build();
+                    return Response.status(HttpStatus.NOT_FOUND.getCode()).header("Error", "Not match - you have to pass param").build();
                 });
     }
-
-
-    @GET
-    @Path("photo/{idPhoto}")
-    @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Response getFile(@Context UriInfo info, @PathParam("idPhoto") Integer idPhoto) {
-
-        File file = repo.MEAL().getFile(idPhoto);
-        return Response.ok(file, MediaType.APPLICATION_OCTET_STREAM)
-                .header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"" ) //optional
-                .build();
-    }
-
-
-    @GET
-    @Path("sample")
-    @Produces("application/json; charset=UTF-8")
-    public Response getMeal(@Context UriInfo info) {
-
-        StepDTO stepDTO1 = new StepDTO();
-        stepDTO1.setHeader("Tresc pierwszego kroku");
-        stepDTO1.setNumber(1);
-
-        StepDTO stepDTO2 = new StepDTO();
-        stepDTO2.setHeader("Tresc kroku drugiego");
-        stepDTO2.setNumber(2);
-        Set<StepDTO> stepDTOList = new HashSet<>();
-        stepDTOList.add(stepDTO1);
-        stepDTOList.add(stepDTO2);
-
-        ReceiptDTO receiptDTO = new ReceiptDTO();
-        receiptDTO.setTitle("TytulRecepty");
-        receiptDTO.setDescription("Opis recepty");
-        receiptDTO.setPrepareTime(15);
-        receiptDTO.setSteps(stepDTOList);
-
-        TypeMealDTO typeMealDTO = new TypeMealDTO();
-        typeMealDTO.setIdTypeMeal(1);
-        typeMealDTO.setMealTime(MealTime.BREAKFAST);
-
-        Set<TypeMealDTO> typeMealDTOSet = new HashSet<>();
-        typeMealDTOSet.add(typeMealDTO);
-
-        UserDTO userDTO = new UserDTO();
-
-        userDTO.setIdUser(1);
-        userDTO.setEmail("email@wp.pl");
-        userDTO.setNick("TestREST");
-        userDTO.setUserType(UserType.ADMIN);
-
-
-        ProductDTO productDTO1 = new ProductDTO();
-        productDTO1.setName("Marchew");
-        productDTO1.setAmount(200);
-        productDTO1.setUnit("g");
-        productDTO1.setSpecialUnit("1/2 łyżki");
-
-        ProductDTO productDTO2 = new ProductDTO();
-        productDTO2.setName("Gruszka");
-        productDTO2.setAmount(100);
-        productDTO2.setUnit("kg");
-        productDTO2.setSpecialUnit("1/2 słoja");
-
-        Set<ProductDTO> productDTOSet = new HashSet<>();
-
-        productDTOSet.add(productDTO1);
-        productDTOSet.add(productDTO2);
-
-        MealDTO mealDTO1 =
-                new MealDTO(1,
-                        Language.PL,
-                        "Tytul",
-                        "ShortMessage",
-                        300,
-                        "Igor",
-                        null,
-                        true,
-                        Instant.now(),
-                        receiptDTO,
-                        typeMealDTOSet,
-                        userDTO,
-                        productDTOSet);
-
-
-        return Response.status(HttpStatus.OK.getCode()).entity(mealDTO1).build();
-    }
-
-
 
 
 }
