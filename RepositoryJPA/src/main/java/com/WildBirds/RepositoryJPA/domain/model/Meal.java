@@ -47,25 +47,25 @@ public class Meal extends BaseEntity {
     @JoinColumn(name = "idReceipt")
     private Receipt receipt;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "meal", fetch = FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "meal")
     private Set<MealHasProduct> mealHasProductSet = new HashSet<>();
 
 
-    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "MealHasTypeMeal",
             joinColumns = {@JoinColumn(name = "idMeal")},
             inverseJoinColumns = {@JoinColumn(name = "idTypeMeal")})
     private Set<TypeMeal> typeMealSet = new HashSet<>();
 
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "MealHasDay",
             joinColumns = {@JoinColumn(name = "idMeal")},
             inverseJoinColumns = {@JoinColumn(name = "idDay")})
     private Set<Day> usedInDaysSet = new HashSet<>();
 
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "Favourites",
             joinColumns = {@JoinColumn(name = "idMeal")},
             inverseJoinColumns = {@JoinColumn(name = "idUser")})

@@ -5,6 +5,7 @@ import com.WildBirds.RepositoryJPA.domain.model.enums.UserType;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -15,14 +16,19 @@ public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idUser;
+    @Column(nullable = false, unique = true)
     private String nick;
+
+    @Column(nullable = false, unique = true)
+    @Pattern(regexp="^[A-z0-9._%+-]+@[A-z0-9.-]+\\.[A-z]{2,6}$")
     private String email;
+
     private String password;
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
     //    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
-    @ManyToMany(mappedBy = "likedBySet",cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "likedBySet",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Meal> favouritesMealsSet = new HashSet<>();
 
     @OneToMany(mappedBy = "creatorMeal")
@@ -32,6 +38,11 @@ public class User extends BaseEntity {
     private Set<Day> historyMealsSet = new HashSet<>();
 
     public User() {
+    }
+
+    public User(String nick, String email){
+        this.nick = nick;
+        this.email = email;
     }
 
 

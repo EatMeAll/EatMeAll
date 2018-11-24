@@ -22,7 +22,7 @@ public class TypeMeal extends BaseEntity {
 //    @ManyToMany(mappedBy = "typeMeal", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 
 
-    @ManyToMany(mappedBy = "typeMealSet" ,cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "typeMealSet" ,cascade = {CascadeType.ALL})
     private Set<Meal> mealSet = new HashSet<>();
 
     public TypeMeal() {

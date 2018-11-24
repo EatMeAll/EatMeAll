@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+
 @Path("users")
 public class UserController {
 
@@ -42,31 +43,19 @@ public class UserController {
 
             return Response.status(HttpStatus.NOT_FOUND.getCode()).entity("NOT FOUND USER").build();
         }
-
-
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response addUser(NewUserDTO newUserDTO) {
-
-        System.out.println("ADD USER");
         try {
             User user = mapper.toUser(newUserDTO);
-
-
-            System.out.println("AFTER MAP");
-//            User UPDATE = repo.USER().get(user.getIdUser());
-//
-//            User insertedUser = repo.USER().insert(UPDATE);
             UserDTO userDTO = mapper.toUserDTO(user);
-
             return Response.status(HttpStatus.CREATED.getCode()).entity(userDTO).build();
         } catch (Exception e) {
             e.printStackTrace();
             return Response.status(HttpStatus.NOT_FOUND.getCode()).entity(newUserDTO).build();
-
         }
     }
 
@@ -93,10 +82,10 @@ public class UserController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response upDateUser(NewUserDTO newUserDTO) {
+
         try {
             User user = mapper.toUser(newUserDTO);
-            User updatedUser = repo.USER().update(user);
-            UserDTO updatedUserDTO = mapper.toUserDTO(updatedUser);
+            UserDTO updatedUserDTO = mapper.toUserDTO(user);
 
             return Response.status(HttpStatus.OK.getCode()).entity(updatedUserDTO).build();
         } catch (Exception e) {

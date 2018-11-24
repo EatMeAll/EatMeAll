@@ -13,7 +13,7 @@ public class NewUserDTO {
     private String email;
     private String password;
     private UserType userType;
-    private Set<Integer> favouritesMealsSetId;
+
 
     public NewUserDTO() {
     }
@@ -24,14 +24,6 @@ public class NewUserDTO {
 
     public void setIdUser(Integer idUser) {
         this.idUser = idUser;
-    }
-
-    public Set<Integer> getFavouritesMealsSetId() {
-        return favouritesMealsSetId;
-    }
-
-    public void setFavouritesMealsSetId(Set<Integer> favouritesMealsSetId) {
-        this.favouritesMealsSetId = favouritesMealsSetId;
     }
 
     public String getNick() {

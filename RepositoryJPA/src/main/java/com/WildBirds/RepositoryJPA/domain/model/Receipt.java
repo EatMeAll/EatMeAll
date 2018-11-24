@@ -17,7 +17,7 @@ public class Receipt extends BaseEntity {
     private String description;
     private Integer prepareTime;
 
-    @OneToMany(mappedBy = "receipt", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "receipt", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Step> stepSet = new HashSet<>();
 
     @OneToOne(mappedBy = "receipt")

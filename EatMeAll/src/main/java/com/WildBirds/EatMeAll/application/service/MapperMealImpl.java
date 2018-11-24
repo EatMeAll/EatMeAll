@@ -25,7 +25,7 @@ public class MapperMealImpl implements Mapper {
     public List<Meal> toMeal(List<MealDTO> mealDTOList) throws MapperException {
 
         List<Meal> mealList = new ArrayList<>();
-        try {
+
 
             for (MealDTO mealDTO : mealDTOList) {
                 Meal meal = new Meal();
@@ -39,10 +39,7 @@ public class MapperMealImpl implements Mapper {
                 meal.setAmountCalories(mealDTO.getAmountCalories());
                 meal.setAuthorReceipt(mealDTO.getAuthorReceipt());
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new MapperException("Invalid value to mapping");
-        }
+
 
         return mealList;
     }
@@ -53,12 +50,14 @@ public class MapperMealImpl implements Mapper {
 
 
         for (Meal meal : mealList) {
+            meal = repo.MEAL().update(meal);
             try {
                 Set<StepDTO> stepDTOSet = new HashSet<>();
                 Set<Step> stepList = meal.getReceipt().getStepSet();
 
                 for (Step step : stepList) {
                     StepDTO stepDTO = new StepDTO();
+
 
                     stepDTO.setNumber(step.getNumber());
                     stepDTO.setHeader(step.getHeader());
@@ -129,49 +128,28 @@ public class MapperMealImpl implements Mapper {
         return mealDTOList;
     }
 
-    public User toUser(UserDTO userDTO) throws MapperException {
+    public User toUser(UserDTO userDTO) {
         User user = null;
-        try {
-            user = repo.USER().get(userDTO.getIdUser());
 
+            user = repo.USER().get(userDTO.getIdUser());
             user.setIdUser(user.getIdUser());
             user.setUserType(user.getUserType());
             user.setEmail(userDTO.getEmail());
             user.setNick(user.getNick());
 
 
-//            user.setIdUser(newUserDTO.getIdUser());
-//            List<Meal> mealList = repo.MEAL().getIn(newUserDTO.getFavouritesMealsSetId());
-//
-//            for (Meal meal : mealList) {
-//                user.getFavouritesMealsSet().add(repo.MEAL().update(meal));
-//            }
-
-
-            for (Integer integer : userDTO.getFavouritesMealsSetId()) {
-                Meal meal = repo.MEAL().get(integer);
-                user.addFavoriteMeal(meal);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new MapperException("Invalid value to mapping");
-
-        }
         return user;
     }
 
-    public UserDTO toUserDTO(User user) throws MapperException {
+    public UserDTO toUserDTO(User user) {
 
-        System.out.println("MAPP TO NEW USERDTO");
-
+        user = repo.USER().update(user);
         Set<Integer> favouritesMealsSetId = new HashSet<>();
         Set<Meal> favouritesMealsSet = user.getFavouritesMealsSet();
 
         for (Meal meal : favouritesMealsSet) {
             favouritesMealsSetId.add(meal.getIdMeal());
         }
-
         UserDTO userDTO = new UserDTO();
 
         userDTO.setIdUser(user.getIdUser());
@@ -183,43 +161,32 @@ public class MapperMealImpl implements Mapper {
         return userDTO;
     }
 
-    public User toUser(NewUserDTO newUserDTO) throws MapperException {
+    public User toUser(NewUserDTO newUserDTO) {
 
+        Integer idUser = newUserDTO.getIdUser();
         User user = null;
-        try {
-            user = new User();
 
+        if (idUser != null) {
+
+            user = repo.USER().get(idUser);
             user.setNick(newUserDTO.getNick());
             user.setEmail(newUserDTO.getEmail());
+
+        } else {
+            user = repo.USER().insert(new User(newUserDTO.getNick(), newUserDTO.getEmail()));
+        }
             user.setUserType(newUserDTO.getUserType());
             user.setPassword(newUserDTO.getPassword());
-            user.setIdUser(newUserDTO.getIdUser());
 
-            repo.USER().insert(user);
-
-            // TODO: 21.11.2018 IT DOESN'T WORK :(
-            for (Integer integer : newUserDTO.getFavouritesMealsSetId()) {
-                Meal meal = repo.MEAL().get(integer);
-                meal.addLikedByUser(user);
-            }
-
-            repo.USER().update(user);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new MapperException("Invalid value to mapping");
-        }
+        user = repo.USER().update(user);
 
         return user;
-
     }
 
     @Override
     public MealDTOshort toMealDTOShort(Meal meal) {
 
-
         return new MealDTOshort(meal.getIdMeal(),meal.getLanguage(),meal.getTitle(),meal.getShortDescription(),meal.getPublic(),null);
-
     }
 
 
