@@ -88,7 +88,6 @@ public class RepositoryMealJPA extends CrudEntityJpa<Meal> implements Repository
 
     }
 
-
     @Override
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Meal> getShortMealByTypeMeal(MealTime mealTime, Language language, Integer amount) {
@@ -125,8 +124,6 @@ public class RepositoryMealJPA extends CrudEntityJpa<Meal> implements Repository
 
             mealList.add(meal);
         }
-
-
         return mealList;
 
     }

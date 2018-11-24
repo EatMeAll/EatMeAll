@@ -34,9 +34,6 @@ public class MealController {
     @EJB
     RepositoryFacade repo;
 
-//    @EJB
-//    MealServiceTypeMeal mealServiceTypeMeal;
-
     @GET
     @Path("")
     public Response hello(@Context UriInfo info) {
@@ -82,7 +79,7 @@ public class MealController {
             List<Meal> mealsByMealTeam = repo.MEAL().getMealsByTypeMeal(mealTime);
             return Response.status(HttpStatus.OK.getCode()).entity(mealsByMealTeam.toString()).build();
 
-//                List<Meal> mealsByMealTeam = repo.MEAL().getMealsByTypeMeal(MealTime.valueOf(value));
+
 
         }
         return Response.status(HttpStatus.NOT_FOUND.getCode()).entity("").build();

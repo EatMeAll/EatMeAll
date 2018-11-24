@@ -38,10 +38,6 @@ public class MapperMealImpl implements Mapper {
                 meal.setTitle(mealDTO.getTitle());
                 meal.setAmountCalories(mealDTO.getAmountCalories());
                 meal.setAuthorReceipt(mealDTO.getAuthorReceipt());
-//
-//                meal.setPhoto(mealDTO.getPhoto());
-
-
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -217,4 +213,14 @@ public class MapperMealImpl implements Mapper {
         return user;
 
     }
+
+    @Override
+    public MealDTOshort toMealDTOShort(Meal meal) {
+
+
+        return new MealDTOshort(meal.getIdMeal(),meal.getLanguage(),meal.getTitle(),meal.getShortDescription(),meal.getPublic(),null);
+
+    }
+
+
 }

@@ -1,7 +1,8 @@
 package com.WildBirds.EatMeAll.application.controlers;
 
 
-import com.WildBirds.EatMeAll.application.DTO.MealDTO;
+import com.WildBirds.EatMeAll.application.DTO.DayDTO;
+import com.WildBirds.EatMeAll.application.DTO.MealDTOshort;
 import com.WildBirds.EatMeAll.application.controlers.utils.HttpStatus;
 import com.WildBirds.EatMeAll.application.service.Mapper;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
@@ -29,26 +30,42 @@ public class ScheduleController {
     Mapper mapper;
 
     @GET
-//    @Produces({"application/json; charset=UTF-8"})
+    @Produces("application/json; charset=UTF-8")
     public Response getWeekSchedule (@Context UriInfo info) {
 
-        List<Meal> mealsBreakfastList = repo.MEAL().getShortMealByTypeMeal(MealTime.LUNCH,Language.PL,7);
-////        List<Meal> mealsLunchList = repo.MEAL().getShortMealByTypeMeal(MealTime.LUNCH,Language.PL,7);
-////        List<Meal> mealsDinnerList = repo.MEAL().getShortMealByTypeMeal(MealTime.DINNER,Language.PL, 7);
-////        List<Meal> mealsSupperList = repo.MEAL().getShortMealByTypeMeal(MealTime.SUPPER,Language.PL, 7);
-//
-//
-        System.out.println(mealsBreakfastList.toString());
-//        List<Meal> weekSchedule = new ArrayList<>();
-//
-//        weekSchedule.addAll(mealsBreakfastList);
-//        weekSchedule.addAll(mealsLunchList);
-//        weekSchedule.addAll(mealsDinnerList);
-//        weekSchedule.addAll(mealsSupperList);
+        List<Meal> mealsBreakfastList = repo.MEAL().getShortMealByTypeMeal(MealTime.BREAKFAST, Language.PL, 7);
+        List<Meal> mealsLunchList = repo.MEAL().getShortMealByTypeMeal(MealTime.LUNCH, Language.PL, 7);
+        List<Meal> mealsDinnerList = repo.MEAL().getShortMealByTypeMeal(MealTime.DINNER, Language.PL, 7);
+        List<Meal> mealsSupperList = repo.MEAL().getShortMealByTypeMeal(MealTime.SUPPER, Language.PL, 7);
 
-//        List<MealDTO> weekScheduleDTO = mapper.toMealDTO(weekSchedule);
+        List<DayDTO> sevenDaysDTOList = new ArrayList<>();
 
-        return Response.status(HttpStatus.OK.getCode()).entity("OK").build();
+        for (int i = 0; i < 6; i++) {
+
+            DayDTO dayDTO = new DayDTO();
+
+            MealDTOshort breakFast = mapper.toMealDTOShort(mealsBreakfastList.get(i));
+            breakFast.setMealTime(MealTime.BREAKFAST);
+            dayDTO.getMealDTOShortList().add(breakFast);
+
+            MealDTOshort lunch = mapper.toMealDTOShort(mealsLunchList.get(i));
+            lunch.setMealTime(MealTime.LUNCH);
+            dayDTO.getMealDTOShortList().add(lunch);
+
+            MealDTOshort dinner = mapper.toMealDTOShort(mealsDinnerList.get(i));
+            dinner.setMealTime(MealTime.DINNER);
+            dayDTO.getMealDTOShortList().add(dinner);
+
+
+            MealDTOshort supper = mapper.toMealDTOShort(mealsSupperList.get(i));
+            supper.setMealTime(MealTime.SUPPER);
+            dayDTO.getMealDTOShortList().add(supper);
+
+            sevenDaysDTOList.add(dayDTO);
+        }
+
+
+        return Response.status(HttpStatus.OK.getCode()).entity(sevenDaysDTOList).build();
 
     }
 

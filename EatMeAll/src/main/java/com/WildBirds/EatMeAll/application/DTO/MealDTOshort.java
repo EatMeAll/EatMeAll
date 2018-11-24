@@ -1,6 +1,7 @@
 package com.WildBirds.EatMeAll.application.DTO;
 
 import com.WildBirds.RepositoryJPA.domain.model.enums.Language;
+import com.WildBirds.RepositoryJPA.domain.model.enums.MealTime;
 
 public class MealDTOshort {
 
@@ -9,16 +10,18 @@ public class MealDTOshort {
     private String title;
     private String shortDescription;
     private Boolean isPublic;
+    private MealTime mealTime;
 
     public MealDTOshort() {
     }
 
-    public MealDTOshort(Integer idMeal, Language language, String title, String shortDescription, Boolean isPublic) {
+    public MealDTOshort(Integer idMeal, Language language, String title, String shortDescription, Boolean isPublic, MealTime mealTime) {
         this.idMeal = idMeal;
         this.language = language;
         this.title = title;
         this.shortDescription = shortDescription;
         this.isPublic = isPublic;
+        this.mealTime = mealTime;
     }
 
     public Integer getIdMeal() {
@@ -59,5 +62,13 @@ public class MealDTOshort {
 
     public void setPublic(Boolean aPublic) {
         isPublic = aPublic;
+    }
+
+    public MealTime getMealTime() {
+        return mealTime;
+    }
+
+    public void setMealTime(MealTime mealTime) {
+        this.mealTime = mealTime;
     }
 }
