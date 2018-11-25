@@ -8,6 +8,7 @@ import com.WildBirds.RepositoryJPA.domain.model.*;
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -128,19 +129,21 @@ public class MapperMealImpl implements Mapper {
         return mealDTOList;
     }
 
+    @Override
     public User toUser(UserDTO userDTO) {
         User user = null;
 
-            user = repo.USER().get(userDTO.getIdUser());
-            user.setIdUser(user.getIdUser());
-            user.setUserType(user.getUserType());
-            user.setEmail(userDTO.getEmail());
-            user.setNick(user.getNick());
+        user = repo.USER().get(userDTO.getIdUser());
+        user.setIdUser(user.getIdUser());
+        user.setUserType(user.getUserType());
+        user.setEmail(userDTO.getEmail());
+        user.setNick(user.getNick());
 
 
         return user;
     }
 
+    @Override
     public UserDTO toUserDTO(User user) {
 
         user = repo.USER().update(user);
@@ -161,6 +164,7 @@ public class MapperMealImpl implements Mapper {
         return userDTO;
     }
 
+    @Override
     public User toUser(NewUserDTO newUserDTO) {
 
         Integer idUser = newUserDTO.getIdUser();
@@ -175,8 +179,8 @@ public class MapperMealImpl implements Mapper {
         } else {
             user = repo.USER().insert(new User(newUserDTO.getNick(), newUserDTO.getEmail()));
         }
-            user.setUserType(newUserDTO.getUserType());
-            user.setPassword(newUserDTO.getPassword());
+        user.setUserType(newUserDTO.getUserType());
+        user.setPassword(newUserDTO.getPassword());
 
         user = repo.USER().update(user);
 
@@ -187,6 +191,37 @@ public class MapperMealImpl implements Mapper {
     public MealDTOshort toMealDTOShort(Meal meal) {
 
         return new MealDTOshort(meal.getIdMeal(),meal.getLanguage(),meal.getTitle(),meal.getShortDescription(),meal.getPublic(),null);
+    }
+
+    @Override
+    public DayDTO toDayDTO(Day day) {
+        //todo to implementing
+        return null;
+    }
+
+    @Override
+    public Day toDay(DayDTO dayDTO, Integer idUser) {
+
+        Set<MealDTOshort> mealDTOShortList = dayDTO.getMealDTOShortList();
+        Instant dateDTO = dayDTO.getDate();
+
+        User user = repo.USER().get(idUser);
+
+
+        Day day = new Day();
+        day = repo.DAY().insert(day);
+        day.setDate(dateDTO);
+        day.setDayOwner(user);
+        for (MealDTOshort mealDTOshort : mealDTOShortList) {
+            Set<Meal> mealsSet = day.getMealsSet();
+            System.out.println(mealDTOshort.getIdMeal());
+            Meal meal = repo.MEAL().get(mealDTOshort.getIdMeal());
+            mealsSet.add(meal);
+        }
+
+        day = repo.DAY().update(day);
+
+        return day;
     }
 
 
