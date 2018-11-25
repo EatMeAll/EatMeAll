@@ -32,41 +32,43 @@ public class ScheduleController {
     @GET
     @Produces("application/json; charset=UTF-8")
     public Response getWeekSchedule (@Context UriInfo info) {
+        try {
+            List<Meal> mealsBreakfastList = repo.MEAL().getShortMealByTypeMeal(MealTime.BREAKFAST, Language.PL, 7);
+            List<Meal> mealsLunchList = repo.MEAL().getShortMealByTypeMeal(MealTime.LUNCH, Language.PL, 7);
+            List<Meal> mealsDinnerList = repo.MEAL().getShortMealByTypeMeal(MealTime.DINNER, Language.PL, 7);
+            List<Meal> mealsSupperList = repo.MEAL().getShortMealByTypeMeal(MealTime.SUPPER, Language.PL, 7);
 
-        List<Meal> mealsBreakfastList = repo.MEAL().getShortMealByTypeMeal(MealTime.BREAKFAST, Language.PL, 7);
-        List<Meal> mealsLunchList = repo.MEAL().getShortMealByTypeMeal(MealTime.LUNCH, Language.PL, 7);
-        List<Meal> mealsDinnerList = repo.MEAL().getShortMealByTypeMeal(MealTime.DINNER, Language.PL, 7);
-        List<Meal> mealsSupperList = repo.MEAL().getShortMealByTypeMeal(MealTime.SUPPER, Language.PL, 7);
+            List<DayDTO> sevenDaysDTOList = new ArrayList<>();
+            for (int i = 0; i < 6; i++) {
+                DayDTO dayDTO = new DayDTO();
 
-        List<DayDTO> sevenDaysDTOList = new ArrayList<>();
+                MealDTOshort breakFast = mapper.toMealDTOShort(mealsBreakfastList.get(i));
+                breakFast.setMealTime(MealTime.BREAKFAST);
+                dayDTO.getMealDTOShortList().add(breakFast);
 
-        for (int i = 0; i < 6; i++) {
+                MealDTOshort lunch = mapper.toMealDTOShort(mealsLunchList.get(i));
+                lunch.setMealTime(MealTime.LUNCH);
+                dayDTO.getMealDTOShortList().add(lunch);
 
-            DayDTO dayDTO = new DayDTO();
-
-            MealDTOshort breakFast = mapper.toMealDTOShort(mealsBreakfastList.get(i));
-            breakFast.setMealTime(MealTime.BREAKFAST);
-            dayDTO.getMealDTOShortList().add(breakFast);
-
-            MealDTOshort lunch = mapper.toMealDTOShort(mealsLunchList.get(i));
-            lunch.setMealTime(MealTime.LUNCH);
-            dayDTO.getMealDTOShortList().add(lunch);
-
-            MealDTOshort dinner = mapper.toMealDTOShort(mealsDinnerList.get(i));
-            dinner.setMealTime(MealTime.DINNER);
-            dayDTO.getMealDTOShortList().add(dinner);
+                MealDTOshort dinner = mapper.toMealDTOShort(mealsDinnerList.get(i));
+                dinner.setMealTime(MealTime.DINNER);
+                dayDTO.getMealDTOShortList().add(dinner);
 
 
-            MealDTOshort supper = mapper.toMealDTOShort(mealsSupperList.get(i));
-            supper.setMealTime(MealTime.SUPPER);
-            dayDTO.getMealDTOShortList().add(supper);
+                MealDTOshort supper = mapper.toMealDTOShort(mealsSupperList.get(i));
+                supper.setMealTime(MealTime.SUPPER);
+                dayDTO.getMealDTOShortList().add(supper);
 
-            sevenDaysDTOList.add(dayDTO);
+                sevenDaysDTOList.add(dayDTO);
+            }
+            return Response.status(HttpStatus.OK.getCode()).entity(sevenDaysDTOList).build();
+        } catch (java.lang.IndexOutOfBoundsException e) {
+            e.printStackTrace();
+            return Response.status(HttpStatus.EXPECTATION_FAILED.getCode()).header("Error", "Not enough meals to prepaid full schedule").build();
+
+        } catch (Exception e){
+            e.printStackTrace();
+            return Response.status(HttpStatus.NOT_FOUND.getCode()).header("Error", "Not found").build();
         }
-
-
-        return Response.status(HttpStatus.OK.getCode()).entity(sevenDaysDTOList).build();
-
     }
-
 }

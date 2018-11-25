@@ -1,13 +1,16 @@
 package com.WildBirds.EatMeAll.application.controlers;
 
-import com.WildBirds.EatMeAll.application.controlers.utils.HttpStatus;
 import com.WildBirds.EatMeAll.application.DTO.NewUserDTO;
 import com.WildBirds.EatMeAll.application.DTO.UserDTO;
+import com.WildBirds.EatMeAll.application.controlers.utils.HttpStatus;
 import com.WildBirds.EatMeAll.application.service.Mapper;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
 import com.WildBirds.RepositoryJPA.domain.model.User;
 
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
+import javax.ejb.EJBTransactionRolledbackException;
+import javax.persistence.NoResultException;
 import javax.validation.ConstraintViolationException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -31,18 +34,13 @@ public class UserController {
     @Path("{idUser}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUser(@Context UriInfo info, @PathParam("idUser") Integer idUser) {
-
-
         try {
             User user = repo.USER().get(idUser);
-
             UserDTO userDTO = mapper.toUserDTO(user);
-
             return Response.status(HttpStatus.OK.getCode()).entity(userDTO).build();
-        } catch (Exception e) {
+        } catch (EJBTransactionRolledbackException e) {
             e.printStackTrace();
-
-            return Response.status(HttpStatus.NOT_FOUND.getCode()).entity("NOT FOUND USER").build();
+            return Response.status(HttpStatus.NOT_FOUND.getCode()).header("Error", "NOT FOUND USER").build();
         }
     }
 
@@ -54,9 +52,16 @@ public class UserController {
             User user = mapper.toUser(newUserDTO);
             UserDTO userDTO = mapper.toUserDTO(user);
             return Response.status(HttpStatus.CREATED.getCode()).entity(userDTO).build();
+        //todo: doesn't catch this exception -- should repair
+        } catch (javax.validation.ConstraintViolationException e) {
+            e.printStackTrace();
+            return Response.status(HttpStatus.NOT_ACCEPTABLE.getCode()).header("Error", "Invalid email syntax").build();
+        } catch (EJBTransactionRolledbackException e) {
+            e.printStackTrace();
+            return Response.status(HttpStatus.CONFLICT.getCode()).header("Error", "Duplicate email or nick").build();
         } catch (Exception e) {
             e.printStackTrace();
-            return Response.status(HttpStatus.CONFLICT.getCode()).header("Error", "Duplicate nick or email").build();
+            return Response.status(HttpStatus.NOT_FOUND.getCode()).header("Error", "NOT FOUND").build();
         }
     }
 
@@ -73,9 +78,9 @@ public class UserController {
             UserDTO loggedUser = mapper.toUserDTO(userByNickPass);
 
             return Response.status(HttpStatus.ACCEPTED.getCode()).entity(loggedUser).build();
-        } catch (Exception e) {
+        } catch (EJBException e) {
             e.printStackTrace();
-            return Response.status(HttpStatus.NOT_FOUND.getCode()).entity(newUserDTO).build();
+            return Response.status(HttpStatus.UNAUTHORIZED.getCode()).header("Error", "Unauthorized " + newUserDTO.getNick() + " invalid nick or password").build();
         }
     }
 
@@ -90,7 +95,7 @@ public class UserController {
             UserDTO updatedUserDTO = mapper.toUserDTO(user);
 
             return Response.status(HttpStatus.OK.getCode()).entity(updatedUserDTO).build();
-        } catch (ConstraintViolationException e) {
+        } catch (EJBException e) {
             e.printStackTrace();
             return Response.status(HttpStatus.BAD_REQUEST.getCode()).entity(newUserDTO).build();
 
@@ -105,10 +110,10 @@ public class UserController {
             repo.USER().delete(idUser);
 
             return Response.status(HttpStatus.ACCEPTED.getCode()).build();
-        } catch (Exception e) {
+        } catch (EJBException e) {
             e.printStackTrace();
 
-            return Response.status(HttpStatus.NOT_FOUND.getCode()).build();
+            return Response.status(HttpStatus.NOT_FOUND.getCode()).header("Error", "NOT FOUND USER").build();
         }
     }
 
