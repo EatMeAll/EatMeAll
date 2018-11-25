@@ -29,11 +29,11 @@ public class RepositoryFacade {
     private RepositoryTypeMealJPA TYPEMEAL;
     @EJB
     private RepositoryUserJPA USER;
+    @EJB
+    private RepositoryPhotoJPA PHOTO;
 
 
-    public RepositoryFacade() {
-        System.out.println("In construcotr");
-    }
+    public RepositoryFacade() { }
 
     public RepositoryDay DAY() {
         return this.DAY;
@@ -66,4 +66,6 @@ public class RepositoryFacade {
     public RepositoryUser USER() {
         return this.USER;
     }
+
+    public RepositoryPhoto PHOTO(){return this.PHOTO;}
 }

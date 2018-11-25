@@ -212,37 +212,6 @@ public class Meal extends BaseEntity {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Meal meal = (Meal) o;
-
-        if (idMeal != null ? !idMeal.equals(meal.idMeal) : meal.idMeal != null) return false;
-        if (language != meal.language) return false;
-        if (title != null ? !title.equals(meal.title) : meal.title != null) return false;
-        if (shortDescription != null ? !shortDescription.equals(meal.shortDescription) : meal.shortDescription != null)
-            return false;
-        if (amountCalories != null ? !amountCalories.equals(meal.amountCalories) : meal.amountCalories != null)
-            return false;
-        if (authorReceipt != null ? !authorReceipt.equals(meal.authorReceipt) : meal.authorReceipt != null)
-            return false;
-        if (photo != null ? !photo.equals(meal.photo) : meal.photo != null) return false;
-        if (isPublic != null ? !isPublic.equals(meal.isPublic) : meal.isPublic != null) return false;
-        if (createdDate != null ? !createdDate.equals(meal.createdDate) : meal.createdDate != null) return false;
-        if (receipt != null ? !receipt.equals(meal.receipt) : meal.receipt != null) return false;
-        if (mealHasProductSet != null ? !mealHasProductSet.equals(meal.mealHasProductSet) : meal.mealHasProductSet != null)
-            return false;
-        if (typeMealSet != null ? !typeMealSet.equals(meal.typeMealSet) : meal.typeMealSet != null) return false;
-        if (usedInDaysSet != null ? !usedInDaysSet.equals(meal.usedInDaysSet) : meal.usedInDaysSet != null)
-            return false;
-        if (likedBySet != null ? !likedBySet.equals(meal.likedBySet) : meal.likedBySet != null) return false;
-        return creatorMeal != null ? creatorMeal.equals(meal.creatorMeal) : meal.creatorMeal == null;
-    }
-
-
-
-    @Override
     public String toString() {
         return "Meal{" +
                 "idMeal=" + idMeal +

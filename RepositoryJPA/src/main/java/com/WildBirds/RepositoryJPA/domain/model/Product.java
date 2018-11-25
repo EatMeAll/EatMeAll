@@ -36,19 +36,6 @@ public class Product extends BaseEntity {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Product product = (Product) o;
-
-        if (idProduct != null ? !idProduct.equals(product.idProduct) : product.idProduct != null) return false;
-        return name != null ? name.equals(product.name) : product.name == null;
-    }
-
-
-
-    @Override
     public String toString() {
         return "Product{" +
                 "idProduct=" + idProduct +

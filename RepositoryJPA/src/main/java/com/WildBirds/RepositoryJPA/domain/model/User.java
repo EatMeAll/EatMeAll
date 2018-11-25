@@ -2,12 +2,10 @@ package com.WildBirds.RepositoryJPA.domain.model;
 
 import com.WildBirds.RepositoryJPA.domain.model.baseEntity.BaseEntity;
 import com.WildBirds.RepositoryJPA.domain.model.enums.UserType;
-import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -37,6 +35,9 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "dayOwner")
     private Set<Day> historyMealsSet = new HashSet<>();
 
+    @OneToMany(mappedBy = "photoOwner")
+    private Set<Photo> myPhotosSet = new HashSet<>();
+
     public User() {
     }
 
@@ -44,7 +45,6 @@ public class User extends BaseEntity {
         this.nick = nick;
         this.email = email;
     }
-
 
     public void addCreateMeal(Meal meal) {
         this.mealsCreatedSet.add(meal);
@@ -59,6 +59,11 @@ public class User extends BaseEntity {
     public void addFavoriteMeal(Meal meal){
         this.getFavouritesMealsSet().add(meal);
         meal.getLikedBySet().add(this);
+    }
+
+    public void addPhoto(Photo photo){
+        this.myPhotosSet.add(photo);
+        photo.setPhotoOwner(this);
     }
 
     public Integer getIdUser() {
@@ -125,24 +130,13 @@ public class User extends BaseEntity {
         this.historyMealsSet = historyMealsSet;
     }
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        User user = (User) o;
-
-        if (idUser != null ? !idUser.equals(user.idUser) : user.idUser != null) return false;
-        if (nick != null ? !nick.equals(user.nick) : user.nick != null) return false;
-        if (email != null ? !email.equals(user.email) : user.email != null) return false;
-        if (password != null ? !password.equals(user.password) : user.password != null) return false;
-        if (userType != user.userType) return false;
-        if (favouritesMealsSet != null ? !favouritesMealsSet.equals(user.favouritesMealsSet) : user.favouritesMealsSet != null)
-            return false;
-        if (mealsCreatedSet != null ? !mealsCreatedSet.equals(user.mealsCreatedSet) : user.mealsCreatedSet != null)
-            return false;
-        return historyMealsSet != null ? historyMealsSet.equals(user.historyMealsSet) : user.historyMealsSet == null;
+    public Set<Photo> getMyPhotosSet() {
+        return myPhotosSet;
     }
+
+    public void setMyPhotosSet(Set<Photo> photoOwner) {
+        this.myPhotosSet = photoOwner;
+    }
+
 
 }

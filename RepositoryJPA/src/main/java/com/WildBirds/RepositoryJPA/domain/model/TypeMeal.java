@@ -58,19 +58,6 @@ public class TypeMeal extends BaseEntity {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        TypeMeal typeMeal = (TypeMeal) o;
-
-        if (idTypeMeal != null ? !idTypeMeal.equals(typeMeal.idTypeMeal) : typeMeal.idTypeMeal != null) return false;
-        if (mealTime != typeMeal.mealTime) return false;
-        return mealSet != null ? mealSet.equals(typeMeal.mealSet) : typeMeal.mealSet == null;
-    }
-
-
-    @Override
     public String toString() {
         return "TypeMeal{" +
                 "idTypeMeal=" + idTypeMeal +
