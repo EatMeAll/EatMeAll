@@ -16,8 +16,11 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Path("schedule")
@@ -90,6 +93,55 @@ public class ScheduleController {
 
         }
 
+
+        return Response.status(HttpStatus.OK.getCode()).header("OK", "Working").build();
+    }
+
+    @GET
+    @Path("{from}/{to}")
+    @Produces("application/json; charset=UTF-8")
+    public Response getHistory(@Context UriInfo info, @PathParam("from") String fromDateString, @PathParam("to") String toDateString) {
+
+
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//
+//        String timestamp = fromDateString;
+//        TemporalAccessor temporalAccessor = formatter.parse(timestamp);
+//        LocalDateTime localDateTime = LocalDateTime.from(temporalAccessor);
+//        ZonedDateTime zonedDateTime = ZonedDateTime.of(localDateTime, ZoneId.systemDefault());
+//        Instant result = Instant.from(zonedDateTime);
+
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date parsedDate = dateFormat.parse(fromDateString);
+            Instant timestamp = parsedDate.toInstant();
+
+            System.out.println(timestamp);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+//
+
+
+
+//
+//        Instant fromDate = Instant.parse(fromDateString);
+//
+//
+//        System.out.println(fromDate.toString());
+//
+//        Instant toDate = Instant.parse(toDateString);
+//        System.out.println(toDate);
+//
+//        Integer idUser = 1;
+//
+//        List<Day> dayList = repo.DAY().getHistory(fromDate, toDate, idUser);
+//
+//        for (Day day : dayList) {
+//            System.out.println(day.getIdDay());
+//
+//        }
 
         return Response.status(HttpStatus.OK.getCode()).header("OK", "Working").build();
     }

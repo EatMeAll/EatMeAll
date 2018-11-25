@@ -195,7 +195,15 @@ public class MapperMealImpl implements Mapper {
 
     @Override
     public DayDTO toDayDTO(Day day) {
-        //todo to implementing
+
+        DayDTO dayDTO = new DayDTO();
+
+        dayDTO.setIdDay(day.getIdDay());
+        dayDTO.setDate(day.getDate());
+        dayDTO.setMealDTOShortList(dayDTO.getMealDTOShortList());
+
+
+
         return null;
     }
 
@@ -214,7 +222,8 @@ public class MapperMealImpl implements Mapper {
         for (MealDTOshort mealDTOshort : mealDTOShortList) {
             System.out.println(mealDTOshort.getIdMeal());
             Meal meal = repo.MEAL().get(mealDTOshort.getIdMeal());
-            meal.addDayWhichUse(day);
+            day.addMeal(meal);
+//            meal.addDayWhichUse(day);
             repo.MEAL().update(meal);
         }
 
