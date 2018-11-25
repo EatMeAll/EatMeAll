@@ -1,17 +1,17 @@
 package com.WildBirds.EatMeAll.application.DTO;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class DayDTO {
 
     private Integer idDay;
     private Instant date;
-    private List<MealDTOshort> mealDTOShortList;
+    private Set<MealDTOshort> mealDTOShortList;
 
     public DayDTO() {
-        this.mealDTOShortList = new ArrayList<>();
+        this.mealDTOShortList = new HashSet<>();
     }
 
     public Integer getIdDay() {
@@ -30,11 +30,11 @@ public class DayDTO {
         this.date = date;
     }
 
-    public List<MealDTOshort> getMealDTOShortList() {
+    public Set<MealDTOshort> getMealDTOShortList() {
         return mealDTOShortList;
     }
 
-    public void setMealDTOShortList(List<MealDTOshort> mealDTOShortList) {
+    public void setMealDTOShortList(Set<MealDTOshort> mealDTOShortList) {
         this.mealDTOShortList = mealDTOShortList;
     }
 }

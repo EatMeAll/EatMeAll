@@ -6,18 +6,21 @@ import com.WildBirds.EatMeAll.application.DTO.MealDTOshort;
 import com.WildBirds.EatMeAll.application.controlers.utils.HttpStatus;
 import com.WildBirds.EatMeAll.application.service.Mapper;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
+import com.WildBirds.RepositoryJPA.domain.model.Day;
 import com.WildBirds.RepositoryJPA.domain.model.Meal;
 import com.WildBirds.RepositoryJPA.domain.model.enums.Language;
 import com.WildBirds.RepositoryJPA.domain.model.enums.MealTime;
 
 import javax.ejb.EJB;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Path("schedule")
@@ -32,41 +35,114 @@ public class ScheduleController {
     @GET
     @Produces("application/json; charset=UTF-8")
     public Response getWeekSchedule (@Context UriInfo info) {
+        try {
+            List<Meal> mealsBreakfastList = repo.MEAL().getShortMealByTypeMeal(MealTime.BREAKFAST, Language.PL, 7);
+            List<Meal> mealsLunchList = repo.MEAL().getShortMealByTypeMeal(MealTime.LUNCH, Language.PL, 7);
+            List<Meal> mealsDinnerList = repo.MEAL().getShortMealByTypeMeal(MealTime.DINNER, Language.PL, 7);
+            List<Meal> mealsSupperList = repo.MEAL().getShortMealByTypeMeal(MealTime.SUPPER, Language.PL, 7);
 
-        List<Meal> mealsBreakfastList = repo.MEAL().getShortMealByTypeMeal(MealTime.BREAKFAST, Language.PL, 7);
-        List<Meal> mealsLunchList = repo.MEAL().getShortMealByTypeMeal(MealTime.LUNCH, Language.PL, 7);
-        List<Meal> mealsDinnerList = repo.MEAL().getShortMealByTypeMeal(MealTime.DINNER, Language.PL, 7);
-        List<Meal> mealsSupperList = repo.MEAL().getShortMealByTypeMeal(MealTime.SUPPER, Language.PL, 7);
+            List<DayDTO> sevenDaysDTOList = new ArrayList<>();
+            for (int i = 0; i < 7; i++) {
+                DayDTO dayDTO = new DayDTO();
 
-        List<DayDTO> sevenDaysDTOList = new ArrayList<>();
-
-        for (int i = 0; i < 6; i++) {
-
-            DayDTO dayDTO = new DayDTO();
-
-            MealDTOshort breakFast = mapper.toMealDTOShort(mealsBreakfastList.get(i));
-            breakFast.setMealTime(MealTime.BREAKFAST);
-            dayDTO.getMealDTOShortList().add(breakFast);
-
-            MealDTOshort lunch = mapper.toMealDTOShort(mealsLunchList.get(i));
-            lunch.setMealTime(MealTime.LUNCH);
-            dayDTO.getMealDTOShortList().add(lunch);
-
-            MealDTOshort dinner = mapper.toMealDTOShort(mealsDinnerList.get(i));
-            dinner.setMealTime(MealTime.DINNER);
-            dayDTO.getMealDTOShortList().add(dinner);
+                MealDTOshort breakFast = mapper.toMealDTOShort(mealsBreakfastList.get(i));
+                breakFast.setMealTime(MealTime.BREAKFAST);
+                dayDTO.getMealDTOShortList().add(breakFast);
 
 
-            MealDTOshort supper = mapper.toMealDTOShort(mealsSupperList.get(i));
-            supper.setMealTime(MealTime.SUPPER);
-            dayDTO.getMealDTOShortList().add(supper);
+                MealDTOshort lunch = mapper.toMealDTOShort(mealsLunchList.get(i));
+                lunch.setMealTime(MealTime.LUNCH);
+                dayDTO.getMealDTOShortList().add(lunch);
 
-            sevenDaysDTOList.add(dayDTO);
+
+                MealDTOshort dinner = mapper.toMealDTOShort(mealsDinnerList.get(i));
+                dinner.setMealTime(MealTime.DINNER);
+                dayDTO.getMealDTOShortList().add(dinner);
+
+
+                MealDTOshort supper = mapper.toMealDTOShort(mealsSupperList.get(i));
+                supper.setMealTime(MealTime.SUPPER);
+                dayDTO.getMealDTOShortList().add(supper);
+
+                dayDTO.setIdDay(1);
+                dayDTO.setDate(Instant.now());
+
+                sevenDaysDTOList.add(dayDTO);
+            }
+            return Response.status(HttpStatus.OK.getCode()).entity(sevenDaysDTOList).build();
+        } catch (java.lang.IndexOutOfBoundsException e) {
+            e.printStackTrace();
+            return Response.status(HttpStatus.EXPECTATION_FAILED.getCode()).header("Error", "Not enough meals to prepaid full schedule").build();
+
+        } catch (Exception e){
+            e.printStackTrace();
+            return Response.status(HttpStatus.NOT_FOUND.getCode()).header("Error", "Not found").build();
+        }
+    }
+
+    @POST
+    @Consumes("application/json; charset=UTF-8")
+    @Produces("application/json; charset=UTF-8")
+    public Response saveSchedule(@Context UriInfo info, List<DayDTO> approvedWeekSchedule) {
+
+        Integer idUser = 1;
+
+        for (DayDTO dayDTO : approvedWeekSchedule) {
+            Day day = mapper.toDay(dayDTO, idUser);
+
+
         }
 
 
-        return Response.status(HttpStatus.OK.getCode()).entity(sevenDaysDTOList).build();
-
+        return Response.status(HttpStatus.OK.getCode()).header("OK", "Working").build();
     }
 
+    @GET
+    @Path("{from}/{to}")
+    @Produces("application/json; charset=UTF-8")
+    public Response getHistory(@Context UriInfo info, @PathParam("from") String fromDateString, @PathParam("to") String toDateString) {
+
+
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//
+//        String timestamp = fromDateString;
+//        TemporalAccessor temporalAccessor = formatter.parse(timestamp);
+//        LocalDateTime localDateTime = LocalDateTime.from(temporalAccessor);
+//        ZonedDateTime zonedDateTime = ZonedDateTime.of(localDateTime, ZoneId.systemDefault());
+//        Instant result = Instant.from(zonedDateTime);
+
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date parsedDate = dateFormat.parse(fromDateString);
+            Instant timestamp = parsedDate.toInstant();
+
+            System.out.println(timestamp);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+//
+
+
+
+//
+//        Instant fromDate = Instant.parse(fromDateString);
+//
+//
+//        System.out.println(fromDate.toString());
+//
+//        Instant toDate = Instant.parse(toDateString);
+//        System.out.println(toDate);
+//
+//        Integer idUser = 1;
+//
+//        List<Day> dayList = repo.DAY().getHistory(fromDate, toDate, idUser);
+//
+//        for (Day day : dayList) {
+//            System.out.println(day.getIdDay());
+//
+//        }
+
+        return Response.status(HttpStatus.OK.getCode()).header("OK", "Working").build();
+    }
 }

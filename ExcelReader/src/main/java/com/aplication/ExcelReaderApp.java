@@ -38,8 +38,8 @@ public class ExcelReaderApp {
         ExcelReader excelReader = new XmlReader();
         String filePath = basePath + "\\ExcelReader\\src\\main\\resources\\data\\jadlospis2.xlsx";
         List<MealExcel> mealExcelList = excelReader.read(filePath);
-
         User userEntity = repo.USER().insert(new User("EXCEL","excel@wp.pl"));
+
 
         userEntity.setPassword("jakieshaslo");
         userEntity.setUserType(UserType.ADMIN);
