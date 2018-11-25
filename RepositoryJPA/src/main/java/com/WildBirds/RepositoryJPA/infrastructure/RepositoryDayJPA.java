@@ -9,6 +9,7 @@ import com.WildBirds.RepositoryJPA.infrastructure.CrudJPA.implementations.CrudEn
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Stateless
@@ -27,15 +28,21 @@ public class RepositoryDayJPA extends CrudEntityJpa<Day> implements RepositoryDa
     @Override
     public List<Day> getHistory(Instant fromDate, Instant toDate, Integer idUser) {
 
+
+        //round to the day
+        toDate = toDate.plus(1, ChronoUnit.DAYS);
+
         String query= "SELECT day FROM Day day " +
                 "JOIN day.dayOwner dayOwner " +
                 "WHERE dayOwner.idUser =:idUser " +
-                "AND day.date <: fromDate ";
+                "AND day.date >: fromDate " +
+                "AND day.date <: toDate";
 
 
         return this.entityManager.createQuery(query,Day.class)
                 .setParameter("idUser" ,idUser)
                 .setParameter("fromDate", fromDate)
+                .setParameter("toDate", toDate)
                 .getResultList();
 
     }

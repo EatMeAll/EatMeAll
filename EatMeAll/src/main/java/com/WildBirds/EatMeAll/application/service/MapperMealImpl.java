@@ -196,15 +196,14 @@ public class MapperMealImpl implements Mapper {
     @Override
     public DayDTO toDayDTO(Day day) {
 
+        day = repo.DAY().update(day);
         DayDTO dayDTO = new DayDTO();
 
         dayDTO.setIdDay(day.getIdDay());
         dayDTO.setDate(day.getDate());
         dayDTO.setMealDTOShortList(dayDTO.getMealDTOShortList());
 
-
-
-        return null;
+        return dayDTO;
     }
 
     @Override

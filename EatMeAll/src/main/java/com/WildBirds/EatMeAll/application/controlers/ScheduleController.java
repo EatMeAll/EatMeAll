@@ -102,47 +102,35 @@ public class ScheduleController {
     @Produces("application/json; charset=UTF-8")
     public Response getHistory(@Context UriInfo info, @PathParam("from") String fromDateString, @PathParam("to") String toDateString) {
 
+        //todo : Return empty short dto list
+        Integer idUser = 1;
 
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//
-//        String timestamp = fromDateString;
-//        TemporalAccessor temporalAccessor = formatter.parse(timestamp);
-//        LocalDateTime localDateTime = LocalDateTime.from(temporalAccessor);
-//        ZonedDateTime zonedDateTime = ZonedDateTime.of(localDateTime, ZoneId.systemDefault());
-//        Instant result = Instant.from(zonedDateTime);
 
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date parsedDate = dateFormat.parse(fromDateString);
-            Instant timestamp = parsedDate.toInstant();
+            Instant fromDate = parsedDate.toInstant();
 
-            System.out.println(timestamp);
+            Date parsedDate2 = dateFormat.parse(toDateString);
+            Instant toDate = parsedDate2.toInstant();
+
+
+            List<Day> dayList = repo.DAY().getHistory(fromDate, toDate, idUser);
+
+            List<DayDTO> dayDTOList = new ArrayList<>();
+            for (Day day : dayList) {
+                DayDTO dayDTO = mapper.toDayDTO(day);
+                dayDTOList.add(dayDTO);
+            }
+
+
+            return Response.status(HttpStatus.OK.getCode()).header("OK", "Working").entity(dayDTOList).build();
 
         } catch (ParseException e) {
             e.printStackTrace();
         }
-//
 
+        return Response.status(HttpStatus.OK.getCode()).header("OK", "NOT Working").build();
 
-
-//
-//        Instant fromDate = Instant.parse(fromDateString);
-//
-//
-//        System.out.println(fromDate.toString());
-//
-//        Instant toDate = Instant.parse(toDateString);
-//        System.out.println(toDate);
-//
-//        Integer idUser = 1;
-//
-//        List<Day> dayList = repo.DAY().getHistory(fromDate, toDate, idUser);
-//
-//        for (Day day : dayList) {
-//            System.out.println(day.getIdDay());
-//
-//        }
-
-        return Response.status(HttpStatus.OK.getCode()).header("OK", "Working").build();
     }
 }
