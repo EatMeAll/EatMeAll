@@ -207,16 +207,15 @@ public class MapperMealImpl implements Mapper {
 
         User user = repo.USER().get(idUser);
 
-
         Day day = new Day();
         day = repo.DAY().insert(day);
         day.setDate(dateDTO);
         day.setDayOwner(user);
         for (MealDTOshort mealDTOshort : mealDTOShortList) {
-            Set<Meal> mealsSet = day.getMealsSet();
             System.out.println(mealDTOshort.getIdMeal());
             Meal meal = repo.MEAL().get(mealDTOshort.getIdMeal());
-            mealsSet.add(meal);
+            meal.addDayWhichUse(day);
+            repo.MEAL().update(meal);
         }
 
         day = repo.DAY().update(day);
