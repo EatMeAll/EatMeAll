@@ -80,19 +80,4 @@ public class Receipt extends BaseEntity {
         this.meal = meal;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Receipt receipt = (Receipt) o;
-
-        if (idReceipt != null ? !idReceipt.equals(receipt.idReceipt) : receipt.idReceipt != null) return false;
-        if (title != null ? !title.equals(receipt.title) : receipt.title != null) return false;
-        if (description != null ? !description.equals(receipt.description) : receipt.description != null) return false;
-        if (prepareTime != null ? !prepareTime.equals(receipt.prepareTime) : receipt.prepareTime != null) return false;
-        if (stepSet != null ? !stepSet.equals(receipt.stepSet) : receipt.stepSet != null) return false;
-        return meal != null ? meal.equals(receipt.meal) : receipt.meal == null;
-    }
-
 }

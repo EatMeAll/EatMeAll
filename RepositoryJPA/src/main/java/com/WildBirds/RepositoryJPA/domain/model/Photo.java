@@ -2,17 +2,27 @@ package com.WildBirds.RepositoryJPA.domain.model;
 
 import com.WildBirds.RepositoryJPA.domain.model.baseEntity.BaseEntity;
 
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 
+@Entity
 public class Photo extends BaseEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPhoto;
     private File photo;
+    private String filename;
+    private String filetype;
 
+    private String extension;
 
-    public Photo() {
-    }
+    @ManyToOne
+    @JoinColumn(name = "idUser")
+    private User photoOwner;
+
+    public Photo() {}
 
     public Integer getIdPhoto() {
         return idPhoto;
@@ -30,17 +40,36 @@ public class Photo extends BaseEntity {
         this.photo = photo;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Photo photo1 = (Photo) o;
-        return Objects.equals(idPhoto, photo1.idPhoto) &&
-                Objects.equals(photo, photo1.photo);
+    public String getExtension() {
+        return extension;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(idPhoto, photo);
+    public void setExtension(String extension) {
+        this.extension = extension;
+    }
+
+    public String getFiletype() {
+        return filetype;
+    }
+
+    public void setFiletype(String filetype) {
+        this.filetype = filetype;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+    public User getPhotoOwner() {
+        return photoOwner;
+    }
+
+    public void setPhotoOwner(User photoOwner) {
+        this.photoOwner = photoOwner;
+        photoOwner.getMyPhotosSet().add(this);
     }
 }

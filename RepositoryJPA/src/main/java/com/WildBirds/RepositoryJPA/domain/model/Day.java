@@ -65,19 +65,4 @@ public class Day extends BaseEntity {
         this.mealsSet = mealsSet;
     }
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Day day = (Day) o;
-
-        if (idDay != null ? !idDay.equals(day.idDay) : day.idDay != null) return false;
-        if (date != null ? !date.equals(day.date) : day.date != null) return false;
-        if (dayOwner != null ? !dayOwner.equals(day.dayOwner) : day.dayOwner != null) return false;
-        return mealsSet != null ? mealsSet.equals(day.mealsSet) : day.mealsSet == null;
-    }
-
-
 }
