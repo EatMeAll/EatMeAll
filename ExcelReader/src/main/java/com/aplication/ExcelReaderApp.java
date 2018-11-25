@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.List;
+import java.util.Random;
 
 @Stateless
 @LocalBean
@@ -38,7 +39,10 @@ public class ExcelReaderApp {
         ExcelReader excelReader = new XmlReader();
         String filePath = basePath + "\\ExcelReader\\src\\main\\resources\\data\\jadlospis2.xlsx";
         List<MealExcel> mealExcelList = excelReader.read(filePath);
-        User userEntity = repo.USER().insert(new User("EXCEL","excel@wp.pl"));
+
+        int random = new Random().nextInt(100);
+
+        User userEntity = repo.USER().insert(new User("EXCEL"+random,random+"excel@wp.pl"));
 
 
         userEntity.setPassword("jakieshaslo");
