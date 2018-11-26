@@ -1,5 +1,6 @@
 package com.WildBirds.RepositoryJPA.application;
 
+import com.WildBirds.RepositoryJPA.domain.model.MealHasDay;
 import com.WildBirds.RepositoryJPA.domain.ports.*;
 import com.WildBirds.RepositoryJPA.infrastructure.*;
 
@@ -15,6 +16,8 @@ public class RepositoryFacade {
     private RepositoryCrudJPA CRUD;
     @EJB
     private RepositoryDayJPA DAY;
+    @EJB
+    private RepositoryMealHasDayJPA MEALHASDAY;
     @EJB
     private RepositoryMealJPA MEAL;
     @EJB
@@ -38,6 +41,11 @@ public class RepositoryFacade {
     public RepositoryDay DAY() {
         return this.DAY;
     }
+
+    public RepositoryMealHasDay MEALHASDAY() {
+        return this.MEALHASDAY;
+    }
+
 
     public RepositoryMeal MEAL() {
         return this.MEAL;

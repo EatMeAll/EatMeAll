@@ -190,7 +190,12 @@ public class MapperMealImpl implements Mapper {
     @Override
     public MealDTOshort toMealDTOShort(Meal meal) {
 
-        return new MealDTOshort(meal.getIdMeal(),meal.getLanguage(),meal.getTitle(),meal.getShortDescription(),meal.getPublic(),null);
+        return new MealDTOshort(meal.getIdMeal(),
+                meal.getLanguage(),
+                meal.getTitle(),
+                meal.getShortDescription(),
+                meal.getPublic(),
+                null);
     }
 
     @Override
@@ -202,20 +207,29 @@ public class MapperMealImpl implements Mapper {
         dayDTO.setIdDay(day.getIdDay());
         dayDTO.setDate(day.getDate());
     // TODO: 26.11.2018 Have to rebuild structure of Database is not efficient - have to update meal and all his roots
-        for (Meal meal : day.getMealsSet()) {
-            meal = repo.MEAL().update(meal);
-            TypeMeal typeMeal = meal.getTypeMealSet().iterator().next();
-            MealDTOshort mealDTOshort = toMealDTOShort(meal);
-            mealDTOshort.setMealTime(typeMeal.getMealTime());
-            dayDTO.getMealDTOShortList().add(mealDTOshort);
+
+
+        Set<MealHasDay> mealHasDaySet = day.getMealHasDaySet();
+
+        while (mealHasDaySet.iterator().hasNext()) {
+            Meal meal = mealHasDaySet.iterator().next().getMeal();
+            dayDTO.getMealDTOShortList().add(toMealDTOShort(meal));
         }
+
+//        for (Meal meal : day.getMealsSet()) {
+//            meal = repo.MEAL().update(meal);
+//            TypeMeal typeMeal = meal.getTypeMealSet().iterator().next();
+//            MealDTOshort mealDTOshort = toMealDTOShort(meal);
+//            mealDTOshort.setMealTime(typeMeal.getMealTime());
+//            dayDTO.getMealDTOShortList().add(mealDTOshort);
+//        }
         return dayDTO;
     }
 
     @Override
     public Day toDay(DayDTO dayDTO, Integer idUser) {
 
-        Set<MealDTOshort> mealDTOShortList = dayDTO.getMealDTOShortList();
+        Set<MealDTOshort> mealDTOshortSet = dayDTO.getMealDTOShortList();
         Instant dateDTO = dayDTO.getDate();
 
         User user = repo.USER().get(idUser);
@@ -224,12 +238,37 @@ public class MapperMealImpl implements Mapper {
         day = repo.DAY().insert(day);
         day.setDate(dateDTO);
         day.setDayOwner(user);
-        for (MealDTOshort mealDTOshort : mealDTOShortList) {
-            System.out.println(mealDTOshort.getIdMeal());
+
+
+
+        for (MealDTOshort mealDTOshort : mealDTOshortSet) {
+
+            MealHasDay mealHasDay = new MealHasDay();
+            mealHasDay = repo.MEALHASDAY().insert(mealHasDay);
+
             Meal meal = repo.MEAL().get(mealDTOshort.getIdMeal());
-            day.addMeal(meal);
+            mealHasDay.setMeal(meal);
+            mealHasDay.setMealTime(mealDTOshort.getMealTime());
+            day.addMealHasDay(mealHasDay);
+
             repo.MEAL().update(meal);
+            repo.MEALHASDAY().update(mealHasDay);
+
         }
+//        for (MealDTOshort mealDTOshort : mealDTOShortList) {
+//
+//            Meal meal = repo.MEAL().get(mealDTOshort.getIdMeal());
+//
+//
+//
+//        }
+
+//        for (MealDTOshort mealDTOshort : mealDTOShortList) {
+//            System.out.println(mealDTOshort.getIdMeal());
+//            Meal meal = repo.MEAL().get(mealDTOshort.getIdMeal());
+//            day.addMeal(meal);
+//            repo.MEAL().update(meal);
+//        }
 
         day = repo.DAY().update(day);
 

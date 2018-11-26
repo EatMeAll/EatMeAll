@@ -6,7 +6,6 @@ import javax.persistence.*;
 
 import java.time.Instant;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 
@@ -22,16 +21,18 @@ public class Day extends BaseEntity {
     @JoinColumn(name = "idUser")
     private User dayOwner;
 
-    @ManyToMany(mappedBy = "usedInDaysSet",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<Meal> mealsSet = new HashSet<>();
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "day")
+    private Set<MealHasDay> mealHasDaySet = new HashSet<>();
 
     public Day() {
     }
 
-    public void addMeal(Meal meal){
-        this.getMealsSet().add(meal);
-        meal.getUsedInDaysSet().add(this);
+
+    public void addMealHasDay(MealHasDay mealHasDay){
+        this.getMealHasDaySet().add(mealHasDay);
+        mealHasDay.setDay(this);
     }
+
 
     public Integer getIdDay() {
         return idDay;
@@ -58,11 +59,12 @@ public class Day extends BaseEntity {
         dayOwner.getHistoryMealsSet().add(this);
     }
 
-    public Set<Meal> getMealsSet() {
-        return mealsSet;
-    }
-    public void setMealsSet(Set<Meal> mealsSet) {
-        this.mealsSet = mealsSet;
+
+    public Set<MealHasDay> getMealHasDaySet() {
+        return mealHasDaySet;
     }
 
+    public void setMealHasDaySet(Set<MealHasDay> mealHasDay) {
+        this.mealHasDaySet = mealHasDay;
+    }
 }

@@ -51,18 +51,19 @@ public class Meal extends BaseEntity {
     private Set<MealHasProduct> mealHasProductSet = new HashSet<>();
 
 
+
+
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "meal")
+    private Set<MealHasDay> mealHasDaySet = new HashSet<>();
+
+
+
+
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "MealHasTypeMeal",
             joinColumns = {@JoinColumn(name = "idMeal")},
             inverseJoinColumns = {@JoinColumn(name = "idTypeMeal")})
     private Set<TypeMeal> typeMealSet = new HashSet<>();
-
-
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "MealHasDay",
-            joinColumns = {@JoinColumn(name = "idMeal")},
-            inverseJoinColumns = {@JoinColumn(name = "idDay")})
-    private Set<Day> usedInDaysSet = new HashSet<>();
 
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -88,9 +89,9 @@ public class Meal extends BaseEntity {
         user.getFavouritesMealsSet().add(this);
     }
 
-    public void addDayWhichUse(Day day){
-        this.getUsedInDaysSet().add(day);
-        day.getMealsSet().add(this);
+    public void addMealHasDay(MealHasDay mealHasDay){
+        this.getMealHasDaySet().add(mealHasDay);
+        mealHasDay.setMeal(this);
     }
 
     public void addTypeMeal(TypeMeal typeMeal){
@@ -186,12 +187,13 @@ public class Meal extends BaseEntity {
         this.typeMealSet = typeMeal;
     }
 
-    public Set<Day> getUsedInDaysSet() {
-        return usedInDaysSet;
+
+    public Set<MealHasDay> getMealHasDaySet() {
+        return mealHasDaySet;
     }
 
-    public void setUsedInDaysSet(Set<Day> usedInDays) {
-        this.usedInDaysSet = usedInDays;
+    public void setMealHasDaySet(Set<MealHasDay> mealHasDaySet) {
+        this.mealHasDaySet = mealHasDaySet;
     }
 
     public Set<User> getLikedBySet() {

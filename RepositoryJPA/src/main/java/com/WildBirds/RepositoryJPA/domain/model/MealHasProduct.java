@@ -3,7 +3,6 @@ package com.WildBirds.RepositoryJPA.domain.model;
 import com.WildBirds.RepositoryJPA.domain.model.baseEntity.BaseEntity;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 public class MealHasProduct extends BaseEntity {
