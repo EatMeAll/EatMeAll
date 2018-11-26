@@ -201,8 +201,14 @@ public class MapperMealImpl implements Mapper {
 
         dayDTO.setIdDay(day.getIdDay());
         dayDTO.setDate(day.getDate());
-        dayDTO.setMealDTOShortList(dayDTO.getMealDTOShortList());
-
+    // TODO: 26.11.2018 Have to rebuild structure of Database is not efficient - have to update meal and all his roots
+        for (Meal meal : day.getMealsSet()) {
+            meal = repo.MEAL().update(meal);
+            TypeMeal typeMeal = meal.getTypeMealSet().iterator().next();
+            MealDTOshort mealDTOshort = toMealDTOShort(meal);
+            mealDTOshort.setMealTime(typeMeal.getMealTime());
+            dayDTO.getMealDTOShortList().add(mealDTOshort);
+        }
         return dayDTO;
     }
 
@@ -222,7 +228,6 @@ public class MapperMealImpl implements Mapper {
             System.out.println(mealDTOshort.getIdMeal());
             Meal meal = repo.MEAL().get(mealDTOshort.getIdMeal());
             day.addMeal(meal);
-//            meal.addDayWhichUse(day);
             repo.MEAL().update(meal);
         }
 
@@ -230,6 +235,4 @@ public class MapperMealImpl implements Mapper {
 
         return day;
     }
-
-
 }

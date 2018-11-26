@@ -64,9 +64,6 @@ public class ScheduleController {
                 supper.setMealTime(MealTime.SUPPER);
                 dayDTO.getMealDTOShortList().add(supper);
 
-                dayDTO.setIdDay(1);
-                dayDTO.setDate(Instant.now());
-
                 sevenDaysDTOList.add(dayDTO);
             }
             return Response.status(HttpStatus.OK.getCode()).entity(sevenDaysDTOList).build();
@@ -102,10 +99,7 @@ public class ScheduleController {
     @Produces("application/json; charset=UTF-8")
     public Response getHistory(@Context UriInfo info, @PathParam("from") String fromDateString, @PathParam("to") String toDateString) {
 
-        //todo : Return empty short dto list
         Integer idUser = 1;
-
-
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date parsedDate = dateFormat.parse(fromDateString);
@@ -114,7 +108,6 @@ public class ScheduleController {
             Date parsedDate2 = dateFormat.parse(toDateString);
             Instant toDate = parsedDate2.toInstant();
 
-
             List<Day> dayList = repo.DAY().getHistory(fromDate, toDate, idUser);
 
             List<DayDTO> dayDTOList = new ArrayList<>();
@@ -122,15 +115,16 @@ public class ScheduleController {
                 DayDTO dayDTO = mapper.toDayDTO(day);
                 dayDTOList.add(dayDTO);
             }
-
-
-            return Response.status(HttpStatus.OK.getCode()).header("OK", "Working").entity(dayDTOList).build();
+            return Response.status(HttpStatus.OK.getCode()).header("OK", "History meal in period of time").entity(dayDTOList).build();
 
         } catch (ParseException e) {
             e.printStackTrace();
+            return Response.status(HttpStatus.NOT_ACCEPTABLE.getCode()).header("Error", "Invalid syntax on date").build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(HttpStatus.NOT_FOUND.getCode()).header("Error", "NOT FOUND").build();
         }
 
-        return Response.status(HttpStatus.OK.getCode()).header("OK", "NOT Working").build();
 
     }
 }

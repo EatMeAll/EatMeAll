@@ -23,12 +23,20 @@ import java.util.Random;
 @Stateless
 @LocalBean
 public class ExcelReaderApp {
-
     private String basePath = "D:\\PROGRAMOWANIE\\etmeall2\\eatmeall";
+
     @EJB
     RepositoryFacade repo;
 
     public ExcelReaderApp() {
+    }
+
+    public String getBasePath() {
+        return basePath;
+    }
+
+    public void setBasePath(String basePath) {
+        this.basePath = basePath;
     }
 
     public void addToDatabase() throws IOException {
@@ -174,12 +182,4 @@ public class ExcelReaderApp {
         }
     }
 
-
-    public String getBasePath() {
-        return basePath;
-    }
-
-    public void setBasePath(String basePath) {
-        this.basePath = basePath;
-    }
 }
