@@ -1,7 +1,7 @@
 package com.WildBirds.EatMeAll.application.controlers;
 
-import com.WildBirds.EatMeAll.application.DTO.new_.UserNewDTO;
 import com.WildBirds.EatMeAll.application.DTO.full_.UserDTO;
+import com.WildBirds.EatMeAll.application.DTO.new_.UserNewDTO;
 import com.WildBirds.EatMeAll.application.service.Mapper;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
 import com.WildBirds.RepositoryJPA.domain.model.User;
@@ -50,11 +50,14 @@ public class UserController {
             UserDTO userDTO = mapper.toUserDTO(user);
             return Response.status(Response.Status.CREATED).entity(userDTO).build();
         //todo: doesn't catch this exception -- should repair
-        } catch (javax.validation.ConstraintViolationException e) {
-            e.printStackTrace();
-            return Response.status(Response.Status.NOT_ACCEPTABLE).header("Error", "Invalid email syntax").build();
+
+
+
         } catch (EJBTransactionRolledbackException e) {
             e.printStackTrace();
+            if (e.getCause() instanceof javax.validation.ConstraintViolationException){
+                return Response.status(Response.Status.NOT_ACCEPTABLE).header("Error", "Invalid email syntax").build();
+            }
             return Response.status(Response.Status.CONFLICT).header("Error", "Duplicate email or nick").build();
         } catch (Exception e) {
             e.printStackTrace();
