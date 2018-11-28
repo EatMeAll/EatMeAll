@@ -63,31 +63,13 @@ public class UserController {
         }
     }
 
-    @POST
-    @Path("login")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces({"application/json; charset=UTF-8"})
-    public Response loginUser(UserNewDTO userNewDTO) {
-        try {
-            String nick = userNewDTO.getNick();
-            String password = userNewDTO.getPassword();
-
-            User userByNickPass = repo.USER().getUserByNickPass(nick, password);
-            UserDTO loggedUser = mapper.toUserDTO(userByNickPass);
-
-            return Response.status(HttpStatus.ACCEPTED.getCode()).entity(loggedUser).build();
-        } catch (EJBException e) {
-            e.printStackTrace();
-            return Response.status(HttpStatus.UNAUTHORIZED.getCode()).header("Error", "Unauthorized " + userNewDTO.getNick() + " invalid nick or password").build();
-        }
-    }
-
 
     @PATCH
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response upDateUser(UserNewDTO userNewDTO) {
 
+        // TODO: 28.11.2018 change UserNeDTO to UserUpdateDTO
         try {
             User user = mapper.toUser(userNewDTO);
             UserDTO updatedUserDTO = mapper.toUserDTO(user);

@@ -17,8 +17,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-@Path("shortMeal")
-public class MealShortFULLController {
+@Path("meals/short")
+public class MealShortController {
 
 
     @EJB

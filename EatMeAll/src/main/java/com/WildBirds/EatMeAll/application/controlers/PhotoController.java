@@ -30,8 +30,8 @@ public class PhotoController {
         return Response.ok(photo.getPhoto()).type(photo.getFiletype()).build();
     }
 
-    @Path("")
     @POST
+    @Path("")
     @Consumes("multipart/form-data")
     public Response uploadFile(
             @Encoded @FormDataParam("file") File file) {

@@ -31,7 +31,7 @@ public class MealController {
     @GET
     @Path("")
     @Produces({"application/json; charset=UTF-8"})
-    public Response hello(@Context UriInfo info) {
+    public Response getMeal(@Context UriInfo info) {
         return new ResponseStrategy().form(info)
                 .when("from", "to")
                 .execute(params -> {
