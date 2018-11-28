@@ -112,11 +112,13 @@ public class ScheduleController {
 
             List<DayDTO> dayDTOList = new ArrayList<>();
             for (Day day : dayList) {
+
                 DayDTO dayDTO = mapper.toDayDTO(day);
                 dayDTOList.add(dayDTO);
             }
-            return Response.status(HttpStatus.OK.getCode()).header("OK", "History meal in period of time").entity(dayDTOList).build();
+//            return Response.status(HttpStatus.OK.getCode()).header("OK", "History meal in period of time").entity(dayDTOList).build();
 
+            return null;
         } catch (ParseException e) {
             e.printStackTrace();
             return Response.status(HttpStatus.NOT_ACCEPTABLE.getCode()).header("Error", "Invalid syntax on date").build();

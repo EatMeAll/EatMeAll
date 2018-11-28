@@ -2,7 +2,6 @@ package com.WildBirds.EatMeAll.application.DTO;
 
 public class ProductDTO {
 
-    private Integer idProduct;
     private String name;
     private Integer amount;
     private String unit;
@@ -12,13 +11,6 @@ public class ProductDTO {
     }
 
 
-    public Integer getIdProduct() {
-        return idProduct;
-    }
-
-    public void setIdProduct(Integer idProduct) {
-        this.idProduct = idProduct;
-    }
 
     public String getName() {
         return name;

@@ -159,12 +159,13 @@ public class MapperMealImpl implements Mapper {
     }
 
     @Override
-    public ProductDTO toProductDTO(Product product) {
-        ProductDTO productDTO = new ProductDTO();
-        productDTO.setName(product.getName());
-        productDTO.setIdProduct(product.getIdProduct());
+    public ProductBasicDTO toProductBasicDTO(Product product) {
 
-        return productDTO;
+        ProductBasicDTO productBasicDTO = new ProductBasicDTO();
+        productBasicDTO.setName(product.getName());
+        productBasicDTO.setIdProduct(product.getIdProduct());
+
+        return productBasicDTO;
     }
 
     @Override
@@ -235,9 +236,11 @@ public class MapperMealImpl implements Mapper {
 
         Set<MealHasDay> mealHasDaySet = day.getMealHasDaySet();
 
+        // TODO: 28.11.2018 never ending loop ? why ? It worked ? 
         while (mealHasDaySet.iterator().hasNext()) {
             Meal meal = mealHasDaySet.iterator().next().getMeal();
             dayDTO.getMealDTOShortList().add(toMealDTOShort(meal));
+            mealHasDaySet.iterator().next();
         }
         return dayDTO;
     }

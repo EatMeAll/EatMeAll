@@ -21,7 +21,7 @@ public interface Mapper {
     MealDTOshortFull toMealDTOShortFull(Meal meal);
 
 
-    ProductDTO toProductDTO(Product product);
+    ProductBasicDTO toProductBasicDTO(Product product);
 
     DayDTO toDayDTO(Day day);
     Day toDay(DayDTO dayDTO, Integer idUser);

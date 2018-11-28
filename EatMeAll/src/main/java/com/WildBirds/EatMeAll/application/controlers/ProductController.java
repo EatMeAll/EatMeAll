@@ -1,5 +1,6 @@
 package com.WildBirds.EatMeAll.application.controlers;
 
+import com.WildBirds.EatMeAll.application.DTO.ProductBasicDTO;
 import com.WildBirds.EatMeAll.application.DTO.ProductDTO;
 import com.WildBirds.EatMeAll.application.controlers.utils.HttpStatus;
 import com.WildBirds.EatMeAll.application.service.Mapper;
@@ -31,9 +32,9 @@ public class ProductController {
         try {
             Product product = repo.PRODUCT().get(id);
 
-            ProductDTO productDTO = mapper.toProductDTO(product);
+            ProductBasicDTO productBasicDTO = mapper.toProductBasicDTO(product);
 
-            return Response.status(HttpStatus.OK.getCode()).entity(productDTO).build();
+            return Response.status(HttpStatus.OK.getCode()).entity(productBasicDTO).build();
         } catch (Exception e) {
             e.printStackTrace();
             return Response.status(HttpStatus.NOT_FOUND.getCode()).header("Error", "Product is not excise in db").build();

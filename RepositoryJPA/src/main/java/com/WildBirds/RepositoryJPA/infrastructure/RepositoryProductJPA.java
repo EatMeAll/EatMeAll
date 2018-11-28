@@ -8,6 +8,9 @@ import com.WildBirds.RepositoryJPA.infrastructure.CrudJPA.implementations.CrudEn
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import java.time.Instant;
+import java.util.Set;
+
 @Stateless
 @LocalBean
 public class RepositoryProductJPA extends CrudEntityJpa<Product> implements RepositoryProduct {
@@ -17,6 +20,13 @@ public class RepositoryProductJPA extends CrudEntityJpa<Product> implements Repo
     }
 
     public Product someAdditionalLogic() {
+        return null;
+    }
+
+    @Override
+    public Set<Product> getProductsList(Instant fromDate, Instant toDate, Integer idUser) {
+
+
         return null;
     }
 }
