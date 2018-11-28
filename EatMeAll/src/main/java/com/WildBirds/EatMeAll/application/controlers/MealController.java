@@ -97,7 +97,7 @@ public class MealController {
                     Language languageENUM = Language.valueOf(language);
 
                     Integer amount = Integer.valueOf(map.getFirst("amount"));
-                    Boolean isPublic = Boolean.getBoolean(map.getFirst("isPublic"));
+                    Boolean isPublic = Boolean.valueOf(map.getFirst("isPublic"));
                     List<String> listProducts = map.get("products");
 
 //                    List<MealDTO> mealDTOList = mealServiceTypeMeal.getMeals
@@ -120,8 +120,8 @@ public class MealController {
 
                     Integer amount = Integer.valueOf(map.getFirst("amount"));
 
-                    //todo : return ALWAYS FALSE ?!?!
-                    Boolean isPublic = Boolean.getBoolean(map.getFirst("isPublic"));
+
+                    Boolean isPublic = Boolean.valueOf(map.getFirst("isPublic"));
 
 //                    List<MealDTO> mealDTOList = mealServiceTypeMeal.getMeals
 //                            (mealTime, languageENUM, amount, isPublic);
