@@ -242,6 +242,16 @@ public class MapperMealImpl implements Mapper {
     }
 
     @Override
+    public List<DayDTO> toDayDTO(List<Day> dayList) {
+
+        List<DayDTO> dayDTOList = new ArrayList<>();
+        for (Day day : dayList) {
+            dayDTOList.add(toDayDTO(day));
+        }
+        return dayDTOList;
+    }
+
+    @Override
     public Day toDay(DayDTO dayDTO, Integer idUser) {
 
         Set<MealDTOshort> mealDTOshortSet = dayDTO.getMealDTOshortSet();
@@ -270,5 +280,17 @@ public class MapperMealImpl implements Mapper {
         }
         day = repo.DAY().update(day);
         return day;
+    }
+
+    @Override
+    public List<Day> toDay(List<DayDTO> dayDTOList, Integer idUser) {
+
+        List<Day> dayList = new ArrayList<>();
+
+        for (DayDTO dayDTO : dayDTOList) {
+            dayList.add(toDay(dayDTO, idUser));
+        }
+        return dayList;
+
     }
 }

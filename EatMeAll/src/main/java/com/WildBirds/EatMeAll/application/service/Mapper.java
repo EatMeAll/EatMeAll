@@ -24,5 +24,8 @@ public interface Mapper {
     ProductBasicDTO toProductBasicDTO(Product product);
 
     DayDTO toDayDTO(Day day);
+    List<DayDTO> toDayDTO(List<Day> dayList);
+
     Day toDay(DayDTO dayDTO, Integer idUser);
+    List<Day> toDay(List<DayDTO> dayDTOList, Integer idUser);
 }

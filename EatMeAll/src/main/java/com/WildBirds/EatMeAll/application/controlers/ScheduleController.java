@@ -110,12 +110,8 @@ public class ScheduleController {
 
             List<Day> dayList = repo.DAY().getHistory(fromDate, toDate, idUser);
 
-            List<DayDTO> dayDTOList = new ArrayList<>();
-            for (Day day : dayList) {
+            List<DayDTO> dayDTOList = mapper.toDayDTO(dayList);
 
-                DayDTO dayDTO = mapper.toDayDTO(day);
-                dayDTOList.add(dayDTO);
-            }
 
             return Response.status(HttpStatus.OK.getCode()).header("OK", "History meal in period of time").entity(dayDTOList).build();
         } catch (ParseException e) {
