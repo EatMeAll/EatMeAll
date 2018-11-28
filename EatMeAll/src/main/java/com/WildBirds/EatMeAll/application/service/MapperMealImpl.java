@@ -1,7 +1,11 @@
 package com.WildBirds.EatMeAll.application.service;
 
 
-import com.WildBirds.EatMeAll.application.DTO.*;
+import com.WildBirds.EatMeAll.application.DTO.full_.*;
+import com.WildBirds.EatMeAll.application.DTO.new_.UserNewDTO;
+import com.WildBirds.EatMeAll.application.DTO.short_.MealShortDTO;
+import com.WildBirds.EatMeAll.application.DTO.unit_.MealUnitDTO;
+import com.WildBirds.EatMeAll.application.DTO.unit_.ProductUnitDTO;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
 import com.WildBirds.RepositoryJPA.domain.model.*;
 import com.WildBirds.RepositoryJPA.domain.model.enums.MealTime;
@@ -84,18 +88,18 @@ public class MapperMealImpl implements Mapper {
                     typeMealDTOList.add(typeMealDTO);
                 }
 
-                Set<ProductDTO> productDTOSet = new HashSet<>();
+                Set<ProductUnitDTO> productUnitDTOSet = new HashSet<>();
                 Set<MealHasProduct> mealHasProductSet = meal.getMealHasProductSet();
 
                 for (MealHasProduct mealHasProduct : mealHasProductSet) {
-                    ProductDTO productDTO = new ProductDTO();
+                    ProductUnitDTO productUnitDTO = new ProductUnitDTO();
 
-                    productDTO.setName(mealHasProduct.getProduct().getName());
-                    productDTO.setSpecialUnit(mealHasProduct.getSpecialUnit());
-                    productDTO.setAmount(mealHasProduct.getAmount());
-                    productDTO.setUnit(mealHasProduct.getUnit());
+                    productUnitDTO.setName(mealHasProduct.getProduct().getName());
+                    productUnitDTO.setSpecialUnit(mealHasProduct.getSpecialUnit());
+                    productUnitDTO.setAmount(mealHasProduct.getAmount());
+                    productUnitDTO.setUnit(mealHasProduct.getUnit());
 
-                    productDTOSet.add(productDTO);
+                    productUnitDTOSet.add(productUnitDTO);
                 }
 
                 MealDTO mealDTO = new MealDTO(
@@ -111,7 +115,7 @@ public class MapperMealImpl implements Mapper {
                         receiptDTO,
                         typeMealDTOList,
                         toUserDTO(meal.getCreatorMeal()),
-                        productDTOSet);
+                        productUnitDTOSet);
                 mealDTOList.add(mealDTO);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -125,9 +129,9 @@ public class MapperMealImpl implements Mapper {
 
 
     @Override
-    public MealDTOshort toMealDTOShort(Meal meal) {
+    public MealUnitDTO toMealDTOShort(Meal meal) {
 
-        return new MealDTOshort(meal.getIdMeal(),
+        return new MealUnitDTO(meal.getIdMeal(),
                 meal.getLanguage(),
                 meal.getTitle(),
                 meal.getShortDescription(),
@@ -136,7 +140,7 @@ public class MapperMealImpl implements Mapper {
     }
 
     @Override
-    public MealDTOshortFull toMealDTOShortFull(Meal meal) {
+    public MealShortDTO toMealDTOShortFull(Meal meal) {
 
         meal = repo.MEAL().update(meal);
 
@@ -146,7 +150,7 @@ public class MapperMealImpl implements Mapper {
             mealTimeSet.add(typeMeal.getMealTime());
         }
 
-        return new MealDTOshortFull(
+        return new MealShortDTO(
                 meal.getIdMeal(),
                 meal.getLanguage(),
                 meal.getTitle(),
@@ -156,13 +160,13 @@ public class MapperMealImpl implements Mapper {
     }
 
     @Override
-    public ProductBasicDTO toProductBasicDTO(Product product) {
+    public ProductDTO toProductBasicDTO(Product product) {
 
-        ProductBasicDTO productBasicDTO = new ProductBasicDTO();
-        productBasicDTO.setName(product.getName());
-        productBasicDTO.setIdProduct(product.getIdProduct());
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setName(product.getName());
+        productDTO.setIdProduct(product.getIdProduct());
 
-        return productBasicDTO;
+        return productDTO;
     }
 
     @Override
@@ -200,22 +204,22 @@ public class MapperMealImpl implements Mapper {
     }
 
     @Override
-    public User toUser(NewUserDTO newUserDTO) {
+    public User toUser(UserNewDTO userNewDTO) {
 
-        Integer idUser = newUserDTO.getIdUser();
+        Integer idUser = userNewDTO.getIdUser();
         User user = null;
 
         if (idUser != null) {
 
             user = repo.USER().get(idUser);
-            user.setNick(newUserDTO.getNick());
-            user.setEmail(newUserDTO.getEmail());
+            user.setNick(userNewDTO.getNick());
+            user.setEmail(userNewDTO.getEmail());
 
         } else {
-            user = repo.USER().insert(new User(newUserDTO.getNick(), newUserDTO.getEmail()));
+            user = repo.USER().insert(new User(userNewDTO.getNick(), userNewDTO.getEmail()));
         }
-        user.setUserType(newUserDTO.getUserType());
-        user.setPassword(newUserDTO.getPassword());
+        user.setUserType(userNewDTO.getUserType());
+        user.setPassword(userNewDTO.getPassword());
 
         user = repo.USER().update(user);
         return user;
@@ -236,7 +240,7 @@ public class MapperMealImpl implements Mapper {
 
         while (it.hasNext()) {
             Meal meal = it.next().getMeal();
-            dayDTO.getMealDTOshortSet().add(toMealDTOShort(meal));
+            dayDTO.getMeals().add(toMealDTOShort(meal));
         }
         return dayDTO;
     }
@@ -254,7 +258,7 @@ public class MapperMealImpl implements Mapper {
     @Override
     public Day toDay(DayDTO dayDTO, Integer idUser) {
 
-        Set<MealDTOshort> mealDTOshortSet = dayDTO.getMealDTOshortSet();
+        Set<MealUnitDTO> mealUnitDTOSet = dayDTO.getMeals();
         Instant dateDTO = dayDTO.getDate();
 
         User user = repo.USER().get(idUser);
@@ -264,14 +268,14 @@ public class MapperMealImpl implements Mapper {
         day.setDate(dateDTO);
         day.setDayOwner(user);
 
-        for (MealDTOshort mealDTOshort : mealDTOshortSet) {
+        for (MealUnitDTO mealUnitDTO : mealUnitDTOSet) {
 
             MealHasDay mealHasDay = new MealHasDay();
             mealHasDay = repo.MEALHASDAY().insert(mealHasDay);
 
-            Meal meal = repo.MEAL().get(mealDTOshort.getIdMeal());
+            Meal meal = repo.MEAL().get(mealUnitDTO.getIdMeal());
             mealHasDay.setMeal(meal);
-            mealHasDay.setMealTime(mealDTOshort.getMealTime());
+            mealHasDay.setMealTime(mealUnitDTO.getMealTime());
             day.addMealHasDay(mealHasDay);
 
             repo.MEAL().update(meal);

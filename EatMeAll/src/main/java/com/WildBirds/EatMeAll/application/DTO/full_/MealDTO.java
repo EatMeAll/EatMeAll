@@ -1,6 +1,7 @@
-package com.WildBirds.EatMeAll.application.DTO;
+package com.WildBirds.EatMeAll.application.DTO.full_;
 
 
+import com.WildBirds.EatMeAll.application.DTO.unit_.ProductUnitDTO;
 import com.WildBirds.RepositoryJPA.domain.model.enums.Language;
 
 
@@ -20,13 +21,13 @@ public class MealDTO {
     private ReceiptDTO receiptDTO;
     private Set<TypeMealDTO> typeMeal;
     private UserDTO creatorMeal;
-    private Set<ProductDTO> products;
+    private Set<ProductUnitDTO> products;
 
 
     public MealDTO() {
     }
 
-    public MealDTO(Integer idMeal, Language language, String title, String shortDescription, Integer amountCalories, String authorReceipt, Integer idPhoto, Boolean isPublic, Instant createdDate, ReceiptDTO receiptDTO, Set<TypeMealDTO> typeMeal, UserDTO creatorMeal, Set<ProductDTO> products) {
+    public MealDTO(Integer idMeal, Language language, String title, String shortDescription, Integer amountCalories, String authorReceipt, Integer idPhoto, Boolean isPublic, Instant createdDate, ReceiptDTO receiptDTO, Set<TypeMealDTO> typeMeal, UserDTO creatorMeal, Set<ProductUnitDTO> products) {
         this.idMeal = idMeal;
         this.language = language;
         this.title = title;
@@ -138,11 +139,11 @@ public class MealDTO {
         this.creatorMeal = creatorMeal;
     }
 
-    public Set<ProductDTO> getProducts() {
+    public Set<ProductUnitDTO> getProducts() {
         return products;
     }
 
-    public void setProducts(Set<ProductDTO> products) {
+    public void setProducts(Set<ProductUnitDTO> products) {
         this.products = products;
     }
 

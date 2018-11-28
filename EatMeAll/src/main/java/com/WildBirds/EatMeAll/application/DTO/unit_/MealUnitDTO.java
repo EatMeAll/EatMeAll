@@ -1,30 +1,27 @@
-package com.WildBirds.EatMeAll.application.DTO;
+package com.WildBirds.EatMeAll.application.DTO.unit_;
 
-import com.WildBirds.RepositoryJPA.domain.model.TypeMeal;
 import com.WildBirds.RepositoryJPA.domain.model.enums.Language;
 import com.WildBirds.RepositoryJPA.domain.model.enums.MealTime;
 
-import java.util.Set;
-
-public class MealDTOshortFull {
+public class MealUnitDTO {
 
     private Integer idMeal;
     private Language language;
     private String title;
     private String shortDescription;
     private Boolean isPublic;
-    private Set<MealTime> mealTimeSet;
+    private MealTime mealTime;
 
-    public MealDTOshortFull() {
+    public MealUnitDTO() {
     }
 
-    public MealDTOshortFull(Integer idMeal, Language language, String title, String shortDescription, Boolean isPublic, Set<MealTime> mealTimeSet) {
+    public MealUnitDTO(Integer idMeal, Language language, String title, String shortDescription, Boolean isPublic, MealTime mealTime) {
         this.idMeal = idMeal;
         this.language = language;
         this.title = title;
         this.shortDescription = shortDescription;
         this.isPublic = isPublic;
-        this.mealTimeSet = mealTimeSet;
+        this.mealTime = mealTime;
     }
 
     public Integer getIdMeal() {
@@ -67,11 +64,11 @@ public class MealDTOshortFull {
         isPublic = aPublic;
     }
 
-    public Set<MealTime> getMealTimeSet() {
-        return mealTimeSet;
+    public MealTime getMealTime() {
+        return mealTime;
     }
 
-    public void setMealTimeSet(Set<MealTime> mealTimeSet) {
-        this.mealTimeSet = mealTimeSet;
+    public void setMealTime(MealTime mealTime) {
+        this.mealTime = mealTime;
     }
 }

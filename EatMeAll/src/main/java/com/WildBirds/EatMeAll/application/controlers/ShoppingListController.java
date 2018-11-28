@@ -1,7 +1,7 @@
 package com.WildBirds.EatMeAll.application.controlers;
 
 
-import com.WildBirds.EatMeAll.application.DTO.ProductBasicDTO;
+import com.WildBirds.EatMeAll.application.DTO.full_.ProductDTO;
 import com.WildBirds.EatMeAll.application.controlers.utils.HttpStatus;
 import com.WildBirds.EatMeAll.application.service.Mapper;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
@@ -49,17 +49,17 @@ public class ShoppingListController {
             Instant toDate = parsedDate2.toInstant();
 
             Set<Product> productSet = repo.PRODUCT().getProductsList(fromDate, toDate, idUser);
-            Set<ProductBasicDTO> productBasicDTOSet = new HashSet<>();
+            Set<ProductDTO> productDTOSet = new HashSet<>();
 
             for (Product product : productSet) {
-                ProductBasicDTO productBasicDTO = mapper.toProductBasicDTO(product);
-                productBasicDTOSet.add(productBasicDTO);
+                ProductDTO productDTO = mapper.toProductBasicDTO(product);
+                productDTOSet.add(productDTO);
             }
 
             return Response.status(HttpStatus.OK.getCode())
                     .header("OK", "Set of products from "
                             + fromDateString + " to " + toDateString)
-                    .entity(productBasicDTOSet).build();
+                    .entity(productDTOSet).build();
         } catch (ParseException e) {
             e.printStackTrace();
             return Response.status(HttpStatus.METHOD_NOT_ALLOWED.getCode()).header("Error", "Invalid syntax on date").build();

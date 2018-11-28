@@ -1,6 +1,12 @@
 package com.WildBirds.EatMeAll.application.service;
 
-import com.WildBirds.EatMeAll.application.DTO.*;
+import com.WildBirds.EatMeAll.application.DTO.full_.DayDTO;
+import com.WildBirds.EatMeAll.application.DTO.full_.MealDTO;
+import com.WildBirds.EatMeAll.application.DTO.full_.ProductDTO;
+import com.WildBirds.EatMeAll.application.DTO.full_.UserDTO;
+import com.WildBirds.EatMeAll.application.DTO.new_.UserNewDTO;
+import com.WildBirds.EatMeAll.application.DTO.short_.MealShortDTO;
+import com.WildBirds.EatMeAll.application.DTO.unit_.MealUnitDTO;
 import com.WildBirds.RepositoryJPA.domain.model.Day;
 import com.WildBirds.RepositoryJPA.domain.model.Meal;
 import com.WildBirds.RepositoryJPA.domain.model.Product;
@@ -15,13 +21,13 @@ public interface Mapper {
 
     UserDTO toUserDTO(User user);
     User toUser(UserDTO userDTO);
-    User toUser(NewUserDTO newUserDTO);
+    User toUser(UserNewDTO userNewDTO);
 
-    MealDTOshort toMealDTOShort(Meal meal);
-    MealDTOshortFull toMealDTOShortFull(Meal meal);
+    MealUnitDTO toMealDTOShort(Meal meal);
+    MealShortDTO toMealDTOShortFull(Meal meal);
 
 
-    ProductBasicDTO toProductBasicDTO(Product product);
+    ProductDTO toProductBasicDTO(Product product);
 
     DayDTO toDayDTO(Day day);
     List<DayDTO> toDayDTO(List<Day> dayList);

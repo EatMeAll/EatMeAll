@@ -1,11 +1,11 @@
-package com.WildBirds.EatMeAll.application.DTO;
+package com.WildBirds.EatMeAll.application.DTO.full_;
 
-public class ProductBasicDTO {
+public class ProductDTO {
 
     private Integer idProduct;
     private String name;
 
-    public ProductBasicDTO() {
+    public ProductDTO() {
     }
 
     public Integer getIdProduct() {

@@ -1,8 +1,7 @@
 package com.WildBirds.EatMeAll.application.controlers;
 
 
-import com.WildBirds.EatMeAll.application.DTO.MealDTOshort;
-import com.WildBirds.EatMeAll.application.DTO.MealDTOshortFull;
+import com.WildBirds.EatMeAll.application.DTO.short_.MealShortDTO;
 import com.WildBirds.EatMeAll.application.controlers.utils.HttpStatus;
 import com.WildBirds.EatMeAll.application.service.Mapper;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
@@ -37,10 +36,10 @@ public class MealShortFULLController {
         try {
             Meal meal = repo.MEAL().get(id);
 
-            MealDTOshortFull mealDTOshortFull = mapper.toMealDTOShortFull(meal);
+            MealShortDTO mealShortDTO = mapper.toMealDTOShortFull(meal);
 
 
-            return Response.status(HttpStatus.OK.getCode()).header("OK", "Meal in short view").entity(mealDTOshortFull).build();
+            return Response.status(HttpStatus.OK.getCode()).header("OK", "Meal in short_ view").entity(mealShortDTO).build();
         } catch (EJBTransactionRolledbackException e) {
             e.printStackTrace();
             return Response.status(HttpStatus.NOT_FOUND.getCode()).header("Error", "Meal not found in db").build();

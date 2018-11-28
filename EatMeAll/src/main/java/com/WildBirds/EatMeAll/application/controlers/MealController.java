@@ -1,7 +1,7 @@
 package com.WildBirds.EatMeAll.application.controlers;
 
 
-import com.WildBirds.EatMeAll.application.DTO.MealDTO;
+import com.WildBirds.EatMeAll.application.DTO.full_.MealDTO;
 import com.WildBirds.EatMeAll.application.controlers.service.handler.ResponseStrategy;
 import com.WildBirds.EatMeAll.application.controlers.utils.HttpStatus;
 import com.WildBirds.EatMeAll.application.service.Mapper;

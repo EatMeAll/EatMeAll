@@ -1,13 +1,13 @@
-package com.WildBirds.EatMeAll.application.DTO;
+package com.WildBirds.EatMeAll.application.DTO.unit_;
 
-public class ProductDTO {
+public class ProductUnitDTO {
 
     private String name;
     private Integer amount;
     private String unit;
     private String specialUnit;
 
-    public ProductDTO() {
+    public ProductUnitDTO() {
     }
 
 
@@ -46,7 +46,7 @@ public class ProductDTO {
 
     @Override
     public String toString() {
-        return "ProductDTO{" +
+        return "ProductUnitDTO{" +
                 "name='" + name + '\'' +
                 ", amount=" + amount +
                 ", unit='" + unit + '\'' +

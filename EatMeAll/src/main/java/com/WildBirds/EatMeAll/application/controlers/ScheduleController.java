@@ -1,8 +1,8 @@
 package com.WildBirds.EatMeAll.application.controlers;
 
 
-import com.WildBirds.EatMeAll.application.DTO.DayDTO;
-import com.WildBirds.EatMeAll.application.DTO.MealDTOshort;
+import com.WildBirds.EatMeAll.application.DTO.full_.DayDTO;
+import com.WildBirds.EatMeAll.application.DTO.unit_.MealUnitDTO;
 import com.WildBirds.EatMeAll.application.controlers.utils.HttpStatus;
 import com.WildBirds.EatMeAll.application.service.Mapper;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
@@ -45,31 +45,31 @@ public class ScheduleController {
             for (int i = 0; i < 7; i++) {
                 DayDTO dayDTO = new DayDTO();
 
-                MealDTOshort breakFast = mapper.toMealDTOShort(mealsBreakfastList.get(i));
+                MealUnitDTO breakFast = mapper.toMealDTOShort(mealsBreakfastList.get(i));
                 breakFast.setMealTime(MealTime.BREAKFAST);
-                dayDTO.getMealDTOshortSet().add(breakFast);
+                dayDTO.getMeals().add(breakFast);
 
 
-                MealDTOshort lunch = mapper.toMealDTOShort(mealsLunchList.get(i));
+                MealUnitDTO lunch = mapper.toMealDTOShort(mealsLunchList.get(i));
                 lunch.setMealTime(MealTime.LUNCH);
-                dayDTO.getMealDTOshortSet().add(lunch);
+                dayDTO.getMeals().add(lunch);
 
 
-                MealDTOshort dinner = mapper.toMealDTOShort(mealsDinnerList.get(i));
+                MealUnitDTO dinner = mapper.toMealDTOShort(mealsDinnerList.get(i));
                 dinner.setMealTime(MealTime.DINNER);
-                dayDTO.getMealDTOshortSet().add(dinner);
+                dayDTO.getMeals().add(dinner);
 
 
-                MealDTOshort supper = mapper.toMealDTOShort(mealsSupperList.get(i));
+                MealUnitDTO supper = mapper.toMealDTOShort(mealsSupperList.get(i));
                 supper.setMealTime(MealTime.SUPPER);
-                dayDTO.getMealDTOshortSet().add(supper);
+                dayDTO.getMeals().add(supper);
 
                 sevenDaysDTOList.add(dayDTO);
             }
             return Response.status(HttpStatus.OK.getCode()).entity(sevenDaysDTOList).build();
         } catch (java.lang.IndexOutOfBoundsException e) {
             e.printStackTrace();
-            return Response.status(HttpStatus.EXPECTATION_FAILED.getCode()).header("Error", "Not enough meals to prepaid full schedule").build();
+            return Response.status(HttpStatus.EXPECTATION_FAILED.getCode()).header("Error", "Not enough meals to prepaid full_ schedule").build();
 
         } catch (Exception e){
             e.printStackTrace();

@@ -1,7 +1,7 @@
 package com.WildBirds.EatMeAll.application.controlers;
 
-import com.WildBirds.EatMeAll.application.DTO.NewUserDTO;
-import com.WildBirds.EatMeAll.application.DTO.UserDTO;
+import com.WildBirds.EatMeAll.application.DTO.new_.UserNewDTO;
+import com.WildBirds.EatMeAll.application.DTO.full_.UserDTO;
 import com.WildBirds.EatMeAll.application.controlers.utils.HttpStatus;
 import com.WildBirds.EatMeAll.application.service.Mapper;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
@@ -45,9 +45,9 @@ public class UserController {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({"application/json; charset=UTF-8"})
-    public Response addUser(NewUserDTO newUserDTO) {
+    public Response addUser(UserNewDTO userNewDTO) {
         try {
-            User user = mapper.toUser(newUserDTO);
+            User user = mapper.toUser(userNewDTO);
             UserDTO userDTO = mapper.toUserDTO(user);
             return Response.status(HttpStatus.CREATED.getCode()).entity(userDTO).build();
         //todo: doesn't catch this exception -- should repair
@@ -67,10 +67,10 @@ public class UserController {
     @Path("login")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({"application/json; charset=UTF-8"})
-    public Response loginUser(NewUserDTO newUserDTO) {
+    public Response loginUser(UserNewDTO userNewDTO) {
         try {
-            String nick = newUserDTO.getNick();
-            String password = newUserDTO.getPassword();
+            String nick = userNewDTO.getNick();
+            String password = userNewDTO.getPassword();
 
             User userByNickPass = repo.USER().getUserByNickPass(nick, password);
             UserDTO loggedUser = mapper.toUserDTO(userByNickPass);
@@ -78,7 +78,7 @@ public class UserController {
             return Response.status(HttpStatus.ACCEPTED.getCode()).entity(loggedUser).build();
         } catch (EJBException e) {
             e.printStackTrace();
-            return Response.status(HttpStatus.UNAUTHORIZED.getCode()).header("Error", "Unauthorized " + newUserDTO.getNick() + " invalid nick or password").build();
+            return Response.status(HttpStatus.UNAUTHORIZED.getCode()).header("Error", "Unauthorized " + userNewDTO.getNick() + " invalid nick or password").build();
         }
     }
 
@@ -86,16 +86,16 @@ public class UserController {
     @PATCH
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response upDateUser(NewUserDTO newUserDTO) {
+    public Response upDateUser(UserNewDTO userNewDTO) {
 
         try {
-            User user = mapper.toUser(newUserDTO);
+            User user = mapper.toUser(userNewDTO);
             UserDTO updatedUserDTO = mapper.toUserDTO(user);
 
             return Response.status(HttpStatus.OK.getCode()).entity(updatedUserDTO).build();
         } catch (EJBException e) {
             e.printStackTrace();
-            return Response.status(HttpStatus.BAD_REQUEST.getCode()).entity(newUserDTO).build();
+            return Response.status(HttpStatus.BAD_REQUEST.getCode()).entity(userNewDTO).build();
 
         }
     }

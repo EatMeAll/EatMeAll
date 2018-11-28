@@ -1,4 +1,6 @@
-package com.WildBirds.EatMeAll.application.DTO;
+package com.WildBirds.EatMeAll.application.DTO.full_;
+
+import com.WildBirds.EatMeAll.application.DTO.unit_.MealUnitDTO;
 
 import java.time.Instant;
 import java.util.HashSet;
@@ -8,10 +10,10 @@ public class DayDTO {
 
     private Integer idDay;
     private Instant date;
-    private Set<MealDTOshort> mealDTOshortSet;
+    private Set<MealUnitDTO> meals;
 
     public DayDTO() {
-        this.mealDTOshortSet = new HashSet<>();
+        this.meals = new HashSet<>();
     }
 
     public Integer getIdDay() {
@@ -30,11 +32,11 @@ public class DayDTO {
         this.date = date;
     }
 
-    public Set<MealDTOshort> getMealDTOshortSet() {
-        return mealDTOshortSet;
+    public Set<MealUnitDTO> getMeals() {
+        return meals;
     }
 
-    public void setMealDTOshortSet(Set<MealDTOshort> mealDTOshortSet) {
-        this.mealDTOshortSet = mealDTOshortSet;
+    public void setMeals(Set<MealUnitDTO> meals) {
+        this.meals = meals;
     }
 }

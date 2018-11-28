@@ -1,4 +1,4 @@
-package com.WildBirds.EatMeAll.application.DTO;
+package com.WildBirds.EatMeAll.application.DTO.full_;
 
 
 import com.WildBirds.RepositoryJPA.domain.model.enums.MealTime;
