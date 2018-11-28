@@ -4,6 +4,7 @@ package com.WildBirds.EatMeAll.application.service;
 import com.WildBirds.EatMeAll.application.DTO.*;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
 import com.WildBirds.RepositoryJPA.domain.model.*;
+import com.WildBirds.RepositoryJPA.domain.model.enums.MealTime;
 
 import javax.ejb.EJB;
 import javax.ejb.Local;
@@ -40,8 +41,6 @@ public class MapperMealImpl implements Mapper {
                 meal.setAmountCalories(mealDTO.getAmountCalories());
                 meal.setAuthorReceipt(mealDTO.getAuthorReceipt());
             }
-
-
         return mealList;
     }
 
@@ -89,7 +88,6 @@ public class MapperMealImpl implements Mapper {
                 }
 
                 Set<ProductDTO> productDTOSet = new HashSet<>();
-
                 Set<MealHasProduct> mealHasProductSet = meal.getMealHasProductSet();
 
                 for (MealHasProduct mealHasProduct : mealHasProductSet) {
@@ -102,7 +100,6 @@ public class MapperMealImpl implements Mapper {
 
                     productDTOSet.add(productDTO);
                 }
-
 
                 MealDTO mealDTO = new MealDTO(
                         meal.getIdMeal(),
@@ -129,6 +126,47 @@ public class MapperMealImpl implements Mapper {
         return mealDTOList;
     }
 
+
+    @Override
+    public MealDTOshort toMealDTOShort(Meal meal) {
+
+        return new MealDTOshort(meal.getIdMeal(),
+                meal.getLanguage(),
+                meal.getTitle(),
+                meal.getShortDescription(),
+                meal.getPublic(),
+                null);
+    }
+
+    @Override
+    public MealDTOshortFull toMealDTOShortFull(Meal meal) {
+
+        meal = repo.MEAL().update(meal);
+
+
+        Set<MealTime> mealTimeSet = new HashSet<>();
+        for (TypeMeal typeMeal : meal.getTypeMealSet()) {
+            mealTimeSet.add(typeMeal.getMealTime());
+        }
+
+        return new MealDTOshortFull(
+                meal.getIdMeal(),
+                meal.getLanguage(),
+                meal.getTitle(),
+                meal.getShortDescription(),
+                meal.getPublic(),
+                mealTimeSet);
+    }
+
+    @Override
+    public ProductDTO toProductDTO(Product product) {
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setName(product.getName());
+        productDTO.setIdProduct(product.getIdProduct());
+
+        return productDTO;
+    }
+
     @Override
     public User toUser(UserDTO userDTO) {
         User user = null;
@@ -138,7 +176,6 @@ public class MapperMealImpl implements Mapper {
         user.setUserType(user.getUserType());
         user.setEmail(userDTO.getEmail());
         user.setNick(user.getNick());
-
 
         return user;
     }
@@ -183,20 +220,9 @@ public class MapperMealImpl implements Mapper {
         user.setPassword(newUserDTO.getPassword());
 
         user = repo.USER().update(user);
-
         return user;
     }
 
-    @Override
-    public MealDTOshort toMealDTOShort(Meal meal) {
-
-        return new MealDTOshort(meal.getIdMeal(),
-                meal.getLanguage(),
-                meal.getTitle(),
-                meal.getShortDescription(),
-                meal.getPublic(),
-                null);
-    }
 
     @Override
     public DayDTO toDayDTO(Day day) {
@@ -206,8 +232,6 @@ public class MapperMealImpl implements Mapper {
 
         dayDTO.setIdDay(day.getIdDay());
         dayDTO.setDate(day.getDate());
-    // TODO: 26.11.2018 Have to rebuild structure of Database is not efficient - have to update meal and all his roots
-
 
         Set<MealHasDay> mealHasDaySet = day.getMealHasDaySet();
 
@@ -215,14 +239,6 @@ public class MapperMealImpl implements Mapper {
             Meal meal = mealHasDaySet.iterator().next().getMeal();
             dayDTO.getMealDTOShortList().add(toMealDTOShort(meal));
         }
-
-//        for (Meal meal : day.getMealsSet()) {
-//            meal = repo.MEAL().update(meal);
-//            TypeMeal typeMeal = meal.getTypeMealSet().iterator().next();
-//            MealDTOshort mealDTOshort = toMealDTOShort(meal);
-//            mealDTOshort.setMealTime(typeMeal.getMealTime());
-//            dayDTO.getMealDTOShortList().add(mealDTOshort);
-//        }
         return dayDTO;
     }
 
@@ -239,8 +255,6 @@ public class MapperMealImpl implements Mapper {
         day.setDate(dateDTO);
         day.setDayOwner(user);
 
-
-
         for (MealDTOshort mealDTOshort : mealDTOshortSet) {
 
             MealHasDay mealHasDay = new MealHasDay();
@@ -255,23 +269,7 @@ public class MapperMealImpl implements Mapper {
             repo.MEALHASDAY().update(mealHasDay);
 
         }
-//        for (MealDTOshort mealDTOshort : mealDTOShortList) {
-//
-//            Meal meal = repo.MEAL().get(mealDTOshort.getIdMeal());
-//
-//
-//
-//        }
-
-//        for (MealDTOshort mealDTOshort : mealDTOShortList) {
-//            System.out.println(mealDTOshort.getIdMeal());
-//            Meal meal = repo.MEAL().get(mealDTOshort.getIdMeal());
-//            day.addMeal(meal);
-//            repo.MEAL().update(meal);
-//        }
-
         day = repo.DAY().update(day);
-
         return day;
     }
 }

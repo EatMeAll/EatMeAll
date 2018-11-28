@@ -91,7 +91,7 @@ public class ScheduleController {
         }
 
 
-        return Response.status(HttpStatus.OK.getCode()).header("OK", "Working").build();
+        return Response.status(HttpStatus.OK.getCode()).header("OK", "You save your schedule in history").build();
     }
 
     @GET

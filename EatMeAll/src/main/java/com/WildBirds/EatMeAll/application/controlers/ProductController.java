@@ -1,5 +1,8 @@
 package com.WildBirds.EatMeAll.application.controlers;
 
+import com.WildBirds.EatMeAll.application.DTO.ProductDTO;
+import com.WildBirds.EatMeAll.application.controlers.utils.HttpStatus;
+import com.WildBirds.EatMeAll.application.service.Mapper;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
 import com.WildBirds.RepositoryJPA.domain.model.Product;
 
@@ -18,12 +21,25 @@ public class ProductController {
     @EJB
     RepositoryFacade repo;
 
+    @EJB
+    Mapper mapper;
+
     @GET
     @Path("{id}")
     public Response getOne(@Context UriInfo info, @PathParam("id") Integer id) {
 
-        Product product = repo.PRODUCT().get(id);
-        return Response.status(200).entity(product.toString()).build();
+        try {
+            Product product = repo.PRODUCT().get(id);
+
+            ProductDTO productDTO = mapper.toProductDTO(product);
+
+            return Response.status(HttpStatus.OK.getCode()).entity(productDTO).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(HttpStatus.NOT_FOUND.getCode()).header("Error", "Product is not excise in db").build();
+        }
+
+
     }
 
     @GET

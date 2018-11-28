@@ -30,7 +30,7 @@ public class UserController {
 
     @GET
     @Path("{idUser}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces({"application/json; charset=UTF-8"})
     public Response getUser(@Context UriInfo info, @PathParam("idUser") Integer idUser) {
         try {
             User user = repo.USER().get(idUser);
@@ -44,7 +44,7 @@ public class UserController {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces({"application/json; charset=UTF-8"})
     public Response addUser(NewUserDTO newUserDTO) {
         try {
             User user = mapper.toUser(newUserDTO);
@@ -66,7 +66,7 @@ public class UserController {
     @POST
     @Path("login")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces({"application/json; charset=UTF-8"})
     public Response loginUser(NewUserDTO newUserDTO) {
         try {
             String nick = newUserDTO.getNick();
