@@ -3,7 +3,6 @@ package com.WildBirds.EatMeAll.application.controlers;
 
 import com.WildBirds.EatMeAll.application.DTO.full_.MealDTO;
 import com.WildBirds.EatMeAll.application.controlers.service.handler.ResponseStrategy;
-import com.WildBirds.EatMeAll.application.controlers.utils.HttpStatus;
 import com.WildBirds.EatMeAll.application.service.Mapper;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
 import com.WildBirds.RepositoryJPA.domain.model.Meal;
@@ -42,12 +41,12 @@ public class MealController {
                     List<Meal> all = repo.MEAL().getAll(from, to - from);
                     List<MealDTO> mealDTOList = mapper.toMealDTO(all);
 
-                    return Response.status(HttpStatus.OK.getCode()).entity(mealDTOList).build();
+                    return Response.status(Response.Status.OK).entity(mealDTOList).build();
                 }).ultimately(params -> {
                     List<Meal> all = repo.MEAL().getAll();
                     List<MealDTO> mealDTOList = mapper.toMealDTO(all);
 
-                    return Response.status(HttpStatus.OK.getCode()).entity(mealDTOList).build();
+                    return Response.status(Response.Status.OK).entity(mealDTOList).build();
                 });
 
     }
@@ -64,7 +63,7 @@ public class MealController {
 
         List<MealDTO> mealDTOList = mapper.toMealDTO(mealList);
 
-        return Response.status(HttpStatus.OK.getCode()).entity(mealDTOList).build();
+        return Response.status(Response.Status.OK).entity(mealDTOList).build();
 
     }
 
@@ -76,9 +75,9 @@ public class MealController {
             MealTime mealTime = MealTime.valueOf(typeMeal);
 
             List<Meal> mealsByMealTeam = repo.MEAL().getMealsByTypeMeal(mealTime);
-            return Response.status(HttpStatus.OK.getCode()).entity(mealsByMealTeam.toString()).build();
+            return Response.status(Response.Status.OK).entity(mealsByMealTeam.toString()).build();
         }
-        return Response.status(HttpStatus.NOT_FOUND.getCode()).entity("").build();
+        return Response.status(Response.Status.NOT_FOUND).entity("").build();
     }
 
     @GET
@@ -105,7 +104,7 @@ public class MealController {
 //                            (mealTime, languageENUM, amount, isPublic, listProducts);
 
 
-                    return Response.status(HttpStatus.OK.getCode()).entity(
+                    return Response.status(Response.Status.OK).entity(
                             String.format("RANDOM MEAL ORDER BY: typeMeal, language, amount, isPublic" +
                                             "\n typeMeal=%s language=%s amount=%s isPublic=%s products=%s",
                                     mealTime, languageENUM, amount, isPublic, listProducts)).build();
@@ -127,7 +126,7 @@ public class MealController {
 //                    List<MealDTO> mealDTOList = mealServiceTypeMeal.getMeals
 //                            (mealTime, languageENUM, amount, isPublic);
 
-                    return Response.status(HttpStatus.OK.getCode()).entity(
+                    return Response.status(Response.Status.OK).entity(
                             String.format("RANDOM MEAL ORDER BY: typeMeal,language,amount ,isPublic" +
                                             "\n typeMeal=%s language=%s amount=%s isPublic= %s",
                                     typeMeal, languageENUM, amount, isPublic)).build();
@@ -153,7 +152,7 @@ public class MealController {
 
                     System.out.println(mealDTOList.toString());
 
-                    return Response.status(HttpStatus.OK.getCode()).entity(mealDTOList).build();
+                    return Response.status(Response.Status.OK).entity(mealDTOList).build();
                 })
                 .when("typeMeal", "language").execute((map) -> {
 
@@ -166,7 +165,7 @@ public class MealController {
                     List<Meal> mealsByTypeMeal = repo.MEAL().getMealsByTypeMeal(mealTime, languageENUM);
 
                     List<MealDTO> mealDTOList = mapper.toMealDTO(mealsByTypeMeal);
-                    return Response.status(HttpStatus.OK.getCode()).entity(mealDTOList).build();
+                    return Response.status(Response.Status.OK).entity(mealDTOList).build();
 
 //                    return Response.status(HttpStatus.OK.getCode()).entity(
 //                            String.format("RANDOM MEAL ORDER BY: Amount language, typeMeal" +
@@ -181,10 +180,10 @@ public class MealController {
                     List<Meal> mealsByMealTeam = repo.MEAL().getMealsByTypeMeal(mealTime);
                     List<MealDTO> mealDTOList = mapper.toMealDTO(mealsByMealTeam);
 
-                    return Response.status(HttpStatus.OK.getCode()).entity(mealDTOList).build();
+                    return Response.status(Response.Status.OK).entity(mealDTOList).build();
                 })
                 .ultimately(params -> {
-                    return Response.status(HttpStatus.NOT_FOUND.getCode()).header("Error", "Not match - you have to pass param").build();
+                    return Response.status(Response.Status.NOT_FOUND).header("Error", "Not match - you have to pass param").build();
                 });
     }
 

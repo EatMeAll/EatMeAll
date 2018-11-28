@@ -2,7 +2,6 @@ package com.WildBirds.EatMeAll.application.controlers;
 
 
 import com.WildBirds.EatMeAll.application.DTO.full_.ProductDTO;
-import com.WildBirds.EatMeAll.application.controlers.utils.HttpStatus;
 import com.WildBirds.EatMeAll.application.service.Mapper;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
 import com.WildBirds.RepositoryJPA.domain.model.Product;
@@ -56,16 +55,16 @@ public class ShoppingListController {
                 productDTOSet.add(productDTO);
             }
 
-            return Response.status(HttpStatus.OK.getCode())
+            return Response.status(Response.Status.OK)
                     .header("OK", "Set of products from "
                             + fromDateString + " to " + toDateString)
                     .entity(productDTOSet).build();
         } catch (ParseException e) {
             e.printStackTrace();
-            return Response.status(HttpStatus.METHOD_NOT_ALLOWED.getCode()).header("Error", "Invalid syntax on date").build();
+            return Response.status(Response.Status.METHOD_NOT_ALLOWED).header("Error", "Invalid syntax on date").build();
         } catch (Exception e) {
             e.printStackTrace();
-            return Response.status(HttpStatus.NOT_FOUND.getCode()).header("Error", "Not found").build();
+            return Response.status(Response.Status.NOT_FOUND).header("Error", "Not found").build();
         }
     }
 }

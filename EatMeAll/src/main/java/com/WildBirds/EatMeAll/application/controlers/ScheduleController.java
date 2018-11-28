@@ -3,7 +3,6 @@ package com.WildBirds.EatMeAll.application.controlers;
 
 import com.WildBirds.EatMeAll.application.DTO.full_.DayDTO;
 import com.WildBirds.EatMeAll.application.DTO.unit_.MealUnitDTO;
-import com.WildBirds.EatMeAll.application.controlers.utils.HttpStatus;
 import com.WildBirds.EatMeAll.application.service.Mapper;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
 import com.WildBirds.RepositoryJPA.domain.model.Day;
@@ -66,14 +65,14 @@ public class ScheduleController {
 
                 sevenDaysDTOList.add(dayDTO);
             }
-            return Response.status(HttpStatus.OK.getCode()).entity(sevenDaysDTOList).build();
+            return Response.status(Response.Status.OK).entity(sevenDaysDTOList).build();
         } catch (java.lang.IndexOutOfBoundsException e) {
             e.printStackTrace();
-            return Response.status(HttpStatus.EXPECTATION_FAILED.getCode()).header("Error", "Not enough meals to prepaid full_ schedule").build();
+            return Response.status(Response.Status.EXPECTATION_FAILED).header("Error", "Not enough meals to prepaid full_ schedule").build();
 
         } catch (Exception e){
             e.printStackTrace();
-            return Response.status(HttpStatus.NOT_FOUND.getCode()).header("Error", "Not found").build();
+            return Response.status(Response.Status.NOT_FOUND).header("Error", "Not found").build();
         }
     }
 
@@ -91,7 +90,7 @@ public class ScheduleController {
         }
 
 
-        return Response.status(HttpStatus.OK.getCode()).header("OK", "You save your schedule in history").build();
+        return Response.status(Response.Status.OK).header("OK", "You save your schedule in history").build();
     }
 
     @GET
@@ -113,13 +112,13 @@ public class ScheduleController {
             List<DayDTO> dayDTOList = mapper.toDayDTO(dayList);
 
 
-            return Response.status(HttpStatus.OK.getCode()).header("OK", "History meal in period of time").entity(dayDTOList).build();
+            return Response.status(Response.Status.OK).header("OK", "History meal in period of time").entity(dayDTOList).build();
         } catch (ParseException e) {
             e.printStackTrace();
-            return Response.status(HttpStatus.NOT_ACCEPTABLE.getCode()).header("Error", "Invalid syntax on date").build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE).header("Error", "Invalid syntax on date").build();
         } catch (Exception e) {
             e.printStackTrace();
-            return Response.status(HttpStatus.NOT_FOUND.getCode()).header("Error", "NOT FOUND").build();
+            return Response.status(Response.Status.NOT_FOUND).header("Error", "NOT FOUND").build();
         }
 
 

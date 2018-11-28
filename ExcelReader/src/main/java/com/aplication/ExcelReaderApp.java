@@ -70,7 +70,6 @@ public class ExcelReaderApp {
             String authorExcel = mealExcel.getAuthor();
 
 
-            TypeMeal typeMealEntity = repo.TYPEMEAL().insert(new TypeMeal());
 
             MealTime mealTime = MealTime.LUNCH;
             File photo = new File(basePath + "\\ExcelReader\\src\\main\\resources\\data\\jadlospis2.xlsx");
@@ -98,6 +97,9 @@ public class ExcelReaderApp {
                     break;
             }
 
+
+
+            TypeMeal typeMealEntity = repo.TYPEMEAL().insert(new TypeMeal());
             typeMealEntity.setMealTime(mealTime);
             mealEntity.setPhoto(photo);
 

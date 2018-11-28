@@ -2,7 +2,6 @@ package com.WildBirds.EatMeAll.application.controlers;
 
 
 import com.WildBirds.EatMeAll.application.DTO.short_.MealShortDTO;
-import com.WildBirds.EatMeAll.application.controlers.utils.HttpStatus;
 import com.WildBirds.EatMeAll.application.service.Mapper;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
 import com.WildBirds.RepositoryJPA.domain.model.Meal;
@@ -39,12 +38,12 @@ public class MealShortController {
             MealShortDTO mealShortDTO = mapper.toMealDTOShortFull(meal);
 
 
-            return Response.status(HttpStatus.OK.getCode()).header("OK", "Meal in short_ view").entity(mealShortDTO).build();
+            return Response.status(Response.Status.OK).header("OK", "Meal in short_ view").entity(mealShortDTO).build();
         } catch (EJBTransactionRolledbackException e) {
             e.printStackTrace();
-            return Response.status(HttpStatus.NOT_FOUND.getCode()).header("Error", "Meal not found in db").build();
+            return Response.status(Response.Status.NOT_FOUND).header("Error", "Meal not found in db").build();
         } catch (Exception e) {
-            return Response.status(HttpStatus.NOT_FOUND.getCode()).header("Error", "Invalid syntax").build();
+            return Response.status(Response.Status.NOT_FOUND).header("Error", "Invalid syntax").build();
         }
     }
 }
