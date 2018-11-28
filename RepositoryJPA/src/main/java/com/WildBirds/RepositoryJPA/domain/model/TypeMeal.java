@@ -16,6 +16,7 @@ public class TypeMeal extends BaseEntity {
     private Integer idTypeMeal;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false,unique = true)
     private MealTime mealTime;
 
 
@@ -26,6 +27,10 @@ public class TypeMeal extends BaseEntity {
     private Set<Meal> mealSet = new HashSet<>();
 
     public TypeMeal() {
+    }
+
+    public TypeMeal(MealTime mealTime) {
+        this.mealTime = mealTime;
     }
 
     public void addMeal(Meal meal){

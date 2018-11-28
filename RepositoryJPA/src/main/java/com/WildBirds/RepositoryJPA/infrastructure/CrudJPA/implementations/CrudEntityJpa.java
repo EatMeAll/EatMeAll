@@ -27,26 +27,23 @@ public class CrudEntityJpa<Entity> implements CrudEntity<Entity> {
         this.entityClass = entityClass;
     }
 
-
-
     // Crud
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Entity get(int id) {
-        System.out.println(entityManager+ "-------------- GET -------------- EM");
         return this.entityManager.find(this.entityClass, id);
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public List<Entity> getIn(Integer... ids){
+    public List<Entity> getIn(Integer... ids) {
         String simpleName = this.entityClass.getSimpleName();
-        String query = "SELECT e FROM "+simpleName+" e WHERE e.id"+simpleName+" IN :array";
+        String query = "SELECT e FROM " + simpleName + " e WHERE e.id" + simpleName + " IN :array";
         System.out.println(query);
 
 
         List<Integer> ints = Arrays.asList(ids);
         List resultList = entityManager
                 .createQuery(query, entityClass)
-                .setParameter("array",ints)
+                .setParameter("array", ints)
                 .getResultList();
         return resultList;
     }
@@ -57,7 +54,7 @@ public class CrudEntityJpa<Entity> implements CrudEntity<Entity> {
 
             Integer[] integers = ids.stream().toArray(Integer[]::new);
             return this.getIn(integers);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("In get it");
         }
@@ -68,7 +65,7 @@ public class CrudEntityJpa<Entity> implements CrudEntity<Entity> {
     public List<Entity> getAll() {
 
         List resultList = entityManager
-                .createQuery("FROM "+this.entityClass.getSimpleName(), entityClass)
+                .createQuery("FROM " + this.entityClass.getSimpleName(), entityClass)
                 .getResultList();
 
         return resultList;
@@ -79,7 +76,7 @@ public class CrudEntityJpa<Entity> implements CrudEntity<Entity> {
 
         // TODO: 08.11.2018 should work but I'm not sure
         List resultList = entityManager
-                .createQuery("FROM "+this.entityClass.getSimpleName())
+                .createQuery("FROM " + this.entityClass.getSimpleName())
                 .setFirstResult(skip)
                 .setMaxResults(limit)
                 .getResultList();
@@ -93,15 +90,12 @@ public class CrudEntityJpa<Entity> implements CrudEntity<Entity> {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Entity insert(Entity insertData) {
-        System.out.println(entityManager+ "-------------- INSERT -------------- EM");
         entityManager.persist(insertData);
-        System.out.println(entityManager+ "-------------- INSERT UPDATE -------------- EM");
         return entityManager.merge(insertData);
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Entity update(Entity updateData) {
-        System.out.println(entityManager+ "-------------- UPDATE -------------- EM");
         return entityManager.merge(updateData);
     }
 }

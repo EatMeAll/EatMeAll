@@ -50,7 +50,7 @@ public class ExcelReaderApp {
 
         int random = new Random().nextInt(100);
 
-        User userEntity = repo.USER().insert(new User("EXCEL"+random,random+"excel@wp.pl"));
+        User userEntity = repo.USER().insert(new User("EXCEL" + random, random + "excel@wp.pl"));
 
 
         userEntity.setPassword("jakieshaslo");
@@ -68,7 +68,6 @@ public class ExcelReaderApp {
             String receiptExcel = mealExcel.getReceipt();
             Double caloriesExcel = mealExcel.getCalories();
             String authorExcel = mealExcel.getAuthor();
-
 
 
             MealTime mealTime = MealTime.LUNCH;
@@ -98,9 +97,14 @@ public class ExcelReaderApp {
             }
 
 
+            // Avoid duplicate in DB
+            TypeMeal typeMealEntity = repo.TYPEMEAL().findByMealTime(mealTime);
+            if(typeMealEntity == null){
+                typeMealEntity = repo.TYPEMEAL().insert(new TypeMeal(mealTime));
+            }
 
-            TypeMeal typeMealEntity = repo.TYPEMEAL().insert(new TypeMeal());
-            typeMealEntity.setMealTime(mealTime);
+
+
             mealEntity.setPhoto(photo);
 
             typeMealEntity = repo.TYPEMEAL().update(typeMealEntity);
@@ -179,7 +183,7 @@ public class ExcelReaderApp {
 
             step.setHeader(spitedHeader[i]);
             step.setNumber(i + 1);
-            step= repo.STEP().update(step);
+            step = repo.STEP().update(step);
             receipt.addStep(step);
         }
     }
