@@ -13,6 +13,7 @@
         <module>RepositoryJPA</module>
         <module>ExcelReader</module>
         <module>EatMeAll</module>
+        <module>AuthenticationService</module>
     </modules>
 
     <dependencies>
