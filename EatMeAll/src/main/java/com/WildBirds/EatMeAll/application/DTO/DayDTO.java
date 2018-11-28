@@ -8,10 +8,10 @@ public class DayDTO {
 
     private Integer idDay;
     private Instant date;
-    private Set<MealDTOshort> mealDTOShortList;
+    private Set<MealDTOshort> mealDTOshortSet;
 
     public DayDTO() {
-        this.mealDTOShortList = new HashSet<>();
+        this.mealDTOshortSet = new HashSet<>();
     }
 
     public Integer getIdDay() {
@@ -30,11 +30,11 @@ public class DayDTO {
         this.date = date;
     }
 
-    public Set<MealDTOshort> getMealDTOShortList() {
-        return mealDTOShortList;
+    public Set<MealDTOshort> getMealDTOshortSet() {
+        return mealDTOshortSet;
     }
 
-    public void setMealDTOShortList(Set<MealDTOshort> mealDTOShortList) {
-        this.mealDTOShortList = mealDTOShortList;
+    public void setMealDTOshortSet(Set<MealDTOshort> mealDTOshortSet) {
+        this.mealDTOshortSet = mealDTOshortSet;
     }
 }

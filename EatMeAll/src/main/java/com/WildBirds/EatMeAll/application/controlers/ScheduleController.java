@@ -47,22 +47,22 @@ public class ScheduleController {
 
                 MealDTOshort breakFast = mapper.toMealDTOShort(mealsBreakfastList.get(i));
                 breakFast.setMealTime(MealTime.BREAKFAST);
-                dayDTO.getMealDTOShortList().add(breakFast);
+                dayDTO.getMealDTOshortSet().add(breakFast);
 
 
                 MealDTOshort lunch = mapper.toMealDTOShort(mealsLunchList.get(i));
                 lunch.setMealTime(MealTime.LUNCH);
-                dayDTO.getMealDTOShortList().add(lunch);
+                dayDTO.getMealDTOshortSet().add(lunch);
 
 
                 MealDTOshort dinner = mapper.toMealDTOShort(mealsDinnerList.get(i));
                 dinner.setMealTime(MealTime.DINNER);
-                dayDTO.getMealDTOShortList().add(dinner);
+                dayDTO.getMealDTOshortSet().add(dinner);
 
 
                 MealDTOshort supper = mapper.toMealDTOShort(mealsSupperList.get(i));
                 supper.setMealTime(MealTime.SUPPER);
-                dayDTO.getMealDTOShortList().add(supper);
+                dayDTO.getMealDTOshortSet().add(supper);
 
                 sevenDaysDTOList.add(dayDTO);
             }
@@ -116,9 +116,8 @@ public class ScheduleController {
                 DayDTO dayDTO = mapper.toDayDTO(day);
                 dayDTOList.add(dayDTO);
             }
-//            return Response.status(HttpStatus.OK.getCode()).header("OK", "History meal in period of time").entity(dayDTOList).build();
 
-            return null;
+            return Response.status(HttpStatus.OK.getCode()).header("OK", "History meal in period of time").entity(dayDTOList).build();
         } catch (ParseException e) {
             e.printStackTrace();
             return Response.status(HttpStatus.NOT_ACCEPTABLE.getCode()).header("Error", "Invalid syntax on date").build();

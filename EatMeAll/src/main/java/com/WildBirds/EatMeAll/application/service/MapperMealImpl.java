@@ -10,10 +10,7 @@ import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Stateless
 @Local(Mapper.class)
@@ -235,12 +232,11 @@ public class MapperMealImpl implements Mapper {
         dayDTO.setDate(day.getDate());
 
         Set<MealHasDay> mealHasDaySet = day.getMealHasDaySet();
+        Iterator<MealHasDay> it = mealHasDaySet.iterator();
 
-        // TODO: 28.11.2018 never ending loop ? why ? It worked ? 
-        while (mealHasDaySet.iterator().hasNext()) {
-            Meal meal = mealHasDaySet.iterator().next().getMeal();
-            dayDTO.getMealDTOShortList().add(toMealDTOShort(meal));
-            mealHasDaySet.iterator().next();
+        while (it.hasNext()) {
+            Meal meal = it.next().getMeal();
+            dayDTO.getMealDTOshortSet().add(toMealDTOShort(meal));
         }
         return dayDTO;
     }
@@ -248,7 +244,7 @@ public class MapperMealImpl implements Mapper {
     @Override
     public Day toDay(DayDTO dayDTO, Integer idUser) {
 
-        Set<MealDTOshort> mealDTOshortSet = dayDTO.getMealDTOShortList();
+        Set<MealDTOshort> mealDTOshortSet = dayDTO.getMealDTOshortSet();
         Instant dateDTO = dayDTO.getDate();
 
         User user = repo.USER().get(idUser);
