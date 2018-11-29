@@ -4,12 +4,10 @@ import com.WildBirds.EatMeAll.application.DTO.full_.ProductDTO;
 import com.WildBirds.EatMeAll.application.service.Mapper;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
 import com.WildBirds.RepositoryJPA.domain.model.Product;
+import lombok.var;
 
 import javax.ejb.EJB;
-import javax.persistence.NoResultException;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
@@ -27,19 +25,15 @@ public class ProductController {
     @GET
     @Path("{id}")
     public Response getOne(@Context UriInfo info, @PathParam("id") Integer id) {
-
         try {
             Product product = repo.PRODUCT().get(id);
-
-            ProductDTO productDTO = mapper.toProductBasicDTO(product);
+            ProductDTO productDTO = mapper.toProductDTO(product);
 
             return Response.status(Response.Status.OK).entity(productDTO).build();
         } catch (Exception e) {
             e.printStackTrace();
             return Response.status(Response.Status.NOT_FOUND).header("Error", "Product is not excise in db").build();
         }
-
-
     }
 
     @GET
@@ -67,6 +61,21 @@ public class ProductController {
         }
     }
 
+    @POST
+    @Path("")
+    @Consumes({"application/json; charset=UTF-8"})
+    public Response saveNew(@Context UriInfo info, ProductDTO productDTO){
 
+        String productDTOName = productDTO.getName();
 
+        Product productByName = repo.PRODUCT().getProductByName(productDTOName);
+
+        if (productByName == null){
+            mapper.toProduct(productDTO);
+            return Response.status(Response.Status.CREATED).header("OK", "Created new product").build();
+        }else {
+            return Response.status(Response.Status.CONFLICT).header("Error", "Product already exist").build();
+        }
+
+    }
 }
