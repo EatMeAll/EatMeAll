@@ -18,9 +18,7 @@ public class MealHasProduct extends BaseEntity {
    @JoinColumn(name = "idProduct")
    private Product product;
 
-   private Integer amount;
-
-   private String unit;
+   private Double amount;
 
    private String specialUnit;
 
@@ -52,20 +50,12 @@ public class MealHasProduct extends BaseEntity {
        this.product = product;
     }
 
-    public Integer getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
-    }
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
     }
 
     public String getSpecialUnit() {

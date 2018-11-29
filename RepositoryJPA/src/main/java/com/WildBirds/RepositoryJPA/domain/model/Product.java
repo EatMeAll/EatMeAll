@@ -15,8 +15,17 @@ public class Product extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idProduct;
     private String name;
+    private String unit;
 
     public Product() {
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
     public Integer getIdProduct() {
@@ -40,6 +49,7 @@ public class Product extends BaseEntity {
         return "Product{" +
                 "idProduct=" + idProduct +
                 ", name='" + name + '\'' +
+                ", unit='" + unit + '\'' +
                 '}';
     }
 }

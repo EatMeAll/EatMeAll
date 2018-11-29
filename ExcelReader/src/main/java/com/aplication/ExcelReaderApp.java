@@ -124,9 +124,9 @@ public class ExcelReaderApp {
                 String productsExcelSpecialUnit = productsExcel.getSpecialUnit();
 
                 product.setName(productsExcelName);
+                product.setUnit(productsExcelUnit);
 
-                mealHasProduct.setAmount((int) Math.round(productsExcelAmount));
-                mealHasProduct.setUnit(productsExcelUnit);
+                mealHasProduct.setAmount(productsExcelAmount);
                 mealHasProduct.setSpecialUnit(productsExcelSpecialUnit);
                 mealHasProduct.setMeal(mealEntity);
                 product = repo.PRODUCT().update(product);
