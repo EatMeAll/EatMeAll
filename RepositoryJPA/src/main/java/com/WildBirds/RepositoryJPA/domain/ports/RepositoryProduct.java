@@ -11,4 +11,6 @@ public interface RepositoryProduct extends CrudEntity<Product> {
     Product someAdditionalLogic();
 
     Set<Product> getProductsList(Instant fromDate, Instant toDate, Integer idUser);
+
+    Product getProductByName(String name);
 }

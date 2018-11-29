@@ -26,7 +26,20 @@ public class RepositoryProductJPA extends CrudEntityJpa<Product> implements Repo
     @Override
     public Set<Product> getProductsList(Instant fromDate, Instant toDate, Integer idUser) {
 
-
         return null;
+    }
+
+    @Override
+    public Product getProductByName(String name) {
+
+        try {
+            String query = "SELECT product FROM Product product WHERE product.name =: name";
+
+            return this.entityManager.createQuery(query,Product.class).setParameter("name", name).getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 }

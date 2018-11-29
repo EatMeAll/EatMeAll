@@ -116,15 +116,18 @@ public class ExcelReaderApp {
             for (ProductsExcel productsExcel : productsExcels) {
 
                 MealHasProduct mealHasProduct = repo.MEALHASPRODUCT().insert(new MealHasProduct());
-                Product product = repo.PRODUCT().insert(new Product());
 
                 String productsExcelName = productsExcel.getName();
                 Double productsExcelAmount = productsExcel.getAmount();
                 String productsExcelUnit = productsExcel.getUnit();
                 String productsExcelSpecialUnit = productsExcel.getSpecialUnit();
 
-                product.setName(productsExcelName);
-                product.setUnit(productsExcelUnit);
+                Product product = repo.PRODUCT().getProductByName(productsExcelName);
+                if ( product == null){
+
+                product = repo.PRODUCT().insert(new Product(productsExcelName,productsExcelUnit));
+                };
+
 
                 mealHasProduct.setAmount(productsExcelAmount);
                 mealHasProduct.setSpecialUnit(productsExcelSpecialUnit);

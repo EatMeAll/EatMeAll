@@ -49,6 +49,18 @@ public class ProductController {
         return Response.status(Response.Status.OK).entity(all.toString()).build();
     }
 
+    @GET
+    @Path("{name}")
+    public Response getByName(@Context UriInfo info, @PathParam("name") String name){
+
+        Product productName = repo.PRODUCT().getProductByName(name);
+
+
+        System.out.println(productName);
+
+        return Response.status(Response.Status.OK).entity(productName).build();
+    }
+
 
 
 }

@@ -2,10 +2,7 @@ package com.WildBirds.RepositoryJPA.domain.model;
 
 import com.WildBirds.RepositoryJPA.domain.model.baseEntity.BaseEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -14,10 +11,17 @@ public class Product extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idProduct;
+    @Column(unique = true, nullable = false)
     private String name;
+    @Column(nullable = false)
     private String unit;
 
     public Product() {
+    }
+
+    public Product(String name, String unit) {
+        this.name = name;
+        this.unit = unit;
     }
 
     public String getUnit() {
