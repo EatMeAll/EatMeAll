@@ -8,6 +8,7 @@ import com.WildBirds.RepositoryJPA.infrastructure.CrudJPA.implementations.CrudEn
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import java.time.Instant;
 import java.util.Set;
 
@@ -36,7 +37,7 @@ public class RepositoryProductJPA extends CrudEntityJpa<Product> implements Repo
             String query = "SELECT product FROM Product product WHERE product.name =: name";
 
             return this.entityManager.createQuery(query,Product.class).setParameter("name", name).getSingleResult();
-        } catch (Exception e) {
+        } catch (NoResultException e) {
             e.printStackTrace();
             return null;
         }

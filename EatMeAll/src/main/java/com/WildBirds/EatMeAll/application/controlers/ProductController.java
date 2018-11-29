@@ -6,6 +6,7 @@ import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
 import com.WildBirds.RepositoryJPA.domain.model.Product;
 
 import javax.ejb.EJB;
+import javax.persistence.NoResultException;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -53,12 +54,17 @@ public class ProductController {
     @Path("{name}")
     public Response getByName(@Context UriInfo info, @PathParam("name") String name){
 
-        Product productName = repo.PRODUCT().getProductByName(name);
+        try {
+            Product productName = repo.PRODUCT().getProductByName(name);
 
-
-        System.out.println(productName);
-
-        return Response.status(Response.Status.OK).entity(productName).build();
+            if (productName == null){
+                return Response.status(Response.Status.NOT_FOUND).header("Error", "Product not found").build();
+            }
+            return Response.status(Response.Status.OK).header("OK", "Got product by name").entity(productName).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_FOUND).header("Error", "NOT FOUND").build();
+        }
     }
 
 
