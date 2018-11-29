@@ -32,7 +32,7 @@ public class ExcelReaderController {
             e.printStackTrace();
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
-        return Response.status(Response.Status.OK).entity("You successfully imported date from Excel").build();
+        return Response.status(Response.Status.NO_CONTENT).entity("You successfully imported date from Excel").build();
     }
 
     @GET
@@ -56,7 +56,7 @@ public class ExcelReaderController {
         } finally {
             excelReaderApp.setBasePath(lastPath);
         }
-        return Response.status(Response.Status.OK).entity("You successfully imported date from Excel").build();
+        return Response.status(Response.Status.NO_CONTENT).entity("You successfully imported date from Excel").build();
     }
 
 }

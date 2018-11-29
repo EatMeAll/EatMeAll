@@ -97,7 +97,7 @@ public class MapperMealImpl implements Mapper {
                     productUnitDTO.setName(mealHasProduct.getProduct().getName());
                     productUnitDTO.setSpecialUnit(mealHasProduct.getSpecialUnit());
                     productUnitDTO.setAmount(mealHasProduct.getAmount());
-                    productUnitDTO.setUnit(mealHasProduct.getUnit());
+                    productUnitDTO.setUnit(mealHasProduct.getProduct().getUnit());
 
                     productUnitDTOSet.add(productUnitDTO);
                 }
@@ -126,7 +126,6 @@ public class MapperMealImpl implements Mapper {
 
         return mealDTOList;
     }
-
 
     @Override
     public MealUnitDTO toMealDTOShort(Meal meal) {
@@ -159,8 +158,10 @@ public class MapperMealImpl implements Mapper {
                 mealTimeSet);
     }
 
+
+
     @Override
-    public ProductDTO toProductBasicDTO(Product product) {
+    public ProductDTO toProductDTO(Product product) {
 
         ProductDTO productDTO = new ProductDTO();
         productDTO.setName(product.getName());
@@ -168,6 +169,14 @@ public class MapperMealImpl implements Mapper {
 
         return productDTO;
     }
+
+    @Override
+    public Product toProduct(ProductDTO productDTO) {
+
+       Product product = repo.PRODUCT().insert(new Product(productDTO.getName(),productDTO.getUnit()));
+        return product;
+    }
+
 
     @Override
     public User toUser(UserDTO userDTO) {

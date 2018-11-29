@@ -49,9 +49,6 @@ public class UserController {
             User user = mapper.toUser(userNewDTO);
             UserDTO userDTO = mapper.toUserDTO(user);
             return Response.status(Response.Status.CREATED).entity(userDTO).build();
-        //todo: doesn't catch this exception -- should repair
-
-
 
         } catch (EJBTransactionRolledbackException e) {
             e.printStackTrace();
@@ -64,7 +61,6 @@ public class UserController {
             return Response.status(Response.Status.NOT_FOUND).header("Error", "NOT FOUND").build();
         }
     }
-
 
     @PATCH
     @Consumes(MediaType.APPLICATION_JSON)
@@ -80,7 +76,6 @@ public class UserController {
         } catch (EJBException e) {
             e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).entity(userNewDTO).build();
-
         }
     }
 
@@ -90,13 +85,10 @@ public class UserController {
 
         try {
             repo.USER().delete(idUser);
-
-            return Response.status(Response.Status.ACCEPTED).build();
+            return Response.status(Response.Status.NO_CONTENT).build();
         } catch (EJBException e) {
             e.printStackTrace();
-
             return Response.status(Response.Status.NOT_FOUND).header("Error", "NOT FOUND USER").build();
         }
     }
-
 }

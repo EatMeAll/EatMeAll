@@ -90,7 +90,7 @@ public class ScheduleController {
         }
 
 
-        return Response.status(Response.Status.OK).header("OK", "You save your schedule in history").build();
+        return Response.status(Response.Status.NO_CONTENT).header("OK", "You save your schedule in history").build();
     }
 
     @GET
