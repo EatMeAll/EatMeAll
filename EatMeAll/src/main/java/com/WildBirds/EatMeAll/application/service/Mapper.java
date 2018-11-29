@@ -23,8 +23,8 @@ public interface Mapper {
     User toUser(UserDTO userDTO);
     User toUser(UserNewDTO userNewDTO);
 
-    MealUnitDTO toMealDTOShort(Meal meal);
-    MealShortDTO toMealDTOShortFull(Meal meal);
+    MealUnitDTO toMealUnitDTO(Meal meal);
+    MealShortDTO toMealShortDTO(Meal meal);
 
 
     ProductDTO toProductDTO(Product product);

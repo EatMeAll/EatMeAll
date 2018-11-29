@@ -128,7 +128,7 @@ public class MapperMealImpl implements Mapper {
     }
 
     @Override
-    public MealUnitDTO toMealDTOShort(Meal meal) {
+    public MealUnitDTO toMealUnitDTO(Meal meal) {
 
         return new MealUnitDTO(meal.getIdMeal(),
                 meal.getLanguage(),
@@ -139,7 +139,7 @@ public class MapperMealImpl implements Mapper {
     }
 
     @Override
-    public MealShortDTO toMealDTOShortFull(Meal meal) {
+    public MealShortDTO toMealShortDTO(Meal meal) {
 
         meal = repo.MEAL().update(meal);
 
@@ -249,7 +249,7 @@ public class MapperMealImpl implements Mapper {
 
         while (it.hasNext()) {
             Meal meal = it.next().getMeal();
-            dayDTO.getMeals().add(toMealDTOShort(meal));
+            dayDTO.getMeals().add(toMealUnitDTO(meal));
         }
         return dayDTO;
     }

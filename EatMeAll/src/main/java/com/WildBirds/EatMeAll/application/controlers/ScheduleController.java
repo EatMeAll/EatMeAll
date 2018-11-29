@@ -44,22 +44,22 @@ public class ScheduleController {
             for (int i = 0; i < 7; i++) {
                 DayDTO dayDTO = new DayDTO();
 
-                MealUnitDTO breakFast = mapper.toMealDTOShort(mealsBreakfastList.get(i));
+                MealUnitDTO breakFast = mapper.toMealUnitDTO(mealsBreakfastList.get(i));
                 breakFast.setMealTime(MealTime.BREAKFAST);
                 dayDTO.getMeals().add(breakFast);
 
 
-                MealUnitDTO lunch = mapper.toMealDTOShort(mealsLunchList.get(i));
+                MealUnitDTO lunch = mapper.toMealUnitDTO(mealsLunchList.get(i));
                 lunch.setMealTime(MealTime.LUNCH);
                 dayDTO.getMeals().add(lunch);
 
 
-                MealUnitDTO dinner = mapper.toMealDTOShort(mealsDinnerList.get(i));
+                MealUnitDTO dinner = mapper.toMealUnitDTO(mealsDinnerList.get(i));
                 dinner.setMealTime(MealTime.DINNER);
                 dayDTO.getMeals().add(dinner);
 
 
-                MealUnitDTO supper = mapper.toMealDTOShort(mealsSupperList.get(i));
+                MealUnitDTO supper = mapper.toMealUnitDTO(mealsSupperList.get(i));
                 supper.setMealTime(MealTime.SUPPER);
                 dayDTO.getMeals().add(supper);
 

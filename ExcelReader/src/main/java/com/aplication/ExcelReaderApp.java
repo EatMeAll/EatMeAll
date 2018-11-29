@@ -40,12 +40,12 @@ public class ExcelReaderApp {
     }
 
     public void addToDatabase() throws IOException {
-
+// "\\ExcelReader\\src\\main\\resources\\data
 
         int counter = 0;
 
         ExcelReader excelReader = new XmlReader();
-        String filePath = basePath + "\\ExcelReader\\src\\main\\resources\\data\\jadlospis2.xlsx";
+        String filePath = basePath + "\\jadlospis2.xlsx";
         List<MealExcel> mealExcelList = excelReader.read(filePath);
 
         int random = new Random().nextInt(100);
@@ -71,28 +71,28 @@ public class ExcelReaderApp {
 
 
             MealTime mealTime = MealTime.LUNCH;
-            File photo = new File(basePath + "\\ExcelReader\\src\\main\\resources\\data\\jadlospis2.xlsx");
+            File photo = new File(basePath + "\\jadlospis2.xlsx");
 
             switch (typeMealExcel) {
 
                 case "śniadanie":
                     mealTime = MealTime.BREAKFAST;
-                    photo = new File(basePath + "\\ExcelReader\\src\\main\\resources\\data\\breakfast.jpg");
+                    photo = new File(basePath + "\\breakfast.jpg");
                     break;
 
                 case "lunch":
                     mealTime = MealTime.LUNCH;
-                    photo = new File(basePath + "\\ExcelReader\\src\\main\\resources\\data\\lunch.jpg");
+                    photo = new File(basePath + "\\lunch.jpg");
                     break;
 
                 case "obiad":
                     mealTime = MealTime.DINNER;
-                    photo = new File(basePath + "\\ExcelReader\\src\\main\\resources\\data\\dinner.jpg");
+                    photo = new File(basePath + "\\dinner.jpg");
                     break;
 
                 case "kolacja":
                     mealTime = MealTime.SUPPER;
-                    photo = new File(basePath + "\\ExcelReader\\src\\main\\resources\\data\\supper.jpg");
+                    photo = new File(basePath + "\\supper.jpg");
                     break;
             }
 
