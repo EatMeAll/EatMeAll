@@ -51,7 +51,7 @@ public class ShoppingListController {
             Set<ProductDTO> productDTOSet = new HashSet<>();
 
             for (Product product : productSet) {
-                ProductDTO productDTO = mapper.toProductBasicDTO(product);
+                ProductDTO productDTO = mapper.toProductDTO(product);
                 productDTOSet.add(productDTO);
             }
 

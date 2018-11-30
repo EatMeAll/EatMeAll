@@ -97,7 +97,7 @@ public class MapperMealImpl implements Mapper {
                     productUnitDTO.setName(mealHasProduct.getProduct().getName());
                     productUnitDTO.setSpecialUnit(mealHasProduct.getSpecialUnit());
                     productUnitDTO.setAmount(mealHasProduct.getAmount());
-                    productUnitDTO.setUnit(mealHasProduct.getUnit());
+                    productUnitDTO.setUnit(mealHasProduct.getProduct().getUnit());
 
                     productUnitDTOSet.add(productUnitDTO);
                 }
@@ -127,9 +127,8 @@ public class MapperMealImpl implements Mapper {
         return mealDTOList;
     }
 
-
     @Override
-    public MealUnitDTO toMealDTOShort(Meal meal) {
+    public MealUnitDTO toMealUnitDTO(Meal meal) {
 
         return new MealUnitDTO(meal.getIdMeal(),
                 meal.getLanguage(),
@@ -140,7 +139,7 @@ public class MapperMealImpl implements Mapper {
     }
 
     @Override
-    public MealShortDTO toMealDTOShortFull(Meal meal) {
+    public MealShortDTO toMealShortDTO(Meal meal) {
 
         meal = repo.MEAL().update(meal);
 
@@ -159,8 +158,10 @@ public class MapperMealImpl implements Mapper {
                 mealTimeSet);
     }
 
+
+
     @Override
-    public ProductDTO toProductBasicDTO(Product product) {
+    public ProductDTO toProductDTO(Product product) {
 
         ProductDTO productDTO = new ProductDTO();
         productDTO.setName(product.getName());
@@ -168,6 +169,14 @@ public class MapperMealImpl implements Mapper {
 
         return productDTO;
     }
+
+    @Override
+    public Product toProduct(ProductDTO productDTO) {
+
+       Product product = repo.PRODUCT().insert(new Product(productDTO.getName(),productDTO.getUnit()));
+        return product;
+    }
+
 
     @Override
     public User toUser(UserDTO userDTO) {
@@ -240,7 +249,7 @@ public class MapperMealImpl implements Mapper {
 
         while (it.hasNext()) {
             Meal meal = it.next().getMeal();
-            dayDTO.getMeals().add(toMealDTOShort(meal));
+            dayDTO.getMeals().add(toMealUnitDTO(meal));
         }
         return dayDTO;
     }

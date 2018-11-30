@@ -30,7 +30,7 @@ public class RepositoryMealJPA extends CrudEntityJpa<Meal> implements Repository
 
     @Override
     public List<Meal> getMealsByTypeMeal(MealTime mealTime, Language language, Integer amount, Boolean isPublic, List<String> listProducts) {
-        return null;
+            return null;
     }
 
     @Override
@@ -44,8 +44,8 @@ public class RepositoryMealJPA extends CrudEntityJpa<Meal> implements Repository
 
         String query = "SELECT * FROM Meal inner join MealHasTypeMeal ON Meal.idMeal = MealHasTypeMeal.idMeal inner join TypeMeal ON MealHasTypeMeal.idTypeMeal = TypeMeal.idTypeMeal WHERE TypeMeal.mealTime = ?1 AND Meal.language = ?2 ORDER BY rand() LIMIT ?3";
         return this.entityManager.createNativeQuery(query,Meal.class)
-                .setParameter(1, mealTime.toString())
-                .setParameter(2, language)
+                .setParameter(1, mealTime.name())
+                .setParameter(2, language.name())
                 .setParameter(3, amount)
                 .getResultList();
     }
