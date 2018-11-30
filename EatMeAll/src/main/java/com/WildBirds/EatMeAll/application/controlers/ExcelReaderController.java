@@ -40,7 +40,6 @@ public class ExcelReaderController {
     public Response readWithBasePath(@Context UriInfo info, @QueryParam("path") String path) {
 
         System.out.println("Read from excel");
-        System.out.println("TUTAJ");
         String lastPath = excelReaderApp.getBasePath();
         try {
             excelReaderApp.setBasePath(path);
