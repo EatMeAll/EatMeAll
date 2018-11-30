@@ -13,14 +13,16 @@ public class AuthenticationServiceFacadeTest {
     @Before
     public void before() {
         authenticationServiceFacade = AuthenticationServiceFacade.configure();
+
     }
 
     @Test
     public void shouldAuthorized() {
 
+
         //Given
-        // TODO: 30.11.2018 here should work ?
-        UserTest userTest = new UserTest(1,"John", "test@gmail.com");
+
+
         TokenDTO user = authenticationServiceFacade.assignToken("USER");
         //When
         String authorize = null;

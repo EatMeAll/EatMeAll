@@ -1,6 +1,6 @@
 package com.authenticateService.api;
 
-public class UserTest {
+public class UserTest implements Comparable<UserTest> {
 
     private Integer idUser;
     private String nick;
@@ -35,5 +35,10 @@ public class UserTest {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public int compareTo(UserTest o) {
+        return this.idUser.compareTo(o.idUser);
     }
 }

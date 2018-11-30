@@ -179,7 +179,7 @@ public class MapperMealImpl implements Mapper {
 
     @Override
     public ProductUnitDTO toProductUnitDTO(MealHasProduct mealHasProduct) {
-        mealHasProduct = repo.MEALHASPRODUCT().update(mealHasProduct);
+//        mealHasProduct = repo.MEALHASPRODUCT().update(mealHasProduct);
         ProductUnitDTO productUnitDTO = new ProductUnitDTO(
                 mealHasProduct.getProduct().getName(),
                 mealHasProduct.getAmount(),

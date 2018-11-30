@@ -14,7 +14,7 @@ public class MealHasProduct extends BaseEntity {
    @JoinColumn(name = "idMeal")
    private Meal meal;
 
-   @ManyToOne
+   @ManyToOne(fetch = FetchType.LAZY)
    @JoinColumn(name = "idProduct")
    private Product product;
 

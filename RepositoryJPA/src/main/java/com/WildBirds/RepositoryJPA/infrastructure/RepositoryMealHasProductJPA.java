@@ -38,6 +38,7 @@ public class RepositoryMealHasProductJPA extends CrudEntityJpa<MealHasProduct> i
 
 
         String query = "SELECT mealHasProduct FROM MealHasProduct mealHasProduct " +
+                "JOIN FETCH mealHasProduct.product " +
                 "WHERE mealHasProduct.meal IN (:idMeals)";
 
         return this.entityManager.createQuery(query, MealHasProduct.class)

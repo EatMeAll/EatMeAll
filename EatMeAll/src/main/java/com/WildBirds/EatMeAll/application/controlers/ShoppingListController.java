@@ -49,10 +49,11 @@ public class ShoppingListController {
             Instant toDate = parsedDate2.toInstant();
 
 
+// TODO: 30.11.2018 showud finish implementation
             // should remove only testing example meals
             List<Meal> mealList = new ArrayList<>();
 
-            for (int i = 0; i < 4; i++) {
+            for (int i = 1; i < 4; i++) {
 
                 Meal meal = repo.MEAL().get(i);
                 mealList.add(meal);
