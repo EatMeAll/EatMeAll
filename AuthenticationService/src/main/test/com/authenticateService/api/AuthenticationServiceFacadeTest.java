@@ -19,6 +19,8 @@ public class AuthenticationServiceFacadeTest {
     public void shouldAuthorized() {
 
         //Given
+        // TODO: 30.11.2018 here should work ?
+        UserTest userTest = new UserTest(1,"John", "test@gmail.com");
         TokenDTO user = authenticationServiceFacade.assignToken("USER");
         //When
         String authorize = null;

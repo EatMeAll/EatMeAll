@@ -1,6 +1,7 @@
 package com.WildBirds.RepositoryJPA.infrastructure;
 
 
+import com.WildBirds.RepositoryJPA.domain.model.Meal;
 import com.WildBirds.RepositoryJPA.domain.model.Product;
 import com.WildBirds.RepositoryJPA.domain.ports.RepositoryProduct;
 import com.WildBirds.RepositoryJPA.infrastructure.CrudJPA.implementations.CrudEntityJpa;
@@ -21,12 +22,6 @@ public class RepositoryProductJPA extends CrudEntityJpa<Product> implements Repo
     }
 
     public Product someAdditionalLogic() {
-        return null;
-    }
-
-    @Override
-    public Set<Product> getProductsList(Instant fromDate, Instant toDate, Integer idUser) {
-
         return null;
     }
 

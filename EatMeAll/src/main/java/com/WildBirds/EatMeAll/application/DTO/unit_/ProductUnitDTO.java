@@ -10,7 +10,12 @@ public class ProductUnitDTO {
     public ProductUnitDTO() {
     }
 
-
+    public ProductUnitDTO(String name, Double amount, String unit, String specialUnit) {
+        this.name = name;
+        this.amount = amount;
+        this.unit = unit;
+        this.specialUnit = specialUnit;
+    }
 
     public String getName() {
         return name;

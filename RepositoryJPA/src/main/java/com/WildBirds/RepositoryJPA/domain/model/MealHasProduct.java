@@ -66,4 +66,14 @@ public class MealHasProduct extends BaseEntity {
         this.specialUnit = specialUnit;
     }
 
+    @Override
+    public String toString() {
+        return "MealHasProduct{" +
+                "idMealHasProduct=" + idMealHasProduct +
+                ", meal=" + meal +
+                ", product=" + product +
+                ", amount=" + amount +
+                ", specialUnit='" + specialUnit + '\'' +
+                '}';
+    }
 }

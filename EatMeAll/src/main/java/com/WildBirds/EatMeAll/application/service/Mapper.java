@@ -7,10 +7,8 @@ import com.WildBirds.EatMeAll.application.DTO.full_.UserDTO;
 import com.WildBirds.EatMeAll.application.DTO.new_.UserNewDTO;
 import com.WildBirds.EatMeAll.application.DTO.short_.MealShortDTO;
 import com.WildBirds.EatMeAll.application.DTO.unit_.MealUnitDTO;
-import com.WildBirds.RepositoryJPA.domain.model.Day;
-import com.WildBirds.RepositoryJPA.domain.model.Meal;
-import com.WildBirds.RepositoryJPA.domain.model.Product;
-import com.WildBirds.RepositoryJPA.domain.model.User;
+import com.WildBirds.EatMeAll.application.DTO.unit_.ProductUnitDTO;
+import com.WildBirds.RepositoryJPA.domain.model.*;
 
 import java.util.List;
 
@@ -28,8 +26,10 @@ public interface Mapper {
 
 
     ProductDTO toProductDTO(Product product);
-
     Product toProduct(ProductDTO productDTO);
+
+    ProductUnitDTO toProductUnitDTO(MealHasProduct mealHasProduct);
+    List<ProductUnitDTO> toProductUnitDTOList(List<MealHasProduct> mealHasProductList);
 
     DayDTO toDayDTO(Day day);
     List<DayDTO> toDayDTO(List<Day> dayList);
