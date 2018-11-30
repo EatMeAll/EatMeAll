@@ -1,28 +1,42 @@
 package com.authenticateService.infrastructure.MemoryTockenRepository;
 
 
-import com.authenticateService.appliacation.dto.TokenDTO;
+import com.authenticateService.appliacation.dto.Token;
 import com.authenticateService.domain.ports.TokenRepository;
+import com.authenticateService.infrastructure.MemoryTockenRepository.exceptions.TokenIsExpiredException;
 import com.authenticateService.infrastructure.MemoryTockenRepository.exceptions.TokenNotFindException;
 
-import java.time.Instant;
 import java.util.*;
 
-public class MemoryTokenRepository<T> implements TokenRepository<T> {
+public class MemoryTokenRepository<Auth extends Comparable<Auth>> implements TokenRepository<Auth> {
 
 
-    Map<TokenDTO, T> tokensMap = new TreeMap<>();
-    Map<T, TokenDTO> ObjectMap = new TreeMap<>();
+    Map<Token, Auth> tokensMap = new TreeMap<>();
+    Map<Auth, Token> authMap = new TreeMap<>();
 
     @Override
-    public TokenDTO getToken( T object){
-        return ObjectMap.get(object);
+    public Token getToken(Auth object){
+        return authMap.get(object);
     }
 
     @Override
-    public T findByToken(TokenDTO tokenDTO) throws TokenNotFindException {
-        if (tokensMap.containsKey(tokenDTO)) {
-            return tokensMap.get(tokenDTO);
+    public Auth getAuth(Token token) {
+        return tokensMap.get(token);
+    }
+
+    @Override
+    public Auth findByToken(Token token) throws TokenNotFindException, TokenIsExpiredException {
+        if (tokensMap.containsKey(token)) {
+
+            Auth auth = tokensMap.get(token);
+            Token tokenMap = authMap.get(auth);
+
+            if(tokenMap.isExpired()){
+                this.deleteToken(tokenMap);
+                throw new TokenIsExpiredException("token is Expired");
+            }
+            tokenMap.renew();
+            return auth;
         } else {
             throw new TokenNotFindException("Token not find in Repository");
         }
@@ -30,34 +44,36 @@ public class MemoryTokenRepository<T> implements TokenRepository<T> {
 
 
     @Override
-    public void saveToken(T object, TokenDTO tokenDTO) {
-        this.tokensMap.put(tokenDTO,object);
-        this.ObjectMap.put(object,tokenDTO);
+    public void saveToken(Auth object, Token token) {
+        this.tokensMap.put(token,object);
+        this.authMap.put(object, token);
     }
 
     @Override
-    public synchronized void deleteToken(T object) {
-        this.tokensMap.remove(object);
+    public synchronized void deleteToken(Auth object) {
+        Token token = this.authMap.remove(object);
+        this.tokensMap.remove(token);
+    }
+
+    @Override
+    public void deleteToken(Token token) {
+        Auth auth = this.tokensMap.remove(token);
+        this.authMap.remove(auth);
     }
 
     public void clearExpiredTokens() {
 
-        Set<Map.Entry<TokenDTO, T>> entries = this.tokensMap.entrySet();
-        List<TokenDTO> tokenToDelete = new LinkedList<>();
+        Set<Token> tokens = this.tokensMap.keySet();
+        List<Token> tokenToDelete = new LinkedList<>();
 
-        for (Map.Entry<TokenDTO, T> entry : entries) {
-
-            TokenDTO token = entry.getKey();
-            if (token.getDateOfExpire().isAfter(Instant.now())) {
-                tokenToDelete.add(entry.getKey());
+        for (Token token : tokens) {
+            if (token.isExpired()) {
+                tokenToDelete.add(token);
             }
         }
 
-        for (TokenDTO tokenDTO : tokenToDelete) {
-            T remove = this.tokensMap.remove(tokenDTO);
-            this.ObjectMap.remove(remove);
+        for (Token token : tokenToDelete) {
+            this.deleteToken(token);
         }
-
-
     }
 }

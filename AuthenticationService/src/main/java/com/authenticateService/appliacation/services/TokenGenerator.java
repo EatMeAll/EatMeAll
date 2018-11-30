@@ -2,7 +2,7 @@ package com.authenticateService.appliacation.services;
 
 
 
-import com.authenticateService.appliacation.dto.TokenDTO;
+import com.authenticateService.appliacation.dto.Token;
 
 import java.time.Instant;
 import java.util.Random;
@@ -11,16 +11,18 @@ import java.util.Random;
 public class TokenGenerator {
 
 
-    public TokenDTO generate() {
+    public static final int TTL_IN_MINUTES = 5;
+
+    public Token generate() {
         StringBuilder rawToken = new StringBuilder();
         Random random = new Random();
 
-        for (int i = 0; i < 16; i++) {
-            int number = random.nextInt(55000);
+        for (int i = 0; i < 36; i++) {
+            int number = random.nextInt(128);
             rawToken.append((char) number);
         }
 
-        return new TokenDTO(rawToken.toString(), Instant.now(),Instant.now().plusNanos(1_000_000_000 * 60 * 5));
+        return new Token(rawToken.toString(),TTL_IN_MINUTES);
 
 
     }

@@ -1,18 +1,23 @@
 package com.authenticateService.domain.ports;
 
 
-import com.authenticateService.appliacation.dto.TokenDTO;
+import com.authenticateService.appliacation.dto.Token;
+import com.authenticateService.infrastructure.MemoryTockenRepository.exceptions.TokenIsExpiredException;
 import com.authenticateService.infrastructure.MemoryTockenRepository.exceptions.TokenNotFindException;
 
-public interface TokenRepository<T> {
+public interface TokenRepository<Auth extends Comparable<Auth>> {
 
-    public TokenDTO getToken(T object);
+    public Token getToken(Auth object);
 
-    public T findByToken(TokenDTO tokenDTO) throws TokenNotFindException;
+    public Auth getAuth(Token token);
 
-    void saveToken(T object, TokenDTO tokenDTO);
+    public Auth findByToken(Token token) throws TokenNotFindException, TokenIsExpiredException;
 
-    void deleteToken(T object);
+    void saveToken(Auth object, Token token);
+
+    void deleteToken(Auth object);
+
+    void deleteToken(Token token);
 
 
 }

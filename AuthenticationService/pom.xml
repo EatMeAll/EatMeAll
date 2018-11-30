@@ -11,5 +11,15 @@
 
     <artifactId>AuthenticationService</artifactId>
 
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.jboss.arquillian.junit/arquillian-junit-container -->
+        <dependency>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
+            <version>1.4.1.Final</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
 
 </project>
