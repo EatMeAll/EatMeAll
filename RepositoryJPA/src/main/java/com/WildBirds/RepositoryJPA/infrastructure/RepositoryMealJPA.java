@@ -30,7 +30,7 @@ public class RepositoryMealJPA extends CrudEntityJpa<Meal> implements Repository
 
     @Override
     public List<Meal> getMealsByTypeMeal(MealTime mealTime, Language language, Integer amount, Boolean isPublic, List<String> listProducts) {
-        return null;
+            return null;
     }
 
     @Override

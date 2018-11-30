@@ -45,7 +45,7 @@ public class ProductController {
     }
 
     @GET
-    @Path("{name}")
+    @Path("name/{name}")
     public Response getByName(@Context UriInfo info, @PathParam("name") String name){
 
         try {
