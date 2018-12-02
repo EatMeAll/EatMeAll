@@ -13,12 +13,16 @@ public class AuthenticationServiceFacadeTest {
     @Before
     public void before() {
         authenticationServiceFacade = AuthenticationServiceFacade.configure();
+
     }
 
     @Test
     public void shouldAuthorized() {
 
+
         //Given
+
+
         TokenDTO user = authenticationServiceFacade.assignToken("USER");
         //When
         String authorize = null;

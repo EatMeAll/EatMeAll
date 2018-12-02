@@ -1,10 +1,11 @@
 package com.WildBirds.EatMeAll.application.controlers;
 
 
-import com.WildBirds.EatMeAll.application.DTO.full_.ProductDTO;
+import com.WildBirds.EatMeAll.application.DTO.unit_.ProductUnitDTO;
 import com.WildBirds.EatMeAll.application.service.Mapper;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
-import com.WildBirds.RepositoryJPA.domain.model.Product;
+import com.WildBirds.RepositoryJPA.domain.model.Meal;
+import com.WildBirds.RepositoryJPA.domain.model.MealHasProduct;
 
 import javax.ejb.EJB;
 import javax.ws.rs.GET;
@@ -17,9 +18,9 @@ import javax.ws.rs.core.UriInfo;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Path("shoppingList")
 public class ShoppingListController {
@@ -47,18 +48,27 @@ public class ShoppingListController {
             Date parsedDate2 = dateFormat.parse(toDateString);
             Instant toDate = parsedDate2.toInstant();
 
-            Set<Product> productSet = repo.PRODUCT().getProductsList(fromDate, toDate, idUser);
-            Set<ProductDTO> productDTOSet = new HashSet<>();
 
-            for (Product product : productSet) {
-                ProductDTO productDTO = mapper.toProductDTO(product);
-                productDTOSet.add(productDTO);
+// TODO: 30.11.2018 showud finish implementation
+            // should remove only testing example meals
+            List<Meal> mealList = new ArrayList<>();
+
+            for (int i = 1; i < 4; i++) {
+
+                Meal meal = repo.MEAL().get(i);
+                mealList.add(meal);
             }
+
+
+            List<MealHasProduct> mealHasProductList = repo.MEALHASPRODUCT().getProductsList(fromDate, toDate, mealList);
+
+            List<ProductUnitDTO> productUnitDTOList = mapper.toProductUnitDTOList(mealHasProductList);
+
 
             return Response.status(Response.Status.OK)
                     .header("OK", "Set of products from "
                             + fromDateString + " to " + toDateString)
-                    .entity(productDTOSet).build();
+                    .entity(productUnitDTOList).build();
         } catch (ParseException e) {
             e.printStackTrace();
             return Response.status(Response.Status.METHOD_NOT_ALLOWED).header("Error", "Invalid syntax on date").build();

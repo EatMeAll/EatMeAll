@@ -177,6 +177,28 @@ public class MapperMealImpl implements Mapper {
         return product;
     }
 
+    @Override
+    public ProductUnitDTO toProductUnitDTO(MealHasProduct mealHasProduct) {
+//        mealHasProduct = repo.MEALHASPRODUCT().update(mealHasProduct);
+        ProductUnitDTO productUnitDTO = new ProductUnitDTO(
+                mealHasProduct.getProduct().getName(),
+                mealHasProduct.getAmount(),
+                mealHasProduct.getProduct().getUnit(),
+                mealHasProduct.getSpecialUnit()
+        );
+        return productUnitDTO;
+    }
+
+    @Override
+    public List<ProductUnitDTO> toProductUnitDTOList(List<MealHasProduct> mealHasProductList) {
+        List<ProductUnitDTO> productUnitDTOList = new ArrayList<>();
+        for (MealHasProduct mealHasProduct : mealHasProductList) {
+            ProductUnitDTO productUnitDTO = toProductUnitDTO(mealHasProduct);
+            productUnitDTOList.add(productUnitDTO);
+        }
+        return productUnitDTOList;
+    }
+
 
     @Override
     public User toUser(UserDTO userDTO) {
