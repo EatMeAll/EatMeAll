@@ -1,14 +1,16 @@
 import React, {Component} from 'react';
 
-import Aux from '../Aux/Aux';
 import styles from './Layout.css';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
+import MealSchedule from '../../components/MealSchedule/MealSchedule';
+import PicCarousel from '../../components/PicCarousel/PicCarousel';
 
 
 class Layout extends Component {
     state = {
-        showSideDrawer: false
+        showSideDrawer: false,
+        auth: true
     };
 
     sideDrawerClosedHandler = () => {
@@ -23,16 +25,29 @@ class Layout extends Component {
 
 
     render() {
+        let main = null;
+
+        if (this.state.auth) {
+            main = (
+                <MealSchedule/>
+            )
+        } else {
+            main = (
+                <PicCarousel/>
+            )
+        }
+
+
         return (
-            <Aux>
+            <React.Fragment>
                 <Toolbar drawerToggleClicked={this.sideDrawerToggleHandler}/>
                 <SideDrawer
                     open={this.state.showSideDrawer}
                     closed={this.sideDrawerClosedHandler}/>
                 <main className={styles.Content}>
-                    {this.props.children}
+                    {main}
                 </main>
-            </Aux>)
+            </React.Fragment>)
     }
 }
 

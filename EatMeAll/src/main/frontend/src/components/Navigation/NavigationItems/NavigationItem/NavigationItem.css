@@ -8,9 +8,8 @@
 
 .NavigationItem a {
     color: #419086;
-    font-family: Oswald, sans-serif;
     font-weight: 600;
-    font-size: 25px;
+    font-size: 1.5rem;
     text-decoration: none;
     width: 100%;
     box-sizing: border-box;
@@ -34,20 +33,23 @@
     }
 
     .NavigationItem a {
-        color: #419086;
-        font-family: Oswald, sans-serif;
-        font-weight: 600;
-        font-size: 25px;
-        text-decoration: none;
         height: 100%;
-        padding: 30px 20px;
+        padding: 25px 15px;
         box-sizing: border-box;
         display: block;
+        transition: 300ms;
     }
 
     .NavigationItem a:hover,
     .NavigationItem a:active,
     .NavigationItem a.active {
-        color: #42b3a9;
+        color: white;
+        background: #419086;
+    }
+}
+
+@media (min-width: 950px) {
+    .NavigationItem a {
+        font-size: 1.5rem;
     }
 }

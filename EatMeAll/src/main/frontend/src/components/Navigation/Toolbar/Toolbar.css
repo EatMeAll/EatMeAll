@@ -1,16 +1,17 @@
 .Toolbar {
-    height: 110px;
+    height: 15vh;
+    max-width: inherit;
     width: 100%;
     position: fixed;
     top: 0;
-    background-color: white;
     display: flex;
     justify-content: space-between;
     padding: 0 18px;
     box-sizing: border-box;
     z-index: 90;
-    max-width: 1280px;
+    background: white;
 }
+
 .Logo {
     height: 90%;
 }

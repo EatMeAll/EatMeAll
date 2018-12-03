@@ -1,7 +1,4 @@
 .Content {
-    background-size: cover;
-    height: 430px;
-    margin-top: 110px;
-    background-position: 25% 75%;
-    background-image: url('../../assets/images/vegeimg.jpg');
+    margin-top: 20vh;
+    max-width: inherit;
 }

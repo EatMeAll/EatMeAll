@@ -2,9 +2,8 @@ import React from 'react';
 
 import styles from './SideDrawer.css';
 import Logo from '../../Logo/Logo';
-import NavigationItems from '../NavigationItems/NavigationItems';
+import NavigationItems from '../NavigationItems/BeforeLogin/NavigationItems';
 import Backdrop from '../../UI/Backdrop/Backdrop';
-import Aux from '../../../hoc/Aux/Aux';
 
 const sideDrawer = (props) => {
     let attachedStyles = [styles.SideDrawer, styles.Close];
@@ -12,7 +11,7 @@ const sideDrawer = (props) => {
         attachedStyles = [styles.SideDrawer, styles.Open];
     }
     return (
-        <Aux>
+        <React.Fragment>
             <Backdrop show={props.open} clicked={props.closed}/>
             <div className={attachedStyles.join(' ')}>
                 <div className={styles.Logo}>
@@ -22,7 +21,7 @@ const sideDrawer = (props) => {
                     <NavigationItems />
                 </nav>
             </div>
-        </Aux>
+        </React.Fragment>
     );
 };
 

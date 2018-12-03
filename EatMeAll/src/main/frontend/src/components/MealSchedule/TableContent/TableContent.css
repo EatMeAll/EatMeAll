@@ -1,0 +1,20 @@
+.MealPlan {
+    display: flex;
+    flex-flow: row;
+}
+
+.Day {
+    color: #2f2f2f;
+    min-height: 400px;
+    width: 14%;
+    margin: 10px;
+}
+
+.Date {
+    padding: 10px;
+    display: inline-flex;
+    vertical-align: middle;
+    align-items: center;
+}
+
+
