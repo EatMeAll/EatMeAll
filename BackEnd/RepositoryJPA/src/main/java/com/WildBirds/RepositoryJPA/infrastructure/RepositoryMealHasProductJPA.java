@@ -29,13 +29,7 @@ public class RepositoryMealHasProductJPA extends CrudEntityJpa<MealHasProduct> i
 
 
     @Override
-    public List<MealHasProduct> getProductsList(Instant fromDate, Instant toDate, List<Meal> mealList) {
-
-
-        System.out.println(fromDate);
-        System.out.println(toDate);
-
-
+    public List<MealHasProduct> getProductsList(List<Meal> mealList) {
 
         String query = "SELECT mealHasProduct FROM MealHasProduct mealHasProduct " +
                 "JOIN FETCH mealHasProduct.product " +
@@ -44,7 +38,5 @@ public class RepositoryMealHasProductJPA extends CrudEntityJpa<MealHasProduct> i
         return this.entityManager.createQuery(query, MealHasProduct.class)
                 .setParameter("idMeals", mealList)
                 .getResultList();
-
     }
-
 }

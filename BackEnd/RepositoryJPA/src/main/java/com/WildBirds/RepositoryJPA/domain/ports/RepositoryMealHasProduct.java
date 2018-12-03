@@ -11,6 +11,6 @@ import java.util.List;
 public interface RepositoryMealHasProduct extends CrudEntity<MealHasProduct> {
     MealHasProduct someAdditionalMethod();
 
-    List<MealHasProduct> getProductsList(Instant fromDate, Instant toDate, List<Meal> mealList);
+    List<MealHasProduct> getProductsList(List<Meal> mealList);
 
 }

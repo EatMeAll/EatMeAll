@@ -4,7 +4,9 @@ package com.WildBirds.EatMeAll.application.controlers;
 import com.WildBirds.EatMeAll.application.DTO.unit_.ProductUnitDTO;
 import com.WildBirds.EatMeAll.application.service.Mapper;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
+import com.WildBirds.RepositoryJPA.domain.model.Day;
 import com.WildBirds.RepositoryJPA.domain.model.Meal;
+import com.WildBirds.RepositoryJPA.domain.model.MealHasDay;
 import com.WildBirds.RepositoryJPA.domain.model.MealHasProduct;
 
 import javax.ejb.EJB;
@@ -49,18 +51,11 @@ public class ShoppingListController {
             Instant toDate = parsedDate2.toInstant();
 
 
-// TODO: 30.11.2018 showud finish implementation
-            // should remove only testing example meals
-            List<Meal> mealList = new ArrayList<>();
+            List<Day> history = repo.DAY().getHistory(fromDate, toDate, idUser);
 
-            for (int i = 1; i < 4; i++) {
+            List<Meal> mealList = mapper.toMealFromHistory(history);
 
-                Meal meal = repo.MEAL().get(i);
-                mealList.add(meal);
-            }
-
-
-            List<MealHasProduct> mealHasProductList = repo.MEALHASPRODUCT().getProductsList(fromDate, toDate, mealList);
+            List<MealHasProduct> mealHasProductList = repo.MEALHASPRODUCT().getProductsList(mealList);
 
             List<ProductUnitDTO> productUnitDTOList = mapper.toProductUnitDTOList(mealHasProductList);
 

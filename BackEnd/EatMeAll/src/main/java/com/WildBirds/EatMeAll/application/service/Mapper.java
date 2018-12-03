@@ -16,6 +16,7 @@ public interface Mapper {
 
     List<Meal> toMeal(List<MealDTO> mealDTOList);
     List<MealDTO> toMealDTO(List<Meal> mealList);
+    List<Meal> toMealFromHistory(List<Day> history);
 
     UserDTO toUserDTO(User user);
     User toUser(UserDTO userDTO);
@@ -33,6 +34,7 @@ public interface Mapper {
 
     DayDTO toDayDTO(Day day);
     List<DayDTO> toDayDTO(List<Day> dayList);
+
 
     Day toDay(DayDTO dayDTO, Integer idUser);
     List<Day> toDay(List<DayDTO> dayDTOList, Integer idUser);

@@ -128,6 +128,20 @@ public class MapperMealImpl implements Mapper {
     }
 
     @Override
+    public List<Meal> toMealFromHistory(List<Day> history) {
+        List<Meal> mealList = new ArrayList<>();
+
+        for (Day day : history) {
+
+            day = repo.DAY().update(day);
+            MealHasDay mealHasDay = day.getMealHasDaySet().iterator().next();
+            Meal meal = mealHasDay.getMeal();
+            mealList.add(meal);
+        }
+        return mealList;
+    }
+
+    @Override
     public MealUnitDTO toMealUnitDTO(Meal meal) {
 
         return new MealUnitDTO(meal.getIdMeal(),
@@ -166,6 +180,7 @@ public class MapperMealImpl implements Mapper {
         ProductDTO productDTO = new ProductDTO();
         productDTO.setName(product.getName());
         productDTO.setIdProduct(product.getIdProduct());
+        productDTO.setUnit(product.getUnit());
 
         return productDTO;
     }
@@ -179,7 +194,6 @@ public class MapperMealImpl implements Mapper {
 
     @Override
     public ProductUnitDTO toProductUnitDTO(MealHasProduct mealHasProduct) {
-//        mealHasProduct = repo.MEALHASPRODUCT().update(mealHasProduct);
         ProductUnitDTO productUnitDTO = new ProductUnitDTO(
                 mealHasProduct.getProduct().getName(),
                 mealHasProduct.getAmount(),
