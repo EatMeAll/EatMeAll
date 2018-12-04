@@ -1,8 +1,7 @@
 package com.wildBirds.SystemTestsBackEnd.domain;
 
-import com.wildBirds.SystemTestsBackEnd.tests.TestProduct;
-import com.wildBirds.SystemTestsBackEnd.tests.TestRest;
-import com.wildBirds.SystemTestsBackEnd.tests.TestSchedule;
+import com.wildBirds.SystemTestsBackEnd.tests.ProductTest;
+import com.wildBirds.SystemTestsBackEnd.tests.ScheduleTest;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.springframework.stereotype.Service;
@@ -18,9 +17,8 @@ public class TestRunner {
         junit.addListener(new FileSave());
 
         Result result = junit.run(
-                TestRest.class,
-                TestProduct.class,
-                TestSchedule.class);
+                ProductTest.class,
+                ScheduleTest.class);
         resultReport(result);
 
         return result;
