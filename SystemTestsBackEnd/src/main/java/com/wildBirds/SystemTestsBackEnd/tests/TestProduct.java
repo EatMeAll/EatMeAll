@@ -106,7 +106,6 @@ public class TestProduct {
         } catch (RestClientException e) {
             Assert.assertEquals(HttpStatus.NOT_FOUND.toString().substring(0,3), e.getMessage().toUpperCase().substring(0,3));
         }
-        //then
 
     }
 

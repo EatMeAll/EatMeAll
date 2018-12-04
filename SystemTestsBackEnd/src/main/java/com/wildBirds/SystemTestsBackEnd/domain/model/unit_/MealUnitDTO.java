@@ -24,6 +24,10 @@ public class MealUnitDTO {
         this.mealTime = mealTime;
     }
 
+    public MealUnitDTO(MealTime mealTime) {
+        this.mealTime = mealTime;
+    }
+
     public Integer getIdMeal() {
         return idMeal;
     }
@@ -70,5 +74,27 @@ public class MealUnitDTO {
 
     public void setMealTime(MealTime mealTime) {
         this.mealTime = mealTime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        MealUnitDTO that = (MealUnitDTO) o;
+
+        return mealTime == that.mealTime;
+    }
+
+    @Override
+    public int hashCode() {
+        return mealTime != null ? mealTime.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "MealUnitDTO{" +
+                "mealTime=" + mealTime +
+                '}';
     }
 }

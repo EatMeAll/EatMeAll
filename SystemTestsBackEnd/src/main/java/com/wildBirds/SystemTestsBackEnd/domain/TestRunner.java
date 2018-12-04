@@ -2,6 +2,7 @@ package com.wildBirds.SystemTestsBackEnd.domain;
 
 import com.wildBirds.SystemTestsBackEnd.tests.TestProduct;
 import com.wildBirds.SystemTestsBackEnd.tests.TestRest;
+import com.wildBirds.SystemTestsBackEnd.tests.TestSchedule;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,8 @@ public class TestRunner {
 
         Result result = junit.run(
                 TestRest.class,
-                TestProduct.class);
+                TestProduct.class,
+                TestSchedule.class);
         resultReport(result);
 
         return result;
