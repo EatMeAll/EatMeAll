@@ -284,8 +284,13 @@ public class MapperMealImpl implements Mapper {
         Iterator<MealHasDay> it = mealHasDaySet.iterator();
 
         while (it.hasNext()) {
-            Meal meal = it.next().getMeal();
-            dayDTO.getMeals().add(toMealUnitDTO(meal));
+            MealHasDay mealHasDay = it.next();
+            Meal meal = mealHasDay.getMeal();
+
+            MealUnitDTO mealUnitDTO = toMealUnitDTO(meal);
+            mealUnitDTO.setMealTime(mealHasDay.getMealTime());
+
+            dayDTO.getMeals().add(mealUnitDTO);
         }
         return dayDTO;
     }
