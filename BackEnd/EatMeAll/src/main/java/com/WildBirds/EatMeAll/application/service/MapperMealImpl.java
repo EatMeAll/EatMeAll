@@ -130,7 +130,7 @@ public class MapperMealImpl implements Mapper {
     @Override
     public List<Meal> toMealFromHistory(List<Day> history) {
         List<Meal> mealList = new ArrayList<>();
-
+// TODO: 04.12.2018 here have to repair 
         for (Day day : history) {
 
             day = repo.DAY().update(day);

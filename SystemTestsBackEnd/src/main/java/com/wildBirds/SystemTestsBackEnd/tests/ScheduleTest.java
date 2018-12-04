@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Iterator;
 
-public class TestSchedule {
+public class ScheduleTest {
 
     RestTemplate restTemplate = new RestTemplate();
 

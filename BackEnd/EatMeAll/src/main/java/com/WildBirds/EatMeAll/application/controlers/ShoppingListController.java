@@ -49,7 +49,7 @@ public class ShoppingListController {
 
             Date parsedDate2 = dateFormat.parse(toDateString);
             Instant toDate = parsedDate2.toInstant();
-
+// TODO: 04.12.2018 have to repair -- return not bullshit
 
             List<Day> history = repo.DAY().getHistory(fromDate, toDate, idUser);
 

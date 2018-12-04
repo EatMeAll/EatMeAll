@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-public class TestProduct {
+public class ProductTest {
 
     RestTemplate restTemplate = new RestTemplate();
 
