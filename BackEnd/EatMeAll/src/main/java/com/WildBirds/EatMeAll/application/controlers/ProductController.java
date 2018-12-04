@@ -7,6 +7,7 @@ import com.WildBirds.RepositoryJPA.domain.model.Product;
 import lombok.var;
 
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
@@ -71,11 +72,25 @@ public class ProductController {
         Product productByName = repo.PRODUCT().getProductByName(productDTOName);
 
         if (productByName == null){
-            mapper.toProduct(productDTO);
-            return Response.status(Response.Status.CREATED).header("OK", "Created new product").build();
+            Product product = mapper.toProduct(productDTO);
+            ProductDTO addedProduct = mapper.toProductDTO(product);
+            return Response.status(Response.Status.CREATED).header("OK", "Created new product").entity(addedProduct).build();
         }else {
             return Response.status(Response.Status.CONFLICT).header("Error", "Product already exist").build();
         }
+    }
 
+    @DELETE
+    @Path("{idProduct}")
+    public Response delete(@Context UriInfo info, @PathParam("idProduct") Integer idProduct){
+
+        try {
+            repo.PRODUCT().delete(idProduct);
+
+            return Response.status(Response.Status.OK).header("OK", "Successful deleted messages").build();
+        } catch (EJBException e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.NOT_FOUND).header("Error", "Not found product").build();
+        }
     }
 }
