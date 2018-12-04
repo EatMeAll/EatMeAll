@@ -40,10 +40,10 @@ public class ProductDTO {
 
         ProductDTO that = (ProductDTO) o;
 
-        if (idProduct != null ? !idProduct.equals(that.idProduct) : that.idProduct != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         return unit != null ? unit.equals(that.unit) : that.unit == null;
     }
+
 
     @Override
     public String toString() {
