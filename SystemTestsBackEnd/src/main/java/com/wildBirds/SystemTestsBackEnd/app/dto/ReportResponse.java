@@ -4,11 +4,11 @@ import com.wildBirds.SystemTestsBackEnd.app.dto.FailuresResponse;
 
 import java.util.List;
 
-public class RaportResponse {
+public class ReportResponse {
     private String result;
     private List<FailuresResponse> failuresResponseList;
 
-    public RaportResponse() {
+    public ReportResponse() {
     }
 
     public String getResult() {

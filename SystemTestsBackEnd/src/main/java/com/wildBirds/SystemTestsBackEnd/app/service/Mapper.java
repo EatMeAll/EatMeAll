@@ -1,7 +1,7 @@
 package com.wildBirds.SystemTestsBackEnd.app.service;
 
 import com.wildBirds.SystemTestsBackEnd.app.dto.FailuresResponse;
-import com.wildBirds.SystemTestsBackEnd.app.dto.RaportResponse;
+import com.wildBirds.SystemTestsBackEnd.app.dto.ReportResponse;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import org.springframework.stereotype.Service;
@@ -12,9 +12,9 @@ import java.util.List;
 @Service
 public class Mapper {
 
-    public RaportResponse toRaportResponse(Result result) {
-        RaportResponse raportResponse = new RaportResponse();
-        raportResponse.setResult(("Finished. Result: Failures: " +
+    public ReportResponse toRaportResponse(Result result) {
+        ReportResponse reportResponse = new ReportResponse();
+        reportResponse.setResult(("Finished. Result: Failures: " +
                 result.getFailureCount() + ". Ignored: " +
                 result.getIgnoreCount() + ". Tests run: " +
                 result.getRunCount() + ". Time: " +
@@ -32,8 +32,8 @@ public class Mapper {
             failuresResponse.setMethodName(failure1.getDescription().getMethodName());
             failuresResponseList.add(failuresResponse);
         }
-        raportResponse.setFailuresResponseList(failuresResponseList);
-        return raportResponse;
+        reportResponse.setFailuresResponseList(failuresResponseList);
+        return reportResponse;
     }
 
 
