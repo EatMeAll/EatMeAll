@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import styles from './MealSchedule.css';
 import TableHeader from './TableHeader/TableHeader';
-import TableContent from './TableContent/TableContent';
+import TableContent from './TableContent/WeekDietPlanTable';
 
 class MealSchedule extends Component {
     render() {

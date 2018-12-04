@@ -1,15 +1,19 @@
 import styles from "./DateLabel.css";
 import React, {Component} from "react";
+import Moment from 'react-moment';
+import moment from "moment";
+
 
 class DateLabel extends Component {
+    state = {
+        date: moment().weekday(1)
+    };
+
     render() {
         return (
-            <div className={styles.Date}>
-                <i className="material-icons">
-                    calendar_today
-                </i>
-                03.12.2018
-            </div>
+            <Moment format="DD.MM.YYYY" className={styles.Date}>
+                {this.state.date}
+            </Moment>
         )
     }
 }
