@@ -1,6 +1,5 @@
 package com.wildBirds.SystemTestsBackEnd.tests;
 
-import com.wildBirds.SystemTestsBackEnd.SystemTestsBackEndApplication;
 import org.junit.Assert;
 import org.junit.Test;
 

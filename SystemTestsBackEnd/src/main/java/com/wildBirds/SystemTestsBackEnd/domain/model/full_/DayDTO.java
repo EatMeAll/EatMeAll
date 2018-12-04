@@ -18,6 +18,11 @@ public class DayDTO {
         this.meals = new HashSet<>();
     }
 
+    public DayDTO(Integer idDay, Instant date) {
+        this.idDay = idDay;
+        this.date = date;
+    }
+
     public Integer getIdDay() {
         return idDay;
     }
@@ -40,5 +45,13 @@ public class DayDTO {
 
     public void setMeals(Set<MealUnitDTO> meals) {
         this.meals = meals;
+    }
+
+    @Override
+    public String toString() {
+        return "DayDTO{" +
+                "idDay=" + idDay +
+                ", date=" + date +
+                '}';
     }
 }
