@@ -1,4 +1,4 @@
-package com.wildBirds.SystemTestsBackEnd.DTO.full_;
+package com.wildBirds.SystemTestsBackEnd.domain.model.full_;
 
 public class StepDTO {
 

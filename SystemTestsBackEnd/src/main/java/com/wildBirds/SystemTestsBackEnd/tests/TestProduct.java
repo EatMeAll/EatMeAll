@@ -1,20 +1,25 @@
 package com.wildBirds.SystemTestsBackEnd.tests;
 
 
-import com.wildBirds.SystemTestsBackEnd.DTO.full_.ProductDTO;
+import com.wildBirds.SystemTestsBackEnd.domain.model.full_.ProductDTO;
 import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.client.RestTemplate;
 
 public class TestProduct {
 
-    @Autowired
-    TestRestTemplate testRestTemplate;
+    RestTemplate testRestTemplate = new RestTemplate();
 
-    final String serverAddress = "http://localhost:8080/app/products/";
+
+    // TODO: 04.12.2018 should import address
+
+    @Value("${eatmeall.server.address.url}")
+    private String serverAddress = "http://localhost:8080/app";
+
+    private String subDomain = "/products/";
 
     @Test
     public void shouldGetProductById() {
@@ -28,13 +33,18 @@ public class TestProduct {
         expectedProduct.setUnit("g");
 
         //when
-        ResponseEntity<ProductDTO> forEntity = testRestTemplate.getForEntity(serverAddress + idProduct, ProductDTO.class);
+        ResponseEntity<ProductDTO> forEntity = testRestTemplate.getForEntity(serverAddress + subDomain +idProduct, ProductDTO.class);
         ProductDTO productDTOEntity = forEntity.getBody();
+
         //then
-        System.out.println(" >>>>>>>>>>> " + expectedProduct);
-        System.out.println(">>>>>>> --->>>>>>>> "  + productDTOEntity);
         Assert.assertEquals(expectedProduct, productDTOEntity);
 
+    }
+    @Test
+    public void shouldGet() {
+        System.out.println("product33");
+
+//        Assert.assertEquals(2, 3);
     }
 
 }

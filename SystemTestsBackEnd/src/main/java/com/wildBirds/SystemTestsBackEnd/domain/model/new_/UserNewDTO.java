@@ -1,7 +1,7 @@
-package com.wildBirds.SystemTestsBackEnd.DTO.new_;
+package com.wildBirds.SystemTestsBackEnd.domain.model.new_;
 
 
-import com.wildBirds.SystemTestsBackEnd.DTO.enums.UserType;
+import com.wildBirds.SystemTestsBackEnd.domain.model.enums.UserType;
 
 public class UserNewDTO {
 

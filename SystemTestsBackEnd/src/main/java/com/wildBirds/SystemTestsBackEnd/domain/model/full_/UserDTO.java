@@ -1,6 +1,6 @@
-package com.wildBirds.SystemTestsBackEnd.DTO.full_;
+package com.wildBirds.SystemTestsBackEnd.domain.model.full_;
 
-import com.wildBirds.SystemTestsBackEnd.DTO.enums.UserType;
+import com.wildBirds.SystemTestsBackEnd.domain.model.enums.UserType;
 
 import java.util.Set;
 

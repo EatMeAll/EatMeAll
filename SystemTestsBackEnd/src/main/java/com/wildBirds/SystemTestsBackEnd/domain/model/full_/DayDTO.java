@@ -1,8 +1,8 @@
-package com.wildBirds.SystemTestsBackEnd.DTO.full_;
+package com.wildBirds.SystemTestsBackEnd.domain.model.full_;
 
 
 
-import com.wildBirds.SystemTestsBackEnd.DTO.unit_.MealUnitDTO;
+import com.wildBirds.SystemTestsBackEnd.domain.model.unit_.MealUnitDTO;
 
 import java.time.Instant;
 import java.util.HashSet;

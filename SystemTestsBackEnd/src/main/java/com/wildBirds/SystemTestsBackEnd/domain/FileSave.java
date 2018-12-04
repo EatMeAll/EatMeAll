@@ -1,4 +1,4 @@
-package com.wildBirds.SystemTestsBackEnd.app;
+package com.wildBirds.SystemTestsBackEnd.domain;
 
 import org.junit.runner.Description;
 import org.junit.runner.Result;

@@ -1,7 +1,7 @@
-package com.wildBirds.SystemTestsBackEnd.DTO.unit_;
+package com.wildBirds.SystemTestsBackEnd.domain.model.unit_;
 
-import com.wildBirds.SystemTestsBackEnd.DTO.enums.Language;
-import com.wildBirds.SystemTestsBackEnd.DTO.enums.MealTime;
+import com.wildBirds.SystemTestsBackEnd.domain.model.enums.Language;
+import com.wildBirds.SystemTestsBackEnd.domain.model.enums.MealTime;
 
 public class MealUnitDTO {
 

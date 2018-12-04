@@ -1,4 +1,4 @@
-package com.wildBirds.SystemTestsBackEnd.DTO.unit_;
+package com.wildBirds.SystemTestsBackEnd.domain.model.unit_;
 
 //import com.WildBirds.RepositoryJPA.domain.model.enums.UserType;
 

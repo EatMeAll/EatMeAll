@@ -1,10 +1,10 @@
-package com.wildBirds.SystemTestsBackEnd.DTO.full_;
+package com.wildBirds.SystemTestsBackEnd.domain.model.full_;
 
 
 
 
-import com.wildBirds.SystemTestsBackEnd.DTO.enums.Language;
-import com.wildBirds.SystemTestsBackEnd.DTO.unit_.ProductUnitDTO;
+import com.wildBirds.SystemTestsBackEnd.domain.model.enums.Language;
+import com.wildBirds.SystemTestsBackEnd.domain.model.unit_.ProductUnitDTO;
 
 import java.time.Instant;
 import java.util.Set;

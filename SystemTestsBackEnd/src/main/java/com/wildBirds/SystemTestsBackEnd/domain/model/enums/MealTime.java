@@ -1,4 +1,4 @@
-package com.wildBirds.SystemTestsBackEnd.DTO.enums;
+package com.wildBirds.SystemTestsBackEnd.domain.model.enums;
 
 public enum MealTime {
     BREAKFAST(1),

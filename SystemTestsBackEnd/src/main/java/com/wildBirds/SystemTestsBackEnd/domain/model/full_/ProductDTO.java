@@ -1,4 +1,4 @@
-package com.wildBirds.SystemTestsBackEnd.DTO.full_;
+package com.wildBirds.SystemTestsBackEnd.domain.model.full_;
 
 public class ProductDTO {
 
@@ -46,10 +46,11 @@ public class ProductDTO {
     }
 
     @Override
-    public int hashCode() {
-        int result = idProduct != null ? idProduct.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (unit != null ? unit.hashCode() : 0);
-        return result;
+    public String toString() {
+        return "ProductDTO{" +
+                "idProduct=" + idProduct +
+                ", name='" + name + '\'' +
+                ", unit='" + unit + '\'' +
+                '}';
     }
 }

@@ -1,7 +1,7 @@
-package com.wildBirds.SystemTestsBackEnd.DTO.short_;
+package com.wildBirds.SystemTestsBackEnd.domain.model.short_;
 
-import com.wildBirds.SystemTestsBackEnd.DTO.enums.Language;
-import com.wildBirds.SystemTestsBackEnd.DTO.enums.MealTime;
+import com.wildBirds.SystemTestsBackEnd.domain.model.enums.Language;
+import com.wildBirds.SystemTestsBackEnd.domain.model.enums.MealTime;
 
 import java.util.Set;
 
