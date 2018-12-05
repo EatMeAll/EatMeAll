@@ -3,8 +3,8 @@ package com.authenticateService.appliacation.services;
 
 
 import com.authenticateService.api.TokenDTO;
-import com.authenticateService.appliacation.dto.Token;
-import com.authenticateService.appliacation.exceptions.Unauthorized;
+import com.authenticateService.appliacation.model.Token;
+import com.authenticateService.appliacation.exceptions.UnauthorizedException;
 import com.authenticateService.domain.ports.TokenRepository;
 import com.authenticateService.infrastructure.MemoryTockenRepository.MemoryTokenRepository;
 import com.authenticateService.infrastructure.MemoryTockenRepository.exceptions.TokenIsExpiredException;
@@ -15,15 +15,18 @@ public class TokenAuthorizationService<Auth extends Comparable<Auth>> {
     public static TokenAuthorizationService configure(){
         TokenRepository tokenRepository = new MemoryTokenRepository();
         TokenGenerator tokenGenerator = new TokenGenerator();
-        return new TokenAuthorizationService(tokenRepository, tokenGenerator);
+        TokenMapper tokenMapper = new TokenMapper();
+        return new TokenAuthorizationService(tokenRepository, tokenGenerator,tokenMapper);
     }
 
     private TokenRepository<Auth> tokenRepository;
     private TokenGenerator tokenGenerator;
+    private TokenMapper tokenMapper;
 
-    private TokenAuthorizationService(TokenRepository tokenRepository, TokenGenerator tokenGenerator) {
+    private TokenAuthorizationService(TokenRepository tokenRepository, TokenGenerator tokenGenerator, TokenMapper tokenMapper) {
         this.tokenRepository = tokenRepository;
         this.tokenGenerator = tokenGenerator;
+        this.tokenMapper = tokenMapper;
     }
 
     public Token assignToken(Auth object)  {
@@ -32,12 +35,15 @@ public class TokenAuthorizationService<Auth extends Comparable<Auth>> {
         return newToken;
     }
 
-    public Auth authorize(TokenDTO tokenDTO) throws Unauthorized {
+    public Auth authorize(TokenDTO tokenDTO) throws UnauthorizedException {
+
+
+        Token token = tokenMapper.toToken(tokenDTO);
 
         try {
-            return tokenRepository.findByToken(new Token(tokenDTO));
+            return tokenRepository.findByToken(token);
         } catch (TokenNotFindException | TokenIsExpiredException e) {
-            throw new Unauthorized(e.getMessage());
+            throw new UnauthorizedException(e.getMessage());
         }
     }
 

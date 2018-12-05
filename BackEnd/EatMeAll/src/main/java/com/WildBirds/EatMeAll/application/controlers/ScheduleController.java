@@ -9,8 +9,10 @@ import com.WildBirds.RepositoryJPA.domain.model.Day;
 import com.WildBirds.RepositoryJPA.domain.model.Meal;
 import com.WildBirds.RepositoryJPA.domain.model.enums.Language;
 import com.WildBirds.RepositoryJPA.domain.model.enums.MealTime;
+import com.authenticateService.api.AuthenticationServiceInterceptor;
 
 import javax.ejb.EJB;
+import javax.interceptor.Interceptors;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
@@ -33,6 +35,7 @@ public class ScheduleController {
 
     @GET
     @Produces("application/json; charset=UTF-8")
+    @Interceptors(AuthenticationServiceInterceptor.class)
     public Response getWeekSchedule (@Context UriInfo info) {
         try {
             List<Meal> mealsBreakfastList = repo.MEAL().getShortMealByTypeMeal(MealTime.BREAKFAST, Language.PL, 7);

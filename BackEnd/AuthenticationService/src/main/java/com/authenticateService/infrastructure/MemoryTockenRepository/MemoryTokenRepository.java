@@ -1,7 +1,7 @@
 package com.authenticateService.infrastructure.MemoryTockenRepository;
 
 
-import com.authenticateService.appliacation.dto.Token;
+import com.authenticateService.appliacation.model.Token;
 import com.authenticateService.domain.ports.TokenRepository;
 import com.authenticateService.infrastructure.MemoryTockenRepository.exceptions.TokenIsExpiredException;
 import com.authenticateService.infrastructure.MemoryTockenRepository.exceptions.TokenNotFindException;

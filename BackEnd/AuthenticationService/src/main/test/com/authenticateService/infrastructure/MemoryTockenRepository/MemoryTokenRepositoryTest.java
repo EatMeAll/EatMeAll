@@ -1,6 +1,6 @@
 package com.authenticateService.infrastructure.MemoryTockenRepository;
 
-import com.authenticateService.appliacation.dto.Token;
+import com.authenticateService.appliacation.model.Token;
 import com.authenticateService.infrastructure.MemoryTockenRepository.exceptions.TokenIsExpiredException;
 import org.junit.Assert;
 import org.junit.Before;

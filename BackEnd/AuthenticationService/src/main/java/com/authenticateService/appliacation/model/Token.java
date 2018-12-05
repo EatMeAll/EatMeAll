@@ -1,4 +1,4 @@
-package com.authenticateService.appliacation.dto;
+package com.authenticateService.appliacation.model;
 
 import com.authenticateService.api.TokenDTO;
 
@@ -12,11 +12,10 @@ public class Token implements Comparable<Token> {
     private Instant dateOfExpiry;
     private Integer TTL;
 
-    public Token() {
-    }
+    public Token() {}
 
-    public Token(TokenDTO tokenDTO) {
-        this.value = tokenDTO.getValue();
+    public Token(String value){
+        this.value = value;
     }
 
     public Token(String value, Integer TTL_IN_MINUTES) {
@@ -24,10 +23,6 @@ public class Token implements Comparable<Token> {
         this.dateOfCreated = Instant.now();
         this.TTL = TTL_IN_MINUTES;
         this.renew();
-    }
-
-    public TokenDTO toTokenDTO(){
-        return new TokenDTO(this.value);
     }
 
     public void renew(){

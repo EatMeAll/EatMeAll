@@ -2,9 +2,8 @@ package com.authenticateService.appliacation.services;
 
 
 
-import com.authenticateService.appliacation.dto.Token;
+import com.authenticateService.appliacation.model.Token;
 
-import java.time.Instant;
 import java.util.Random;
 
 
