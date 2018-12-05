@@ -13,15 +13,11 @@ class MealSchedule extends Component {
                         Wygeneruj posiłki
                     </Button>
                     <Button>
-                        <i className="material-icons">
-                            today
-                        </i>
+                        <i className="far fa-calendar" />
                         Obecny tydzień
                     </Button>
                     <Button>
-                        <i className="material-icons">
-                            calendar_today
-                        </i>
+                        <i className="far fa-calendar-alt" />
                         Kalendarz
                     </Button>
                 </div>
