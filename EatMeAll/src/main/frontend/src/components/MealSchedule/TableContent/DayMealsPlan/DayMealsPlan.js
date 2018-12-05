@@ -7,7 +7,7 @@ class DayMealsPlan extends Component {
     render() {
         return (
             <div className={styles.Day}>
-                <DateLabel />
+                <DateLabel date={this.props.date}/>
                 <MealInfo mealType={"Breakfast"} />
                 <MealInfo mealType={"2nd Breakfast"} />
                 <MealInfo mealType={"Lunch"} />
