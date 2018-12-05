@@ -38,6 +38,7 @@ public class ScheduleController {
             List<Meal> mealsBreakfastList = repo.MEAL().getShortMealByTypeMeal(MealTime.BREAKFAST, Language.PL, 7);
             List<Meal> mealsLunchList = repo.MEAL().getShortMealByTypeMeal(MealTime.LUNCH, Language.PL, 7);
             List<Meal> mealsDinnerList = repo.MEAL().getShortMealByTypeMeal(MealTime.DINNER, Language.PL, 7);
+            List<Meal> mealsSnackList = repo.MEAL().getMealsByTypeMeal(MealTime.SNACK, Language.PL, 7);
             List<Meal> mealsSupperList = repo.MEAL().getShortMealByTypeMeal(MealTime.SUPPER, Language.PL, 7);
 
             List<DayDTO> sevenDaysDTOList = new ArrayList<>();
@@ -48,16 +49,17 @@ public class ScheduleController {
                 breakFast.setMealTime(MealTime.BREAKFAST);
                 dayDTO.getMeals().add(breakFast);
 
-
                 MealUnitDTO lunch = mapper.toMealUnitDTO(mealsLunchList.get(i));
                 lunch.setMealTime(MealTime.LUNCH);
                 dayDTO.getMeals().add(lunch);
-
 
                 MealUnitDTO dinner = mapper.toMealUnitDTO(mealsDinnerList.get(i));
                 dinner.setMealTime(MealTime.DINNER);
                 dayDTO.getMeals().add(dinner);
 
+                MealUnitDTO snack = mapper.toMealUnitDTO(mealsSnackList.get(i));
+                snack.setMealTime(MealTime.SNACK);
+                dayDTO.getMeals().add(snack);
 
                 MealUnitDTO supper = mapper.toMealUnitDTO(mealsSupperList.get(i));
                 supper.setMealTime(MealTime.SUPPER);
