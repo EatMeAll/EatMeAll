@@ -206,14 +206,38 @@ public class MapperMealImpl implements Mapper {
     }
 
     @Override
-    public List<ProductUnitDTO> toProductUnitDTOList(List<MealHasProduct> mealHasProductList) {
-        List<ProductUnitDTO> productUnitDTOList = new ArrayList<>();
+    public List<ProductUnitDTO> toShoppingList(List<MealHasProduct> mealHasProductList) {
+        List<ProductUnitDTO> shoppingList = new ArrayList<>();
         for (MealHasProduct mealHasProduct : mealHasProductList) {
-            ProductUnitDTO productUnitDTO = toProductUnitDTO(mealHasProduct);
-            productUnitDTOList.add(productUnitDTO);
+
+            ProductUnitDTO currentProduct = toProductUnitDTO(mealHasProduct);
+
+            ProductUnitDTO foundProduct = productInCurrentList(shoppingList, currentProduct);
+            if ( foundProduct != null){
+                double sum = foundProduct.getAmount() + currentProduct.getAmount();
+                shoppingList.remove(foundProduct);
+                foundProduct.setAmount(sum);
+                foundProduct.setSpecialUnit(null);
+                shoppingList.add(foundProduct);
+            }else {
+                currentProduct.setSpecialUnit(null);
+                shoppingList.add(currentProduct);
+            }
+
         }
-        return productUnitDTOList;
+        return shoppingList;
     }
+
+    private ProductUnitDTO productInCurrentList(List<ProductUnitDTO> list, ProductUnitDTO currentProduct) {
+
+        for (ProductUnitDTO productUnitDTO : list) {
+            if (productUnitDTO.getName().equalsIgnoreCase(currentProduct.getName())) {
+                return productUnitDTO;
+            }
+        }
+        return null;
+    }
+
 
 
     @Override

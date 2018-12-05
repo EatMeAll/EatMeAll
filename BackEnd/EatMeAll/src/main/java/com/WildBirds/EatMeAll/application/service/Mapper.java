@@ -30,7 +30,7 @@ public interface Mapper {
     Product toProduct(ProductDTO productDTO);
 
     ProductUnitDTO toProductUnitDTO(MealHasProduct mealHasProduct);
-    List<ProductUnitDTO> toProductUnitDTOList(List<MealHasProduct> mealHasProductList);
+    List<ProductUnitDTO> toShoppingList(List<MealHasProduct> mealHasProductList);
 
     DayDTO toDayDTO(Day day);
     List<DayDTO> toDayDTO(List<Day> dayList);

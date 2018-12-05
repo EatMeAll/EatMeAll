@@ -6,7 +6,6 @@ import com.WildBirds.EatMeAll.application.service.Mapper;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
 import com.WildBirds.RepositoryJPA.domain.model.Day;
 import com.WildBirds.RepositoryJPA.domain.model.Meal;
-import com.WildBirds.RepositoryJPA.domain.model.MealHasDay;
 import com.WildBirds.RepositoryJPA.domain.model.MealHasProduct;
 
 import javax.ejb.EJB;
@@ -20,7 +19,6 @@ import javax.ws.rs.core.UriInfo;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -56,7 +54,7 @@ public class ShoppingListController {
 
             List<MealHasProduct> mealHasProductList = repo.MEALHASPRODUCT().getProductsList(mealList);
 
-            List<ProductUnitDTO> productUnitDTOList = mapper.toProductUnitDTOList(mealHasProductList);
+            List<ProductUnitDTO> productUnitDTOList = mapper.toShoppingList(mealHasProductList);
 
 
             return Response.status(Response.Status.OK)
