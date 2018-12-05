@@ -7,9 +7,9 @@ import NavigationItem from '../NavigationItem/NavigationItem';
 const navItems = (props) => (
     <ul className={styles.NavigationItems}>
         <NavigationItem link="/home" active>home</NavigationItem>
-        <NavigationItem link="/shopping-list">shopping list</NavigationItem>
-        <NavigationItem link="/about">about us</NavigationItem>
-        <NavigationItem link="/contact">contact</NavigationItem>
+        <NavigationItem link="/shopping-list">lista zakupów</NavigationItem>
+        <NavigationItem link="/about">o nas</NavigationItem>
+        <NavigationItem link="/contact">kontakt</NavigationItem>
         <NavigationItem link="/profile">profil</NavigationItem>
     </ul>
 );

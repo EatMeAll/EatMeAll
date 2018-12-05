@@ -8,11 +8,11 @@ class DayMealsPlan extends Component {
         return (
             <div className={styles.Day}>
                 <DateLabel date={this.props.date}/>
-                <MealInfo mealType={"Breakfast"} />
-                <MealInfo mealType={"2nd Breakfast"} />
-                <MealInfo mealType={"Lunch"} />
-                <MealInfo mealType={"Dessert"} />
-                <MealInfo mealType={"Dinner"} />
+                <MealInfo mealType={"śniadanie"} />
+                <MealInfo mealType={"drugie śniadanie"} />
+                <MealInfo mealType={"obiad"} />
+                <MealInfo mealType={"podwieczorek"} />
+                <MealInfo mealType={"kolacja"} />
             </div>
         )
     }
