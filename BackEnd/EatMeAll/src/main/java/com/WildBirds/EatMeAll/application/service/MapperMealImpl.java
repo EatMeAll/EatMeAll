@@ -6,6 +6,8 @@ import com.WildBirds.EatMeAll.application.DTO.new_.UserNewDTO;
 import com.WildBirds.EatMeAll.application.DTO.short_.MealShortDTO;
 import com.WildBirds.EatMeAll.application.DTO.unit_.MealUnitDTO;
 import com.WildBirds.EatMeAll.application.DTO.unit_.ProductUnitDTO;
+import com.WildBirds.EatMeAll.application.DTO.unit_.UserUpdateDTO;
+import com.WildBirds.EatMeAll.application.service.exception.UserInvalidUpdate;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
 import com.WildBirds.RepositoryJPA.domain.model.*;
 import com.WildBirds.RepositoryJPA.domain.model.enums.MealTime;
@@ -372,5 +374,21 @@ public class MapperMealImpl implements Mapper {
         }
         return dayList;
 
+    }
+
+    @Override
+    public User toUserUpdate(UserUpdateDTO userUpdateDTO) throws UserInvalidUpdate {
+
+        if ((userUpdateDTO.getEmail() == (null)) || (userUpdateDTO.getPassword() == (null))) {
+            throw new UserInvalidUpdate("No password or email");
+        }
+        User user = repo.USER().get(userUpdateDTO.getIdUser());
+
+        user.setEmail(userUpdateDTO.getEmail());
+        user.setPassword(userUpdateDTO.getPassword());
+
+        user = repo.USER().update(user);
+
+        return user;
     }
 }
