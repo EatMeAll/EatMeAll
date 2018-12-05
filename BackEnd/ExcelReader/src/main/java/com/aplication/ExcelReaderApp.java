@@ -10,7 +10,6 @@ import com.domain.model.ProductsExcel;
 import com.domain.ports.ExcelReader;
 import com.infrastructure.XmlReader;
 
-
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -89,11 +88,16 @@ public class ExcelReaderApp {
                     mealTime = MealTime.DINNER;
                     photo = new File(basePath + "\\dinner.jpg");
                     break;
+                case "przekąska":
+                    mealTime = MealTime.SNACK;
+                    photo = new File(basePath + "\\snack.jpg");
+                    break;
 
                 case "kolacja":
                     mealTime = MealTime.SUPPER;
                     photo = new File(basePath + "\\supper.jpg");
                     break;
+
             }
 
 
