@@ -34,7 +34,7 @@ public class ShoppingListTest {
             System.out.println(productUnitDTOS[i].toString());
         }
 
-        Assert.assertEquals(12, productUnitDTOS.length);
+        Assert.assertEquals(16, productUnitDTOS.length);
         //then
     }
 }
