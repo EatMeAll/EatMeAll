@@ -21,8 +21,8 @@ public class ShoppingListTest {
     @Test
     public void shouldReturn12ProductsFromTwoDayHistoryMeal(){
         //given
-        String fromDate = "/2018-11-30/";
-        String toDate ="/2018-11-30";
+        String fromDate = "/2018-11-26/";
+        String toDate ="/2018-12-02";
 
         //when
 
@@ -34,7 +34,7 @@ public class ShoppingListTest {
             System.out.println(productUnitDTOS[i].toString());
         }
 
-        Assert.assertEquals(16, productUnitDTOS.length);
+        Assert.assertEquals(73, productUnitDTOS.length);
         //then
     }
 }
