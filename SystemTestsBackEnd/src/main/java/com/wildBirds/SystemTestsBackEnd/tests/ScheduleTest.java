@@ -28,6 +28,7 @@ public class ScheduleTest {
 
         MealUnitDTO breakfast = new MealUnitDTO(MealTime.BREAKFAST);
         MealUnitDTO lunch = new MealUnitDTO(MealTime.LUNCH);
+        MealUnitDTO snack = new MealUnitDTO(MealTime.SNACK);
         MealUnitDTO dinner = new MealUnitDTO(MealTime.DINNER);
         MealUnitDTO supper = new MealUnitDTO(MealTime.SUPPER);
 
@@ -42,6 +43,7 @@ public class ScheduleTest {
         for (int i = 0; i < 7; i++) {
             int breakfastCounter = 0;
             int lunchCounter = 0;
+            int snackCounter = 0;
             int dinnerCounter = 0;
             int supperCounter = 0;
 
@@ -61,6 +63,10 @@ public class ScheduleTest {
                     dinnerCounter++;
                     Assert.assertTrue(true);
 
+                } else if (mealUnitDTO.getMealTime().equals(snack.getMealTime())) {
+                    snackCounter++;
+                    Assert.assertTrue(true);
+
                 }else if (mealUnitDTO.getMealTime().equals(supper.getMealTime())){
                     supperCounter++;
                     Assert.assertTrue(true);
@@ -72,14 +78,10 @@ public class ScheduleTest {
             }
             Assert.assertEquals(1,breakfastCounter);
             Assert.assertEquals(1,lunchCounter);
+            Assert.assertEquals(1,snackCounter);
             Assert.assertEquals(1,dinnerCounter);
             Assert.assertEquals(1,supperCounter);
         }
-
-
-
-
-
 
     }
 
@@ -88,10 +90,11 @@ public class ScheduleTest {
 
         //given
         String fromDate = "/2018-11-26/";
-        String toDate ="/2018-11-30";
+        String toDate = "/2018-11-30";
 
         MealUnitDTO breakfast = new MealUnitDTO(MealTime.BREAKFAST);
         MealUnitDTO lunch = new MealUnitDTO(MealTime.LUNCH);
+        MealUnitDTO snack = new MealUnitDTO(MealTime.SNACK);
         MealUnitDTO dinner = new MealUnitDTO(MealTime.DINNER);
         MealUnitDTO supper = new MealUnitDTO(MealTime.SUPPER);
 
@@ -106,6 +109,7 @@ public class ScheduleTest {
         for (int i = 0; i < 5; i++) {
             int breakfastCounter = 0;
             int lunchCounter = 0;
+            int snackCounter = 0;
             int dinnerCounter = 0;
             int supperCounter = 0;
 
@@ -125,6 +129,10 @@ public class ScheduleTest {
                     dinnerCounter++;
                     Assert.assertTrue(true);
 
+                } else if (mealUnitDTO.getMealTime().equals(snack.getMealTime())) {
+                    snackCounter++;
+                    Assert.assertTrue(true);
+
                 } else if (mealUnitDTO.getMealTime().equals(supper.getMealTime())) {
                     supperCounter++;
                     Assert.assertTrue(true);
@@ -136,6 +144,7 @@ public class ScheduleTest {
             }
             Assert.assertEquals(1, breakfastCounter);
             Assert.assertEquals(1, lunchCounter);
+            Assert.assertEquals(1, snackCounter);
             Assert.assertEquals(1, dinnerCounter);
             Assert.assertEquals(1, supperCounter);
         }
