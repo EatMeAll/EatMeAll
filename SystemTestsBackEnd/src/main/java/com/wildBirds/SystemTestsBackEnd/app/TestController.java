@@ -5,6 +5,7 @@ import com.wildBirds.SystemTestsBackEnd.app.service.Mapper;
 import com.wildBirds.SystemTestsBackEnd.domain.TestRunner;
 import org.junit.runner.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +19,6 @@ public class TestController {
 
     @Autowired
     Mapper mapper;
-
 
     @GetMapping("runTest")
     public ResponseEntity runner() {
