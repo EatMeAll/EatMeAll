@@ -1,4 +1,4 @@
-import styles from "../WeekDietPlanTable.css";
+import styles from "./DayMealsPlan.css";
 import DateLabel from "../DateLabel/DateLabel";
 import MealInfo from "../WeekDietPlanTable/MealInfo";
 import React, {Component} from "react";

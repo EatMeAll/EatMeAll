@@ -4,12 +4,16 @@ import styles from './TableHeader.css'
 import Button from '../../UI/Button/Button'
 
 class MealSchedule extends Component {
+    generateWeeklyMealsHandler = (e) => {
+        this.props.callback();
+    };
+
     render() {
         return (
             <div className={styles.TableHeader}>
                 <div className={styles.Label}>Plan posiłków</div>
                 <div className={styles.Buttons}>
-                    <Button>
+                    <Button onClick={this.generateWeeklyMealsHandler}>
                         Wygeneruj posiłki
                     </Button>
                     <Button>
