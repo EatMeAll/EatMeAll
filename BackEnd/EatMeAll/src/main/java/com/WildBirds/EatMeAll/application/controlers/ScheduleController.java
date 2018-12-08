@@ -10,11 +10,14 @@ import com.WildBirds.RepositoryJPA.domain.model.Meal;
 import com.WildBirds.RepositoryJPA.domain.model.enums.Language;
 import com.WildBirds.RepositoryJPA.domain.model.enums.MealTime;
 import com.authenticateService.api.AuthenticationServiceInterceptor;
+import com.authenticateService.api.RequiredAuthorization;
 
 import javax.ejb.EJB;
 import javax.interceptor.Interceptors;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.text.ParseException;
@@ -33,10 +36,11 @@ public class ScheduleController {
     @EJB
     Mapper mapper;
 
+    @RequiredAuthorization
     @GET
     @Produces("application/json; charset=UTF-8")
-    @Interceptors(AuthenticationServiceInterceptor.class)
-    public Response getWeekSchedule (@Context UriInfo info) {
+    public Response getWeekSchedule (@Context UriInfo info,@Context HttpServletRequest httpRequest, @Context Integer id) {
+
         try {
             List<Meal> mealsBreakfastList = repo.MEAL().getShortMealByTypeMeal(MealTime.BREAKFAST, Language.PL, 7);
             List<Meal> mealsLunchList = repo.MEAL().getShortMealByTypeMeal(MealTime.LUNCH, Language.PL, 7);
