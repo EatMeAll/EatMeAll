@@ -34,3 +34,4 @@
 *.db
 
 local.properties
+/mode_modules/
