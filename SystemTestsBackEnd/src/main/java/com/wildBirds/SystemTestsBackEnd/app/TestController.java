@@ -18,8 +18,9 @@ import java.util.List;
 @RestController
 public class TestController {
 
-
+    @Autowired
     private TestRunner testRunner;
+    @Autowired
     private Mapper mapper;
     @Autowired
     private QueryTesting queryTesting;
