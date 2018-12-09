@@ -13,7 +13,7 @@ class MealSchedule extends Component {
         fetch('http://eatmeall.pl:100/app/schedule')
             .then((response) => response.json())
             .then((myJson) => {
-                this.setState({mondayBreakfast: (myJson[0]["meals"].filter(meal => meal["mealTime"]==="BREAKFAST")[0])})
+                this.setState({mondayBreakfast: (myJson[0]["meals"].filter(meal => meal["mealTime"]==="BREAKFAST")[0]["title"])})
             });
     }
 
@@ -22,7 +22,7 @@ class MealSchedule extends Component {
         return (
             <div className={styles.Header}>
                 <TableHeader callback={this.callToApi}/>
-                <TableContent/>
+                <TableContent dupa8={this.state.mondayBreakfast}/>
             </div>);
     }
 }

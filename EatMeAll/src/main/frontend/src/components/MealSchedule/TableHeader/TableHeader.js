@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import styles from './TableHeader.css'
 import Button from '../../UI/Button/Button'
 
-class MealSchedule extends Component {
+class TableHeader extends Component {
     generateWeeklyMealsHandler = (e) => {
         this.props.callback();
     };
@@ -30,4 +30,4 @@ class MealSchedule extends Component {
     }
 }
 
-export default MealSchedule;
+export default TableHeader;
