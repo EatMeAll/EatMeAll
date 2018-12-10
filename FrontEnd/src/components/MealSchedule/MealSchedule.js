@@ -1,19 +1,25 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import styles from './MealSchedule.css';
 import TableHeader from './TableHeader/TableHeader';
 import TableContent from './TableContent/WeekDietPlanTable';
+import ScheduleDTO from '../../model/ScheduleDTO';
 
 class MealSchedule extends Component {
     state = {
-      mondayBreakfast: null
+        mondayBreakfast: null,
+        schedule: null
     };
 
     callToApi = () => {
         fetch('http://eatmeall.pl:100/app/schedule')
             .then((response) => response.json())
             .then((myJson) => {
-                this.setState({mondayBreakfast: (myJson[0]["meals"].filter(meal => meal["mealTime"]==="BREAKFAST")[0]["title"])})
+
+                this.setState({
+                    schedule: ScheduleDTO.fromRawData(myJson)
+                })
+                this.setState({ mondayBreakfast: (myJson[0]["meals"].filter(meal => meal["mealTime"] === "BREAKFAST")[0]["title"]) })
             });
     }
 
@@ -21,8 +27,8 @@ class MealSchedule extends Component {
     render() {
         return (
             <div className={styles.Header}>
-                <TableHeader callback={this.callToApi}/>
-                <TableContent dupa8={this.state.mondayBreakfast}/>
+                <TableHeader callback={this.callToApi} />
+                <TableContent schedule={this.state.schedule} dupa8={this.state.mondayBreakfast} />
             </div>);
     }
 }
