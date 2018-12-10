@@ -25,7 +25,7 @@ public class RPCController {
     Mapper mapper;
 
     @POST
-    @Path("user/login")
+    @Path("login")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({"application/json; charset=UTF-8"})
     public Response loginUser(UserNewDTO userNewDTO) {
