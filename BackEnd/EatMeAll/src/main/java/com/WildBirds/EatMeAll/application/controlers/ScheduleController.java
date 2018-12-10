@@ -10,22 +10,18 @@ import com.WildBirds.RepositoryJPA.domain.model.Meal;
 import com.WildBirds.RepositoryJPA.domain.model.enums.Language;
 import com.WildBirds.RepositoryJPA.domain.model.enums.MealTime;
 import com.authenticateService.api.AuthenticationServiceInterceptor;
-import com.authenticateService.api.RequiredAuthorization;
 
 import javax.ejb.EJB;
 import javax.interceptor.Interceptors;
-import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.Request;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.core.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Path("schedule")
 public class ScheduleController {
@@ -36,10 +32,13 @@ public class ScheduleController {
     @EJB
     Mapper mapper;
 
-    @RequiredAuthorization
     @GET
     @Produces("application/json; charset=UTF-8")
-    public Response getWeekSchedule (@Context UriInfo info,@Context HttpServletRequest httpRequest, @Context Integer id) {
+    @Interceptors(AuthenticationServiceInterceptor.class)
+    public Response getWeekSchedule(
+            @Context UriInfo uriinfo,
+            @Context HttpHeaders headers,
+            @Context Integer authUserId) {
 
         try {
             List<Meal> mealsBreakfastList = repo.MEAL().getShortMealByTypeMeal(MealTime.BREAKFAST, Language.PL, 7);
@@ -77,7 +76,7 @@ public class ScheduleController {
             e.printStackTrace();
             return Response.status(Response.Status.EXPECTATION_FAILED).header("Error", "Not enough meals to prepaid full_ schedule").build();
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return Response.status(Response.Status.NOT_FOUND).header("Error", "Not found").build();
         }

@@ -33,12 +33,12 @@ public class MemoryTokenRepository<Auth extends Comparable<Auth>> implements Tok
 
             if(tokenMap.isExpired()){
                 this.deleteToken(tokenMap);
-                throw new TokenIsExpiredException("token is Expired");
+                throw new TokenIsExpiredException("Token is Expired");
             }
             tokenMap.renew();
             return auth;
         } else {
-            throw new TokenNotFindException("Token not find in Repository");
+            throw new TokenNotFindException("Token not found in Repository");
         }
     }
 

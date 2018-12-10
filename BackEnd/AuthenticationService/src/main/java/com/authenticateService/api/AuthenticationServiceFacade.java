@@ -6,6 +6,12 @@ import com.authenticateService.appliacation.model.Token;
 import com.authenticateService.appliacation.services.TokenAuthorizationService;
 import com.authenticateService.appliacation.services.TokenMapper;
 
+import javax.annotation.PostConstruct;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
+
+@Singleton
+@Startup
 public class AuthenticationServiceFacade<Auth extends Comparable<Auth>> {
 
     public static AuthenticationServiceFacade configure(){
@@ -18,9 +24,17 @@ public class AuthenticationServiceFacade<Auth extends Comparable<Auth>> {
     private TokenAuthorizationService<Auth> tokenAuthorizationService;
     private TokenMapper tokenMapper;
 
-    private AuthenticationServiceFacade(TokenAuthorizationService tokenAuthorizationService, TokenMapper tokenMapper) {
+    public AuthenticationServiceFacade() { }
+
+    private AuthenticationServiceFacade(TokenAuthorizationService<Auth> tokenAuthorizationService, TokenMapper tokenMapper) {
         this.tokenAuthorizationService = tokenAuthorizationService;
         this.tokenMapper = tokenMapper;
+    }
+
+    @PostConstruct
+    public void init(){
+        this.tokenAuthorizationService = TokenAuthorizationService.configure();
+        this.tokenMapper = new TokenMapper();
     }
 
     Auth authorize(TokenDTO tokenDTO) throws UnauthorizedException {

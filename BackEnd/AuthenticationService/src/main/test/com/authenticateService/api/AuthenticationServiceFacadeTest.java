@@ -1,6 +1,6 @@
 package com.authenticateService.api;
 
-import com.authenticateService.appliacation.exceptions.Unauthorized;
+import com.authenticateService.appliacation.exceptions.UnauthorizedException;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -29,7 +29,7 @@ public class AuthenticationServiceFacadeTest {
         try {
             authorize = authenticationServiceFacade.authorize(user);
 
-        } catch (Unauthorized unauthorized) {
+        } catch (UnauthorizedException unauthorized) {
             fail("Not authorized");
         }
         //Then
@@ -53,7 +53,7 @@ public class AuthenticationServiceFacadeTest {
             fail("authorized");
 
 
-        } catch (Unauthorized unauthorized) {
+        } catch (UnauthorizedException unauthorized) {
             //Then
             assertTrue(true);
         }
@@ -72,7 +72,7 @@ public class AuthenticationServiceFacadeTest {
             authorize = authenticationServiceFacade.authorize(invalidToken);
             fail("authorized");
 
-        } catch (Unauthorized unauthorized) {
+        } catch (UnauthorizedException unauthorized) {
             //Then
             assertTrue(true);
         }
