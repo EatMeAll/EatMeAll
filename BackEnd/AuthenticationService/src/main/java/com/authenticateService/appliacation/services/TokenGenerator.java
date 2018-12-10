@@ -5,6 +5,7 @@ package com.authenticateService.appliacation.services;
 import com.authenticateService.appliacation.model.Token;
 
 import java.util.Random;
+import java.util.UUID;
 
 
 public class TokenGenerator {
@@ -21,7 +22,7 @@ public class TokenGenerator {
             rawToken.append((char) number);
         }
 
-        return new Token(rawToken.toString(),TTL_IN_MINUTES);
+        return new Token(UUID.randomUUID().toString(),TTL_IN_MINUTES);
 
 
     }

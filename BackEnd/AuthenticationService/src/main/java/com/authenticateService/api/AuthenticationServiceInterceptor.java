@@ -42,20 +42,19 @@ public class AuthenticationServiceInterceptor {
         }
     }
 
-    private void injectUserIdToMethodParameter(Integer authorizeUserId, InvocationContext ic)
+    private Boolean injectUserIdToMethodParameter(Integer authorizeUserId, InvocationContext ic)
             throws InvalidMethodSignatureException {
 
         Integer parametersIndex = 0;
         Object[] parameters = ic.getParameters();
         for (Parameter parameter : ic.getMethod().getParameters()) {
 
-            if (parameter.getName().equals("authUserId")) {
                 if (parameter.getType() == Integer.class) {
                     parameters[parametersIndex] = authorizeUserId;
                     ic.setParameters(parameters);
+                    return true;
                 }
-            }
-            parametersIndex++;
+                 parametersIndex++;
         }
         throw new InvalidMethodSignatureException("Not found parameter Type java.lang.Integer with name authUserId  in method signature [Integer authUserId] - param is required");
     }
@@ -68,7 +67,7 @@ public class AuthenticationServiceInterceptor {
             if (parameter instanceof HttpHeaders) {
                 HttpHeaders request = (HttpHeaders) parameter;
                 Map<String, javax.ws.rs.core.Cookie> cookies = request.getCookies();
-                if (cookies.containsKey("Token")) {
+                    if (cookies.containsKey("Token")) {
                     return cookies.get("Token");
                 } else {
                     throw new CookieTokenNotFoundException("Cookie: Token - not found");

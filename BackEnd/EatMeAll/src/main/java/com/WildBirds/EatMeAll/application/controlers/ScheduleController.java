@@ -38,7 +38,12 @@ public class ScheduleController {
     public Response getWeekSchedule(
             @Context UriInfo uriinfo,
             @Context HttpHeaders headers,
-            @Context Integer authUserId) {
+            @Context Integer authUserId ) {
+
+
+        Map<String, javax.ws.rs.core.Cookie> cookies = headers.getCookies();
+        System.out.println("Token");
+        System.out.println(cookies.get("Token").getValue());
 
         try {
             List<Meal> mealsBreakfastList = repo.MEAL().getShortMealByTypeMeal(MealTime.BREAKFAST, Language.PL, 7);

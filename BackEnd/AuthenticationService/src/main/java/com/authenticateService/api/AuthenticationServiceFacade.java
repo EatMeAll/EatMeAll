@@ -7,11 +7,13 @@ import com.authenticateService.appliacation.services.TokenAuthorizationService;
 import com.authenticateService.appliacation.services.TokenMapper;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.LocalBean;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 
 @Singleton
 @Startup
+@LocalBean
 public class AuthenticationServiceFacade<Auth extends Comparable<Auth>> {
 
     public static AuthenticationServiceFacade configure(){
@@ -37,7 +39,7 @@ public class AuthenticationServiceFacade<Auth extends Comparable<Auth>> {
         this.tokenMapper = new TokenMapper();
     }
 
-    Auth authorize(TokenDTO tokenDTO) throws UnauthorizedException {
+    public Auth authorize(TokenDTO tokenDTO) throws UnauthorizedException {
         return tokenAuthorizationService.authorize(tokenDTO);
     }
 
