@@ -1,0 +1,39 @@
+version: "3.3"
+
+services:
+    mysql:
+        image: mysql:8.0.12
+        container_name: mysql
+        ports:
+        - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: interlocutor500
+            MYSQL_DATABASE: eatmeall
+            MYSQL_USER: backend
+            MYSQL_PASSWORD: interlocutor500
+        networks:
+            - lan
+    
+    wildfly:
+        build: ./Docker
+        container_name: wildfly
+        ports:
+            - "100:8080"
+            - "9990:9990"
+            - "8787:8787"
+        environment:
+            JBOSS_HOME: /opt/jboss/wildfly
+            WILDFLY_VERSION: 14.0.1.Final
+        depends_on:
+            - mysql
+        networks:
+            - lan
+        volumes: 
+            - wildfly:/opt/jboss/wildfly/
+        command: bash -c "echo '>>START-WILDFLY<<'&& pwd && /opt/jboss/wildfly/bin/add-user.sh -a root root && /opt/jboss/wildfly/bin/standalone.sh -b 0.0.0.0 -bmanagement=0.0.0.0 --debug"
+
+networks:
+    lan:
+
+volumes:
+    wildfly:
