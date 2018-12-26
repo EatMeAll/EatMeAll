@@ -154,7 +154,7 @@
                     </security>
                 </datasource>
                 <datasource jndi-name="java:jboss/datasources/eatmeall" pool-name="eatmeall" enabled="true" use-java-context="true">
-                    <connection-url>jdbc:mysql://mysql/eatmeall</connection-url>
+                    <connection-url>jdbc:mysql://mysql/eatmeall?verifyServerCertificate=false&amp;useSSL=false&amp;requireSSL=false</connection-url>
                     <driver>mysql</driver>
                     <pool>
                         <min-pool-size>2</min-pool-size>

@@ -22,8 +22,7 @@ import java.util.Random;
 @Stateless
 @LocalBean
 public class ExcelReaderApp {
-    private String basePath = "D:\\PROGRAMOWANIE\\etmeall2\\eatmeall";
-
+    private String basePath = "D:\\PROGRAMOWANIE\\etmeall2\\EatMeAll\\BackEnd\\ExcelReader\\src\\main\\resources\\data\\jadlospis2.xlsx";
     @EJB
     RepositoryFacade repo;
 
@@ -44,8 +43,8 @@ public class ExcelReaderApp {
         int counter = 0;
 
         ExcelReader excelReader = new XmlReader();
-        String filePath = basePath + "\\jadlospis2.xlsx";
-        List<MealExcel> mealExcelList = excelReader.read(filePath);
+//        String filePath = basePath + "\\jadlospis2.xlsx";
+        List<MealExcel> mealExcelList = excelReader.read(basePath);
 
         int random = new Random().nextInt(100);
 

@@ -30,7 +30,7 @@ services:
             - lan
         volumes: 
             - wildfly:/opt/jboss/wildfly/
-        command: bash -c "/opt/jboss/wildfly/bin/add-user.sh -a root root && /opt/jboss/wildfly/bin/standalone.sh -b 0.0.0.0 -bmanagement=0.0.0.0 --debug"
+        command: /opt/jboss/wildfly/bin/standalone.sh -b 0.0.0.0 -bmanagement=0.0.0.0 --debug
 
 networks:
     lan:
