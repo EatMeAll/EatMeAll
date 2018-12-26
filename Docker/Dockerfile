@@ -3,4 +3,5 @@ USER root
 RUN chown -R jboss:0 ${JBOSS_HOME}
 RUN chmod -R g+rw ${JBOSS_HOME}
 COPY standalone.xml /opt/jboss/wildfly/standalone/configuration/
-COPY mysql /opt/jboss/wildfly/modules/system/layers/base/com/mysql/main
+COPY mysql /opt/jboss/wildfly/modules/system/layers/base/com/mysql
+#RUN /opt/jboss/wildfly/bin/add-user.sh -a root root

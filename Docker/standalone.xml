@@ -525,8 +525,6 @@
         </outbound-socket-binding>
     </socket-binding-group>
     <deployments>
-        <deployment name="app.ear" runtime-name="app.ear">
-            <content sha1="f8d21d0dafe6d0cf6c427868af63dca1c976718b"/>
-        </deployment>
+
     </deployments>
 </server>
