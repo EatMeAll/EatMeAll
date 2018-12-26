@@ -7,7 +7,7 @@
 <persistence-unit name="persistence-jpa" transaction-type="JTA">
 
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
-    <jta-data-source>java:jboss/datasources/eatmealltest</jta-data-source>
+    <jta-data-source>java:jboss/datasources/eatmeall</jta-data-source>
 
     <class>com.WildBirds.RepositoryJPA.domain.model.Day</class>
     <class>com.WildBirds.RepositoryJPA.domain.model.Meal</class>
