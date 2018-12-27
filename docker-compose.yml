@@ -31,9 +31,26 @@ services:
         volumes: 
             - wildfly:/opt/jboss/wildfly/
         command: /opt/jboss/wildfly/bin/standalone.sh -b 0.0.0.0 -bmanagement=0.0.0.0 --debug
-
+    
+    frontend:
+        build: ./FrontEnd
+        container_name: frontend
+        depends_on:
+        - wildfly
+        command: npm start
+        # command: tail -f /dev/null
+        ports:
+        - 3000:3000
+        volumes:
+        - ./frontend:/home/EatMeAll/FrontEnd
+        networks:
+        - lan
+        
+        
 networks:
     lan:
 
 volumes:
+    mysql:
     wildfly:
+    frontend:
