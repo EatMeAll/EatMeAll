@@ -5,3 +5,4 @@ RUN chmod -R g+rw ${JBOSS_HOME}
 COPY standalone.xml /opt/jboss/wildfly/standalone/configuration/
 COPY mysql /opt/jboss/wildfly/modules/system/layers/base/com/mysql
 RUN /opt/jboss/wildfly/bin/add-user.sh backend backend
+COPY excel /opt/jboss/excel

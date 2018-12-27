@@ -22,7 +22,7 @@ import java.util.Random;
 @Stateless
 @LocalBean
 public class ExcelReaderApp {
-    private String basePath = "D:\\PROGRAMOWANIE\\etmeall2\\EatMeAll\\BackEnd\\ExcelReader\\src\\main\\resources\\data\\jadlospis2.xlsx";
+    private String basePath = "/opt/jboss/excel";
     @EJB
     RepositoryFacade repo;
 
@@ -43,8 +43,8 @@ public class ExcelReaderApp {
         int counter = 0;
 
         ExcelReader excelReader = new XmlReader();
-//        String filePath = basePath + "\\jadlospis2.xlsx";
-        List<MealExcel> mealExcelList = excelReader.read(basePath);
+        String filePath = basePath + "/jadlospis2.xlsx";
+        List<MealExcel> mealExcelList = excelReader.read(filePath);
 
         int random = new Random().nextInt(100);
 
@@ -69,32 +69,32 @@ public class ExcelReaderApp {
 
 
             MealTime mealTime = MealTime.LUNCH;
-            File photo = new File(basePath + "\\jadlospis2.xlsx");
+            File photo = new File(basePath + "/jadlospis2.xlsx");
 
             switch (typeMealExcel) {
 
                 case "śniadanie":
                     mealTime = MealTime.BREAKFAST;
-                    photo = new File(basePath + "\\breakfast.jpg");
+                    photo = new File(basePath + "/breakfast.jpg");
                     break;
 
                 case "lunch":
                     mealTime = MealTime.LUNCH;
-                    photo = new File(basePath + "\\lunch.jpg");
+                    photo = new File(basePath + "/lunch.jpg");
                     break;
 
                 case "obiad":
                     mealTime = MealTime.DINNER;
-                    photo = new File(basePath + "\\dinner.jpg");
+                    photo = new File(basePath + "/dinner.jpg");
                     break;
                 case "przekąska":
                     mealTime = MealTime.SNACK;
-                    photo = new File(basePath + "\\snack.jpg");
+                    photo = new File(basePath + "/snack.jpg");
                     break;
 
                 case "kolacja":
                     mealTime = MealTime.SUPPER;
-                    photo = new File(basePath + "\\supper.jpg");
+                    photo = new File(basePath + "/supper.jpg");
                     break;
 
             }
