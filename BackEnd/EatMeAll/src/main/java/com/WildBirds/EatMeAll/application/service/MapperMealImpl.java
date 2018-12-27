@@ -336,7 +336,7 @@ public class MapperMealImpl implements Mapper {
     @Override
     public Day toDay(DayDTO dayDTO, Integer idUser) {
 
-        Set<MealUnitDTO> mealUnitDTOSet = dayDTO.getMeals();
+        List<MealUnitDTO> mealUnitDTOSet = dayDTO.getMeals();
         Instant dateDTO = dayDTO.getDate();
 
         User user = repo.USER().get(idUser);
