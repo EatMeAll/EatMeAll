@@ -52,7 +52,7 @@
                 <configuration>
                     <!--Local-->
                     <hostname>192.168.99.100</hostname>
-                    <port>100</port>
+                    <port>9900</port>
                     <username>backend</username>
                     <password>backend</password>
                     <filename>${project.build.finalName}.ear</filename>
