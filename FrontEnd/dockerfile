@@ -31,8 +31,8 @@ RUN . $NVM_DIR/nvm.sh && \
     nvm alias default $NODE_VERSION && \
     nvm use default
 
-ADD . /home/EatMeAll/FrontEnd
-WORKDIR /home/EatMeAll/FrontEnd
+ADD . /home/eatmeall/frontend
+WORKDIR /home/eatmeall/frontend
 
 RUN npm install
 

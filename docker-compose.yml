@@ -36,17 +36,14 @@ services:
         build: ./FrontEnd
         container_name: frontend
         depends_on:
-        - wildfly
+            - wildfly  
         command: npm start
-        # command: tail -f /dev/null
         ports:
-        - 3000:3000
+            - "3000:3000"
         volumes:
-        - ./frontend:/home/EatMeAll/FrontEnd
+            - ./frontend:/home/eatmeall/frontend
         networks:
-        - lan
-        
-        
+            - lan       
 networks:
     lan:
 
