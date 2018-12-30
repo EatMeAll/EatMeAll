@@ -39,7 +39,7 @@ services:
             - wildfly  
         command: npm start
         ports:
-            - "3000:3000"
+            - "80:3000"
         volumes:
             - ./frontend:/home/eatmeall/frontend
         networks:
