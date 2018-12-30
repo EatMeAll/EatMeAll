@@ -12,7 +12,7 @@ class MealSchedule extends Component {
     };
 
     callToApi = () => {
-        fetch('http://127.0.0.1:100/app/schedule')
+        fetch('http://eatmeall.pl:100/app/schedule')
             .then((response) => response.json())
             .then((myJson) => {
 
