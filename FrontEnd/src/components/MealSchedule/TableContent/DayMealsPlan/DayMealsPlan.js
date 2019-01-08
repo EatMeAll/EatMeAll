@@ -23,10 +23,10 @@ class DayMealsPlan extends Component {
                 <div className={styles.Day}>
                     <DateLabel date={this.props.date}/>
                     <MealInfo mealType={"śniadanie"} mealName={this.props.dayPlan["meals"].filter(meal => meal["mealTime"]==="BREAKFAST")[0]["title"]}/>
-                    <MealInfo mealType={"drugie śniadanie"} mealName={this.props.Lunch}/>
-                    <MealInfo mealType={"obiad"} mealName={this.props.Dinner}/>
-                    <MealInfo mealType={"podwieczorek"} mealName={this.props.Snack}/>
-                    <MealInfo mealType={"kolacja"} mealName={this.props.Supper}/>
+                    <MealInfo mealType={"drugie śniadanie"} mealName={this.props.dayPlan["meals"].filter(meal => meal["mealTime"]==="LUNCH")[0]["title"]}/>
+                    <MealInfo mealType={"obiad"} mealName={this.props.dayPlan["meals"].filter(meal => meal["mealTime"]==="DINNER")[0]["title"]}/>
+                    <MealInfo mealType={"podwieczorek"} mealName={this.props.dayPlan["meals"].filter(meal => meal["mealTime"]==="SNACK")[0]["title"]}/>
+                    <MealInfo mealType={"kolacja"} mealName={this.props.dayPlan["meals"].filter(meal => meal["mealTime"]==="SUPPER")[0]["title"]}/>
                 </div>
             )
         }

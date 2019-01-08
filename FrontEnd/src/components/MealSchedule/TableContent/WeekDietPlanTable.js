@@ -21,16 +21,13 @@ class WeekDietPlanTable extends Component {
                 </div>
                 <div className={styles.MealPlan}>
                     <React.Fragment>
-                        <DayMealsPlan date={moment().weekday(1)}
-                            dayPlan={this.props.meals[0]} />
-                        <DayMealsPlan date={moment().weekday(2)}
-                                      Breakfast={this.props.tBreakfast}
-                                      Lunch={this.props.tLunch}/>
-                        <DayMealsPlan date={moment().weekday(3)}/>
-                        <DayMealsPlan date={moment().weekday(4)}/>
-                        <DayMealsPlan date={moment().weekday(5)}/>
-                        <DayMealsPlan date={moment().weekday(6)}/>
-                        <DayMealsPlan date={moment().weekday(7)}/>
+                        <DayMealsPlan date={moment().weekday(1)} dayPlan={this.props.meals[0]} />
+                        <DayMealsPlan date={moment().weekday(2)} dayPlan={this.props.meals[1]} />
+                        <DayMealsPlan date={moment().weekday(3)} dayPlan={this.props.meals[2]} />
+                        <DayMealsPlan date={moment().weekday(4)} dayPlan={this.props.meals[3]} />
+                        <DayMealsPlan date={moment().weekday(5)} dayPlan={this.props.meals[4]} />
+                        <DayMealsPlan date={moment().weekday(6)} dayPlan={this.props.meals[5]} />
+                        <DayMealsPlan date={moment().weekday(7)} dayPlan={this.props.meals[6]} />
                     </React.Fragment>
                 </div>
             </React.Fragment>
