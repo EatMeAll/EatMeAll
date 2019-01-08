@@ -17,3 +17,72 @@
     margin-left: auto;
     padding-bottom: 5px;
 }
+
+.HoverButtons {
+    position: absolute;
+    display: none;
+    margin-left: -8px;
+}
+
+.ChangeDiv:hover .TypeOfMeal {
+    opacity: 0.2;
+}
+
+.ChangeDiv:hover .MealName {
+    opacity: 0.2;
+}
+
+.ChangeDiv:hover .HoverButtons {
+    display: block;
+    box-sizing: border-box;
+    padding: 10px;
+    line-height: 4rem;
+}
+
+.HoverButtons a {
+    color: black;
+}
+
+a i {
+    font-size: 2rem;
+    padding-left: 10px;
+    cursor: pointer;
+}
+@media (min-width: 600px) {
+    .ChangeDiv:hover .HoverButtons {
+        display: flex;
+        box-sizing: border-box;
+        padding: 10px;
+        line-height: 3.5rem;
+    }
+
+    a i {
+        font-size: 1.25rem;
+        padding: 0 2px;
+    }
+
+    a i:hover {
+        opacity: 0.75;
+        font-size: 1.5rem;
+    }
+}
+
+@media (min-width: 900px) {
+    .ChangeDiv:hover .HoverButtons {
+        display: block;
+        box-sizing: border-box;
+        padding: 10px;
+        line-height: 3.5rem;
+    }
+
+    a i {
+        font-size: 1.25rem;
+        padding: 0 4px;
+    }
+
+    a i:hover {
+        opacity: 0.75;
+        font-size: 1.5rem;
+    }
+}
+
