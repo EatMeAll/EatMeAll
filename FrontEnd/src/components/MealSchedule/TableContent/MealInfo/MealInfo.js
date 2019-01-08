@@ -7,7 +7,7 @@ class MealInfo extends Component {
         return (
             <div className={styles.MealInfo}>
                 <div className={styles.TypeOfMeal}>{this.props.mealType}</div>
-                <div> {this.props.dupa12}</div>
+                <div> {this.props.mealName}</div>
             </div>
         )
     }
