@@ -7,16 +7,22 @@ class MealInfo extends Component {
     constructor() {
         super();
         this.state = {
-            mealName: ""
+            mealName: "",
+            mealId: undefined
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setMealName(nextProps.mealName)
+        this.setMealName(nextProps.meal["title"]);
+        this.setMealId(nextProps.meal["id"]);
     }
 
     setMealName(name) {
         this.setState({mealName: name})
+    }
+
+    setMealId(id) {
+        this.setState({mealId: id})
     }
 
     randomizeMeal = (e) => {
