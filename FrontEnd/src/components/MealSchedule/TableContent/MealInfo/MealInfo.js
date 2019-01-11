@@ -13,16 +13,10 @@ class MealInfo extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setMealName(nextProps.meal["title"]);
-        this.setMealId(nextProps.meal["id"]);
-    }
-
-    setMealName(name) {
-        this.setState({mealName: name})
-    }
-
-    setMealId(id) {
-        this.setState({mealId: id})
+        this.setState({
+            mealName: nextProps.meal["title"],
+            mealId: nextProps.meal["id"]
+        })
     }
 
     randomizeMeal = (e) => {
