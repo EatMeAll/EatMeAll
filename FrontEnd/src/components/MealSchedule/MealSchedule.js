@@ -9,7 +9,7 @@ class MealSchedule extends Component {
         mealsFromApi: []
     };
 
-    callToApiBreakfast = () => {
+    callToApiWeekSchedule = () => {
         fetch('http://eatmeall.pl:100/app/schedule')
             .then((response) => response.json())
             .then((myJson) => {
@@ -22,7 +22,7 @@ class MealSchedule extends Component {
     render() {
         return (
             <div className={styles.Header}>
-                <TableHeader callback={this.callToApiBreakfast}/>
+                <TableHeader callback={this.callToApiWeekSchedule}/>
                 <WeeKDietPlanTable meals={this.state.mealsFromApi}/>
                     {/*//           tBreakfast={this.state.tuesdayBreakfast} tLunch={this.state.tuesdayLunch}/>*/}
             </div>);
