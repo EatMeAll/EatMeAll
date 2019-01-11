@@ -13,9 +13,10 @@ class MealInfo extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+
         this.setState({
             mealName: nextProps.meal["title"],
-            mealId: nextProps.meal["id"]
+            mealId: nextProps.meal["idMeal"]
         })
     }
 
@@ -24,6 +25,20 @@ class MealInfo extends Component {
     }
 
 
+
+    showDetails= (e) => {
+        fetch('http://eatmeall.pl:100/app/meals/'+this.state.mealId)
+            .then((response) => response.json())
+            .then((myJson) => {
+                this.showDetailsPopup(myJson[0]);
+            });
+
+    }
+
+    showDetailsPopup(myJson) {
+        console.log(myJson)
+    }
+
     render() {
         return (
             <div className={styles.ChangeDiv}>
@@ -31,7 +46,7 @@ class MealInfo extends Component {
                     <div className={styles.TypeOfMeal}>{this.props.mealType}</div>
                     <div className={styles.MealName}> {this.state.mealName}</div>
                     <div className={styles.HoverButtons}>
-                        <a><i className="fas fa-book" title="przeczytaj przepis"></i></a>
+                        <a onClick={this.showDetails}><i className="fas fa-book" title="przeczytaj przepis"></i></a>
                         <a onClick={this.randomizeMeal}><i className="fas fa-retweet" title="wylosuj inną potrawę"></i></a>
                         <a><i className="fas fa-list-ul" title="wybierz inną potrawę z listy"></i></a>
                         <a><i className="far fa-copy" title="kopjuj"></i></a>
