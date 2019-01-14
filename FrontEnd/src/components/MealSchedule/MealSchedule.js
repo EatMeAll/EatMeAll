@@ -29,7 +29,8 @@ class MealSchedule extends Component {
 
 
     showRecipe = () => {
-        this.setState({showRecipeModal: true})
+        this.setState({showRecipeModal: true});
+
     }
 
     render() {
