@@ -34,22 +34,16 @@ class MealSchedule extends Component {
     }
 
     render() {
-        let mealRecipe = <MealRecipe
-                cancelled={this.cancelHandler}/>;
-
-        let DietPlan = <WeekDietPlanTable
-            meals={this.state.mealsFromApi}
-            openModal={this.showRecipe}/>;
-
-
         return (
             <React.Fragment>
                 <Modal show={this.state.showRecipeModal} modalClosed={this.cancelHandler}>
-                    {mealRecipe}
+                    <MealRecipe cancelled={this.cancelHandler}/>
                 </Modal>
                 <div className={styles.Header}>
                     <TableHeader callback={this.callToApiWeekSchedule}/>
-                    {DietPlan}
+                    <WeekDietPlanTable
+                        meals={this.state.mealsFromApi}
+                        openModal={this.showRecipe}/>
                 </div>
             </React.Fragment>
         );

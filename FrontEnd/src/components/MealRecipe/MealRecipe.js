@@ -3,15 +3,10 @@ import Button from "../UI/Button/Button"
 
 
 class MealRecipe extends Component {
-    componentWillUpdate() {
-        console.log("MealRecipeupdate")
-    }
-
-
     render() {
         return (
             <React.Fragment>
-                <h2>Przepis na coś</h2>
+                <h2>{this.props.name}Przepis na coś</h2>
                 <div>
                     <h4>składniki</h4>
                     <p>składnik 1</p>

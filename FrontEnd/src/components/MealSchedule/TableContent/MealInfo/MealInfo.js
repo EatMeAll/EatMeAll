@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import styles from './MealInfo.css';
+import MealRecipe from "../../../MealRecipe/MealRecipe";
 
 
 class MealInfo extends Component {
@@ -43,25 +44,31 @@ class MealInfo extends Component {
     }
 
     showDetailsPopup(myJson) {
-        console.log(myJson)
-        this.props.openModal();
+        console.log(myJson);
+        this.props.openModal()
     }
 
     render() {
+
         return (
-                <div className={styles.ChangeDiv}>
-                    <div className={styles.MealInfo}>
-                        <div className={styles.TypeOfMeal}>{this.props.mealType}</div>
-                        <div className={styles.MealName}> {this.state.mealName}</div>
-                        <div className={styles.HoverButtons}>
-                            <button className={styles.Button} onClick={this.showDetails}><i className="fas fa-book" title="przeczytaj przepis"/></button>
-                            <button className={styles.Button} onClick={this.randomizeMeal}><i className="fas fa-retweet" title="wylosuj inną potrawę"/></button>
-                            <button className={styles.Button}><i className="fas fa-list-ul" title="wybierz inną potrawę z listy"/></button>
-                            <button className={styles.Button}><i className="far fa-copy" title="kopjuj"/></button>
-                            <button className={styles.Button}><i className="fas fa-paste" title="wklej"/></button>
-                        </div>
+            <div className={styles.ChangeDiv}>
+                <div className={styles.MealInfo}>
+                    <div className={styles.TypeOfMeal}>{this.props.mealType}</div>
+                    <div className={styles.MealName}> {this.state.mealName}</div>
+                    <div className={styles.HoverButtons}>
+                        <button className={styles.Button} onClick={this.showDetails}><i className="fas fa-book"
+                                                                                        title="przeczytaj przepis"/>
+                        </button>
+                        <button className={styles.Button} onClick={this.randomizeMeal}><i className="fas fa-retweet"
+                                                                                          title="wylosuj inną potrawę"/>
+                        </button>
+                        <button className={styles.Button}><i className="fas fa-list-ul"
+                                                             title="wybierz inną potrawę z listy"/></button>
+                        <button className={styles.Button}><i className="far fa-copy" title="kopjuj"/></button>
+                        <button className={styles.Button}><i className="fas fa-paste" title="wklej"/></button>
                     </div>
                 </div>
+            </div>
         )
     }
 }
