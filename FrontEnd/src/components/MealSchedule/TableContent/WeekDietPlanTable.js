@@ -21,7 +21,7 @@ class WeekDietPlanTable extends Component {
                 </div>
                 <div className={styles.MealPlan}>
                     <React.Fragment>
-                        <DayMealsPlan date={moment().weekday(1)} dayPlan={this.props.meals[0]} />
+                        <DayMealsPlan date={moment().weekday(1)} dayPlan={this.props.meals[0]} openModal ={this.props.openModal}/>
                         <DayMealsPlan date={moment().weekday(2)} dayPlan={this.props.meals[1]} />
                         <DayMealsPlan date={moment().weekday(3)} dayPlan={this.props.meals[2]} />
                         <DayMealsPlan date={moment().weekday(4)} dayPlan={this.props.meals[3]} />
