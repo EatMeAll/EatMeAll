@@ -22,11 +22,6 @@ class MealInfo extends Component {
         this.setState({
             mealName: nextProps.meal["title"],
             mealId: nextProps.meal["idMeal"],
-            mealCalories: nextProps.meal["amountCalories"],
-            mealAuthor: nextProps.meal["authorReceipt"],
-            mealProducts: undefined,
-            mealType: nextProps.meal["typeMeal"],
-            mealPrep: nextProps.meal["receiptDTO"]
         })
     }
 
@@ -45,7 +40,7 @@ class MealInfo extends Component {
 
     showDetailsPopup(myJson) {
         console.log(myJson);
-        this.props.openModal()
+        this.props.openModal(<MealRecipe name={myJson["title"]}/>)
     }
 
     render() {

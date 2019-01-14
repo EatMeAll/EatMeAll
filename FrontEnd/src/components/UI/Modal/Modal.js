@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import styles from './Modal.css';
 import Backdrop from '../Backdrop/Backdrop';
+import Button from "../Button/Button"
 
 
 class Modal extends Component {
@@ -20,6 +21,7 @@ class Modal extends Component {
                         opacity: this.props.show ? '1' : '0'
                     }}>
                     {this.props.children}
+                    <Button onClick={this.props.modalClosed}>CANCEL</Button>
                 </div>
             </React.Fragment>
         )

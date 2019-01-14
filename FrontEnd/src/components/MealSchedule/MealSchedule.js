@@ -5,11 +5,13 @@ import TableHeader from './TableHeader/TableHeader';
 import WeekDietPlanTable from './TableContent/WeekDietPlanTable';
 import Modal from "../UI/Modal/Modal";
 import MealRecipe from "../MealRecipe/MealRecipe";
+import Button from "../UI/Button/Button";
 
 class MealSchedule extends Component {
     state = {
         mealsFromApi: [],
-        showRecipeModal: false
+        showRecipeModal: false,
+        modalData: <MealRecipe />
     };
 
     callToApiWeekSchedule = () => {
@@ -28,8 +30,8 @@ class MealSchedule extends Component {
     };
 
 
-    showRecipe = () => {
-        this.setState({showRecipeModal: true});
+    showRecipe = (modalData) => {
+        this.setState({showRecipeModal: true, modalData: modalData});
 
     }
 
@@ -37,7 +39,7 @@ class MealSchedule extends Component {
         return (
             <React.Fragment>
                 <Modal show={this.state.showRecipeModal} modalClosed={this.cancelHandler}>
-                    <MealRecipe cancelled={this.cancelHandler}/>
+                    {this.state.modalData}
                 </Modal>
                 <div className={styles.Header}>
                     <TableHeader callback={this.callToApiWeekSchedule}/>

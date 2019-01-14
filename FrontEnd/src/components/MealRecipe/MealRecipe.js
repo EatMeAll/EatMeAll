@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
-import Button from "../UI/Button/Button"
 
 
 class MealRecipe extends Component {
     render() {
         return (
             <React.Fragment>
-                <h2>{this.props.name}Przepis na coś</h2>
+                <h2>Przepis na {this.props.name}</h2>
                 <div>
                     <h4>składniki</h4>
                     <p>składnik 1</p>
@@ -15,7 +14,6 @@ class MealRecipe extends Component {
                 </div>
                 <p><strong>Sposób wykonania</strong></p>
                 <p>Zamerdaj</p>
-                <Button onClick={this.props.cancelled}>CANCEL</Button>
             </React.Fragment>
         )
     }
