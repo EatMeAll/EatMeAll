@@ -23,10 +23,10 @@ class DayMealsPlan extends Component {
                 <div className={styles.Day}>
                     <DateLabel date={this.props.date}/>
                     <MealInfo mealType={"śniadanie"} meal={this.props.dayPlan["meals"].filter(meal => meal["mealTime"]==="BREAKFAST")[0]} openModal={this.props.openModal}/>
-                    <MealInfo mealType={"drugie śniadanie"} meal={this.props.dayPlan["meals"].filter(meal => meal["mealTime"]==="LUNCH")[0]}/>
-                    <MealInfo mealType={"obiad"} meal={this.props.dayPlan["meals"].filter(meal => meal["mealTime"]==="DINNER")[0]}/>
-                    <MealInfo mealType={"podwieczorek"} meal={this.props.dayPlan["meals"].filter(meal => meal["mealTime"]==="SNACK")[0]}/>
-                    <MealInfo mealType={"kolacja"} meal={this.props.dayPlan["meals"].filter(meal => meal["mealTime"]==="SUPPER")[0]}/>
+                    <MealInfo mealType={"drugie śniadanie"} meal={this.props.dayPlan["meals"].filter(meal => meal["mealTime"]==="LUNCH")[0]} openModal={this.props.openModal}/>
+                    <MealInfo mealType={"obiad"} meal={this.props.dayPlan["meals"].filter(meal => meal["mealTime"]==="DINNER")[0]} openModal={this.props.openModal}/>
+                    <MealInfo mealType={"podwieczorek"} meal={this.props.dayPlan["meals"].filter(meal => meal["mealTime"]==="SNACK")[0]} openModal={this.props.openModal}/>
+                    <MealInfo mealType={"kolacja"} meal={this.props.dayPlan["meals"].filter(meal => meal["mealTime"]==="SUPPER")[0]} openModal={this.props.openModal}/>
                 </div>
             )
         }

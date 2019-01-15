@@ -22,12 +22,12 @@ class WeekDietPlanTable extends Component {
                 <div className={styles.MealPlan}>
                     <React.Fragment>
                         <DayMealsPlan date={moment().weekday(1)} dayPlan={this.props.meals[0]} openModal ={this.props.openModal}/>
-                        <DayMealsPlan date={moment().weekday(2)} dayPlan={this.props.meals[1]} />
-                        <DayMealsPlan date={moment().weekday(3)} dayPlan={this.props.meals[2]} />
-                        <DayMealsPlan date={moment().weekday(4)} dayPlan={this.props.meals[3]} />
-                        <DayMealsPlan date={moment().weekday(5)} dayPlan={this.props.meals[4]} />
-                        <DayMealsPlan date={moment().weekday(6)} dayPlan={this.props.meals[5]} />
-                        <DayMealsPlan date={moment().weekday(7)} dayPlan={this.props.meals[6]} />
+                        <DayMealsPlan date={moment().weekday(2)} dayPlan={this.props.meals[1]} openModal ={this.props.openModal}/>
+                        <DayMealsPlan date={moment().weekday(3)} dayPlan={this.props.meals[2]} openModal ={this.props.openModal}/>
+                        <DayMealsPlan date={moment().weekday(4)} dayPlan={this.props.meals[3]} openModal ={this.props.openModal}/>
+                        <DayMealsPlan date={moment().weekday(5)} dayPlan={this.props.meals[4]} openModal ={this.props.openModal}/>
+                        <DayMealsPlan date={moment().weekday(6)} dayPlan={this.props.meals[5]} openModal ={this.props.openModal}/>
+                        <DayMealsPlan date={moment().weekday(7)} dayPlan={this.props.meals[6]} openModal ={this.props.openModal}/>
                     </React.Fragment>
                 </div>
             </React.Fragment>

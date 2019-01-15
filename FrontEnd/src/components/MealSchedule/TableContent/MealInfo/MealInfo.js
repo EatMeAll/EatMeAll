@@ -10,11 +10,6 @@ class MealInfo extends Component {
         this.state = {
             mealName: "",
             mealId: undefined,
-            mealCalories: "",
-            mealAuthor: "",
-            mealProducts: "",
-            mealType: "",
-            mealPrep: ""
         }
     }
 
@@ -40,7 +35,16 @@ class MealInfo extends Component {
 
     showDetailsPopup(myJson) {
         console.log(myJson);
-        this.props.openModal(<MealRecipe name={myJson["title"]}/>)
+        this.props.openModal(
+            <MealRecipe
+                recipeTitle={myJson["title"]}
+                author={myJson["authorReceipt"]}
+                products={myJson["products"]}
+                preparation={myJson["receiptDTO"]["steps"]}
+                typeOfMeal={this.props.mealType}
+                prepTime={myJson["receiptDTO"]["prepareTime"]}
+                calories={myJson["amountCalories"]}
+            />)
     }
 
     render() {
