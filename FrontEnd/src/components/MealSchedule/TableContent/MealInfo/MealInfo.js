@@ -33,17 +33,12 @@ class MealInfo extends Component {
             });
     }
 
-    showDetailsPopup(myJson) {
-        console.log(myJson);
+    showDetailsPopup(selectedMealJson) {
+        console.log(selectedMealJson);
         this.props.openModal(
             <MealRecipe
-                recipeTitle={myJson["title"]}
-                author={myJson["authorReceipt"]}
-                products={myJson["products"]}
-                preparation={myJson["receiptDTO"]["steps"]}
+                mealDetails={selectedMealJson}
                 typeOfMeal={this.props.mealType}
-                prepTime={myJson["receiptDTO"]["prepareTime"]}
-                calories={myJson["amountCalories"]}
             />)
     }
 

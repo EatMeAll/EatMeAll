@@ -31,6 +31,7 @@ class MealSchedule extends Component {
 
 
     showRecipe = (modalData) => {
+        console.log(modalData)
         this.setState({showRecipeModal: true, modalData: modalData});
 
     }
