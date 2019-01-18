@@ -54,28 +54,6 @@ Button {
 
 @media (min-width: 600px) {
     .ChangeDiv:hover .HoverButtons {
-        display: flex;
-        box-sizing: border-box;
-        padding: 10px;
-        line-height: 3.5rem;
-    }
-
-    Button i {
-        font-size: 1.25rem;
-        padding: 0 2px;
-    }
-
-    Button i:hover {
-        opacity: 0.75;
-        font-size: 1.5rem;
-    }
-}
-
-@media (min-width: 900px) {
-    .ChangeDiv:hover .HoverButtons {
-        display: block;
-        box-sizing: border-box;
-        padding: 10px;
         line-height: 3.5rem;
     }
 
