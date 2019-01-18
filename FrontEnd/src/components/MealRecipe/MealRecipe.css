@@ -36,13 +36,15 @@ p, li {
     margin-bottom: 30px;
 }
 
-.ProductAndInfo {
-    width: 35%;
-    float: left;
-    padding-right: 10px;
-}
+@media (min-width: 900px){
+    .ProductAndInfo {
+        width: 35%;
+        float: left;
+        padding-right: 10px;
+    }
 
-.Preparation {
-    width: 65%;
-    float: left;
+    .Preparation {
+        width: 65%;
+        float: left;
+    }
 }
