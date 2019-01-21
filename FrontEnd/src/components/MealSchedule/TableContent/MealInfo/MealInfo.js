@@ -26,7 +26,7 @@ class MealInfo extends Component {
         fetch('http://eatmeall.pl:100/app/meals/short/mealTime?mealTime='+this.state.mealTime+'&language=PL&amount=1')
             .then((response) => response.json())
             .then((myJson) => {
-                this.setState({mealName: (myJson[0]["title"])});
+                this.setState({mealName: (myJson[0]["title"]), mealId: (myJson[0]["idMeal"])});
             });
     }
 
