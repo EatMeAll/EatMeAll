@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import styles from './MealInfo.css';
 import MealRecipe from "../../../MealRecipe/MealRecipe";
+import ListOfMeals from "../../../ListOfMeals/ListOfMeals";
 
 
 class MealInfo extends Component {
@@ -23,13 +24,12 @@ class MealInfo extends Component {
     }
 
     randomizeMeal = (e) => {
-        fetch('http://eatmeall.pl:100/app/meals/short/mealTime?mealTime='+this.state.mealTime+'&language=PL&amount=1')
+        fetch('http://eatmeall.pl:100/app/meals/short/mealTime?mealTime=' + this.state.mealTime + '&language=PL&amount=1')
             .then((response) => response.json())
             .then((myJson) => {
                 this.setState({mealName: (myJson[0]["title"]), mealId: (myJson[0]["idMeal"])});
             });
     }
-
 
     showDetails = (e) => {
         fetch('http://eatmeall.pl:100/app/meals/' + this.state.mealId)
@@ -39,13 +39,28 @@ class MealInfo extends Component {
             });
     }
 
+    changeMealFromList = (e) => {
+        fetch('http://eatmeall.pl:100/app/meals/short/mealTime?mealTime=' + this.state.mealTime + '&language=PL&amount=10')
+            .then((response) => response.json())
+            .then((myJson) => {
+                this.showMealsListPopup(myJson)
+            });
+    }
+
     showDetailsPopup(selectedMealJson) {
-        console.log(selectedMealJson);
         this.props.openModal(
             <MealRecipe
                 mealDetails={selectedMealJson}
                 typeOfMeal={this.props.mealType}
             />)
+    }
+
+    showMealsListPopup(randomMealList) {
+        this.props.openModal(
+            <ListOfMeals
+                mealList={randomMealList}
+           />
+        )
     }
 
     render() {
@@ -62,8 +77,9 @@ class MealInfo extends Component {
                         <button className={styles.Button} onClick={this.randomizeMeal}><i className="fas fa-retweet"
                                                                                           title="wylosuj inną potrawę"/>
                         </button>
-                        <button className={styles.Button}><i className="fas fa-list-ul"
-                                                             title="wybierz inną potrawę z listy"/></button>
+                        <button className={styles.Button} onClick={this.changeMealFromList}><i
+                            className="fas fa-list-ul"
+                            title="wybierz inną potrawę z listy"/></button>
                         <button className={styles.Button}><i className="far fa-copy" title="kopjuj"/></button>
                         <button className={styles.Button}><i className="fas fa-paste" title="wklej"/></button>
                     </div>
