@@ -7,7 +7,7 @@ class DayMealsPlan extends Component {
 
 
     render() {
-        const {mealDetails = {products: [], receiptDTO: {}}, typeOfMeal} = this.props;
+        // const {mealDetails = {products: [], receiptDTO: {}}, typeOfMeal} = this.props;
 
         if (this.props.dayPlan === undefined) {
             return (

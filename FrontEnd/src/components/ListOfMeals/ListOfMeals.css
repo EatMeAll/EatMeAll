@@ -1,0 +1,12 @@
+.MealList li {
+    margin: 0;
+    padding: 5px;
+    font-weight: 200;
+    text-transform: lowercase;
+}
+
+.MealList ul {
+    padding-left: 20px;
+    margin-bottom: 30px;
+    list-style: none;
+}
