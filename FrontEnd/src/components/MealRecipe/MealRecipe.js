@@ -10,7 +10,6 @@ class MealRecipe extends Component {
 
     render() {
         const {mealDetails = {products: [], receiptDTO: {}}, typeOfMeal} = this.props;
-        console.log(mealDetails)
         return (
             <React.Fragment>
                 <h2>{mealDetails["title"]}</h2>

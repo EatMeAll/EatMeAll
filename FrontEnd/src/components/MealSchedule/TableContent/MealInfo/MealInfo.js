@@ -21,7 +21,11 @@ class MealInfo extends Component {
     }
 
     randomizeMeal = (e) => {
-        this.setState({mealName: "need to be random"});
+        fetch('http://eatmeall.pl:100/app/meals/short/mealTime?mealTime=DINNER&language=PL&amount=1')
+            .then((response) => response.json())
+            .then((myJson) => {
+                this.setState({mealName: (myJson[0]["title"])});
+            });
     }
 
 
