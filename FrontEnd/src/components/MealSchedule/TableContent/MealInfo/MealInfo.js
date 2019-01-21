@@ -10,6 +10,7 @@ class MealInfo extends Component {
         this.state = {
             mealName: "",
             mealId: undefined,
+            mealTime: ''
         }
     }
 
@@ -17,11 +18,12 @@ class MealInfo extends Component {
         this.setState({
             mealName: nextProps.meal["title"],
             mealId: nextProps.meal["idMeal"],
+            mealTime: nextProps.meal["mealTime"]
         })
     }
 
     randomizeMeal = (e) => {
-        fetch('http://eatmeall.pl:100/app/meals/short/mealTime?mealTime=DINNER&language=PL&amount=1')
+        fetch('http://eatmeall.pl:100/app/meals/short/mealTime?mealTime='+this.state.mealTime+'&language=PL&amount=1')
             .then((response) => response.json())
             .then((myJson) => {
                 this.setState({mealName: (myJson[0]["title"])});
