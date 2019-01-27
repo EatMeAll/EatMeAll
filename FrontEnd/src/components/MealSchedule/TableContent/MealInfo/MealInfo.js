@@ -23,19 +23,20 @@ class MealInfo extends Component {
         })
     }
 
-    randomizeMeal = (e) => {
-        fetch('http://eatmeall.pl:100/app/meals/short/mealTime?mealTime=' + this.state.mealTime + '&language=PL&amount=1')
-            .then((response) => response.json())
-            .then((myJson) => {
-                this.setState({mealName: (myJson[0]["title"]), mealId: (myJson[0]["idMeal"])});
-            });
-    }
 
     showDetails = (e) => {
         fetch('http://eatmeall.pl:100/app/meals/' + this.state.mealId)
             .then((response) => response.json())
             .then((myJson) => {
                 this.showDetailsPopup(myJson[0]);
+            });
+    }
+
+    randomizeMeal = (e) => {
+        fetch('http://eatmeall.pl:100/app/meals/short/mealTime?mealTime=' + this.state.mealTime + '&language=PL&amount=1')
+            .then((response) => response.json())
+            .then((myJson) => {
+                this.setState({mealName: (myJson[0]["title"]), mealId: (myJson[0]["idMeal"])});
             });
     }
 
