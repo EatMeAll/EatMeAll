@@ -8,7 +8,7 @@ import com.infrastructure.XmlReader;
 
 import java.io.IOException;
 
-public class App {
+public class ExcelValidator {
 
     public static void main(String[] args)  {
         try {
