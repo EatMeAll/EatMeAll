@@ -24,14 +24,9 @@ class App extends Component {
             <div className={styles.Container}>
                 <Layout>
                     <Switch>
-                        {this.state.auth ? 
-                        <Route path="/home" component={AsyncHome}/> : 
-                        <Route path="/home" component={AsyncCarousel}/>}
-
+                        {this.state.auth ? <Route path="/home" component={AsyncHome}/> : <Route path="/home" component={AsyncCarousel}/>}
                         <Redirect from="/" exact to='/home'/>
-
                         <Route path="/about" component={AboutUs}/>
-                        
                         <Route render={() => <h1>Sorry but our devs still working on this page, see You soon! </h1>}/>
                     </Switch>
                 </Layout>
