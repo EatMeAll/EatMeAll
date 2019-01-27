@@ -1,0 +1,29 @@
+.MealPlan {
+    display: flex;
+    flex-flow: row;
+    overflow: scroll;
+}
+
+.Buttons {
+    display: flex;
+    flex-flow: row;
+}
+
+.Button {
+    width:50%;
+    background-color: transparent;
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid transparent;
+}
+
+@media (min-width: 600px) {
+    .MealPlan {
+        overflow: hidden;
+    }
+
+    .Buttons {
+        display: none;
+    }
+}
