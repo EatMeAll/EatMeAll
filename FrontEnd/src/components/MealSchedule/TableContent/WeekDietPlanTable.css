@@ -19,6 +19,10 @@
 }
 
 @media (min-width: 600px) {
+    .MealPlan {
+        overflow: hidden;
+    }
+
     .Buttons {
         display: none;
     }
