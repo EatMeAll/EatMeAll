@@ -3,9 +3,15 @@ import styles from './ListOfMeals.css';
 
 
 class ListOfMeals extends Component {
+    changeMealName = (mealName) => {
+
+    }
+
     prepareMealList(mealList) {
         console.log(this.props.mealList)
-        return mealList.map(meal => <li>{meal["title"]}</li>)
+        return mealList.map(meal => <li><button
+            className={styles.mealButton}
+            onClick={this.changeMealName}>{meal["title"]}</button></li>)
     }
 
     render() {
@@ -13,8 +19,8 @@ class ListOfMeals extends Component {
         return (
             <div className={styles.MealList}>
                 <h2>Wybierz posiłek</h2>
-                <ul>
-                    <li>{this.prepareMealList(mealList)}</li>
+                <ul className={styles.mealButtons}>
+                    {this.prepareMealList(mealList)}
                 </ul>
             </div>
         )

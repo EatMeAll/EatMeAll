@@ -5,7 +5,12 @@ import styles from './MealRecipe.css';
 class MealRecipe extends Component {
 
     prepareProductList(mealDetails) {
+        console.log(mealDetails)
         return mealDetails["products"].map(product => <li>{product["name"]}, {product["specialUnit"]}</li>)
+    }
+
+    preparePrepareInstruction(mealDetails) {
+        return mealDetails["receiptDTO"]["steps"].map(product => <li>{product["header"]}, {product["number"]}</li>)
     }
 
     render() {
