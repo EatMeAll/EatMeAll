@@ -33,7 +33,7 @@ services:
         command: /opt/jboss/wildfly/bin/standalone.sh -b 0.0.0.0 -bmanagement=0.0.0.0 --debug
     
     frontend:
-        build: ./frontend
+        build: ./FrontEnd
         container_name: frontend
         depends_on:
             - wildfly  
@@ -41,7 +41,7 @@ services:
         ports:
             - "80:3000"
         volumes:
-            - ./frontend:/home/eatmeall/frontend
+            - ./frontend:/home/EatMeAll/FrontEnd
         networks:
             - lan       
 networks:
