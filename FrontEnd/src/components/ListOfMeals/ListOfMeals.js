@@ -8,7 +8,6 @@ class ListOfMeals extends Component {
     }
 
     prepareMealList(mealList) {
-        console.log(this.props.mealList)
         return mealList.map(meal => <li><button
             className={styles.mealButton}
             onClick={this.changeMealName}>{meal["title"]}</button></li>)
