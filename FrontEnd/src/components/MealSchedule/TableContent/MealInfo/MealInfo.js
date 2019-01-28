@@ -60,8 +60,13 @@ class MealInfo extends Component {
         this.props.openModal(
             <ListOfMeals
                 mealList={randomMealList}
+                setMealCallback={this.setMeal}
            />
         )
+    }
+
+    setMeal(id,name) {
+        // this.setState(mealName: name)
     }
 
     render() {

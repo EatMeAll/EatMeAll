@@ -5,16 +5,15 @@ import styles from './MealRecipe.css';
 class MealRecipe extends Component {
 
     prepareProductList(mealDetails) {
-        console.log(mealDetails)
         return mealDetails["products"].map(product => <li>{product["name"]}, {product["specialUnit"]}</li>)
     }
 
-    preparePrepareInstruction(mealDetails) {
-        return mealDetails["receiptDTO"]["steps"].map(product => <li>{product["header"]}, {product["number"]}</li>)
+    prepareInstruction(mealDetails) {
+        return mealDetails["receiptDTO"]["steps"].map(step => <li>{step["header"]}, {step["number"]}</li>)
     }
 
     render() {
-        const {mealDetails = {products: [], receiptDTO: {}}, typeOfMeal} = this.props;
+        const {mealDetails = {products: [], receiptDTO: {steps: [] }}, typeOfMeal} = this.props;
         return (
             <React.Fragment>
                 <h2>{mealDetails["title"]}</h2>
@@ -37,14 +36,9 @@ class MealRecipe extends Component {
                 <div className={styles.Preparation}>
                     <h4>Sposób wykonania</h4>
                     <ol>
-                        <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, perferendis.</li>
-                        <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto aut autem culpa cumque
-                            doloribus, exercitationem molestias numquam reiciendis repellat vel.
-                        </li>
-                        <li>Lorem ipsum dolor sit amet, consectetur adipisicing.</li>
-                        <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At commodi ipsum quae temporibus
-                            tenetur totam ut!
-                        </li>
+                        {
+                            this.prepareInstruction(mealDetails)
+                        }
                     </ol>
                 </div>
             </React.Fragment>
