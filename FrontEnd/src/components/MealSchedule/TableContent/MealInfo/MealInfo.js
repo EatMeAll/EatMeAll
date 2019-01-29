@@ -16,11 +16,13 @@ class MealInfo extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({
-            mealName: nextProps.meal["title"],
-            mealId: nextProps.meal["idMeal"],
-            mealTime: nextProps.meal["mealTime"]
-        })
+        if (this.props.meal !== nextProps.meal) {
+            this.setState({
+                mealName: nextProps.meal["title"],
+                mealId: nextProps.meal["idMeal"],
+                mealTime: nextProps.meal["mealTime"]
+            })
+        }
     }
 
 
@@ -61,7 +63,7 @@ class MealInfo extends Component {
             <ListOfMeals
                 mealList={randomMealList}
                 setMealCallback={this.setMeal}
-           />
+            />
         )
     }
 
@@ -70,18 +72,19 @@ class MealInfo extends Component {
     }
 
     render() {
-
         return (
             <div className={styles.ChangeDiv}>
                 <div className={styles.MealInfo}>
                     <div className={styles.TypeOfMeal}>{this.props.mealType}</div>
                     <div className={styles.MealName}> {this.state.mealName}</div>
                     <div className={styles.HoverButtons}>
-                        <button className={styles.Button} onClick={this.showDetails}><i className="fas fa-book"
-                                                                                        title="przeczytaj przepis"/>
+                        <button className={styles.Button} onClick={this.showDetails}><i
+                            className="fas fa-book"
+                            title="przeczytaj przepis"/>
                         </button>
-                        <button className={styles.Button} onClick={this.randomizeMeal}><i className="fas fa-retweet"
-                                                                                          title="wylosuj inną potrawę"/>
+                        <button className={styles.Button} onClick={this.randomizeMeal}><i
+                            className="fas fa-retweet"
+                            title="wylosuj inną potrawę"/>
                         </button>
                         <button className={styles.Button} onClick={this.changeMealFromList}><i
                             className="fas fa-list-ul"

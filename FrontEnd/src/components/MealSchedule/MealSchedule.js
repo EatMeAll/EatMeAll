@@ -44,7 +44,8 @@ class MealSchedule extends Component {
                     <TableHeader callback={this.callToApiWeekSchedule}/>
                     <WeekDietPlanTable
                         meals={this.state.mealsFromApi}
-                        openModal={this.showModal}/>
+                        openModal={this.showModal}
+                        modalClosed={this.cancelHandler}/>
                 </div>
             </React.Fragment>
         );

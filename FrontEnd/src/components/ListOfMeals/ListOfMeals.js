@@ -5,7 +5,6 @@ import styles from './ListOfMeals.css';
 class ListOfMeals extends Component {
     changeMealName = (e) => {
         return this.props.setMealCallback(e.target.innerHTML, e.target.id)
-
     }
 
     prepareMealList(mealList) {
