@@ -65,8 +65,8 @@ class MealInfo extends Component {
         )
     }
 
-    setMeal(id,name) {
-        // this.setState(mealName: name)
+    setMeal = (mealName, id) => {
+        this.setState({mealName: mealName, mealId: id})
     }
 
     render() {

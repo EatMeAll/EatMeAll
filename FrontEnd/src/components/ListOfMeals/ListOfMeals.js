@@ -4,16 +4,17 @@ import styles from './ListOfMeals.css';
 
 class ListOfMeals extends Component {
     changeMealName = (e) => {
-        console.log(e.target)
-        // this.props.mealList.filter(meal => meal["title"] === e.target.title)[0]["id"];
-        // this.props.setMealCallback(id, name)
+        return this.props.setMealCallback(e.target.innerHTML, e.target.id)
+
     }
 
     prepareMealList(mealList) {
         console.log(mealList)
-        return mealList.map(meal => <li><button
-            className={styles.mealButton}
-            onClick={this.changeMealName} id={meal["id"]}>{meal["title"]}</button></li>)
+        return mealList.map(meal => <li>
+            <button
+                className={styles.mealButton}
+                onClick={this.changeMealName} id={meal["idMeal"]}>{meal["title"]}</button>
+        </li>)
     }
 
     render() {
