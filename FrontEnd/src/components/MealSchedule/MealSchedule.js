@@ -10,7 +10,7 @@ class MealSchedule extends Component {
     state = {
         mealsFromApi: [],
         showModal: false,
-        modalData: <MealRecipe />
+        modalData: <MealRecipe/>
     };
 
     callToApiWeekSchedule = () => {
@@ -23,17 +23,28 @@ class MealSchedule extends Component {
             });
     };
 
+    componentDidMount() {
+            if (!localStorage.getItem('mealsFromApi')){
+                console.log("dupa")
+            } else {
+                localStorage.getItem('mealsFromApi') && this.setState(this.state.mealsFromApi= JSON.parse(localStorage.getItem('mealsFromApi'))
+                )
+            }
+        }
+
+    componentWillUpdate(nextProps, nextState) {
+        localStorage.setItem('mealsFromApi', JSON.stringify(nextState.mealsFromApi))
+    }
+
 
     cancelHandler = () => {
         this.setState({showModal: false});
     };
 
-
     showModal = (modalData) => {
         this.setState({showModal: true, modalData: modalData});
 
     }
-
     render() {
         return (
             <React.Fragment>

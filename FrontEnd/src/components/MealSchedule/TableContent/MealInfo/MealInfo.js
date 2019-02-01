@@ -25,7 +25,6 @@ class MealInfo extends Component {
         }
     }
 
-
     showDetails = (e) => {
         fetch('http://eatmeall.pl:100/app/meals/' + this.state.mealId)
             .then((response) => response.json())
