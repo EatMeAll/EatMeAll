@@ -62,6 +62,7 @@ class MealInfo extends Component {
             <ListOfMeals
                 mealList={randomMealList}
                 setMealCallback={this.setMeal}
+                modalClosed={this.props.modalClosed}
             />
         )
     }

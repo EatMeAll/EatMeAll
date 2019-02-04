@@ -7,12 +7,16 @@ class ListOfMeals extends Component {
         return this.props.setMealCallback(e.target.innerHTML, e.target.id)
     }
 
+    clickHandler = (e) => {
+        this.changeMealName(e);
+        this.props.modalClosed(e);
+    }
+
     prepareMealList(mealList) {
-        console.log(mealList)
         return mealList.map(meal => <li>
             <button
                 className={styles.mealButton}
-                onClick={this.changeMealName} id={meal["idMeal"]}>{meal["title"]}</button>
+                onClick={this.clickHandler} id={meal["idMeal"]}>{meal["title"]}</button>
         </li>)
     }
 
