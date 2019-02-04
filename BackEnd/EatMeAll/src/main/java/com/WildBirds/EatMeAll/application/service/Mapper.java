@@ -18,6 +18,7 @@ public interface Mapper {
     List<Meal> toMeal(List<MealDTO> mealDTOList);
     List<MealDTO> toMealDTO(List<Meal> mealList);
     List<Meal> toMealFromHistory(List<Day> history);
+    List<Meal> toMealOnlyIdMeal(String[] idMeals);
 
     UserDTO toUserDTO(User user);
     User toUser(UserDTO userDTO);

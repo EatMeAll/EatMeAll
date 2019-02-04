@@ -69,4 +69,27 @@ public class ShoppingListController {
             return Response.status(Response.Status.NOT_FOUND).header("Error", "Not found").build();
         }
     }
+
+
+    @GET
+    @Produces({"application/json; charset=UTF-8"})
+    @Path("/id/{idList}")
+    public Response getProductListById(@PathParam("idList") String idList) {
+        String[] strings = idList.split(",");
+        System.out.println(">>>>>>>>>>> ID LIST" + idList);
+
+        List<Meal> mealList = mapper.toMealOnlyIdMeal(strings);
+
+        System.out.println(">>>>>>>>>>> ID MEAL LIST" + mealList);
+
+        List<MealHasProduct> mealHasProductList = repo.MEALHASPRODUCT().getProductsList(mealList);
+        System.out.println(">>>>>>>>>>> ID MEAL mealHasProductList" + mealHasProductList);
+
+        List<ProductUnitDTO> productUnitDTOList = mapper.toShoppingList(mealHasProductList);
+
+        return Response.status(Response.Status.OK)
+                .header("OK", "List of products by id " + idList)
+                .entity(productUnitDTOList).build();
+
+    }
 }

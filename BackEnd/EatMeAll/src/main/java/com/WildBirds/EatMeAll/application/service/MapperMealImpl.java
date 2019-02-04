@@ -146,6 +146,16 @@ public class MapperMealImpl implements Mapper {
     }
 
     @Override
+    public List<Meal> toMealOnlyIdMeal(String[] idMeals) {
+        List<Meal> result = new ArrayList<>();
+        for (String idMeal : idMeals) {
+            Meal meal = new Meal();
+            meal.setIdMeal(Integer.valueOf(idMeal));
+            result.add(meal);
+        }
+        return result;
+    }
+    @Override
     public MealUnitDTO toMealUnitDTO(Meal meal) {
 
         return new MealUnitDTO(meal.getIdMeal(),
