@@ -108,83 +108,80 @@ public class ExcelReaderApp {
         categories.put("morela suszona", ProductCategorie.OTHER);
         categories.put("musli z rodzynkami i orzechami", ProductCategorie.OTHER);
         categories.put("musztarda", ProductCategorie.OTHER);
-        mąka pszenna typ 1850
-        mąka pszenna typ 750
-        nasiona chia
-        nektarynka
-                ogórek
-        ogórek kiszony
-        ogórek kiszony/konserwowy
-        ogórek zielony
-        ogórki kiszone/konserwowe
-        olej lniany
-        olej rzepakowy
-        oliwa z oliwek
-        oliwki czarne
-        oliwę z oliwek
-        olowa z oliwek
-                oregano
-        orzechy włoskie
-        otreby przenne
-        papryka czerwona
-        papryka słodka
-        pasta pomidorowa
-        pasztet z kurczaka
-        pesto zielone z bazylii
-        pieczarki
-        pieczywo wasa
-        pierś z kurczaka
-        pietruszka liście
-        pietruszka natka
-        pomarańcza
-                pomidor
-        pomidory koktajlowe
-        pomidory krojone w soku pomidorowym
-        pomidory z puszki, krojone
-        por
-                pumpernikiel
-        płatki kukurydziane
-        płatki owsiane górskie
-        rodzynki suszone
-        rukola
-                ryż
-        ryż brązowy
-        rzodkiewka
-                sałata
-        schab bez kości
-        ser feta
-        ser mozzarella
-        ser twaróg chudy
-        ser żółty
-        serek naturalny do smarowania
-        serek wiejski
-        sok cytrynowy
-        sok jabłkowy
-        sok pomarańczowy
-        sok pomidorowy
-        sok z cytryny
-        sok z czarnej porzeczki
-        sos sojowy ciemny
-        surówka gotowa
-        suszone pomidory
-        szczypiorek
-                szpinak
-        szpinak mrożony
-        szynka
-        szynka z piersi kurczaka
-        słonecznik łuskany
-        tofu wędzone
-        tortilla pełnoziarnista
-        truskawki mrożone
-        tuńczyk w sosie własnym
-        twaróg chudy
-        wafle ryżowe
-        wafle ryżowe naturalne
-                woda
-        ziemniaki
-        zioła prowansaldzkie
-        zółty ser
-        żurawina suszona
+        categories.put("mąka pszenna typ 1850", ProductCategorie.GRAINS);
+        categories.put("mąka pszenna typ 750", ProductCategorie.GRAINS);
+        categories.put("nasiona chia", ProductCategorie.GRAINS);
+        categories.put("nektarynka", ProductCategorie.FRUIT);
+        categories.put("ogórek", ProductCategorie.VEGETABLE);
+        categories.put("ogórek kiszony", ProductCategorie.VEGETABLE);
+        categories.put("ogórek kiszony/konserwowy", ProductCategorie.VEGETABLE);
+        categories.put("ogórek zielony", ProductCategorie.VEGETABLE);
+        categories.put("olej lniany", ProductCategorie.OTHER);
+        categories.put("olej rzepakowy", ProductCategorie.OTHER);
+        categories.put("oliwa z oliwek", ProductCategorie.OTHER);
+        categories.put("oliwki czarne", ProductCategorie.VEGETABLE);
+        categories.put("oregano", ProductCategorie.SPICE);
+        categories.put("orzechy włoskie", ProductCategorie.GRAINS);
+        categories.put("otreby przenne", ProductCategorie.GRAINS);
+        categories.put("papryka czerwona", ProductCategorie.VEGETABLE);
+        categories.put("papryka słodka", ProductCategorie.VEGETABLE);
+        categories.put("pasta pomidorowa", ProductCategorie.SPICE);
+        categories.put("pasztet z kurczaka", ProductCategorie.OTHER);
+        categories.put("pesto zielone z bazylii", ProductCategorie.OTHER);
+        categories.put("pieczarki", ProductCategorie.VEGETABLE);
+        categories.put("pieczywo wasa", ProductCategorie.BAKING);
+        categories.put("pierś z kurczaka", ProductCategorie.MEAT);
+        categories.put("pietruszka liście", ProductCategorie.VEGETABLE);
+        categories.put("pietruszka natka", ProductCategorie.VEGETABLE);
+        categories.put("pomarańcza", ProductCategorie.FRUIT);
+        categories.put("pomidor", ProductCategorie.VEGETABLE);
+        categories.put("pomidory koktajlowe", ProductCategorie.VEGETABLE);
+        categories.put("pomidory krojone w soku pomidorowym", ProductCategorie.VEGETABLE);
+        categories.put("pomidory z puszki, krojone", ProductCategorie.VEGETABLE);
+        categories.put("por", ProductCategorie.VEGETABLE);
+        categories.put("pumpernikiel", ProductCategorie.BAKING);
+        categories.put("płatki kukurydziane", ProductCategorie.GRAINS);
+        categories.put("płatki owsiane górskie", ProductCategorie.GRAINS);
+        categories.put("rodzynki suszone", ProductCategorie.FRUIT);
+        categories.put("rukola", ProductCategorie.VEGETABLE);
+        categories.put("ryż", ProductCategorie.GRAINS);
+        categories.put("ryż brązowy", ProductCategorie.GRAINS);
+        categories.put("rzodkiewka", ProductCategorie.VEGETABLE);
+        categories.put("sałata", ProductCategorie.VEGETABLE);
+        categories.put("schab bez kości", ProductCategorie.MEAT);
+        categories.put("ser feta", ProductCategorie.DAIRY);
+        categories.put("ser mozzarella", ProductCategorie.DAIRY);
+        categories.put("ser twaróg chudy", ProductCategorie.DAIRY);
+        categories.put("ser żółty", ProductCategorie.DAIRY);
+        categories.put("serek naturalny do smarowania", ProductCategorie.DAIRY);
+        categories.put("serek wiejski",  ProductCategorie.DAIRY);
+        categories.put("sok cytrynowy", ProductCategorie.DRINK);
+        categories.put("sok jabłkowy", ProductCategorie.DRINK);
+        categories.put("sok pomarańczowy", ProductCategorie.DRINK);
+        categories.put("sok pomidorowy", ProductCategorie.DRINK);
+        categories.put("sok z cytryny", ProductCategorie.DRINK);
+        categories.put("sok z czarnej porzeczki", ProductCategorie.DRINK);
+        categories.put("sos sojowy ciemny", ProductCategorie.OTHER);
+        categories.put("surówka gotowa", ProductCategorie.VEGETABLE);
+        categories.put("suszone pomidory", ProductCategorie.VEGETABLE);
+        categories.put("szczypiorek", ProductCategorie.VEGETABLE);
+        categories.put("szpinak", ProductCategorie.VEGETABLE);
+        categories.put("szpinak mrożony", ProductCategorie.VEGETABLE);
+        categories.put("szynka", ProductCategorie.MEAT);
+        categories.put("szynka z piersi kurczaka", ProductCategorie.MEAT);
+        categories.put("słonecznik łuskany", ProductCategorie.GRAINS);
+        categories.put("tofu wędzone", ProductCategorie.OTHER);
+        categories.put("tortilla pełnoziarnista", ProductCategorie.BAKING);
+        categories.put("truskawki mrożone", ProductCategorie.FRUIT);
+        categories.put("tuńczyk w sosie własnym", ProductCategorie.FISH);
+        categories.put("twaróg chudy", ProductCategorie.DAIRY);
+        categories.put("wafle ryżowe", ProductCategorie.BAKING);
+        categories.put("wafle ryżowe naturalne", ProductCategorie.BAKING);
+        categories.put("woda", ProductCategorie.DRINK);
+        categories.put("ziemniaki", ProductCategorie.VEGETABLE);
+        categories.put("zioła prowansaldzkie", ProductCategorie.SPICE);
+        categories.put("zółty ser", ProductCategorie.DAIRY);
+        categories.put("żurawina suszona", ProductCategorie.OTHER);
     }
 
     public String getBasePath() {

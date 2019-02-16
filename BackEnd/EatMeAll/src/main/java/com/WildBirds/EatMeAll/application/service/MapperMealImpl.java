@@ -202,7 +202,7 @@ public class MapperMealImpl implements Mapper {
     @Override
     public Product toProduct(ProductDTO productDTO) {
 
-       Product product = repo.PRODUCT().insert(new Product(productDTO.getName(),productDTO.getUnit()));
+       Product product = repo.PRODUCT().insert(new Product(productDTO.getName(), productDTO.getUnit(), productDTO.getCategorie()));
         return product;
     }
 
