@@ -1,6 +1,7 @@
 package com.WildBirds.RepositoryJPA.domain.model;
 
 import com.WildBirds.RepositoryJPA.domain.model.baseEntity.BaseEntity;
+import com.WildBirds.RepositoryJPA.domain.model.enums.ProductCategorie;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -15,13 +16,23 @@ public class Product extends BaseEntity {
     private String name;
     @Column(nullable = false)
     private String unit;
+    private ProductCategorie categorie;
 
     public Product() {
     }
 
-    public Product(String name, String unit) {
+    public Product(String name, String unit, ProductCategorie categorie) {
         this.name = name;
         this.unit = unit;
+        this.categorie = categorie;
+    }
+
+    public ProductCategorie getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(ProductCategorie categorie) {
+        this.categorie = categorie;
     }
 
     public String getUnit() {
