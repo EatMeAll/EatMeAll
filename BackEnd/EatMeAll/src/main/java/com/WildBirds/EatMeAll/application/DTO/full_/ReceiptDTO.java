@@ -1,5 +1,6 @@
 package com.WildBirds.EatMeAll.application.DTO.full_;
 
+import java.util.List;
 import java.util.Set;
 
 public class ReceiptDTO {
@@ -8,7 +9,7 @@ public class ReceiptDTO {
     private String title;
     private String description;
     private Integer prepareTime;
-    private Set<StepDTO> steps;
+    private List<StepDTO> steps;
 
     public Integer getIdReceipt() {
         return idReceipt;
@@ -42,11 +43,11 @@ public class ReceiptDTO {
         this.prepareTime = prepareTime;
     }
 
-    public Set<StepDTO> getSteps() {
+    public List<StepDTO> getSteps() {
         return steps;
     }
 
-    public void setSteps(Set<StepDTO> steps) {
+    public void setSteps(List<StepDTO> steps) {
         this.steps = steps;
     }
 

@@ -11,6 +11,7 @@ import com.WildBirds.EatMeAll.application.service.exception.UserInvalidUpdate;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
 import com.WildBirds.RepositoryJPA.domain.model.*;
 import com.WildBirds.RepositoryJPA.domain.model.enums.MealTime;
+import com.WildBirds.RepositoryJPA.domain.model.enums.ProductCategory;
 
 import javax.ejb.EJB;
 import javax.ejb.Local;
@@ -55,8 +56,8 @@ public class MapperMealImpl implements Mapper {
         for (Meal meal : mealList) {
             meal = repo.MEAL().update(meal);
             try {
-                Set<StepDTO> stepDTOSet = new HashSet<>();
-                Set<Step> stepList = meal.getReceipt().getStepSet();
+                List<StepDTO> stepDTOList = new ArrayList<>();
+                List<Step> stepList = meal.getReceipt().getStepList();
 
                 for (Step step : stepList) {
                     StepDTO stepDTO = new StepDTO();
@@ -66,7 +67,7 @@ public class MapperMealImpl implements Mapper {
                     stepDTO.setHeader(step.getHeader());
                     stepDTO.setIdStep(step.getIdStep());
 
-                    stepDTOSet.add(stepDTO);
+                    stepDTOList.add(stepDTO);
 
                 }
 
@@ -75,7 +76,7 @@ public class MapperMealImpl implements Mapper {
                 receiptDTO.setPrepareTime(meal.getReceipt().getPrepareTime());
                 receiptDTO.setDescription(meal.getReceipt().getDescription());
                 receiptDTO.setIdReceipt(meal.getReceipt().getIdReceipt());
-                receiptDTO.setSteps(stepDTOSet);
+                receiptDTO.setSteps(stepDTOList);
 
                 Set<TypeMealDTO> typeMealDTOList = new HashSet<>();
 
@@ -226,7 +227,7 @@ public class MapperMealImpl implements Mapper {
 
             ProductUnitDTO currentProduct = toProductUnitDTO(mealHasProduct);
 
-            ProductUnitDTO foundProduct = productInCurrentList(shoppingList, currentProduct);
+            ProductUnitDTO foundProduct = this.productInCurrentList(shoppingList, currentProduct);
             if ( foundProduct != null){
                 double sum = foundProduct.getAmount() + currentProduct.getAmount();
                 shoppingList.remove(foundProduct);
@@ -236,6 +237,49 @@ public class MapperMealImpl implements Mapper {
             }else {
                 currentProduct.setSpecialUnit(null);
                 shoppingList.add(currentProduct);
+            }
+        }
+        return shoppingList;
+    }
+
+    @Override
+    public ShoppingListDTO toOrderShoppingList(List<MealHasProduct> mealHasProductList) {
+
+        List<ProductUnitDTO> productUnitDTOList = this.toShoppingList(mealHasProductList);
+        ShoppingListDTO shoppingList = new ShoppingListDTO();
+        for (ProductUnitDTO productUnitDTO : productUnitDTOList) {
+            if (productUnitDTO.getCategory().equals(ProductCategory.MEAT)){
+              shoppingList.getMeat().add(productUnitDTO);
+            }
+            else if (productUnitDTO.getCategory().equals(ProductCategory.VEGETABLE)){
+                shoppingList.getVegetable().add(productUnitDTO);
+            }
+            else if (productUnitDTO.getCategory().equals(ProductCategory.FRUIT)){
+                shoppingList.getFruit().add(productUnitDTO);
+            }
+            else if (productUnitDTO.getCategory().equals(ProductCategory.BAKING)){
+                shoppingList.getBaking().add(productUnitDTO);
+            }
+            else if (productUnitDTO.getCategory().equals(ProductCategory.GRAINS)){
+                shoppingList.getGrains().add(productUnitDTO);
+            }
+            else if (productUnitDTO.getCategory().equals(ProductCategory.DAIRY)){
+                shoppingList.getDairy().add(productUnitDTO);
+            }
+            else if (productUnitDTO.getCategory().equals(ProductCategory.DRINK)){
+                shoppingList.getDrink().add(productUnitDTO);
+            }
+            else if (productUnitDTO.getCategory().equals(ProductCategory.SPICE)){
+                shoppingList.getSpice().add(productUnitDTO);
+            }
+            else if (productUnitDTO.getCategory().equals(ProductCategory.FISH)){
+                shoppingList.getFish().add(productUnitDTO);
+            }
+            else if (productUnitDTO.getCategory().equals(ProductCategory.OTHER)){
+                shoppingList.getOther().add(productUnitDTO);
+            }
+            else if (productUnitDTO.getCategory().equals(ProductCategory.UNKNOWN)){
+                shoppingList.getUnknown().add(productUnitDTO);
             }
 
         }

@@ -3,9 +3,7 @@ package com.WildBirds.RepositoryJPA.domain.model;
 import com.WildBirds.RepositoryJPA.domain.model.baseEntity.BaseEntity;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Receipt extends BaseEntity {
@@ -18,7 +16,7 @@ public class Receipt extends BaseEntity {
     private Integer prepareTime;
 
     @OneToMany(mappedBy = "receipt", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<Step> stepSet = new HashSet<>();
+    private List<Step> stepSet = new ArrayList<>();
 
     @OneToOne(mappedBy = "receipt")
     private Meal meal;
@@ -27,7 +25,7 @@ public class Receipt extends BaseEntity {
     }
 
     public void addStep(Step step){
-        this.getStepSet().add(step);
+        this.getStepList().add(step);
         step.setReceipt(this);
     }
 
@@ -55,11 +53,11 @@ public class Receipt extends BaseEntity {
         this.description = description;
     }
 
-    public Set<Step> getStepSet() {
+    public List<Step> getStepList() {
         return stepSet;
     }
 
-    public void setStepSet(Set<Step> stepSet) {
+    public void setStepSet(List<Step> stepSet) {
         this.stepSet = stepSet;
     }
 

@@ -1,6 +1,7 @@
 package com.WildBirds.EatMeAll.application.controlers;
 
 
+import com.WildBirds.EatMeAll.application.DTO.full_.ShoppingListDTO;
 import com.WildBirds.EatMeAll.application.DTO.unit_.ProductUnitDTO;
 import com.WildBirds.EatMeAll.application.service.Mapper;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
@@ -91,5 +92,25 @@ public class ShoppingListController {
                 .header("OK", "List of products by id " + idList)
                 .entity(productUnitDTOList).build();
 
+    }
+
+    @GET
+    @Produces({"application/json; charset=UTF-8"})
+    @Path("/order/id/{idList}")
+    public Response getShoppingList(@PathParam("idList") String idList){
+        String[] strings = idList.split(",");
+        System.out.println(">>>>>>>>>>> ID LIST" + idList);
+
+        List<Meal> mealList = mapper.toMealOnlyIdMeal(strings);
+
+        System.out.println(">>>>>>>>>>> ID MEAL LIST" + mealList);
+
+        List<MealHasProduct> mealHasProductList = repo.MEALHASPRODUCT().getProductsList(mealList);
+        System.out.println(">>>>>>>>>>> ID MEAL mealHasProductList" + mealHasProductList);
+
+        ShoppingListDTO result = mapper.toOrderShoppingList(mealHasProductList);
+        return Response.status(Response.Status.OK)
+                .header("OK", "List of products by categories " + idList)
+                .entity(result).build();
     }
 }
