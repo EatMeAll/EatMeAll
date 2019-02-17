@@ -100,7 +100,7 @@ public class MapperMealImpl implements Mapper {
                     productUnitDTO.setSpecialUnit(mealHasProduct.getSpecialUnit());
                     productUnitDTO.setAmount(mealHasProduct.getAmount());
                     productUnitDTO.setUnit(mealHasProduct.getProduct().getUnit());
-
+                    productUnitDTO.setCategory(mealHasProduct.getProduct().getCategory());
                     productUnitDTOSet.add(productUnitDTO);
                 }
 
