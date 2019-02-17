@@ -195,6 +195,7 @@ public class MapperMealImpl implements Mapper {
         productDTO.setName(product.getName());
         productDTO.setIdProduct(product.getIdProduct());
         productDTO.setUnit(product.getUnit());
+        productDTO.setCategory(product.getCategory());
 
         return productDTO;
     }
@@ -202,7 +203,7 @@ public class MapperMealImpl implements Mapper {
     @Override
     public Product toProduct(ProductDTO productDTO) {
 
-       Product product = repo.PRODUCT().insert(new Product(productDTO.getName(), productDTO.getUnit(), productDTO.getCategorie()));
+       Product product = repo.PRODUCT().insert(new Product(productDTO.getName(), productDTO.getUnit(), productDTO.getCategory()));
         return product;
     }
 
@@ -212,7 +213,8 @@ public class MapperMealImpl implements Mapper {
                 mealHasProduct.getProduct().getName(),
                 mealHasProduct.getAmount(),
                 mealHasProduct.getProduct().getUnit(),
-                mealHasProduct.getSpecialUnit()
+                mealHasProduct.getSpecialUnit(),
+                mealHasProduct.getProduct().getCategory()
         );
         return productUnitDTO;
     }

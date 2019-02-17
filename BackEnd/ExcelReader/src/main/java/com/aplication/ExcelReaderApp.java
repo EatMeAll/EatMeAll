@@ -85,6 +85,7 @@ public class ExcelReaderApp {
         categories.put("kiwi", ProductCategory.FRUIT);
         categories.put("koncentrat pomidorowy", ProductCategory.OTHER);
         categories.put("kukurydza konserwowa", ProductCategory.OTHER);
+        categories.put("kuskus", ProductCategory.GRAINS);
         categories.put("majonez", ProductCategory.OTHER);
         categories.put("majonez light", ProductCategory.OTHER);
         categories.put("makaron pełnoziarnisty", ProductCategory.OTHER);
@@ -283,7 +284,7 @@ public class ExcelReaderApp {
 
                 Product product = repo.PRODUCT().getProductByName(productsExcelName);
                 if ( product == null){
-                    ProductCategory categorie = this.setCategorie(productsExcelName);
+                    ProductCategory categorie = this.setCategory(productsExcelName);
                     product = repo.PRODUCT().insert(new Product(productsExcelName, productsExcelUnit, categorie));
                 }
 
@@ -337,7 +338,7 @@ public class ExcelReaderApp {
     }
 
 
-    private ProductCategory setCategorie(String productsExcelName) {
+    private ProductCategory setCategory(String productsExcelName) {
         if (categories.get(productsExcelName) != null){
             return categories.get(productsExcelName);
         }else {

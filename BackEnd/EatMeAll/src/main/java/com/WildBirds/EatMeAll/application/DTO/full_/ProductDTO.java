@@ -7,17 +7,17 @@ public class ProductDTO {
     private Integer idProduct;
     private String name;
     private String unit;
-    private ProductCategory categorie;
+    private ProductCategory category;
 
     public ProductDTO() {
     }
 
-    public ProductCategory getCategorie() {
-        return categorie;
+    public ProductCategory getCategory() {
+        return category;
     }
 
-    public void setCategorie(ProductCategory categorie) {
-        this.categorie = categorie;
+    public void setCategory(ProductCategory category) {
+        this.category = category;
     }
 
     public String getUnit() {

@@ -15,6 +15,7 @@ public class Product extends BaseEntity {
     private String name;
     @Column(nullable = false)
     private String unit;
+    @Enumerated(EnumType.STRING)
     private ProductCategory category;
 
     public Product() {
