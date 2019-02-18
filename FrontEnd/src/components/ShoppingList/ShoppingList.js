@@ -6,15 +6,22 @@ class ShoppingList extends Component {
         let mealsFromLocalStorage = JSON.parse(window.localStorage.getItem('mealsFromApi'));
         super();
         this.state = {
-            mealId: [mealsFromLocalStorage.map(dayOfWeekPlan => dayOfWeekPlan["meals"][0]["idMeal"]),
-                mealsFromLocalStorage.map(dayOfWeekPlan => dayOfWeekPlan["meals"][1]["idMeal"]),
-                mealsFromLocalStorage.map(dayOfWeekPlan => dayOfWeekPlan["meals"][2]["idMeal"]),
-                mealsFromLocalStorage.map(dayOfWeekPlan => dayOfWeekPlan["meals"][3]["idMeal"]),
-                mealsFromLocalStorage.map(dayOfWeekPlan => dayOfWeekPlan["meals"][4]["idMeal"])
-            ],
+            mealId: [mealsFromLocalStorage.map(dayOfWeekPlan => dayOfWeekPlan["meals"].map(meal => meal["idMeal"]))]
         }
-        console.log(mealsFromLocalStorage)
-        console.log(this.state.mealId)
+        // console.log(mealsFromLocalStorage)
+        // // console.log(this.state.mealId)
+        //
+        // // czy jestem taka mądra jak mi się wydaje:
+        // let array = [];
+        // let i;
+        // let j;
+        // for (i = 0; i < 7; i++) {
+        //     for (j = 0; j < 5; j++) {
+        //         array += mealsFromLocalStorage[i]["meals"][j]["idMeal"] + ","
+        //     }
+        // }
+        //
+        // console.log(array)
     }
 
 

@@ -45,7 +45,7 @@ class MealInfo extends Component {
         fetch('http://eatmeall.pl:100/app/meals/short/mealTime?mealTime=' + this.state.mealTime + '&language=PL&amount=10')
             .then((response) => response.json())
             .then((myJson) => {
-                this.showMealsListPopup(myJson)
+                this.showMealsListPopup(myJson);
             });
     }
 
@@ -69,6 +69,14 @@ class MealInfo extends Component {
 
     setMeal = (mealName, id) => {
         this.setState({mealName: mealName, mealId: id})
+    }
+
+
+    componentWillUpdate(nextProps, nextState) {
+        if(this.state !== nextState) {
+            console.log(nextState);
+            localStorage.setItem('day', JSON.stringify(nextState.mealName))
+        }
     }
 
     render() {

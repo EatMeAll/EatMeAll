@@ -18,19 +18,17 @@ class MealSchedule extends Component {
             .then((response) => response.json())
             .then((myJson) => {
                 this.setState(this.state.mealsFromApi = myJson);
-                // this.setState({tuesdaySupper: (myJson[0]["meals"].filter(meal => meal["mealTime"] === "SUPPER")[0]["title"])});
-
             });
     };
 
     componentDidMount() {
-            if (!localStorage.getItem('mealsFromApi')){
-                console.log("dupa")
-            } else {
-                localStorage.getItem('mealsFromApi') && this.setState(this.state.mealsFromApi= JSON.parse(localStorage.getItem('mealsFromApi'))
-                )
-            }
+        if (!localStorage.getItem('mealsFromApi')) {
+            console.log("dupa")
+        } else {
+            localStorage.getItem('mealsFromApi') && this.setState(this.state.mealsFromApi = JSON.parse(localStorage.getItem('mealsFromApi'))
+            )
         }
+    }
 
     componentWillUpdate(nextProps, nextState) {
         localStorage.setItem('mealsFromApi', JSON.stringify(nextState.mealsFromApi))
@@ -45,6 +43,7 @@ class MealSchedule extends Component {
         this.setState({showModal: true, modalData: modalData});
 
     }
+
     render() {
         return (
             <React.Fragment>
