@@ -17,12 +17,13 @@ class MealInfo extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.meal !== nextProps.meal) {
+            if(nextProps.meal !== undefined){
             this.setState({
                 mealName: nextProps.meal["title"],
                 mealId: nextProps.meal["idMeal"],
                 mealTime: nextProps.meal["mealTime"]
             })
-        }
+        }}
     }
 
     showDetails = (e) => {
@@ -38,6 +39,7 @@ class MealInfo extends Component {
             .then((response) => response.json())
             .then((myJson) => {
                 this.setState({mealName: (myJson[0]["title"]), mealId: (myJson[0]["idMeal"])});
+                this.updateLocalStorage(myJson);
             });
     }
 
@@ -72,9 +74,19 @@ class MealInfo extends Component {
     }
 
 
+    updateLocalStorage(myJson) {
+        let ls =  JSON.parse(localStorage.getItem('mealsFromApi'));
+
+        let mealTimeNumber = 0;
+
+
+
+        ls[this.props.dayNumber]['meals'][mealTimeNumber]=myJson[0];
+        localStorage.setItem('mealsFromApi', JSON.stringify(ls));
+    }
+
     componentWillUpdate(nextProps, nextState) {
         if(this.state !== nextState) {
-            console.log(nextState);
             localStorage.setItem('day', JSON.stringify(nextState.mealName))
         }
     }
