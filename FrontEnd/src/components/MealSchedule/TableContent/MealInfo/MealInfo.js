@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import styles from './MealInfo.css';
 import MealRecipe from "../../../MealRecipe/MealRecipe";
 import ListOfMeals from "../../../ListOfMeals/ListOfMeals";
+import * as myConstClass from "../../../../fileWithConstants";
 
 
 class MealInfo extends Component {
@@ -17,17 +18,18 @@ class MealInfo extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.meal !== nextProps.meal) {
-            if(nextProps.meal !== undefined){
-            this.setState({
-                mealName: nextProps.meal["title"],
-                mealId: nextProps.meal["idMeal"],
-                mealTime: nextProps.meal["mealTime"]
-            })
-        }}
+            if (nextProps.meal !== undefined) {
+                this.setState({
+                    mealName: nextProps.meal["title"],
+                    mealId: nextProps.meal["idMeal"],
+                    mealTime: nextProps.meal["mealTime"]
+                })
+            }
+        }
     }
 
     showDetails = (e) => {
-        fetch('http://eatmeall.pl:100/app/meals/' + this.state.mealId)
+        fetch(myConstClass.showDetailUrl + this.state.mealId)
             .then((response) => response.json())
             .then((myJson) => {
                 this.showDetailsPopup(myJson[0]);
@@ -35,7 +37,7 @@ class MealInfo extends Component {
     }
 
     randomizeMeal = (e) => {
-        fetch('http://eatmeall.pl:100/app/meals/short/mealTime?mealTime=' + this.state.mealTime + '&language=PL&amount=1')
+        fetch(myConstClass.randomMealUrl + this.state.mealTime + '&language=PL&amount=1')
             .then((response) => response.json())
             .then((myJson) => {
                 this.setState({mealName: (myJson[0]["title"]), mealId: (myJson[0]["idMeal"])});
@@ -75,18 +77,17 @@ class MealInfo extends Component {
 
 
     updateLocalStorage(myJson) {
-        let ls =  JSON.parse(localStorage.getItem('mealsFromApi'));
+        let ls = JSON.parse(localStorage.getItem('mealsFromApi'));
 
         let mealTimeNumber = 0;
 
 
-
-        ls[this.props.dayNumber]['meals'][mealTimeNumber]=myJson[0];
+        ls[this.props.dayNumber]['meals'][mealTimeNumber] = myJson[0];
         localStorage.setItem('mealsFromApi', JSON.stringify(ls));
     }
 
     componentWillUpdate(nextProps, nextState) {
-        if(this.state !== nextState) {
+        if (this.state !== nextState) {
             localStorage.setItem('day', JSON.stringify(nextState.mealName))
         }
     }
