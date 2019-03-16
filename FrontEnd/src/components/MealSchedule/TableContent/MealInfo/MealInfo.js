@@ -61,6 +61,10 @@ class MealInfo extends Component {
 
     pasteActionHandler = () => {
         const objectToPaste = JSON.parse(localStorage.getItem('currentCopiedMeal'));
+        if(objectToPaste['mealTime'] !== this.state.mealTime){
+            alert("Nieodpowiedni typ posiłku. Nie możesz wkleić " + objectToPaste['mealTime'] + ' do ' + this.state.mealTime +'.');
+            return;
+        }
         this.setState({
             mealName: objectToPaste["title"],
             mealId: objectToPaste["idMeal"],
