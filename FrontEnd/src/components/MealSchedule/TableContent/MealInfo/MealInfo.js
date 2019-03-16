@@ -35,16 +35,17 @@ class MealInfo extends Component {
             .then((myJson) => {
                 this.showDetailsPopup(myJson[0]);
             });
-    }
+    };
 
     randomizeMeal = (e) => {
         fetch(myConstClass.RANDOM_MEAL_URL + this.state.mealTime + '&language=PL&amount=1')
             .then((response) => response.json())
             .then((myJson) => {
-                this.setState({mealName: (myJson[0]["title"]), mealId: (myJson[0]["idMeal"])});
-                this.updateLocalStorage(myJson);
+                const meal = myJson[0]
+                this.setState({mealName: (meal["title"]), mealId: (meal["idMeal"])});
+                this.updateLocalStorage(meal);
             });
-    }
+    };
 
     changeMealFromList = (e) => {
         fetch('http://eatmeall.pl:100/app/meals/short/mealTime?mealTime=' + this.state.mealTime + '&language=PL&amount=10')
@@ -52,7 +53,21 @@ class MealInfo extends Component {
             .then((myJson) => {
                 this.showMealsListPopup(myJson);
             });
-    }
+    };
+
+    copyActionHandler = () => {
+        localStorage.setItem('currentCopiedMeal', JSON.stringify({idMeal: this.state.mealId, mealTime: this.state.mealTime, title: this.state.mealName }));
+    };
+
+    pasteActionHandler = () => {
+        const objectToPaste = JSON.parse(localStorage.getItem('currentCopiedMeal'));
+        this.setState({
+            mealName: objectToPaste["title"],
+            mealId: objectToPaste["idMeal"],
+            mealTime: objectToPaste["mealTime"]
+        });
+        this.updateLocalStorage(objectToPaste);
+    };
 
     showDetailsPopup(selectedMealJson) {
         this.props.openModal(
@@ -74,14 +89,14 @@ class MealInfo extends Component {
 
     setMeal = (mealName, id) => {
         this.setState({mealName: mealName, mealId: id})
-    }
+    };
 
 
-    updateLocalStorage(myJson) {
+    updateLocalStorage(meal) {
         let ls = JSON.parse(localStorage.getItem('mealsFromApi'));
         const mapper = new MealTimeMapper();
-        const mealTimeNuber = mapper.stringToNumber(myJson[0]["mealTime"]);
-        ls[this.props.dayNumber]['meals'][mealTimeNuber] = myJson[0];
+        const mealTimeNuber = mapper.stringToNumber(meal["mealTime"]);
+        ls[this.props.dayNumber]['meals'][mealTimeNuber] = meal;
         localStorage.setItem('mealsFromApi', JSON.stringify(ls));
     }
 
@@ -109,8 +124,8 @@ class MealInfo extends Component {
                         <button className={styles.Button} onClick={this.changeMealFromList}><i
                             className="fas fa-list-ul"
                             title="wybierz inną potrawę z listy"/></button>
-                        <button className={styles.Button}><i className="far fa-copy" title="kopiuj"/></button>
-                        <button className={styles.Button}><i className="fas fa-paste" title="wklej"/></button>
+                        <button className={styles.Button} onClick={this.copyActionHandler}><i className="far fa-copy" title="kopiuj"/></button>
+                        <button className={styles.Button} onClick={this.pasteActionHandler}><i className="fas fa-paste" title="wklej"/></button>
                     </div>
                 </div>
             </div>
