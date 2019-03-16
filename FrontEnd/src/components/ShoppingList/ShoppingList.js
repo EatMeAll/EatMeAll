@@ -15,7 +15,7 @@ class ShoppingList extends Component {
 
 
     componentDidMount() {
-        fetch(myConstClass.shoppingListUrl + this.state.mealId)
+        fetch(myConstClass.SHOPPING_LIST_URL + this.state.mealId)
             .then((response) => response.json())
             .then((myJson) => {
                 this.setState({products: myJson});

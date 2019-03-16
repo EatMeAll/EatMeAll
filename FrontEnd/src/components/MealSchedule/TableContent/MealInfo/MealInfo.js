@@ -4,6 +4,7 @@ import styles from './MealInfo.css';
 import MealRecipe from "../../../MealRecipe/MealRecipe";
 import ListOfMeals from "../../../ListOfMeals/ListOfMeals";
 import * as myConstClass from "../../../../fileWithConstants";
+import MealTimeMapper from "./MealTimeMapper";
 
 
 class MealInfo extends Component {
@@ -29,7 +30,7 @@ class MealInfo extends Component {
     }
 
     showDetails = (e) => {
-        fetch(myConstClass.showDetailUrl + this.state.mealId)
+        fetch(myConstClass.SHOW_DETAIL_URL + this.state.mealId)
             .then((response) => response.json())
             .then((myJson) => {
                 this.showDetailsPopup(myJson[0]);
@@ -37,7 +38,7 @@ class MealInfo extends Component {
     }
 
     randomizeMeal = (e) => {
-        fetch(myConstClass.randomMealUrl + this.state.mealTime + '&language=PL&amount=1')
+        fetch(myConstClass.RANDOM_MEAL_URL + this.state.mealTime + '&language=PL&amount=1')
             .then((response) => response.json())
             .then((myJson) => {
                 this.setState({mealName: (myJson[0]["title"]), mealId: (myJson[0]["idMeal"])});
@@ -78,11 +79,9 @@ class MealInfo extends Component {
 
     updateLocalStorage(myJson) {
         let ls = JSON.parse(localStorage.getItem('mealsFromApi'));
-
-        let mealTimeNumber = 0;
-
-
-        ls[this.props.dayNumber]['meals'][mealTimeNumber] = myJson[0];
+        const mapper = new MealTimeMapper();
+        const mealTimeNuber = mapper.stringToNumber(myJson[0]["mealTime"]);
+        ls[this.props.dayNumber]['meals'][mealTimeNuber] = myJson[0];
         localStorage.setItem('mealsFromApi', JSON.stringify(ls));
     }
 
@@ -110,7 +109,7 @@ class MealInfo extends Component {
                         <button className={styles.Button} onClick={this.changeMealFromList}><i
                             className="fas fa-list-ul"
                             title="wybierz inną potrawę z listy"/></button>
-                        <button className={styles.Button}><i className="far fa-copy" title="kopjuj"/></button>
+                        <button className={styles.Button}><i className="far fa-copy" title="kopiuj"/></button>
                         <button className={styles.Button}><i className="fas fa-paste" title="wklej"/></button>
                     </div>
                 </div>

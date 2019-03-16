@@ -5,6 +5,7 @@ import TableHeader from './TableHeader/TableHeader';
 import WeekDietPlanTable from './TableContent/WeekDietPlanTable';
 import Modal from "../UI/Modal/Modal";
 import MealRecipe from "../MealRecipe/MealRecipe";
+import MealInfoData from "../../data/MealInfoData";
 
 class MealSchedule extends Component {
     state = {
@@ -31,7 +32,8 @@ class MealSchedule extends Component {
     }
 
     componentWillUpdate(nextProps, nextState) {
-        localStorage.setItem('mealsFromApi', JSON.stringify(nextState.mealsFromApi))
+        // const lesserObject = nextState.mealsFromApi.map(day => day["meals"].map( meal => new MealInfoData(meal["idMeal"], meal["title"], meal["mealTime"]) ));
+        localStorage.setItem('mealsFromApi', JSON.stringify(nextState.mealsFromApi));
     }
 
 

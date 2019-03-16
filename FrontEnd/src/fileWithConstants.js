@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-export const basicUrl = 'http://eatmeall.pl:100/app/';
-export const shoppingListUrl = basicUrl+'shoppingList/order/id/';
-export const showDetailUrl = basicUrl+ 'meals/';
-export const randomMealUrl = basicUrl+ 'meals/short/mealTime?mealTime=';
+export const BASIC_URL = 'http://eatmeall.pl:100/app/';
+export const SHOPPING_LIST_URL = BASIC_URL+'shoppingList/order/id/';
+export const SHOW_DETAIL_URL = BASIC_URL+ 'meals/';
+export const RANDOM_MEAL_URL = BASIC_URL+ 'meals/short/mealTime?mealTime=';
