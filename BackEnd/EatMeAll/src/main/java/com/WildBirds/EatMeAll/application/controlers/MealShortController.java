@@ -22,6 +22,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Path("meals/short")
 public class MealShortController {
@@ -79,11 +80,20 @@ public class MealShortController {
 
 
                     List<Meal> mealsByTypeMeal = repo.MEAL().getMealsByTypeMeal(mealTime, language, amount, isPublic, productsList);
-                    List<MealDTO> mealDTOList = mapper.toMealDTO(mealsByTypeMeal);
+//                    List<MealDTO> mealDTOList = mapper.toMealDTO(mealsByTypeMeal);
 
+                    List<MealUnitDTO> mealUnitDTOS =
+                            mealsByTypeMeal
+                                    .stream()
+                                    .map(meal -> mapper.toMealUnitDTO(meal))
+                                    .map(mealUnitDTO -> {
+                                        mealUnitDTO.setMealTime(mealTime);
+                                        return mealUnitDTO;
+                                    })
+                                    .collect(Collectors.toList());
                     return Response.status(Response.Status.OK)
                             .header("OK", "List meals order by mealTime, language and amount")
-                            .entity(mealDTOList)
+                            .entity(mealUnitDTOS)
                             .build();
                 })
                 .when("mealTime", "language", "amount", "isPublic").execute((map) -> {
@@ -103,11 +113,22 @@ public class MealShortController {
 
 
                     List<Meal> mealsByTypeMeal = repo.MEAL().getMealsByTypeMeal(mealTime, language, amount, isPublic);
-                    List<MealDTO> mealDTOList = mapper.toMealDTO(mealsByTypeMeal);
+//                    List<MealDTO> mealDTOList = mapper.toMealDTO(mealsByTypeMeal);
+
+                    List<MealUnitDTO> mealUnitDTOS =
+                            mealsByTypeMeal
+                                    .stream()
+                                    .map(meal -> mapper.toMealUnitDTO(meal))
+                                    .map(mealUnitDTO -> {
+                                        mealUnitDTO.setMealTime(mealTime);
+                                        return mealUnitDTO;
+                                    })
+                                    .collect(Collectors.toList());
+
 
                     return Response.status(Response.Status.OK)
                             .header("OK", "List meals order by mealTime, language and amount")
-                            .entity(mealDTOList)
+                            .entity(mealUnitDTOS)
                             .build();
                 })
                 .when("mealTime", "language", "amount").execute((map) -> {
@@ -124,16 +145,26 @@ public class MealShortController {
 
                     List<Meal> mealsByTypeMeal = repo.MEAL().getMealsByTypeMeal(mealTime, language, amount);
 
-                    List<MealShortDTO> mealShortDTOList = new ArrayList<>();
-                    for (Meal meal : mealsByTypeMeal) {
+//                    List<MealShortDTO> mealShortDTOList = new ArrayList<>();
+//                    for (Meal meal : mealsByTypeMeal) {
+//
+//                        MealShortDTO mealShortDTO = mapper.toMealShortDTO(meal);
+//                        mealShortDTOList.add(mealShortDTO);
+//                    }
 
-                        MealShortDTO mealShortDTO = mapper.toMealShortDTO(meal);
-                        mealShortDTOList.add(mealShortDTO);
-                    }
+                    List<MealUnitDTO> mealUnitDTOS =
+                            mealsByTypeMeal
+                                    .stream()
+                                    .map(meal -> mapper.toMealUnitDTO(meal))
+                                    .map(mealUnitDTO -> {
+                                        mealUnitDTO.setMealTime(mealTime);
+                                        return mealUnitDTO;
+                                    })
+                                    .collect(Collectors.toList());
 
                     return Response.status(Response.Status.OK)
                             .header("OK", "List meals SHORT order by mealTime, language and amount")
-                            .entity(mealShortDTOList)
+                            .entity(mealUnitDTOS)
                             .build();
                 })
                 .when("mealTime", "language").execute((map) -> {
@@ -145,11 +176,20 @@ public class MealShortController {
                     Language language = Language.valueOf(languageMap);
 
                     List<Meal> mealsByTypeMeal = repo.MEAL().getMealsByTypeMeal(mealTime, language);
-                    List<MealDTO> mealDTOList = mapper.toMealDTO(mealsByTypeMeal);
+//                    List<MealDTO> mealDTOList = mapper.toMealDTO(mealsByTypeMeal);
 
+                    List<MealUnitDTO> mealUnitDTOS =
+                            mealsByTypeMeal
+                                    .stream()
+                                    .map(meal -> mapper.toMealUnitDTO(meal))
+                                    .map(mealUnitDTO -> {
+                                        mealUnitDTO.setMealTime(mealTime);
+                                        return mealUnitDTO;
+                                    })
+                                    .collect(Collectors.toList());
                     return Response.status(Response.Status.OK)
                             .header("OK", "List meals order by MealTime and Language")
-                            .entity(mealDTOList).build();
+                            .entity(mealUnitDTOS).build();
                 })
                 .when("mealTime").execute((map) -> {
 
@@ -159,10 +199,20 @@ public class MealShortController {
 
                     List<Meal> mealsByTypeMeal = repo.MEAL().getMealsByTypeMeal(mealTime);
 
-                    List<MealDTO> mealDTOList = mapper.toMealDTO(mealsByTypeMeal);
+//                    List<MealDTO> mealDTOList = mapper.toMealDTO(mealsByTypeMeal);
+
+                    List<MealUnitDTO> mealUnitDTOS =
+                            mealsByTypeMeal
+                                    .stream()
+                                    .map(meal -> mapper.toMealUnitDTO(meal))
+                                    .map(mealUnitDTO -> {
+                                        mealUnitDTO.setMealTime(mealTime);
+                                        return mealUnitDTO;
+                                    })
+                                    .collect(Collectors.toList());
 
                     return Response.status(Response.Status.OK)
-                            .header("OK", "List meals short order by MealTime").entity(mealDTOList).build();
+                            .header("OK", "List meals short order by MealTime").entity(mealUnitDTOS).build();
 
                 }).ultimately(map -> {
                     return Response.status(Response.Status.NOT_FOUND).header("Error", "NOT FOUND").build();

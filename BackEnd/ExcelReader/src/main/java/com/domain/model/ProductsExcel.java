@@ -6,8 +6,17 @@ public class ProductsExcel {
     private Double amount;
     private String unit;
     private String specialUnit;
+    private String categorie;
 
     public ProductsExcel() {
+    }
+
+    public String getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(String categorie) {
+        this.categorie = categorie;
     }
 
     public String getName() {

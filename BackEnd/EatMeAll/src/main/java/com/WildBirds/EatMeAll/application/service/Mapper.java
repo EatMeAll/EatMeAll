@@ -1,9 +1,6 @@
 package com.WildBirds.EatMeAll.application.service;
 
-import com.WildBirds.EatMeAll.application.DTO.full_.DayDTO;
-import com.WildBirds.EatMeAll.application.DTO.full_.MealDTO;
-import com.WildBirds.EatMeAll.application.DTO.full_.ProductDTO;
-import com.WildBirds.EatMeAll.application.DTO.full_.UserDTO;
+import com.WildBirds.EatMeAll.application.DTO.full_.*;
 import com.WildBirds.EatMeAll.application.DTO.new_.UserNewDTO;
 import com.WildBirds.EatMeAll.application.DTO.short_.MealShortDTO;
 import com.WildBirds.EatMeAll.application.DTO.unit_.MealUnitDTO;
@@ -18,6 +15,7 @@ public interface Mapper {
     List<Meal> toMeal(List<MealDTO> mealDTOList);
     List<MealDTO> toMealDTO(List<Meal> mealList);
     List<Meal> toMealFromHistory(List<Day> history);
+    List<Meal> toMealOnlyIdMeal(String[] idMeals);
 
     UserDTO toUserDTO(User user);
     User toUser(UserDTO userDTO);
@@ -32,6 +30,8 @@ public interface Mapper {
 
     ProductUnitDTO toProductUnitDTO(MealHasProduct mealHasProduct);
     List<ProductUnitDTO> toShoppingList(List<MealHasProduct> mealHasProductList);
+
+    ShoppingListDTO toOrderShoppingList(List<MealHasProduct> mealHasProductList);
 
     DayDTO toDayDTO(Day day);
     List<DayDTO> toDayDTO(List<Day> dayList);
