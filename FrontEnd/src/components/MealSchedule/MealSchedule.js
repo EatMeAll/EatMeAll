@@ -5,7 +5,6 @@ import TableHeader from './TableHeader/TableHeader';
 import WeekDietPlanTable from './TableContent/WeekDietPlanTable';
 import Modal from "../UI/Modal/Modal";
 import MealRecipe from "../MealRecipe/MealRecipe";
-import MealInfoData from "../../data/MealInfoData";
 
 class MealSchedule extends Component {
     state = {
@@ -24,7 +23,6 @@ class MealSchedule extends Component {
 
     componentDidMount() {
         if (!localStorage.getItem('mealsFromApi')) {
-            console.log("dupa")
         } else {
             localStorage.getItem('mealsFromApi') && this.setState(this.state.mealsFromApi = JSON.parse(localStorage.getItem('mealsFromApi'))
             )

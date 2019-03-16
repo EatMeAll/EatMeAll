@@ -9,17 +9,18 @@ class ShoppingList extends Component {
         super();
         this.state = {
             products: {baking: [], dairy: [], drink: [],meat: [],fish: [], fruit: [], vegetable: [], grains: [], spice: [], other: []},
-            mealId: [mealsFromLocalStorage.map(dayOfWeekPlan => dayOfWeekPlan["meals"].map(meal => meal["idMeal"]))]
+            mealIds: [mealsFromLocalStorage.map(dayOfWeekPlan => dayOfWeekPlan["meals"].map(meal => meal["idMeal"]))]
         }
     }
 
 
     componentDidMount() {
-        fetch(myConstClass.SHOPPING_LIST_URL + this.state.mealId)
+        console.log(this.state.mealIds);
+        console.log(myConstClass.SHOPPING_LIST_URL + this.state.mealIds);
+        fetch(myConstClass.SHOPPING_LIST_URL + this.state.mealIds)
             .then((response) => response.json())
             .then((myJson) => {
                 this.setState({products: myJson});
-                console.log(myJson)
             });
     }
 
