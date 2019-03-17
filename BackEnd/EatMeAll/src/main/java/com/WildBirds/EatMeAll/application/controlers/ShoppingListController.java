@@ -20,10 +20,7 @@ import javax.ws.rs.core.UriInfo;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Path("shoppingList")
 public class ShoppingListController {
@@ -100,18 +97,15 @@ public class ShoppingListController {
     @Produces({"application/json; charset=UTF-8"})
     @Path("/order/id/{idList}")
     public Response getShoppingList(@PathParam("idList") String idList){
-        System.out.println(">>>>>>>>>>> ID BEFORE SPLIT" + idList);
+
         String[] strings = idList.split(",");
 
         List<Integer> integerList = this.getList(strings);
 
 
-        System.out.println(">>>>>>>>>>> ID MEAL LIST" + integerList);
-
         List<MealHasProduct> mealHasProductList = repo.MEALHASPRODUCT().getProductsById(integerList);
-        System.out.println(">>>>>>>>>>> ID MEAL mealHasProductList" + mealHasProductList);
 
-        ShoppingListDTO result = mapper.toOrderShoppingList(mealHasProductList);
+        ShoppingListDTO result = mapper.toOrderShoppingList(this.addDuplicates(mealHasProductList,integerList));
         return Response.status(Response.Status.OK)
                 .header("OK", "List of products by categories " + idList)
                 .entity(result).build();
@@ -126,4 +120,19 @@ public class ShoppingListController {
         }
         return result;
     }
+
+    private List<MealHasProduct> addDuplicates(List<MealHasProduct> mealHasProductList, List<Integer> idList){
+        List<MealHasProduct> result = new ArrayList<>();
+
+        for (Integer integer : idList) {
+            for (MealHasProduct mealHasProduct : mealHasProductList) {
+                if(mealHasProduct.getMeal().getIdMeal().equals(integer)){
+                    result.add(mealHasProduct);
+                }
+            }
+
+        }
+        return result;
+    }
+
 }
