@@ -10,16 +10,14 @@ import com.WildBirds.RepositoryJPA.domain.model.Meal;
 import com.WildBirds.RepositoryJPA.domain.model.MealHasProduct;
 
 import javax.ejb.EJB;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -57,7 +55,6 @@ public class ShoppingListController {
 
             List<ProductUnitDTO> productUnitDTOList = mapper.toShoppingList(mealHasProductList);
 
-
             return Response.status(Response.Status.OK)
                     .header("OK", "Set of products from "
                             + fromDateString + " to " + toDateString)
@@ -71,7 +68,7 @@ public class ShoppingListController {
         }
     }
 
-
+    // TODO: 3/17/2019 method deprecated
     @GET
     @Produces({"application/json; charset=UTF-8"})
     @Path("/id/{idList}")
@@ -91,26 +88,35 @@ public class ShoppingListController {
         return Response.status(Response.Status.OK)
                 .header("OK", "List of products by id " + idList)
                 .entity(productUnitDTOList).build();
-
     }
 
     @GET
     @Produces({"application/json; charset=UTF-8"})
     @Path("/order/id/{idList}")
-    public Response getShoppingList(@PathParam("idList") String idList){
+    public Response getShoppingList(@PathParam("idList") String idList, @QueryParam("multi") String multi) {
+
         String[] strings = idList.split(",");
-        System.out.println(">>>>>>>>>>> ID LIST" + idList);
+        List<Integer> integerList = this.getList(strings);
+        List<MealHasProduct> mealHasProductList = repo.MEALHASPRODUCT().getProductsById(integerList);
 
-        List<Meal> mealList = mapper.toMealOnlyIdMeal(strings);
-
-        System.out.println(">>>>>>>>>>> ID MEAL LIST" + mealList);
-
-        List<MealHasProduct> mealHasProductList = repo.MEALHASPRODUCT().getProductsList(mealList);
-        System.out.println(">>>>>>>>>>> ID MEAL mealHasProductList" + mealHasProductList);
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> MULTIPLY BY   " + multi);
 
         ShoppingListDTO result = mapper.toOrderShoppingList(mealHasProductList);
+        if (multi != null) {
+            result = mapper.multiByValue(result,Double.valueOf(multi));
+        }
+
         return Response.status(Response.Status.OK)
                 .header("OK", "List of products by categories " + idList)
                 .entity(result).build();
+    }
+
+    private List<Integer> getList(String[] stringTable){
+        List<Integer> result = new ArrayList<>();
+
+        for (String s : stringTable) {
+            result.add(Integer.valueOf(s));
+        }
+        return result;
     }
 }

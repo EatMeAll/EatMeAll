@@ -41,4 +41,6 @@ public interface Mapper {
     List<Day> toDay(List<DayDTO> dayDTOList, Integer idUser);
 
     User toUserUpdate(UserUpdateDTO userUpdateDTO);
+
+    ShoppingListDTO multiByValue(ShoppingListDTO result, Double multi);
 }
