@@ -297,6 +297,56 @@ public class MapperMealImpl implements Mapper {
     }
 
 
+    @Override
+    public ShoppingListDTO multiByValue(ShoppingListDTO shoppingListDTO, Double multi) {
+
+        for (ProductUnitDTO productUnitDTO : shoppingListDTO.getUnknown()) {
+            Double amount = productUnitDTO.getAmount();
+            productUnitDTO.setAmount(amount*multi);
+        }
+        for (ProductUnitDTO productUnitDTO : shoppingListDTO.getOther()) {
+            Double amount = productUnitDTO.getAmount();
+            productUnitDTO.setAmount(amount*multi);
+        }
+        for (ProductUnitDTO productUnitDTO : shoppingListDTO.getFish()) {
+            Double amount = productUnitDTO.getAmount();
+            productUnitDTO.setAmount(amount*multi);
+        }
+        for (ProductUnitDTO productUnitDTO : shoppingListDTO.getSpice()) {
+            Double amount = productUnitDTO.getAmount();
+            productUnitDTO.setAmount(amount*multi);
+        }
+        for (ProductUnitDTO productUnitDTO : shoppingListDTO.getDrink()) {
+            Double amount = productUnitDTO.getAmount();
+            productUnitDTO.setAmount(amount*multi);
+        }
+        for (ProductUnitDTO productUnitDTO : shoppingListDTO.getDairy()) {
+            Double amount = productUnitDTO.getAmount();
+            productUnitDTO.setAmount(amount*multi);
+        }
+        for (ProductUnitDTO productUnitDTO : shoppingListDTO.getGrains()) {
+            Double amount = productUnitDTO.getAmount();
+            productUnitDTO.setAmount(amount*multi);
+        }
+        for (ProductUnitDTO productUnitDTO : shoppingListDTO.getMeat()) {
+            Double amount = productUnitDTO.getAmount();
+            productUnitDTO.setAmount(amount*multi);
+        }
+        for (ProductUnitDTO productUnitDTO : shoppingListDTO.getFruit()) {
+            Double amount = productUnitDTO.getAmount();
+            productUnitDTO.setAmount(amount*multi);
+        }
+        for (ProductUnitDTO productUnitDTO : shoppingListDTO.getVegetable()) {
+            Double amount = productUnitDTO.getAmount();
+            productUnitDTO.setAmount(amount*multi);
+        }
+        for (ProductUnitDTO productUnitDTO : shoppingListDTO.getBaking()) {
+            Double amount = productUnitDTO.getAmount();
+            productUnitDTO.setAmount(amount*multi);
+        }
+        return shoppingListDTO;
+    }
+
 
     @Override
     public User toUser(UserDTO userDTO) {
