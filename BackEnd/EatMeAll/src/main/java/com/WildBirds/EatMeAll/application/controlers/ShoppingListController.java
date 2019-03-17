@@ -105,12 +105,11 @@ public class ShoppingListController {
 
         List<MealHasProduct> mealHasProductList = repo.MEALHASPRODUCT().getProductsById(integerList);
 
-        ShoppingListDTO result = mapper.toOrderShoppingList(this.addDuplicates(mealHasProductList,integerList));
+        ShoppingListDTO result = mapper.toOrderShoppingList(mealHasProductList);
         return Response.status(Response.Status.OK)
                 .header("OK", "List of products by categories " + idList)
                 .entity(result).build();
     }
-
 
     private List<Integer> getList(String[] stringTable){
         List<Integer> result = new ArrayList<>();
@@ -120,19 +119,4 @@ public class ShoppingListController {
         }
         return result;
     }
-
-    private List<MealHasProduct> addDuplicates(List<MealHasProduct> mealHasProductList, List<Integer> idList){
-        List<MealHasProduct> result = new ArrayList<>();
-
-        for (Integer integer : idList) {
-            for (MealHasProduct mealHasProduct : mealHasProductList) {
-                if(mealHasProduct.getMeal().getIdMeal().equals(integer)){
-                    result.add(mealHasProduct);
-                }
-            }
-
-        }
-        return result;
-    }
-
 }

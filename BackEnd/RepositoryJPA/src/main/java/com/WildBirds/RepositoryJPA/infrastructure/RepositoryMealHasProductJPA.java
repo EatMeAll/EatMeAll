@@ -49,9 +49,24 @@ public class RepositoryMealHasProductJPA extends CrudEntityJpa<MealHasProduct> i
                 "JOIN FETCH mealHasProduct.product " +
                 "WHERE mealHasProduct.meal.idMeal in (:idMeals)";
 
-        return this.entityManager.createQuery(query, MealHasProduct.class)
+        List<MealHasProduct> mealHasProducts = this.entityManager.createQuery(query, MealHasProduct.class)
                 .setParameter("idMeals", idList)
                 .getResultList();
 
+        return this.addDuplicates(mealHasProducts, idList);
+    }
+
+    private List<MealHasProduct> addDuplicates(List<MealHasProduct> mealHasProductList, List<Integer> idList){
+        List<MealHasProduct> result = new ArrayList<>();
+
+        for (Integer integer : idList) {
+            for (MealHasProduct mealHasProduct : mealHasProductList) {
+                if(mealHasProduct.getMeal().getIdMeal().equals(integer)){
+                    result.add(mealHasProduct);
+                }
+            }
+
+        }
+        return result;
     }
 }
