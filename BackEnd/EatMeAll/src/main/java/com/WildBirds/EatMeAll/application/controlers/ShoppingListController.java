@@ -20,6 +20,8 @@ import javax.ws.rs.core.UriInfo;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -98,14 +100,13 @@ public class ShoppingListController {
     @Produces({"application/json; charset=UTF-8"})
     @Path("/order/id/{idList}")
     public Response getShoppingList(@PathParam("idList") String idList){
+        System.out.println(">>>>>>>>>>> ID BEFORE SPLIT" + idList);
         String[] strings = idList.split(",");
-        System.out.println(">>>>>>>>>>> ID LIST" + idList);
 
-        List<Meal> mealList = mapper.toMealOnlyIdMeal(strings);
+        List<String> list = Arrays.asList(strings);
+        System.out.println(">>>>>>>>>>> ID MEAL LIST" + list);
 
-        System.out.println(">>>>>>>>>>> ID MEAL LIST" + mealList);
-
-        List<MealHasProduct> mealHasProductList = repo.MEALHASPRODUCT().getProductsList(mealList);
+        List<MealHasProduct> mealHasProductList = repo.MEALHASPRODUCT().getProductsById(list);
         System.out.println(">>>>>>>>>>> ID MEAL mealHasProductList" + mealHasProductList);
 
         ShoppingListDTO result = mapper.toOrderShoppingList(mealHasProductList);

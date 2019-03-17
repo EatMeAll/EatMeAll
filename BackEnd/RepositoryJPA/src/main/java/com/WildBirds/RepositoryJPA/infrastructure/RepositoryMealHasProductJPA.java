@@ -11,6 +11,8 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -38,5 +40,25 @@ public class RepositoryMealHasProductJPA extends CrudEntityJpa<MealHasProduct> i
         return this.entityManager.createQuery(query, MealHasProduct.class)
                 .setParameter("idMeals", mealList)
                 .getResultList();
+    }
+
+    @Override
+    public List<MealHasProduct> getProductsById(List<String> stringList) {
+
+        List<Integer> idList = new ArrayList<>();
+        for (String s : stringList) {
+            idList.add(Integer.valueOf(s));
+        }
+
+
+        String query="SELECT mealHasProduct FROM MealHasProduct mealHasProduct " +
+                "JOIN FETCH mealHasProduct.product " +
+                "WHERE mealHasProduct.meal.idMeal in (:idMeals)";
+
+
+        return this.entityManager.createQuery(query, MealHasProduct.class)
+                .setParameter("idMeals", idList)
+                .getResultList();
+
     }
 }
