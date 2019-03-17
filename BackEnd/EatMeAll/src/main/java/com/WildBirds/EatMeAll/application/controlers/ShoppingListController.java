@@ -103,15 +103,27 @@ public class ShoppingListController {
         System.out.println(">>>>>>>>>>> ID BEFORE SPLIT" + idList);
         String[] strings = idList.split(",");
 
-        List<String> list = Arrays.asList(strings);
-        System.out.println(">>>>>>>>>>> ID MEAL LIST" + list);
+        List<Integer> integerList = this.getList(strings);
 
-        List<MealHasProduct> mealHasProductList = repo.MEALHASPRODUCT().getProductsById(list);
+
+        System.out.println(">>>>>>>>>>> ID MEAL LIST" + integerList);
+
+        List<MealHasProduct> mealHasProductList = repo.MEALHASPRODUCT().getProductsById(integerList);
         System.out.println(">>>>>>>>>>> ID MEAL mealHasProductList" + mealHasProductList);
 
         ShoppingListDTO result = mapper.toOrderShoppingList(mealHasProductList);
         return Response.status(Response.Status.OK)
                 .header("OK", "List of products by categories " + idList)
                 .entity(result).build();
+    }
+
+
+    private List<Integer> getList(String[] stringTable){
+        List<Integer> result = new ArrayList<>();
+
+        for (String s : stringTable) {
+            result.add(Integer.valueOf(s));
+        }
+        return result;
     }
 }

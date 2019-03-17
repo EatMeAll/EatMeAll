@@ -13,6 +13,6 @@ public interface RepositoryMealHasProduct extends CrudEntity<MealHasProduct> {
 
     List<MealHasProduct> getProductsList(List<Meal> mealList);
 
-    List<MealHasProduct> getProductsById(List<String> idList);
+    List<MealHasProduct> getProductsById(List<Integer> idList);
 
 }

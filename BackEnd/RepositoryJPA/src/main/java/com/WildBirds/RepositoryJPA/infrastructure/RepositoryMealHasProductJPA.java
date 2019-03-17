@@ -43,18 +43,11 @@ public class RepositoryMealHasProductJPA extends CrudEntityJpa<MealHasProduct> i
     }
 
     @Override
-    public List<MealHasProduct> getProductsById(List<String> stringList) {
-
-        List<Integer> idList = new ArrayList<>();
-        for (String s : stringList) {
-            idList.add(Integer.valueOf(s));
-        }
-
+    public List<MealHasProduct> getProductsById(List<Integer> idList) {
 
         String query="SELECT mealHasProduct FROM MealHasProduct mealHasProduct " +
                 "JOIN FETCH mealHasProduct.product " +
                 "WHERE mealHasProduct.meal.idMeal in (:idMeals)";
-
 
         return this.entityManager.createQuery(query, MealHasProduct.class)
                 .setParameter("idMeals", idList)
