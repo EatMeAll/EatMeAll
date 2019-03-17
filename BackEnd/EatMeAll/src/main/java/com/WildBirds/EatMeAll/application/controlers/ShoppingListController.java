@@ -68,7 +68,7 @@ public class ShoppingListController {
         }
     }
 
-
+    // TODO: 3/17/2019 method deprecated
     @GET
     @Produces({"application/json; charset=UTF-8"})
     @Path("/id/{idList}")
