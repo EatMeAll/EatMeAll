@@ -1,12 +1,23 @@
 package com.WildBirds.EatMeAll.application.DTO.full_;
 
+import com.WildBirds.RepositoryJPA.domain.model.enums.ProductCategory;
+
 public class ProductDTO {
 
     private Integer idProduct;
     private String name;
     private String unit;
+    private ProductCategory category;
 
     public ProductDTO() {
+    }
+
+    public ProductCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(ProductCategory category) {
+        this.category = category;
     }
 
     public String getUnit() {

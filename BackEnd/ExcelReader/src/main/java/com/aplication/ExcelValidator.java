@@ -8,12 +8,12 @@ import com.infrastructure.XmlReader;
 
 import java.io.IOException;
 
-public class App {
+public class ExcelValidator {
 
     public static void main(String[] args)  {
         try {
             ExcelReader excelReader = new XmlReader();
-            String filePath = ".\\ExcelReader\\src\\main\\data\\jadlospis2.xlsx";
+            String filePath = "D:\\PROGRAMOWANIE\\etmeall2\\EatMeAll\\Docker\\excel\\jadlospis2.xlsx";
             excelReader.read(filePath);
 
 

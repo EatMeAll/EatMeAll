@@ -11,6 +11,7 @@ import com.WildBirds.EatMeAll.application.service.exception.UserInvalidUpdate;
 import com.WildBirds.RepositoryJPA.application.RepositoryFacade;
 import com.WildBirds.RepositoryJPA.domain.model.*;
 import com.WildBirds.RepositoryJPA.domain.model.enums.MealTime;
+import com.WildBirds.RepositoryJPA.domain.model.enums.ProductCategory;
 
 import javax.ejb.EJB;
 import javax.ejb.Local;
@@ -55,8 +56,8 @@ public class MapperMealImpl implements Mapper {
         for (Meal meal : mealList) {
             meal = repo.MEAL().update(meal);
             try {
-                Set<StepDTO> stepDTOSet = new HashSet<>();
-                Set<Step> stepList = meal.getReceipt().getStepSet();
+                List<StepDTO> stepDTOList = new ArrayList<>();
+                List<Step> stepList = meal.getReceipt().getStepList();
 
                 for (Step step : stepList) {
                     StepDTO stepDTO = new StepDTO();
@@ -66,7 +67,7 @@ public class MapperMealImpl implements Mapper {
                     stepDTO.setHeader(step.getHeader());
                     stepDTO.setIdStep(step.getIdStep());
 
-                    stepDTOSet.add(stepDTO);
+                    stepDTOList.add(stepDTO);
 
                 }
 
@@ -75,7 +76,7 @@ public class MapperMealImpl implements Mapper {
                 receiptDTO.setPrepareTime(meal.getReceipt().getPrepareTime());
                 receiptDTO.setDescription(meal.getReceipt().getDescription());
                 receiptDTO.setIdReceipt(meal.getReceipt().getIdReceipt());
-                receiptDTO.setSteps(stepDTOSet);
+                receiptDTO.setSteps(stepDTOList);
 
                 Set<TypeMealDTO> typeMealDTOList = new HashSet<>();
 
@@ -100,7 +101,7 @@ public class MapperMealImpl implements Mapper {
                     productUnitDTO.setSpecialUnit(mealHasProduct.getSpecialUnit());
                     productUnitDTO.setAmount(mealHasProduct.getAmount());
                     productUnitDTO.setUnit(mealHasProduct.getProduct().getUnit());
-
+                    productUnitDTO.setCategory(mealHasProduct.getProduct().getCategory());
                     productUnitDTOSet.add(productUnitDTO);
                 }
 
@@ -146,6 +147,16 @@ public class MapperMealImpl implements Mapper {
     }
 
     @Override
+    public List<Meal> toMealOnlyIdMeal(String[] idMeals) {
+        List<Meal> result = new ArrayList<>();
+        for (String idMeal : idMeals) {
+            Meal meal = new Meal();
+            meal.setIdMeal(Integer.valueOf(idMeal));
+            result.add(meal);
+        }
+        return result;
+    }
+    @Override
     public MealUnitDTO toMealUnitDTO(Meal meal) {
 
         return new MealUnitDTO(meal.getIdMeal(),
@@ -185,6 +196,7 @@ public class MapperMealImpl implements Mapper {
         productDTO.setName(product.getName());
         productDTO.setIdProduct(product.getIdProduct());
         productDTO.setUnit(product.getUnit());
+        productDTO.setCategory(product.getCategory());
 
         return productDTO;
     }
@@ -192,7 +204,7 @@ public class MapperMealImpl implements Mapper {
     @Override
     public Product toProduct(ProductDTO productDTO) {
 
-       Product product = repo.PRODUCT().insert(new Product(productDTO.getName(),productDTO.getUnit()));
+       Product product = repo.PRODUCT().insert(new Product(productDTO.getName(), productDTO.getUnit(), productDTO.getCategory()));
         return product;
     }
 
@@ -202,7 +214,8 @@ public class MapperMealImpl implements Mapper {
                 mealHasProduct.getProduct().getName(),
                 mealHasProduct.getAmount(),
                 mealHasProduct.getProduct().getUnit(),
-                mealHasProduct.getSpecialUnit()
+                mealHasProduct.getSpecialUnit(),
+                mealHasProduct.getProduct().getCategory()
         );
         return productUnitDTO;
     }
@@ -214,7 +227,7 @@ public class MapperMealImpl implements Mapper {
 
             ProductUnitDTO currentProduct = toProductUnitDTO(mealHasProduct);
 
-            ProductUnitDTO foundProduct = productInCurrentList(shoppingList, currentProduct);
+            ProductUnitDTO foundProduct = this.productInCurrentList(shoppingList, currentProduct);
             if ( foundProduct != null){
                 double sum = foundProduct.getAmount() + currentProduct.getAmount();
                 shoppingList.remove(foundProduct);
@@ -224,6 +237,49 @@ public class MapperMealImpl implements Mapper {
             }else {
                 currentProduct.setSpecialUnit(null);
                 shoppingList.add(currentProduct);
+            }
+        }
+        return shoppingList;
+    }
+
+    @Override
+    public ShoppingListDTO toOrderShoppingList(List<MealHasProduct> mealHasProductList) {
+
+        List<ProductUnitDTO> productUnitDTOList = this.toShoppingList(mealHasProductList);
+        ShoppingListDTO shoppingList = new ShoppingListDTO();
+        for (ProductUnitDTO productUnitDTO : productUnitDTOList) {
+            if (productUnitDTO.getCategory().equals(ProductCategory.MEAT)){
+              shoppingList.getMeat().add(productUnitDTO);
+            }
+            else if (productUnitDTO.getCategory().equals(ProductCategory.VEGETABLE)){
+                shoppingList.getVegetable().add(productUnitDTO);
+            }
+            else if (productUnitDTO.getCategory().equals(ProductCategory.FRUIT)){
+                shoppingList.getFruit().add(productUnitDTO);
+            }
+            else if (productUnitDTO.getCategory().equals(ProductCategory.BAKING)){
+                shoppingList.getBaking().add(productUnitDTO);
+            }
+            else if (productUnitDTO.getCategory().equals(ProductCategory.GRAINS)){
+                shoppingList.getGrains().add(productUnitDTO);
+            }
+            else if (productUnitDTO.getCategory().equals(ProductCategory.DAIRY)){
+                shoppingList.getDairy().add(productUnitDTO);
+            }
+            else if (productUnitDTO.getCategory().equals(ProductCategory.DRINK)){
+                shoppingList.getDrink().add(productUnitDTO);
+            }
+            else if (productUnitDTO.getCategory().equals(ProductCategory.SPICE)){
+                shoppingList.getSpice().add(productUnitDTO);
+            }
+            else if (productUnitDTO.getCategory().equals(ProductCategory.FISH)){
+                shoppingList.getFish().add(productUnitDTO);
+            }
+            else if (productUnitDTO.getCategory().equals(ProductCategory.OTHER)){
+                shoppingList.getOther().add(productUnitDTO);
+            }
+            else if (productUnitDTO.getCategory().equals(ProductCategory.UNKNOWN)){
+                shoppingList.getUnknown().add(productUnitDTO);
             }
 
         }
@@ -240,6 +296,56 @@ public class MapperMealImpl implements Mapper {
         return null;
     }
 
+
+    @Override
+    public ShoppingListDTO multiByValue(ShoppingListDTO shoppingListDTO, Double multi) {
+
+        for (ProductUnitDTO productUnitDTO : shoppingListDTO.getUnknown()) {
+            Double amount = productUnitDTO.getAmount();
+            productUnitDTO.setAmount(amount*multi);
+        }
+        for (ProductUnitDTO productUnitDTO : shoppingListDTO.getOther()) {
+            Double amount = productUnitDTO.getAmount();
+            productUnitDTO.setAmount(amount*multi);
+        }
+        for (ProductUnitDTO productUnitDTO : shoppingListDTO.getFish()) {
+            Double amount = productUnitDTO.getAmount();
+            productUnitDTO.setAmount(amount*multi);
+        }
+        for (ProductUnitDTO productUnitDTO : shoppingListDTO.getSpice()) {
+            Double amount = productUnitDTO.getAmount();
+            productUnitDTO.setAmount(amount*multi);
+        }
+        for (ProductUnitDTO productUnitDTO : shoppingListDTO.getDrink()) {
+            Double amount = productUnitDTO.getAmount();
+            productUnitDTO.setAmount(amount*multi);
+        }
+        for (ProductUnitDTO productUnitDTO : shoppingListDTO.getDairy()) {
+            Double amount = productUnitDTO.getAmount();
+            productUnitDTO.setAmount(amount*multi);
+        }
+        for (ProductUnitDTO productUnitDTO : shoppingListDTO.getGrains()) {
+            Double amount = productUnitDTO.getAmount();
+            productUnitDTO.setAmount(amount*multi);
+        }
+        for (ProductUnitDTO productUnitDTO : shoppingListDTO.getMeat()) {
+            Double amount = productUnitDTO.getAmount();
+            productUnitDTO.setAmount(amount*multi);
+        }
+        for (ProductUnitDTO productUnitDTO : shoppingListDTO.getFruit()) {
+            Double amount = productUnitDTO.getAmount();
+            productUnitDTO.setAmount(amount*multi);
+        }
+        for (ProductUnitDTO productUnitDTO : shoppingListDTO.getVegetable()) {
+            Double amount = productUnitDTO.getAmount();
+            productUnitDTO.setAmount(amount*multi);
+        }
+        for (ProductUnitDTO productUnitDTO : shoppingListDTO.getBaking()) {
+            Double amount = productUnitDTO.getAmount();
+            productUnitDTO.setAmount(amount*multi);
+        }
+        return shoppingListDTO;
+    }
 
 
     @Override
@@ -336,7 +442,7 @@ public class MapperMealImpl implements Mapper {
     @Override
     public Day toDay(DayDTO dayDTO, Integer idUser) {
 
-        Set<MealUnitDTO> mealUnitDTOSet = dayDTO.getMeals();
+        List<MealUnitDTO> mealUnitDTOSet = dayDTO.getMeals();
         Instant dateDTO = dayDTO.getDate();
 
         User user = repo.USER().get(idUser);

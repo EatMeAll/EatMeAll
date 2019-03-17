@@ -52,9 +52,11 @@
                 <configuration>
                     <!--Local-->
                     <hostname>127.0.0.1</hostname>
+                    <!--Docker-->
+                    <!--<hostname>192.168.99.100</hostname>-->
                     <port>9990</port>
-                    <username>root</username>
-                    <password>root</password>
+                    <username>backend</username>
+                    <password>backend</password>
                     <filename>${project.build.finalName}.ear</filename>
                 </configuration>
                 <executions>

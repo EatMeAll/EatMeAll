@@ -8,6 +8,11 @@ class TableHeader extends Component {
         this.props.callback();
     };
 
+
+    saveWeekToDatabase() {
+
+    }
+
     render() {
         return (
             <div className={styles.TableHeader}>
@@ -15,6 +20,10 @@ class TableHeader extends Component {
                 <div className={styles.Buttons}>
                     <Button onClick={this.generateWeeklyMealsHandler}>
                         Wygeneruj posiłki
+                    </Button>
+                    <Button onClick={this.saveWeekToDatabase}>
+                        <i className="far fa-save"></i>
+                        Zapisz tydzień
                     </Button>
                     <Button>
                         <i className="far fa-calendar" />

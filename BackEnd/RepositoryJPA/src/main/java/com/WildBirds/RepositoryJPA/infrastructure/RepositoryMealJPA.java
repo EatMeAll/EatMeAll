@@ -30,19 +30,67 @@ public class RepositoryMealJPA extends CrudEntityJpa<Meal> implements Repository
 
     @Override
     public List<Meal> getMealsByTypeMeal(MealTime mealTime, Language language, Integer amount, Boolean isPublic, List<String> listProducts) {
-            return null;
+
+        String query = "SELECT * FROM Meal " +
+                "inner join MealHasTypeMeal " +
+                "ON Meal.idMeal = MealHasTypeMeal.idMeal " +
+                "inner join TypeMeal " +
+                "ON MealHasTypeMeal.idTypeMeal = TypeMeal.idTypeMeal " +
+                "inner join MealHasProduct " +
+                "ON MealHasProduct.idMeal = Meal.idMeal " +
+                "inner join Product " +
+                "ON Product.idProduct = MealHasProduct.idProduct " +
+                "WHERE TypeMeal.mealTime = ?1 " +
+                "AND Meal.language = ?2 " +
+                "AND Meal.isPublic = ?3 " +
+                "AND Product.name in ?4 " +
+                "ORDER BY rand() LIMIT ?5";
+
+        return this.entityManager.createNativeQuery(query,Meal.class)
+                .setParameter(1, mealTime.name())
+                .setParameter(2, language.name())
+                .setParameter(3, isPublic)
+                .setParameter(4, listProducts)
+                .setParameter(5, amount)
+                .getResultList();
     }
 
     @Override
     public List<Meal> getMealsByTypeMeal(MealTime mealTime, Language language, Integer amount, Boolean isPublic) {
-        return null;
+        String query = "SELECT * FROM Meal " +
+                "inner join MealHasTypeMeal " +
+                "ON Meal.idMeal = MealHasTypeMeal.idMeal " +
+                "inner join TypeMeal " +
+                "ON MealHasTypeMeal.idTypeMeal = TypeMeal.idTypeMeal " +
+                "inner join MealHasProduct " +
+                "ON MealHasProduct.idMeal = Meal.idMeal " +
+                "inner join Product " +
+                "ON Product.idProduct = MealHasProduct.idProduct " +
+                "WHERE TypeMeal.mealTime = ?1 " +
+                "AND Meal.language = ?2 " +
+                "AND Meal.isPublic = ?3 " +
+                "ORDER BY rand() LIMIT ?4";
+
+        return this.entityManager.createNativeQuery(query,Meal.class)
+                .setParameter(1, mealTime.name())
+                .setParameter(2, language.name())
+                .setParameter(3, isPublic)
+                .setParameter(4, amount)
+                .getResultList();
     }
 
     @Override
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Meal> getMealsByTypeMeal(MealTime mealTime, Language language, Integer amount) {
 
-        String query = "SELECT * FROM Meal inner join MealHasTypeMeal ON Meal.idMeal = MealHasTypeMeal.idMeal inner join TypeMeal ON MealHasTypeMeal.idTypeMeal = TypeMeal.idTypeMeal WHERE TypeMeal.mealTime = ?1 AND Meal.language = ?2 ORDER BY rand() LIMIT ?3";
+        String query = "SELECT * FROM Meal " +
+                "inner join MealHasTypeMeal " +
+                "ON Meal.idMeal = MealHasTypeMeal.idMeal " +
+                "inner join TypeMeal " +
+                "ON MealHasTypeMeal.idTypeMeal = TypeMeal.idTypeMeal " +
+                "WHERE TypeMeal.mealTime = ?1 " +
+                "AND Meal.language = ?2 " +
+                "ORDER BY rand() LIMIT ?3";
         return this.entityManager.createNativeQuery(query,Meal.class)
                 .setParameter(1, mealTime.name())
                 .setParameter(2, language.name())

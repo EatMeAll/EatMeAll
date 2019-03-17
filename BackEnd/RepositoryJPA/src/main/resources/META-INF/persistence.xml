@@ -7,7 +7,7 @@
 <persistence-unit name="persistence-jpa" transaction-type="JTA">
 
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
-    <jta-data-source>java:jboss/datasources/eatmealltest</jta-data-source>
+    <jta-data-source>java:jboss/datasources/eatmeall</jta-data-source>
 
     <class>com.WildBirds.RepositoryJPA.domain.model.Day</class>
     <class>com.WildBirds.RepositoryJPA.domain.model.Meal</class>
@@ -27,8 +27,10 @@
         <property name="hibernate.archive.autodetection" value="class, hbm"/>
 
         <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
+        <!--<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />-->
         <!--<property name="hibernate.hbm2ddl.auto" value="create-drop"/>-->
         <property name="hibernate.hbm2ddl.auto" value="update"/>
+        <!--<property name="hibernate.enable_lazy_load_no_trans" value="true" />-->
     </properties>
 </persistence-unit>
 
