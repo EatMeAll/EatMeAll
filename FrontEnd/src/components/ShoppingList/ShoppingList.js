@@ -25,7 +25,12 @@ class ShoppingList extends Component {
 
     generateShoppingList = () => {
         let mealsFromLocalStorage = JSON.parse(window.localStorage.getItem('mealsFromApi'));
-        this.setState({mealIds: mealsFromLocalStorage.map(dayOfWeekPlan => dayOfWeekPlan["meals"].map(meal => meal["idMeal"]))},
+        const selectedDays = [];
+        selectedDays.push(mealsFromLocalStorage[0]);
+        selectedDays.push(mealsFromLocalStorage[1]);
+        
+
+        this.setState({mealIds: selectedDays.map(dayOfWeekPlan => dayOfWeekPlan["meals"].map(meal => meal["idMeal"]))},
             () => {
                 fetch(myConstClass.SHOPPING_LIST_URL + this.state.mealIds)
                     .then((response) => response.json())
