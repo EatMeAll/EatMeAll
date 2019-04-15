@@ -6,7 +6,6 @@ import ShoppingListHeader from "./ShoppingListHeader/ShoppingListHeader";
 
 class ShoppingList extends Component {
     constructor() {
-        let mealsFromLocalStorage = JSON.parse(window.localStorage.getItem('mealsFromApi'));
         super();
         this.state = {
             products: {
@@ -21,18 +20,21 @@ class ShoppingList extends Component {
                 spice: [],
                 other: []
             },
-            mealIds: [mealsFromLocalStorage.map(dayOfWeekPlan => dayOfWeekPlan["meals"].map(meal => meal["idMeal"]))]
         }
     }
 
-
     generateShoppingList = () => {
-        fetch(myConstClass.SHOPPING_LIST_URL + this.state.mealIds)
-            .then((response) => response.json())
-            .then((myJson) => {
-                this.setState({products: myJson});
-            });
-    }
+        let mealsFromLocalStorage = JSON.parse(window.localStorage.getItem('mealsFromApi'));
+        this.setState({mealIds: mealsFromLocalStorage.map(dayOfWeekPlan => dayOfWeekPlan["meals"].map(meal => meal["idMeal"]))},
+            () => {
+                fetch(myConstClass.SHOPPING_LIST_URL + this.state.mealIds)
+                    .then((response) => response.json())
+                    .then((myJson) => {
+                        this.setState({products: myJson});
+                    });
+            }
+        );
+    };
 
     render() {
         return (
@@ -56,8 +58,6 @@ class ShoppingList extends Component {
             </div>
         )
     }
-
-
 }
 
 export default ShoppingList;
