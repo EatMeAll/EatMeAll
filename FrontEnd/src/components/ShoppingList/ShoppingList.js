@@ -21,15 +21,25 @@ class ShoppingList extends Component {
                 other: []
             },
         }
+        this.selectedDays = [];
+        this.setDays = this.setDays.bind(this);
     }
+
+    setDays(aSelectedDays) {
+        if (aSelectedDays !== undefined) {
+            this.selectedDays = [];
+            aSelectedDays.forEach(day => {
+                if (day.isChecked) {
+                    this.selectedDays.push(day.id)
+                }
+            });
+        }
+    };
 
     generateShoppingList = () => {
         let mealsFromLocalStorage = JSON.parse(window.localStorage.getItem('mealsFromApi'));
         const selectedDays = [];
-        selectedDays.push(mealsFromLocalStorage[0]);
-        selectedDays.push(mealsFromLocalStorage[1]);
-        
-
+        this.selectedDays.forEach(dayId => selectedDays.push(mealsFromLocalStorage[dayId]))
         this.setState({mealIds: selectedDays.map(dayOfWeekPlan => dayOfWeekPlan["meals"].map(meal => meal["idMeal"]))},
             () => {
                 fetch(myConstClass.SHOPPING_LIST_URL + this.state.mealIds)
@@ -45,7 +55,9 @@ class ShoppingList extends Component {
         return (
             <div>
                 <div>
-                    <ShoppingListHeader generateShoppingListFunction={this.generateShoppingList}></ShoppingListHeader>
+                    <ShoppingListHeader generateShoppingListFunction={this.generateShoppingList}
+                                        notifyParent={this.setDays}>
+                    </ShoppingListHeader>
                 </div>
                 <div className={styles.About}>
                     <h1>Lista zakupów</h1>
