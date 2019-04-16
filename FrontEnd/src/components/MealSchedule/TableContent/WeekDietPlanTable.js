@@ -48,7 +48,7 @@ class WeekDietPlanTable extends Component {
                         <DayMealsPlan date={moment().weekday(5)} dayNumber={4} dayPlan={this.props.meals[4]} openModal ={this.showModal} modalClosed={this.cancelHandler}/>
                         <DayMealsPlan date={moment().weekday(6)} dayNumber={5} dayPlan={this.props.meals[5]} openModal ={this.showModal} modalClosed={this.cancelHandler}/>
                         <DayMealsPlan date={moment().weekday(7)} dayNumber={6} dayPlan={this.props.meals[6]} openModal ={this.showModal} modalClosed={this.cancelHandler}/>
-                    </React.Fragment>this.
+                    </React.Fragment>
                 </div>
             </React.Fragment>
 
