@@ -26,7 +26,6 @@ class MealSchedule extends Component {
     };
 
     componentDidMount() {
-        console.log("did mount");
         this.loadScheduleFromLocalStore(this.props)
     }
 
@@ -43,14 +42,12 @@ class MealSchedule extends Component {
 
     saveSchedoleToLocalStore() {
         localStorage.setItem(this.props.match.params.userName, JSON.stringify(this.state.mealsFromApi));
-        console.log("save: " + this.props.match.params.userName);
     }
 
     loadScheduleFromLocalStore(props) {
         const schedule = JSON.parse(localStorage.getItem(props.match.params.userName));
         const toLoad = schedule !== null ? schedule : [];
         this.setState({mealsFromApi: toLoad});
-        console.log("load: " + props.match.params.userName);
     }
 
     render() {
