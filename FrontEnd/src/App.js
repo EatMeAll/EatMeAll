@@ -25,8 +25,8 @@ class App extends Component {
             <div className={styles.Container}>
                 <Layout>
                     <Switch>
-                        {this.state.auth ? <Route path="/home" component={AsyncHome}/> : <Route path="/home" component={AsyncCarousel}/>}
-                        <Redirect from="/" exact to='/home'/>
+                        {this.state.auth ? <Route path="/home/:userName" component={AsyncHome}/> : <Route path="/home/:userName" component={AsyncCarousel}/>}
+                        <Redirect from="/" exact to='/home/id'/>
                         <Route path="/about" component={AboutUs}/>
                         <Route path="/shopping-list" component={ShoppingList}/>
                         <Route render={() => <h1>Sorry but our devs still working on this page, see You soon! </h1>}/>

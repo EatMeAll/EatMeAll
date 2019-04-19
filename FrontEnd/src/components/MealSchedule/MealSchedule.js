@@ -3,12 +3,18 @@ import React, {Component} from 'react';
 import styles from './MealSchedule.css';
 import TableHeader from './TableHeader/TableHeader';
 import WeekDietPlanTable from './TableContent/WeekDietPlanTable';
-import * as ReactDOM from "react-dom";
+import NavigationItem from "../Navigation/NavigationItems/NavigationItem/NavigationItem";
+import stylesForNav from '../Navigation/NavigationItems/NavigationItems.css'
 
 class MealSchedule extends Component {
-    state = {
-        mealsFromApi: [],
-    };
+
+    constructor() {
+        super();
+        this.state = {
+            mealsFromApi: [],
+        };
+        this.users = ['Dianka', 'pSZemcio']
+    }
 
     callToApiWeekSchedule = () => {
         fetch('http://eatmeall.pl:100/app/schedule')
@@ -50,15 +56,13 @@ class MealSchedule extends Component {
                 <div className={styles.Header}>
                     <TableHeader callback={this.callToApiWeekSchedule}/>
                     <div className={styles.tab}>
-                        <button id="user1B" className={styles.tablink} value="user1" onClick={this.openTab}>Diana</button>
-                        <button id="user2B" className={styles.tablink} value="user2" onClick={this.openTab}>pSZemcio</button>
+                        <ul className={stylesForNav.NavigationItems}>
+                            {this.users.map(user => <NavigationItem
+                                link={ "./" + user}
+                            >{user} </NavigationItem>)}
+                        </ul>
                     </div>
-                    <div id="user1" className={styles.tabcontent}>
-                        <WeekDietPlanTable
-                            meals={this.state.mealsFromApi}/>
-                    </div>
-
-                    <div id="user2" className={styles.tabcontent}>
+                    <div className={styles.tabcontent}>
                         <WeekDietPlanTable
                             meals={this.state.mealsFromApi}/>
                     </div>
