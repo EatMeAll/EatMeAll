@@ -8,13 +8,13 @@ class ShoppingListHeader extends Component {
         super();
         this.state = {
             days: [
-                {id: 0, value: "PON", isChecked: true},
-                {id: 1, value: "WT", isChecked: true},
-                {id: 2, value: "ŚR", isChecked: true},
-                {id: 3, value: "CZW", isChecked: true},
-                {id: 4, value: "PT", isChecked: true},
-                {id: 5, value: "SOB", isChecked: true},
-                {id: 6, value: "ND", isChecked: true}
+                {id: 0, value: "PON", isChecked: false},
+                {id: 1, value: "WT", isChecked: false},
+                {id: 2, value: "ŚR", isChecked: false},
+                {id: 3, value: "CZW", isChecked: false},
+                {id: 4, value: "PT", isChecked: false},
+                {id: 5, value: "SOB", isChecked: false},
+                {id: 6, value: "ND", isChecked: false}
             ]
         };
         this.handleChange = this.handleChange.bind(this);
