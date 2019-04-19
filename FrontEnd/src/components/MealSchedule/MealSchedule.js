@@ -12,10 +12,12 @@ class MealSchedule extends Component {
 
     constructor() {
         super();
+        this.users = GlobalConfigurationSingleton.getInstance().users;
         this.state = {
             mealsFromApi: [],
+
         };
-        this.users = GlobalConfigurationSingleton.getInstance().users;
+
     }
 
     callToApiWeekSchedule = () => {
@@ -28,12 +30,14 @@ class MealSchedule extends Component {
 
     componentDidMount() {
         this.loadScheduleFromLocalStore(this.props)
+
     }
 
     componentWillUpdate(nextProps) {
         if (this.props.match.params.userName !== nextProps.match.params.userName) {
             this.saveScheduleToLocalStore();
             this.loadScheduleFromLocalStore(nextProps);
+            this.setState({selectUserCloneFrom: this.users.filter(user => user !== nextProps.match.params.userName)[0]});
         }
     }
 
@@ -61,6 +65,14 @@ class MealSchedule extends Component {
         this.setState({mealsFromApi: toLoad});
     }
 
+    cloneWholeSchedule = () => {
+        console.log("clone from: " + this.props.match.params.userName + " to: " + this.state.selectUserCloneFrom)
+    };
+
+    comboOnChangeHandler = (e) => {
+        this.setState({selectUserCloneFrom: e.target.value});
+    };
+
     render() {
         return (
             <React.Fragment>
@@ -73,6 +85,13 @@ class MealSchedule extends Component {
                                 link={"./" + user}
                             >{user} </NavigationItem>)}
                         </ul>
+                        <div>
+                            <select onChange={this.comboOnChangeHandler}>
+                                {this.users.filter(user => user !== this.props.match.params.userName).map(user => <option value={user}>{user}</option>)}
+                            </select>
+                            <button onClick={this.cloneWholeSchedule}> CLONE</button>
+                        </div>
+
                     </div>
                     <WeekDietPlanTable
                         meals={this.state.mealsFromApi}
@@ -81,6 +100,8 @@ class MealSchedule extends Component {
             </React.Fragment>
         );
     }
+
+
 }
 
 export default MealSchedule;
