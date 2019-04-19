@@ -5,6 +5,7 @@ import TableHeader from './TableHeader/TableHeader';
 import WeekDietPlanTable from './TableContent/WeekDietPlanTable';
 import NavigationItem from "../Navigation/NavigationItems/NavigationItem/NavigationItem";
 import stylesForNav from '../Navigation/NavigationItems/NavigationItems.css'
+import MealTimeMapper from "./TableContent/MealInfo/MealTimeMapper";
 
 class MealSchedule extends Component {
 
@@ -12,7 +13,6 @@ class MealSchedule extends Component {
         super();
         this.state = {
             mealsFromApi: [],
-            currentState: undefined
         };
         this.users = ['Dianka', 'pSZemcio']
     }
@@ -31,16 +31,26 @@ class MealSchedule extends Component {
 
     componentWillUpdate(nextProps) {
         if (this.props.match.params.userName !== nextProps.match.params.userName) {
-            this.saveSchedoleToLocalStore();
+            this.saveScheduleToLocalStore();
             this.loadScheduleFromLocalStore(nextProps);
         }
     }
 
     componentWillUnmount() {
-        this.saveSchedoleToLocalStore();
+        this.saveScheduleToLocalStore();
     }
 
-    saveSchedoleToLocalStore() {
+    changeOneMealInLocalStorage = (aDayNumber, aMeal) => {
+        let ls = JSON.parse(localStorage.getItem(this.props.match.params.userName));
+        const mapper = new MealTimeMapper();
+        const mealTimeNuber = mapper.stringToNumber(aMeal["mealTime"]);
+        ls[aDayNumber]['meals'][mealTimeNuber] = aMeal;
+        this.setState({mealsFromApi: ls});
+        this.saveScheduleToLocalStore()
+        // localStorage.setItem(this.props.match.params.userName, JSON.stringify(ls));
+    }
+
+    saveScheduleToLocalStore() {
         localStorage.setItem(this.props.match.params.userName, JSON.stringify(this.state.mealsFromApi));
     }
 
@@ -64,7 +74,8 @@ class MealSchedule extends Component {
                         </ul>
                     </div>
                     <WeekDietPlanTable
-                        meals={this.state.mealsFromApi}/>
+                        meals={this.state.mealsFromApi}
+                        callbackToParent={this.changeOneMealInLocalStorage}/>
                 </div>
             </React.Fragment>
         );

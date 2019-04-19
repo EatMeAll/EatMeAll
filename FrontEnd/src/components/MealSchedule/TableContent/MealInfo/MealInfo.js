@@ -43,7 +43,7 @@ class MealInfo extends Component {
             .then((myJson) => {
                 const meal = myJson[0]
                 this.setState({mealName: (meal["title"]), mealId: (meal["idMeal"])});
-                this.updateLocalStorage(meal);
+                this.props.callbackToParent(this.props.dayNumber, meal);
             });
     };
 
@@ -70,7 +70,7 @@ class MealInfo extends Component {
             mealId: objectToPaste["idMeal"],
             mealTime: objectToPaste["mealTime"]
         });
-        this.updateLocalStorage(objectToPaste);
+        this.props.callbackToParent(this.props.dayNumber, objectToPaste);
     };
 
     showDetailsPopup(selectedMealJson) {
@@ -94,15 +94,6 @@ class MealInfo extends Component {
     setMeal = (mealName, id) => {
         this.setState({mealName: mealName, mealId: id})
     };
-
-
-    updateLocalStorage(meal) {
-        let ls = JSON.parse(localStorage.getItem('mealsFromApi'));
-        const mapper = new MealTimeMapper();
-        const mealTimeNuber = mapper.stringToNumber(meal["mealTime"]);
-        ls[this.props.dayNumber]['meals'][mealTimeNuber] = meal;
-        localStorage.setItem('mealsFromApi', JSON.stringify(ls));
-    }
 
     componentWillUpdate(nextProps, nextState) {
         if (this.state !== nextState) {
