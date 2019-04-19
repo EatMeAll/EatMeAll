@@ -56,13 +56,17 @@ class MealInfo extends Component {
     };
 
     copyActionHandler = () => {
-        localStorage.setItem('currentCopiedMeal', JSON.stringify({idMeal: this.state.mealId, mealTime: this.state.mealTime, title: this.state.mealName }));
+        localStorage.setItem('currentCopiedMeal', JSON.stringify({
+            idMeal: this.state.mealId,
+            mealTime: this.state.mealTime,
+            title: this.state.mealName
+        }));
     };
 
     pasteActionHandler = () => {
         const objectToPaste = JSON.parse(localStorage.getItem('currentCopiedMeal'));
-        if(objectToPaste['mealTime'] !== this.state.mealTime){
-            alert("Nieodpowiedni typ posiłku. Nie możesz wkleić " + objectToPaste['mealTime'] + ' do ' + this.state.mealTime +'.');
+        if (objectToPaste['mealTime'] !== this.state.mealTime) {
+            alert("Nieodpowiedni typ posiłku. Nie możesz wkleić " + objectToPaste['mealTime'] + ' do ' + this.state.mealTime + '.');
             return;
         }
         this.setState({
@@ -93,6 +97,7 @@ class MealInfo extends Component {
 
     setMeal = (mealName, id) => {
         this.setState({mealName: mealName, mealId: id})
+        this.props.callbackToParent(this.props.dayNumber, {title: mealName, idMeal: id, mealTime: this.state.mealTime});
     };
 
     componentWillUpdate(nextProps, nextState) {
@@ -119,8 +124,10 @@ class MealInfo extends Component {
                         <button className={styles.Button} onClick={this.changeMealFromList}><i
                             className="fas fa-list-ul"
                             title="wybierz inną potrawę z listy"/></button>
-                        <button className={styles.Button} onClick={this.copyActionHandler}><i className="far fa-copy" title="kopiuj"/></button>
-                        <button className={styles.Button} onClick={this.pasteActionHandler}><i className="fas fa-paste" title="wklej"/></button>
+                        <button className={styles.Button} onClick={this.copyActionHandler}><i className="far fa-copy"
+                                                                                              title="kopiuj"/></button>
+                        <button className={styles.Button} onClick={this.pasteActionHandler}><i className="fas fa-paste"
+                                                                                               title="wklej"/></button>
                     </div>
                 </div>
             </div>

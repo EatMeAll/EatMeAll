@@ -50,9 +50,10 @@ class MealSchedule extends Component {
         const mapper = new MealTimeMapper();
         const mealTimeNuber = mapper.stringToNumber(aMeal["mealTime"]);
         ls[aDayNumber]['meals'][mealTimeNuber] = aMeal;
+        console.log(aMeal)
+        console.log(ls)
         this.setState({mealsFromApi: ls});
         this.saveScheduleToLocalStore()
-        // localStorage.setItem(this.props.match.params.userName, JSON.stringify(ls));
     }
 
     saveScheduleToLocalStore() {
@@ -66,7 +67,11 @@ class MealSchedule extends Component {
     }
 
     cloneWholeSchedule = () => {
-        console.log("clone from: " + this.props.match.params.userName + " to: " + this.state.selectUserCloneFrom)
+        console.log("clone from: " + this.state.selectUserCloneFrom + " to: " + this.props.match.params.userName)
+
+        const toLoad = JSON.parse(localStorage.getItem(this.state.selectUserCloneFrom));
+        this.setState({mealsFromApi: toLoad});
+        localStorage.setItem(this.props.match.params.userName, JSON.stringify(this.state.mealsFromApi));
     };
 
     comboOnChangeHandler = (e) => {
