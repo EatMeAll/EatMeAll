@@ -12,6 +12,7 @@ class MealSchedule extends Component {
         super();
         this.state = {
             mealsFromApi: [],
+            currentState: undefined
         };
         this.users = ['Dianka', 'pSZemcio']
     }
@@ -25,47 +26,42 @@ class MealSchedule extends Component {
     };
 
     componentDidMount() {
-        if (!localStorage.getItem('mealsFromApi')) {
-        } else {
-            localStorage.getItem('mealsFromApi') && this.setState(this.state.mealsFromApi = JSON.parse(localStorage.getItem('mealsFromApi'))
-            )
+
+    }
+
+    componentWillUnmount() {
+        localStorage.setItem(this.props.match.params.userName, JSON.stringify(this.state.mealsFromApi));
+    }
+
+
+    componentDidUpdate(nextProps, nextState) {
+        const x = localStorage.getItem(this.props.match.params.userName)
+        if(x !== null){
+            if(x.length>2){
+
+                this.setState({mealsFromApi: x});
+            }
         }
     }
 
-    componentWillUpdate(nextProps, nextState) {
-        // const lesserObject = nextState.mealsFromApi.map(day => day["meals"].map( meal => new MealInfoData(meal["idMeal"], meal["title"], meal["mealTime"]) ));
-        localStorage.setItem('mealsFromApi', JSON.stringify(nextState.mealsFromApi));
-    }
-
-    openTab(e) {
-        // Show the current tab, and add an "active" class to the button that opened the tab
-        document.getElementById("user1").style.display = "none";
-        document.getElementById("user2").style.display = "none";
-        document.getElementById(e.currentTarget.value).style.display = "block";
-
-        document.getElementById("user1B").className = styles.tablink;
-        document.getElementById("user2B").className = styles.tablink;
-        e.currentTarget.className = styles.active;
-    }
 
 
     render() {
-
+        console.log();
         return (
             <React.Fragment>
+                {this.state.userName}
                 <div className={styles.Header}>
                     <TableHeader callback={this.callToApiWeekSchedule}/>
                     <div className={styles.tab}>
                         <ul className={stylesForNav.NavigationItems}>
                             {this.users.map(user => <NavigationItem
-                                link={ "./" + user}
+                                link={"./" + user}
                             >{user} </NavigationItem>)}
                         </ul>
                     </div>
-                    <div className={styles.tabcontent}>
-                        <WeekDietPlanTable
-                            meals={this.state.mealsFromApi}/>
-                    </div>
+                    <WeekDietPlanTable
+                        meals={this.state.mealsFromApi}/>
                 </div>
             </React.Fragment>
         );

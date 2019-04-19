@@ -6,7 +6,7 @@ import NavigationItem from '../NavigationItem/NavigationItem';
 
 const navItems = (props) => (
     <ul className={styles.NavigationItems}>
-        <NavigationItem link="/home/id" active>home</NavigationItem>
+        <NavigationItem link="/home/Dianka" active>home</NavigationItem>
         <NavigationItem link="/shopping-list">lista zakupów</NavigationItem>
         <NavigationItem link="/about">o nas</NavigationItem>
         <NavigationItem link="/contact">kontakt</NavigationItem>
