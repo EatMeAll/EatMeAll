@@ -6,6 +6,7 @@ import styles from './App.css';
 import asyncComponent from './hoc/async';
 import AboutUs from "./components/AboutUs/About";
 import ShoppingList from "./components/ShoppingList/ShoppingList";
+import GlobalConfigurationSingleton from "./GlobalConfigurationSingleton";
 
 const AsyncHome = asyncComponent(() => {
     return import("./components/MealSchedule/MealSchedule");
@@ -21,12 +22,13 @@ class App extends Component {
     };
 
     render() {
+        const defaultUser = GlobalConfigurationSingleton.getInstance().users[0]
         return (
             <div className={styles.Container}>
                 <Layout>
                     <Switch>
-                        {this.state.auth ? <Route path="/home" component={AsyncHome}/> : <Route path="/home" component={AsyncCarousel}/>}
-                        <Redirect from="/" exact to='/home'/>
+                        {this.state.auth ? <Route path="/home/:userName" component={AsyncHome}/> : <Route path="/home/:userName" component={AsyncCarousel}/>}
+                        <Redirect from="/" exact to={'/home/'+defaultUser}/>
                         <Route path="/about" component={AboutUs}/>
                         <Route path="/shopping-list" component={ShoppingList}/>
                         <Route render={() => <h1>Sorry but our devs still working on this page, see You soon! </h1>}/>

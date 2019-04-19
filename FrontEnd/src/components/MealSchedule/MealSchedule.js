@@ -3,16 +3,22 @@ import React, {Component} from 'react';
 import styles from './MealSchedule.css';
 import TableHeader from './TableHeader/TableHeader';
 import WeekDietPlanTable from './TableContent/WeekDietPlanTable';
-import Modal from "../UI/Modal/Modal";
-import MealRecipe from "../MealRecipe/MealRecipe";
-import MealInfoData from "../../data/MealInfoData";
+import NavigationItem from "../Navigation/NavigationItems/NavigationItem/NavigationItem";
+import stylesForNav from '../Navigation/NavigationItems/NavigationItems.css'
+import MealTimeMapper from "./TableContent/MealInfo/MealTimeMapper";
+import GlobalConfigurationSingleton from "../../GlobalConfigurationSingleton";
 
 class MealSchedule extends Component {
-    state = {
-        mealsFromApi: [],
-        showModal: false,
-        modalData: <MealRecipe/>
-    };
+
+    constructor() {
+        super();
+        this.users = GlobalConfigurationSingleton.getInstance().users;
+        this.state = {
+            mealsFromApi: [],
+
+        };
+
+    }
 
     callToApiWeekSchedule = () => {
         fetch('http://eatmeall.pl:100/app/schedule')
@@ -23,45 +29,84 @@ class MealSchedule extends Component {
     };
 
     componentDidMount() {
-        if (!localStorage.getItem('mealsFromApi')) {
-            console.log("dupa")
-        } else {
-            localStorage.getItem('mealsFromApi') && this.setState(this.state.mealsFromApi = JSON.parse(localStorage.getItem('mealsFromApi'))
-            )
+        this.loadScheduleFromLocalStore(this.props)
+
+    }
+
+    componentWillUpdate(nextProps) {
+        if (this.props.match.params.userName !== nextProps.match.params.userName) {
+            this.saveScheduleToLocalStore();
+            this.loadScheduleFromLocalStore(nextProps);
+            this.setState({selectUserCloneFrom: this.users.filter(user => user !== nextProps.match.params.userName)[0]});
         }
     }
 
-    componentWillUpdate(nextProps, nextState) {
-        // const lesserObject = nextState.mealsFromApi.map(day => day["meals"].map( meal => new MealInfoData(meal["idMeal"], meal["title"], meal["mealTime"]) ));
-        localStorage.setItem('mealsFromApi', JSON.stringify(nextState.mealsFromApi));
+    componentWillUnmount() {
+        this.saveScheduleToLocalStore();
     }
 
+    changeOneMealInLocalStorage = (aDayNumber, aMeal) => {
+        let ls = JSON.parse(localStorage.getItem(this.props.match.params.userName));
+        const mapper = new MealTimeMapper();
+        const mealTimeNuber = mapper.stringToNumber(aMeal["mealTime"]);
+        ls[aDayNumber]['meals'][mealTimeNuber] = aMeal;
+        console.log(aMeal)
+        console.log(ls)
+        this.setState({mealsFromApi: ls});
+        this.saveScheduleToLocalStore()
+    }
 
-    cancelHandler = () => {
-        this.setState({showModal: false});
+    saveScheduleToLocalStore() {
+        localStorage.setItem(this.props.match.params.userName, JSON.stringify(this.state.mealsFromApi));
+    }
+
+    loadScheduleFromLocalStore(props) {
+        const schedule = JSON.parse(localStorage.getItem(props.match.params.userName));
+        const toLoad = schedule !== null ? schedule : [];
+        this.setState({mealsFromApi: toLoad});
+    }
+
+    cloneWholeSchedule = () => {
+        console.log("clone from: " + this.state.selectUserCloneFrom + " to: " + this.props.match.params.userName)
+
+        const toLoad = JSON.parse(localStorage.getItem(this.state.selectUserCloneFrom));
+        this.setState({mealsFromApi: toLoad});
+        localStorage.setItem(this.props.match.params.userName, JSON.stringify(this.state.mealsFromApi));
     };
 
-    showModal = (modalData) => {
-        this.setState({showModal: true, modalData: modalData});
-
-    }
+    comboOnChangeHandler = (e) => {
+        this.setState({selectUserCloneFrom: e.target.value});
+    };
 
     render() {
         return (
             <React.Fragment>
-                <Modal show={this.state.showModal} modalClosed={this.cancelHandler}>
-                    {this.state.modalData}
-                </Modal>
+                {this.state.userName}
                 <div className={styles.Header}>
                     <TableHeader callback={this.callToApiWeekSchedule}/>
+                    <div className={styles.tab}>
+                        <ul className={stylesForNav.NavigationItems}>
+                            {this.users.map(user => <NavigationItem
+                                link={"./" + user}
+                            >{user} </NavigationItem>)}
+                        </ul>
+                        <div>
+                            <select onChange={this.comboOnChangeHandler}>
+                                {this.users.filter(user => user !== this.props.match.params.userName).map(user => <option value={user}>{user}</option>)}
+                            </select>
+                            <button onClick={this.cloneWholeSchedule}> CLONE</button>
+                        </div>
+
+                    </div>
                     <WeekDietPlanTable
                         meals={this.state.mealsFromApi}
-                        openModal={this.showModal}
-                        modalClosed={this.cancelHandler}/>
+                        callbackToParent={this.changeOneMealInLocalStorage}/>
                 </div>
             </React.Fragment>
         );
     }
+
+
 }
 
 export default MealSchedule;
