@@ -25,26 +25,16 @@ class MealSchedule extends Component {
             });
     };
 
-    componentDidMount() {
-
-    }
-
-    componentWillUnmount() {
-        localStorage.setItem(this.props.match.params.userName, JSON.stringify(this.state.mealsFromApi));
-    }
-
-
-    componentDidUpdate(nextProps, nextState) {
-        const x = localStorage.getItem(this.props.match.params.userName)
-        if(x !== null){
-            if(x.length>2){
-
-                this.setState({mealsFromApi: x});
-            }
+    componentWillUpdate(nextProps){
+        if(this.props.match.params.userName !== nextProps.match.params.userName){
+            localStorage.setItem(this.props.match.params.userName, JSON.stringify(this.state.mealsFromApi));
         }
     }
 
 
+    componentWillUnmount() {
+        localStorage.setItem(this.props.match.params.userName, JSON.stringify(this.state.mealsFromApi));
+    }
 
     render() {
         console.log();
