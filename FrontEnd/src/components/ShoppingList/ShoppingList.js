@@ -3,6 +3,7 @@ import CategoryListOfProduct from './CategoryListOfProduct/CategoryListOfProduct
 import * as myConstClass from '../../fileWithConstants';
 import styles from './ShoppingList.css';
 import ShoppingListHeader from "./ShoppingListHeader/ShoppingListHeader";
+import GlobalConfigurationSingleton from "../../GlobalConfigurationSingleton";
 
 class ShoppingList extends Component {
     constructor() {
@@ -36,10 +37,15 @@ class ShoppingList extends Component {
         }
     };
 
+
     generateShoppingList = () => {
-        let mealsFromLocalStorage = JSON.parse(window.localStorage.getItem('mealsFromApi'));
         const selectedDays = [];
-        this.selectedDays.forEach(dayId => selectedDays.push(mealsFromLocalStorage[dayId]))
+        for (const userName of GlobalConfigurationSingleton.getInstance().users) {
+            let mealsFromLocalStorage = JSON.parse(window.localStorage.getItem(userName));
+            this.selectedDays.forEach(dayId =>{
+                selectedDays.push(mealsFromLocalStorage[dayId]);
+            });
+        }
         this.setState({mealIds: selectedDays.map(dayOfWeekPlan => dayOfWeekPlan["meals"].map(meal => meal["idMeal"]))},
             () => {
                 fetch(myConstClass.SHOPPING_LIST_URL + this.state.mealIds)

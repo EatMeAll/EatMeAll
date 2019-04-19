@@ -6,6 +6,7 @@ import WeekDietPlanTable from './TableContent/WeekDietPlanTable';
 import NavigationItem from "../Navigation/NavigationItems/NavigationItem/NavigationItem";
 import stylesForNav from '../Navigation/NavigationItems/NavigationItems.css'
 import MealTimeMapper from "./TableContent/MealInfo/MealTimeMapper";
+import GlobalConfigurationSingleton from "../../GlobalConfigurationSingleton";
 
 class MealSchedule extends Component {
 
@@ -14,7 +15,7 @@ class MealSchedule extends Component {
         this.state = {
             mealsFromApi: [],
         };
-        this.users = ['Dianka', 'pSZemcio']
+        this.users = GlobalConfigurationSingleton.getInstance().users;
     }
 
     callToApiWeekSchedule = () => {
