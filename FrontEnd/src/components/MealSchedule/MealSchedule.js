@@ -32,10 +32,18 @@ class MealSchedule extends Component {
 
     componentWillUpdate(nextProps) {
         if (this.props.match.params.userName !== nextProps.match.params.userName) {
-            localStorage.setItem(this.props.match.params.userName, JSON.stringify(this.state.mealsFromApi));
-            console.log("save: " + this.props.match.params.userName);
+            this.saveSchedoleToLocalStore();
             this.loadScheduleFromLocalStore(nextProps);
         }
+    }
+
+    componentWillUnmount() {
+        this.saveSchedoleToLocalStore();
+    }
+
+    saveSchedoleToLocalStore() {
+        localStorage.setItem(this.props.match.params.userName, JSON.stringify(this.state.mealsFromApi));
+        console.log("save: " + this.props.match.params.userName);
     }
 
     loadScheduleFromLocalStore(props) {
@@ -43,10 +51,6 @@ class MealSchedule extends Component {
         const toLoad = schedule !== null ? schedule : [];
         this.setState({mealsFromApi: toLoad});
         console.log("load: " + props.match.params.userName);
-    }
-
-    componentWillUnmount() {
-        // localStorage.setItem(this.props.match.params.userName, JSON.stringify(this.state.mealsFromApi));
     }
 
     render() {
