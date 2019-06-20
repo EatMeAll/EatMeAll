@@ -7,6 +7,7 @@ import NavigationItem from "../Navigation/NavigationItems/NavigationItem/Navigat
 import stylesForNav from '../Navigation/NavigationItems/NavigationItems.css'
 import MealTimeMapper from "./TableContent/MealInfo/MealTimeMapper";
 import GlobalConfigurationSingleton from "../../GlobalConfigurationSingleton";
+import * as restApiUrls from "../../restApiUrlsConstants";
 
 class MealSchedule extends Component {
 
@@ -21,7 +22,7 @@ class MealSchedule extends Component {
     }
 
     callToApiWeekSchedule = () => {
-        fetch('http://eatmeall.pl:100/app/schedule')
+        fetch(restApiUrls.GENERATE_SCHEDULE_URL)
             .then((response) => response.json())
             .then((myJson) => {
                 this.setState(this.state.mealsFromApi = myJson);

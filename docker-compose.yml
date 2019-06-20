@@ -28,7 +28,8 @@ services:
             - mysql
         networks:
             - lan
-   #     volumes: 
+        volumes: 
+            - ./Docker/excel:/opt/jboss/excel
     #        - ./wildfly:/opt/jboss/wildfly/
         command: /opt/jboss/wildfly/bin/standalone.sh -b 0.0.0.0 -bmanagement=0.0.0.0 --debug
     
@@ -41,7 +42,7 @@ services:
         ports:
             - "80:3000"
         volumes:
-            - ./frontend:/home/EatMeAll/FrontEnd
+            - ./FrontEnd:/home/eatmeall/frontend
         networks:
             - lan       
 networks:

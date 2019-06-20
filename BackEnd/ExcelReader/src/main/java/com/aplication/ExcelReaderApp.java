@@ -17,10 +17,8 @@ import javax.ejb.Stateless;
 import java.io.File;
 import java.io.IOException;
 import java.time.Instant;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Stateless
 @LocalBean
@@ -155,7 +153,7 @@ public class ExcelReaderApp {
         categories.put("ser twaróg chudy", ProductCategory.DAIRY);
         categories.put("ser żółty", ProductCategory.DAIRY);
         categories.put("serek naturalny do smarowania", ProductCategory.DAIRY);
-        categories.put("serek wiejski",  ProductCategory.DAIRY);
+        categories.put("serek wiejski", ProductCategory.DAIRY);
         categories.put("sok cytrynowy", ProductCategory.DRINK);
         categories.put("sok jabłkowy", ProductCategory.DRINK);
         categories.put("sok pomarańczowy", ProductCategory.DRINK);
@@ -177,12 +175,50 @@ public class ExcelReaderApp {
         categories.put("tuńczyk w sosie własnym", ProductCategory.FISH);
         categories.put("twaróg chudy", ProductCategory.DAIRY);
         categories.put("wafle ryżowe", ProductCategory.BAKING);
-        categories.put("wafle ryżowe naturalne", ProductCategory.BAKING);
         categories.put("woda", ProductCategory.DRINK);
         categories.put("ziemniaki", ProductCategory.VEGETABLE);
         categories.put("zioła prowansaldzkie", ProductCategory.SPICE);
         categories.put("zółty ser", ProductCategory.DAIRY);
         categories.put("żurawina suszona", ProductCategory.OTHER);
+        categories.put("bakłażan", ProductCategory.	VEGETABLE	);
+        categories.put("bazylia (świeża)", ProductCategory.	SPICE	);
+        categories.put("borówka amerykańska", ProductCategory.	FRUIT	);
+        categories.put("brokuły", ProductCategory.	VEGETABLE	);
+        categories.put("brzoskwinia", ProductCategory.	FRUIT	);
+        categories.put("bulion warzywny domowy", ProductCategory.	OTHER	);
+        categories.put("chleb pełnoziarnisty", ProductCategory.	BAKING	);
+        categories.put("czekolada gorzka", ProductCategory.	OTHER	);
+        categories.put("daktyle, suszone", ProductCategory.	FRUIT	);
+        categories.put("dorsz, swieży, filet", ProductCategory.	FISH	);
+        categories.put("dynia", ProductCategory.	GRAINS	);
+        categories.put("filet z kurczaka wędzony", ProductCategory.MEAT);
+        categories.put("groch, nasiona suche", ProductCategory.	VEGETABLE	);
+        categories.put("jajka", ProductCategory.OTHER);
+        categories.put("kalarepa", ProductCategory.	VEGETABLE	);
+        categories.put("kardamon", ProductCategory.	SPICE	);
+        categories.put("kmin rzymski", ProductCategory.	SPICE	);
+        categories.put("kurkuma", ProductCategory.	SPICE	);
+        categories.put("masło", ProductCategory.	DAIRY	);
+        categories.put("mieszkanka studencka", ProductCategory.	GRAINS	);
+        categories.put("miód", ProductCategory.	OTHER	);
+        categories.put("mięso z indyka", ProductCategory.	MEAT	);
+        categories.put("mięso z piersi kurczaka", ProductCategory.	MEAT	);
+        categories.put("mąka pszenna", ProductCategory.	OTHER	);
+        categories.put("ogórki, kiszone", ProductCategory.	VEGETABLE	);
+        categories.put("orzechy arachidowe", ProductCategory.	GRAINS	);
+        categories.put("orzeszki arachidowe", ProductCategory.	GRAINS	);
+        categories.put("ostre papryczki", ProductCategory.	VEGETABLE	);
+        categories.put("pietruszka, liście", ProductCategory.	VEGETABLE	);
+        categories.put("pomidory z puszki", ProductCategory.	VEGETABLE	);
+        categories.put("płatki owsiane", ProductCategory.	GRAINS	);
+        categories.put("ser twarogowy chudy", ProductCategory.	DAIRY	);
+        categories.put("serek wiejśki", ProductCategory.	DAIRY	);
+        categories.put("skyr naturalny", ProductCategory.	DAIRY	);
+        categories.put("truskawki", ProductCategory.	FRUIT	);
+        categories.put("tymianek", ProductCategory.	SPICE	);
+        categories.put("wafle ryżowe naturalne", ProductCategory.	BAKING	);
+        categories.put("wrzywa na patelnie chińskie", ProductCategory.	VEGETABLE	);
+
     }
 
     public String getBasePath() {
@@ -199,149 +235,156 @@ public class ExcelReaderApp {
         int counter = 0;
 
         ExcelReader excelReader = new XmlReader();
-        String filePath = basePath + "/jadlospis2.xlsx";
-        List<MealExcel> mealExcelList = excelReader.read(filePath);
 
-        int random = new Random().nextInt(100);
+        File dir = new File(basePath);
+        List<File> files = Arrays.stream(Objects.requireNonNull(dir.listFiles())).filter(File::isFile).filter(f -> {
+            String filename = f.getName();
+            return ".xlsx".equals(filename.substring(filename.lastIndexOf(".")));
+        }).collect(Collectors.toList());
 
-        User userEntity = repo.USER().insert(new User("EXCEL" + random, random + "excel@wp.pl"));
+        for (File file : files) {
 
+            List<MealExcel> mealExcelList = excelReader.read(file.getPath());
 
-        userEntity.setPassword("jakieshaslo");
-        userEntity.setUserType(UserType.ADMIN);
+            int random = new Random().nextInt(100);
 
-        for (MealExcel mealExcel : mealExcelList) {
-
-            Meal mealEntity = repo.MEAL().insert(new Meal());
-
-
-            String typeMealExcel = mealExcel.getTypeMeal();
-            Integer prepairTimeExcel = mealExcel.getPrepaidTime();
-            String titleExcel = mealExcel.getTitle();
-            List<ProductsExcel> productsExcels = mealExcel.getProducts();
-            String receiptExcel = mealExcel.getReceipt();
-            Double caloriesExcel = mealExcel.getCalories();
-            String authorExcel = mealExcel.getAuthor();
+            User userEntity = repo.USER().insert(new User("EXCEL" + random, random + "excel@wp.pl"));
 
 
-            MealTime mealTime = MealTime.LUNCH;
-            File photo = new File(basePath + "/jadlospis2.xlsx");
+            userEntity.setPassword("jakieshaslo");
+            userEntity.setUserType(UserType.ADMIN);
 
-            switch (typeMealExcel) {
+            for (MealExcel mealExcel : mealExcelList) {
 
-                case "śniadanie":
-                    mealTime = MealTime.BREAKFAST;
-                    photo = new File(basePath + "/breakfast.jpg");
-                    break;
-
-                case "lunch":
-                    mealTime = MealTime.LUNCH;
-                    photo = new File(basePath + "/lunch.jpg");
-                    break;
-
-                case "obiad":
-                    mealTime = MealTime.DINNER;
-                    photo = new File(basePath + "/dinner.jpg");
-                    break;
-                case "przekąska":
-                    mealTime = MealTime.SNACK;
-                    photo = new File(basePath + "/snack.jpg");
-                    break;
-
-                case "kolacja":
-                    mealTime = MealTime.SUPPER;
-                    photo = new File(basePath + "/supper.jpg");
-                    break;
-
-            }
+                Meal mealEntity = repo.MEAL().insert(new Meal());
 
 
-            // Avoid duplicate in DB
-            TypeMeal typeMealEntity = repo.TYPEMEAL().findByMealTime(mealTime);
-            if(typeMealEntity == null){
-                typeMealEntity = repo.TYPEMEAL().insert(new TypeMeal(mealTime));
-            }
+                String typeMealExcel = mealExcel.getTypeMeal();
+                Integer prepairTimeExcel = mealExcel.getPrepaidTime();
+                String titleExcel = mealExcel.getTitle();
+                List<ProductsExcel> productsExcels = mealExcel.getProducts();
+                String receiptExcel = mealExcel.getReceipt();
+                Double caloriesExcel = mealExcel.getCalories();
+                String authorExcel = mealExcel.getAuthor();
 
 
+                MealTime mealTime = MealTime.LUNCH;
+                File photo = new File(basePath + "/jadlospis2.xlsx");
 
-            mealEntity.setPhoto(photo);
+                switch (typeMealExcel) {
 
-            typeMealEntity = repo.TYPEMEAL().update(typeMealEntity);
-            mealEntity.addTypeMeal(typeMealEntity);
+                    case "śniadanie":
+                        mealTime = MealTime.BREAKFAST;
+                        photo = new File(basePath + "/breakfast.jpg");
+                        break;
+
+                    case "lunch":
+                        mealTime = MealTime.LUNCH;
+                        photo = new File(basePath + "/lunch.jpg");
+                        break;
+
+                    case "obiad":
+                        mealTime = MealTime.DINNER;
+                        photo = new File(basePath + "/dinner.jpg");
+                        break;
+                    case "przekąska":
+                        mealTime = MealTime.SNACK;
+                        photo = new File(basePath + "/snack.jpg");
+                        break;
+
+                    case "kolacja":
+                        mealTime = MealTime.SUPPER;
+                        photo = new File(basePath + "/supper.jpg");
+                        break;
+
+                }
+
+
+                // Avoid duplicate in DB
+                TypeMeal typeMealEntity = repo.TYPEMEAL().findByMealTime(mealTime);
+                if (typeMealEntity == null) {
+                    typeMealEntity = repo.TYPEMEAL().insert(new TypeMeal(mealTime));
+                }
+
+
+                mealEntity.setPhoto(photo);
+
+                typeMealEntity = repo.TYPEMEAL().update(typeMealEntity);
+                mealEntity.addTypeMeal(typeMealEntity);
 
 //            TypeMeal typeMealFromDatabase = repo.TYPEMEAL().update(typeMealEntity);
 
 
-            for (ProductsExcel productsExcel : productsExcels) {
+                for (ProductsExcel productsExcel : productsExcels) {
 
-                MealHasProduct mealHasProduct = repo.MEALHASPRODUCT().insert(new MealHasProduct());
+                    MealHasProduct mealHasProduct = repo.MEALHASPRODUCT().insert(new MealHasProduct());
 
-                String productsExcelName = productsExcel.getName();
+                    String productsExcelName = productsExcel.getName();
 
-                Double productsExcelAmount = productsExcel.getAmount();
-                String productsExcelUnit = productsExcel.getUnit();
-                String productsExcelSpecialUnit = productsExcel.getSpecialUnit();
+                    Double productsExcelAmount = productsExcel.getAmount();
+                    String productsExcelUnit = productsExcel.getUnit();
+                    String productsExcelSpecialUnit = productsExcel.getSpecialUnit();
 
-                Product product = repo.PRODUCT().getProductByName(productsExcelName);
-                if ( product == null){
-                    ProductCategory categorie = this.setCategory(productsExcelName);
-                    product = repo.PRODUCT().insert(new Product(productsExcelName, productsExcelUnit, categorie));
+                    Product product = repo.PRODUCT().getProductByName(productsExcelName);
+                    if (product == null) {
+                        ProductCategory categorie = this.setCategory(productsExcelName);
+                        product = repo.PRODUCT().insert(new Product(productsExcelName, productsExcelUnit, categorie));
+                    }
+
+
+                    mealHasProduct.setAmount(productsExcelAmount);
+                    mealHasProduct.setSpecialUnit(productsExcelSpecialUnit);
+                    mealHasProduct.setMeal(mealEntity);
+                    product = repo.PRODUCT().update(product);
+                    mealHasProduct.setProduct(product);
+                    mealHasProduct = repo.MEALHASPRODUCT().update(mealHasProduct);
+                    mealEntity.addMealHasProduct(mealHasProduct);
+
                 }
 
+                Receipt receipt = repo.RECEIPT().insert(new Receipt());
 
-                mealHasProduct.setAmount(productsExcelAmount);
-                mealHasProduct.setSpecialUnit(productsExcelSpecialUnit);
-                mealHasProduct.setMeal(mealEntity);
-                product = repo.PRODUCT().update(product);
-                mealHasProduct.setProduct(product);
-                mealHasProduct = repo.MEALHASPRODUCT().update(mealHasProduct);
-                mealEntity.addMealHasProduct(mealHasProduct);
+                receipt.setDescription("Jakis dodatkowy opis");
+                receipt.setTitle(titleExcel);
+                receipt.setPrepareTime(prepairTimeExcel);
+
+                // method
+                addStepsToReceipt(receipt, receiptExcel);
+
+                receipt = repo.RECEIPT().update(receipt);
+                mealEntity.setReceipt(receipt);
+
+
+                mealEntity.setLanguage(Language.PL);
+                mealEntity.setTitle(titleExcel);
+                mealEntity.setShortDescription("Przepis z Excel");
+                mealEntity.setAmountCalories((int) Math.round(caloriesExcel));
+                mealEntity.setPublic(true);
+                mealEntity.setCreatedDate(Instant.now());
+                mealEntity.setAuthorReceipt(authorExcel);
+                mealEntity.setCreatorMeal(userEntity);
+
+
+                repo.MEAL().update(mealEntity);
+
+                System.out.println();
+                System.out.println();
+                System.out.println("MEAL >>>>>" + counter);
+                System.out.println(mealEntity.getIdMeal());
+                System.out.println();
+                System.out.println();
+                counter++;
 
             }
 
-            Receipt receipt = repo.RECEIPT().insert(new Receipt());
-
-            receipt.setDescription("Jakis dodatkowy opis");
-            receipt.setTitle(titleExcel);
-            receipt.setPrepareTime(prepairTimeExcel);
-
-            // method
-            addStepsToReceipt(receipt, receiptExcel);
-
-            receipt = repo.RECEIPT().update(receipt);
-            mealEntity.setReceipt(receipt);
-
-
-            mealEntity.setLanguage(Language.PL);
-            mealEntity.setTitle(titleExcel);
-            mealEntity.setShortDescription("Przepis z Excel");
-            mealEntity.setAmountCalories((int) Math.round(caloriesExcel));
-            mealEntity.setPublic(true);
-            mealEntity.setCreatedDate(Instant.now());
-            mealEntity.setAuthorReceipt(authorExcel);
-            mealEntity.setCreatorMeal(userEntity);
-
-
-            repo.MEAL().update(mealEntity);
-
-            System.out.println();
-            System.out.println();
-            System.out.println("MEAL >>>>>" + counter);
-            System.out.println(mealEntity.getIdMeal());
-            System.out.println();
-            System.out.println();
-            counter++;
-
         }
-
-
     }
 
 
     private ProductCategory setCategory(String productsExcelName) {
-        if (categories.get(productsExcelName) != null){
+        if (categories.get(productsExcelName) != null) {
             return categories.get(productsExcelName);
-        }else {
+        } else {
             return ProductCategory.UNKNOWN;
         }
 

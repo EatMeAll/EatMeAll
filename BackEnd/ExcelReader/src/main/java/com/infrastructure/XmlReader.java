@@ -89,7 +89,7 @@ public class XmlReader implements ExcelReader {
 
                         productsList.add(products);
                         cell1 = firstSheet.getRow(nestedRow).getCell(currentCell);
-                    } while ((!cell1.getStringCellValue().equals("X")));
+                    } while ((!cell1.getStringCellValue().equalsIgnoreCase("X")));
                     meal.setProducts(productsList);
                 }
                 if (currentCell == 8) {

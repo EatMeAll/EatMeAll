@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import CategoryListOfProduct from './CategoryListOfProduct/CategoryListOfProduct'
-import * as myConstClass from '../../fileWithConstants';
+import * as myConstClass from '../../restApiUrlsConstants';
 import styles from './ShoppingList.css';
 import ShoppingListHeader from "./ShoppingListHeader/ShoppingListHeader";
 import GlobalConfigurationSingleton from "../../GlobalConfigurationSingleton";

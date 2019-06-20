@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import styles from './MealInfo.css';
 import MealRecipe from "../../../MealRecipe/MealRecipe";
 import ListOfMeals from "../../../ListOfMeals/ListOfMeals";
-import * as myConstClass from "../../../../fileWithConstants";
+import * as restApiUrls from "../../../../restApiUrlsConstants";
 import MealTimeMapper from "./MealTimeMapper";
 
 
@@ -30,7 +30,7 @@ class MealInfo extends Component {
     }
 
     showDetails = (e) => {
-        fetch(myConstClass.SHOW_DETAIL_URL + this.state.mealId)
+        fetch(restApiUrls.SHOW_DETAIL_URL + this.state.mealId)
             .then((response) => response.json())
             .then((myJson) => {
                 this.showDetailsPopup(myJson[0]);
@@ -38,7 +38,7 @@ class MealInfo extends Component {
     };
 
     randomizeMeal = (e) => {
-        fetch(myConstClass.RANDOM_MEAL_URL + this.state.mealTime + '&language=PL&amount=1')
+        fetch(restApiUrls.RANDOM_MEAL_URL + this.state.mealTime + '&language=PL&amount=1')
             .then((response) => response.json())
             .then((myJson) => {
                 const meal = myJson[0]
@@ -48,7 +48,7 @@ class MealInfo extends Component {
     };
 
     changeMealFromList = (e) => {
-        fetch('http://eatmeall.pl:100/app/meals/short/mealTime?mealTime=' + this.state.mealTime + '&language=PL&amount=10')
+        fetch(restApiUrls.RANDOM_MEAL_URL + this.state.mealTime + '&language=PL&amount=10')
             .then((response) => response.json())
             .then((myJson) => {
                 this.showMealsListPopup(myJson);
