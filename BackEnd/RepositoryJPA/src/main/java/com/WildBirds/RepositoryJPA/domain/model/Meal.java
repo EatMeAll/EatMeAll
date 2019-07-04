@@ -25,7 +25,13 @@ public class Meal extends BaseEntity {
 
     private String shortDescription;
 
-    private Integer amountCalories;
+    private Double amountCalories;
+
+    private Double amountProtein;
+
+    private Double amountFat;
+
+    private Double amountCarbohydrates;
 
     private String authorReceipt;
 
@@ -51,12 +57,8 @@ public class Meal extends BaseEntity {
     private Set<MealHasProduct> mealHasProductSet = new HashSet<>();
 
 
-
-
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "meal")
     private Set<MealHasDay> mealHasDaySet = new HashSet<>();
-
-
 
 
     @ManyToMany(cascade = {CascadeType.ALL})
@@ -79,22 +81,22 @@ public class Meal extends BaseEntity {
     public Meal() {
     }
 
-    public void addMealHasProduct(MealHasProduct mealHasProduct){
+    public void addMealHasProduct(MealHasProduct mealHasProduct) {
         this.getMealHasProductSet().add(mealHasProduct);
         mealHasProduct.setMeal(this);
     }
 
-    public void addLikedByUser(User user){
+    public void addLikedByUser(User user) {
         this.getLikedBySet().add(user);
         user.getFavouritesMealsSet().add(this);
     }
 
-    public void addMealHasDay(MealHasDay mealHasDay){
+    public void addMealHasDay(MealHasDay mealHasDay) {
         this.getMealHasDaySet().add(mealHasDay);
         mealHasDay.setMeal(this);
     }
 
-    public void addTypeMeal(TypeMeal typeMeal){
+    public void addTypeMeal(TypeMeal typeMeal) {
         this.getTypeMealSet().add(typeMeal);
         typeMeal.getMealSet().add(this);
     }
@@ -131,12 +133,36 @@ public class Meal extends BaseEntity {
         this.shortDescription = shortDescription;
     }
 
-    public Integer getAmountCalories() {
+    public Double getAmountCalories() {
         return amountCalories;
     }
 
-    public void setAmountCalories(Integer amountCalories) {
-        this.amountCalories = amountCalories;
+    public void setAmountCalories(Double aAmountCalories) {
+        amountCalories = aAmountCalories;
+    }
+
+    public Double getAmountProtein() {
+        return amountProtein;
+    }
+
+    public void setAmountProtein(Double aAmountProtein) {
+        amountProtein = aAmountProtein;
+    }
+
+    public Double getAmountFat() {
+        return amountFat;
+    }
+
+    public void setAmountFat(Double aAmountFat) {
+        amountFat = aAmountFat;
+    }
+
+    public Double getAmountCarbohydrates() {
+        return amountCarbohydrates;
+    }
+
+    public void setAmountCarbohydrates(Double aAmountCarbohydrates) {
+        amountCarbohydrates = aAmountCarbohydrates;
     }
 
     public String getAuthorReceipt() {

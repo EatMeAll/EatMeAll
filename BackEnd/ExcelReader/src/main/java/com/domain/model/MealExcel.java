@@ -11,6 +11,9 @@ public class MealExcel {
     private List<ProductsExcel> products;
     private String receipt;
     private Double calories;
+    private Double protein;
+    private Double fat;
+    private Double carbohydrates;
     private String author;
 
     public MealExcel() {
@@ -78,6 +81,30 @@ public class MealExcel {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public Double getProtein() {
+        return protein;
+    }
+
+    public void setProtein(Double aProtein) {
+        protein = aProtein;
+    }
+
+    public Double getFat() {
+        return fat;
+    }
+
+    public void setFat(Double aFat) {
+        fat = aFat;
+    }
+
+    public Double getCarbohydrates() {
+        return carbohydrates;
+    }
+
+    public void setCarbohydrates(Double aCarbohydrates) {
+        carbohydrates = aCarbohydrates;
     }
 
     @Override

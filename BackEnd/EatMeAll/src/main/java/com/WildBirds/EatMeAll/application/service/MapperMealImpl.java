@@ -111,6 +111,9 @@ public class MapperMealImpl implements Mapper {
                         meal.getTitle(),
                         meal.getShortDescription(),
                         meal.getAmountCalories(),
+                        meal.getAmountProtein(),
+                        meal.getAmountFat(),
+                        meal.getAmountCarbohydrates(),
                         meal.getAuthorReceipt(),
                         meal.getIdMeal(),
                         meal.getPublic(),
@@ -125,7 +128,6 @@ public class MapperMealImpl implements Mapper {
                 throw new MapperException("Invalid value to mapping");
             }
         }
-
 
         return mealDTOList;
     }

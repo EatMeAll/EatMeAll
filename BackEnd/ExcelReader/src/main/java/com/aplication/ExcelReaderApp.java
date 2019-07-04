@@ -358,7 +358,10 @@ public class ExcelReaderApp {
                 mealEntity.setLanguage(Language.PL);
                 mealEntity.setTitle(titleExcel);
                 mealEntity.setShortDescription("Przepis z Excel");
-                mealEntity.setAmountCalories((int) Math.round(caloriesExcel));
+                mealEntity.setAmountCalories(caloriesExcel);
+                mealEntity.setAmountCarbohydrates(mealExcel.getCarbohydrates());
+                mealEntity.setAmountFat(mealExcel.getFat());
+                mealEntity.setAmountProtein(mealExcel.getProtein());
                 mealEntity.setPublic(true);
                 mealEntity.setCreatedDate(Instant.now());
                 mealEntity.setAuthorReceipt(authorExcel);

@@ -13,7 +13,10 @@ public class MealDTO {
     private Language language;
     private String title;
     private String shortDescription;
-    private Integer amountCalories;
+    private Double amountCalories;
+    private Double amountProtein;
+    private Double amountFat;
+    private Double amountCarbohydrates;
     private String authorReceipt;
     private Integer idPhoto;
     private Boolean isPublic;
@@ -27,20 +30,59 @@ public class MealDTO {
     public MealDTO() {
     }
 
-    public MealDTO(Integer idMeal, Language language, String title, String shortDescription, Integer amountCalories, String authorReceipt, Integer idPhoto, Boolean isPublic, Instant createdDate, ReceiptDTO receiptDTO, Set<TypeMealDTO> typeMeal, UserDTO creatorMeal, Set<ProductUnitDTO> products) {
-        this.idMeal = idMeal;
-        this.language = language;
-        this.title = title;
-        this.shortDescription = shortDescription;
-        this.amountCalories = amountCalories;
-        this.authorReceipt = authorReceipt;
-        this.idPhoto = idPhoto;
-        this.isPublic = isPublic;
-        this.createdDate = createdDate;
-        this.receiptDTO = receiptDTO;
-        this.typeMeal = typeMeal;
-        this.creatorMeal = creatorMeal;
-        this.products = products;
+    public MealDTO(Integer aIdMeal, Language aLanguage, String aTitle, String aShortDescription, Double aAmountCalories, Double aAmountProtein, Double aAmountFat, Double aAmountCarbohydrates, String aAuthorReceipt, Integer aIdPhoto, Boolean aIsPublic, Instant aCreatedDate, ReceiptDTO aReceiptDTO, Set<TypeMealDTO> aTypeMeal, UserDTO aCreatorMeal, Set<ProductUnitDTO> aProducts) {
+        idMeal = aIdMeal;
+        language = aLanguage;
+        title = aTitle;
+        shortDescription = aShortDescription;
+        amountCalories = aAmountCalories;
+        amountProtein = aAmountProtein;
+        amountFat = aAmountFat;
+        amountCarbohydrates = aAmountCarbohydrates;
+        authorReceipt = aAuthorReceipt;
+        idPhoto = aIdPhoto;
+        isPublic = aIsPublic;
+        createdDate = aCreatedDate;
+        receiptDTO = aReceiptDTO;
+        typeMeal = aTypeMeal;
+        creatorMeal = aCreatorMeal;
+        products = aProducts;
+    }
+
+    public void setAmountCalories(Double aAmountCalories) {
+        amountCalories = aAmountCalories;
+    }
+
+    public Double getAmountProtein() {
+        return amountProtein;
+    }
+
+    public void setAmountProtein(Double aAmountProtein) {
+        amountProtein = aAmountProtein;
+    }
+
+    public Double getAmountFat() {
+        return amountFat;
+    }
+
+    public void setAmountFat(Double aAmountFat) {
+        amountFat = aAmountFat;
+    }
+
+    public Double getAmountCarbohydrates() {
+        return amountCarbohydrates;
+    }
+
+    public void setAmountCarbohydrates(Double aAmountCarbohydrates) {
+        amountCarbohydrates = aAmountCarbohydrates;
+    }
+
+    public Integer getIdPhoto() {
+        return idPhoto;
+    }
+
+    public void setIdPhoto(Integer aIdPhoto) {
+        idPhoto = aIdPhoto;
     }
 
     public Integer getIdMeal() {
@@ -75,12 +117,8 @@ public class MealDTO {
         this.shortDescription = shortDescription;
     }
 
-    public Integer getAmountCalories() {
+    public Double getAmountCalories() {
         return amountCalories;
-    }
-
-    public void setAmountCalories(Integer amountCalories) {
-        this.amountCalories = amountCalories;
     }
 
     public String getAuthorReceipt() {

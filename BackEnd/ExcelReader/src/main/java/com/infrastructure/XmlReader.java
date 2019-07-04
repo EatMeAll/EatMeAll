@@ -35,7 +35,7 @@ public class XmlReader implements ExcelReader {
         while (currentRow <= lastRowNum ) {
             MealExcel meal = new MealExcel();
 //            rowIterator.next();
-            for (int currentCell = 0; currentCell <= 11; currentCell++) {
+            for (int currentCell = 0; currentCell <= 14; currentCell++) {
                 if (currentCell == 0) {
                     Cell cell = firstSheet.getRow(currentRow).getCell(currentCell);
 
@@ -101,6 +101,19 @@ public class XmlReader implements ExcelReader {
                     meal.setCalories(cell.getNumericCellValue());
                 }
                 if (currentCell == 10) {
+                    Cell cell = firstSheet.getRow(currentRow).getCell(currentCell);
+                    meal.setProtein(cell.getNumericCellValue());
+                }
+                if (currentCell == 11) {
+                    Cell cell = firstSheet.getRow(currentRow).getCell(currentCell);
+                    meal.setFat(cell.getNumericCellValue());
+                }
+                if (currentCell == 12) {
+                    Cell cell = firstSheet.getRow(currentRow).getCell(currentCell);
+                    meal.setCarbohydrates(cell.getNumericCellValue());
+                }
+
+                if (currentCell == 13) {
                     Cell cell = firstSheet.getRow(currentRow).getCell(currentCell);
                     meal.setAuthor(cell.getStringCellValue());
                 }
